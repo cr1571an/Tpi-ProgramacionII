@@ -11,12 +11,6 @@
 *.gch
 *.pch
 
-# Linker files
-*.ilk
-
-# Debugger Files
-*.pdb
-
 # Compiled Dynamic libraries
 *.so
 *.dylib
@@ -32,10 +26,22 @@
 *.a
 *.lib
 
-# Executables
+# Archivos generados
 *.exe
 *.out
 *.app
+*.o
+build/
 
-# debug information files
-*.dwo
+# VSCode
+.vscode/
+
+# Code::Blocks
+*.cbp
+*.depend
+*.layout
+
+# CLion
+.idea/
+cmake-build-*/
+CMakeLists.txt
