@@ -16,16 +16,16 @@ Poliza::Poliza()
 Poliza::Poliza(int id, int idVehiculo, int idCliente, Fecha fechaInicio,
                Fecha FechaFin, float primaMensual, std::string tipoSeguro,
                bool vigente, bool eliminado) {
-                setId(id);
-                setIdVehiculo(idVehiculo);
-                setIdCliente(idCliente);
-                setFechaInicio(fechaInicio);
-                setFechaFin(FechaFin);
-                setPrimaMensual(primaMensual);
-                setTipoSeguro(tipoSeguro);
-                setVigente(vigente);
-                setEliminado(eliminado);
-               }
+  setId(id);
+  setIdVehiculo(idVehiculo);
+  setIdCliente(idCliente);
+  setFechaInicio(fechaInicio);
+  setFechaFin(FechaFin);
+  setPrimaMensual(primaMensual);
+  setTipoSeguro(tipoSeguro);
+  setVigente(vigente);
+  setEliminado(eliminado);
+}
 
 int Poliza::getId() { return _id; }
 int Poliza::getIdVehiculo() { return _idVehiculo; }
