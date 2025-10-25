@@ -8,6 +8,8 @@ class ClienteManager {
         void mostrar();
         void eliminar(int id);
         void actualizar();
+        void mostrarDatosDeClienteDNI(std::string dni);
+        int getUltimoId();
 
     protected:
         void mostrarLista(Cliente cliente);

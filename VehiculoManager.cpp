@@ -1,17 +1,17 @@
 #include <iostream>
 #include <string>
 #include "VehiculoManager.h"
-#include "ClientesArchivo.h"
 #include "utils.h"
 using namespace std;
 
-VehiculoManager::VehiculoManager(): _vehiculosArchivo("Vehiculos.dat"){
+VehiculoManager::VehiculoManager()
+: _vehiculosArchivo("Vehiculos.dat"){
 };
 
-void VehiculoManager::cargar(Cliente c) {
+void VehiculoManager::cargar(int iDCliente) {
     int anio;
     int id = _vehiculosArchivo.getID();
-    int idCliente = c.getIdCliente();
+    int idCliente = iDCliente;
     cout << "---------------------" << endl;
     cout << "Cargar Nuevo Vehiculo" << endl;
     cout << "ID: " << id << endl;
@@ -27,51 +27,55 @@ void VehiculoManager::cargar(Cliente c) {
     cout << "Ingrese categoria: ";
     string categoria = cargarCadena();
 
-    Vehiculos nuevoVehiculo(id, idCliente, anio, marca, modelo, placa, categoria);
-
-    if (_vehiculosArchivo.guardar(nuevoVehiculo)) {
+    if (_vehiculosArchivo.guardar(Vehiculos(id, idCliente, anio, marca, modelo, placa, categoria ))){
         cout << "Se agrego correctamente" << endl;
     } else {
         cout << "Error!" << endl;
     }
 };
 
+
 void VehiculoManager::mostrar() {
     int cantidad = _vehiculosArchivo.cantidadRegistros();
-    Vehiculos *vVehiculo = new Vehiculos[cantidad];
-    if(vVehiculo == nullptr) {
-        cout << "No se pudo asignar memoria..." << endl;
-        exit(0);
+    for (int i = 0; i < cantidad; i++) {
+        Vehiculos vehiculo = _vehiculosArchivo.leer(i);
+        mostrarLista(vehiculo);
     }
-    _vehiculosArchivo.leerTodos(vVehiculo, cantidad);
-    for(int i=0; i<cantidad; i++) {
-        mostrarLista(vVehiculo[i]);
-    }
-    delete [] vVehiculo;
-};
+}
 
 
 void VehiculoManager::eliminar(int id) {
     if (_vehiculosArchivo.eliminar(id)) {
         cout << "Vehículo eliminado correctamente." << endl;
-    } else {
+    }
+    else {
         cout << "No se pudo eliminar el vehículo." << endl;
     }
 }
 
 
-void VehiculoManager::actualizar() {
-
-};
-
 void VehiculoManager::mostrarLista(Vehiculos vehiculo) {
-    cout << "----------------------------" <<endl;
-    cout << "ID: "<< vehiculo.getIdVehiculos() << endl;
-    cout << "ID Cliente: "<< vehiculo.getIdCliente() << endl;
-    cout << "Marca: "<< vehiculo.getMarca() << endl;
-    cout << "Modelo: "<< vehiculo.getModelo() << endl;
-    cout << "Placa: "<< vehiculo.getPatente() << endl;
-    cout << "Catehoria: "<< vehiculo.getCatehoria() << endl;
-    cout << "Año: "<< vehiculo.getAnio() << endl;
-    cout << "----------------------------" <<endl;
-};
+    if (!vehiculo.getEliminado()) {
+        cout << "----------------------------" <<endl;
+        cout << "ID: " << vehiculo.getIdVehiculos() << endl;
+        cout << "ID Cliente: " << vehiculo.getIdCliente() << endl;
+        cout << "Marca: " << vehiculo.getMarca() << endl;
+        cout << "Modelo: " << vehiculo.getModelo() << endl;
+        cout << "Placa: " << vehiculo.getPatente() << endl;
+        cout << "Catehoria: " << vehiculo.getCatehoria() << endl;
+        cout << "Año: " << vehiculo.getAnio() << endl;
+        cout << "----------------------------" <<endl;
+    }
+}
+
+void VehiculoManager::mostrarVehiculosDeCliente(int idClienteBuscado) {
+    int cantidad = _vehiculosArchivo.cantidadRegistros();
+    cout << "Vehículos del cliente " << idClienteBuscado << ":" << endl;
+
+    for (int i = 0; i < cantidad; i++) {
+        Vehiculos vehiculo = _vehiculosArchivo.leer(i);
+        if (vehiculo.getIdCliente() == idClienteBuscado && !vehiculo.getEliminado()) {
+            mostrarLista(vehiculo);
+        }
+    }
+}

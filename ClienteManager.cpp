@@ -9,8 +9,8 @@
 using namespace std;
 
 
-ClienteManager::ClienteManager() {
-
+ClienteManager::ClienteManager()
+: _clientesArchivo("Clientes.dat") {
 };
 
 void ClienteManager::cargar() {
@@ -23,6 +23,16 @@ void ClienteManager::cargar() {
   string apellido = cargarCadena();
   cout << "Ingrese DNI: ";
   string dni = cargarCadena();
+  //Comprobar si el DNI ya existe
+  /*int p = _clientesArchivo.buscarDNI(dni);
+  if(p != -1) {
+    if (_clientesArchivo.leer(p).getEliminado() == false) {
+      cout << "Ya estas registrado." << endl;
+    }
+    else {
+      cout << "Ya tienes una cuenta registrada. Quieres volver a habilitarla?" << endl;
+    }
+  }*/
   cout << "Ingrese telefono: ";
   string telefono = cargarCadena();
   cout << "Ingrese email: ";
@@ -44,41 +54,51 @@ void ClienteManager::mostrar() {
     cout << "No se pudo asignar memoria..." << endl;
     exit(0);
   }
-
   _clientesArchivo.leerTodos(vCliente, cantidad);
 
   for(int i=0; i<cantidad; i++){
     mostrarLista(vCliente[i]);
   }
-
   delete [] vCliente;
 };
 
 
-
 void ClienteManager::eliminar(int id) {
   if (_clientesArchivo.eliminar(id)) {
-    cout << "Cliente eliminado correctamente." << endl;
-  } else {
-    cout << "No se pudo eliminar el cliente." << endl;
+    cout << "Vehículo eliminado correctamente." << endl;
+  }
+  else {
+    cout << "No se pudo eliminar el vehículo." << endl;
   }
 }
 
 
-void ClienteManager::actualizar() {
-
-};
-
-
 void ClienteManager::mostrarLista(Cliente cliente) {
-  cout << "----------------------------" <<endl;
-  cout << "ID: "<< cliente.getIdCliente() << endl;
-  cout << "Nombre: "<< cliente.getNombre() << endl;
-  cout << "Apellido: "<< cliente.getApellido() << endl;
-  cout << "DNI: "<< cliente.getDni() << endl;
-  cout << "Telefono: "<< cliente.getTelefono() << endl;
-  cout << "Email: "<< cliente.getEmail() << endl;
-  cout << "----------------------------" <<endl;
+  if (!cliente.getEliminado()) {
+    cout << "----------------------------" <<endl;
+    cout << "ID: "<< cliente.getIdCliente() << endl;
+    cout << "Nombre: "<< cliente.getNombre() << endl;
+    cout << "Apellido: "<< cliente.getApellido() << endl;
+    cout << "DNI: "<< cliente.getDni() << endl;
+    cout << "Telefono: "<< cliente.getTelefono() << endl;
+    cout << "Email: "<< cliente.getEmail() << endl;
+    cout << "----------------------------" <<endl;
+  }
 };
 
 
+int ClienteManager::getUltimoId() {
+  return _clientesArchivo.getID() - 1;
+}
+
+
+void ClienteManager::mostrarDatosDeClienteDNI(std::string dni) {
+    int p=_clientesArchivo.buscarDNI(dni);
+    if(p != -1) {
+      Cliente registro = _clientesArchivo.leer(p);
+      mostrarLista(registro);
+    }
+    else {
+      cout << "No se encontró a ningún cliente con ese DNI."<< endl;
+    }
+}

@@ -1,10 +1,10 @@
 #include "ClientesArchivo.h"
-
 using namespace std;
 
 ClientesArchivo::ClientesArchivo(std::string nombreArchivo)
 : _nombreArchivo(nombreArchivo) {
 };
+
 
 bool ClientesArchivo::guardar(Cliente registro) {
     FILE *archivo_cliente;
@@ -14,78 +14,73 @@ bool ClientesArchivo::guardar(Cliente registro) {
     if (archivo_cliente == nullptr) {
         return false;
     }
-
     guardado = fwrite(&registro, sizeof(Cliente), 1, archivo_cliente);
     fclose(archivo_cliente);
 
     return guardado;
-
 };
+
+
 int ClientesArchivo::buscarID(int id) {
-    Cliente registro;
-    int posicion;
-    FILE *archivo_cliente;
-    archivo_cliente = fopen(_nombreArchivo.c_str(), "rb");
-    if (archivo_cliente == nullptr) {
+    FILE *archivo_vehiculo = fopen(_nombreArchivo.c_str(), "rb");
+    if (archivo_vehiculo == nullptr) {
         return -1;
     }
-    posicion = 0;
-    while (fread(&registro, sizeof(Cliente), 1, archivo_cliente) == 1) {
+
+    Cliente registro;
+    int posicion = 0;
+    while (fread(&registro, sizeof(Cliente), 1, archivo_vehiculo) == 1) {
         if (registro.getIdCliente() == id) {
-            break;
+            fclose(archivo_vehiculo);
+            return posicion;
         }
         posicion++;
     }
-    return posicion;
-};
+    fclose(archivo_vehiculo);
+    return -1;
+}
+
 
 Cliente ClientesArchivo::leer(int pos) {
-    FILE *archivo_cliente;
-    Cliente registro;
-    archivo_cliente = fopen(_nombreArchivo.c_str(), "rb");
-
+    FILE *archivo_cliente = fopen(_nombreArchivo.c_str(), "rb");
     if (archivo_cliente == nullptr) {
-        return registro;
+        return Cliente ();
     }
 
+    Cliente registro;
     fseek(archivo_cliente, pos * sizeof(Cliente), SEEK_SET);
-
     fread(&registro, sizeof(Cliente), 1, archivo_cliente);
 
     fclose(archivo_cliente);
-
     return registro;
 };
 
+
 int ClientesArchivo::leerTodos(Cliente cliente[], int cantidad) {
-    int result;
-    FILE *archivo_cliente;
-    archivo_cliente = fopen(_nombreArchivo.c_str(), "rb");
+    FILE *archivo_cliente = fopen(_nombreArchivo.c_str(), "rb");
     if (archivo_cliente == nullptr) {
         return 0;
     }
-    result = fread(cliente, sizeof(Cliente), cantidad, archivo_cliente);
+    int result = fread(cliente, sizeof(Cliente), cantidad, archivo_cliente);
 
     fclose(archivo_cliente);
-
     return result;
 };
 
+
 int ClientesArchivo::getCantidadRegistros() {
     int cantidad = 0;
-    FILE *archivo_cliente;
-    archivo_cliente = fopen(_nombreArchivo.c_str(), "rb");
+    FILE *archivo_cliente = fopen(_nombreArchivo.c_str(), "rb");
     if (archivo_cliente == nullptr) {
-        return 0;
+        return cantidad;
     }
-
     fseek(archivo_cliente, 0, SEEK_END);
     cantidad = ftell(archivo_cliente) / sizeof(Cliente);
 
     fclose(archivo_cliente);
-
     return cantidad;
 };
+
 
 int ClientesArchivo::getID() {
     return getCantidadRegistros()+1;
@@ -111,3 +106,24 @@ bool ClientesArchivo::eliminar(int id) {
     fclose(archivo_cliente);
     return true;
 };
+
+
+int ClientesArchivo::buscarDNI(std::string dni) {
+    FILE *archivo_vehiculo = fopen(_nombreArchivo.c_str(), "rb");
+    if (archivo_vehiculo == nullptr) {
+        return -1;
+    }
+
+    Cliente registro;
+    int posicion = 0;
+    while (fread(&registro, sizeof(Cliente), 1, archivo_vehiculo) == 1) {
+        if (registro.getDni() == dni) {
+            fclose(archivo_vehiculo);
+            return posicion;
+        }
+        posicion++;
+    }
+    fclose(archivo_vehiculo);
+    return -1;
+}
+

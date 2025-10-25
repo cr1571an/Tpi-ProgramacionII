@@ -1,15 +1,15 @@
 #pragma once
 #include "Vehiculos.h"
-#include "Clientes.h"
 #include "VehiculosArchivo.h"
 
 class VehiculoManager {
     public:
         VehiculoManager();
-        void cargar(Cliente c);
+        void cargar(int iDCliente);
         void mostrar();
         void eliminar(int id);
         void actualizar();
+        void mostrarVehiculosDeCliente(int idClienteBuscado);
 
     protected:
         void mostrarLista(Vehiculos vehiculo);
