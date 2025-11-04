@@ -6,7 +6,7 @@ Pago::Pago():
     _idPoliza(0),
     _fechaPago(),
     _monto(0.0),
-    _metodoDePago(“”),
+    _metodoDePago(""),
     _estado(false),
     _eliminado(false) {}
 
