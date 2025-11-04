@@ -42,16 +42,15 @@ Cliente::Cliente(): _idCliente(0), _nombre("") , _apellido(""), _dni(""), _telef
     };
 
     void Cliente::setEliminado(bool eliminado) {
-        if (eliminado){
-            _eliminado = true;
-        }
-        else{
-            _eliminado = false;
-        }
+        _eliminado = eliminado;
     };
 
     void Cliente::eliminar() {
-            _eliminado = true;
+        _eliminado = true;
+    };
+
+    void Cliente::recuperar() {
+        _eliminado = false;
     };
 
     void Cliente::setIdCliente(int idCliente) {
