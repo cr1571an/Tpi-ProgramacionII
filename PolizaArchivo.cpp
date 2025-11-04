@@ -24,6 +24,25 @@ bool PolizaArchivo::guardar(Poliza registro) {
   return result;
 }
 
+bool PolizaArchivo::guardar(Poliza registro, int pos) {
+  bool result;
+  FILE* pFile;
+
+  pFile = fopen(_nombreArchivo.c_str(), "rb+");
+
+  if (pFile == nullptr) {
+    return false;
+  }
+
+  fseek(pFile, sizeof(Poliza) * pos, SEEK_SET);
+
+  result = fwrite(&registro, sizeof(Poliza), 1, pFile);
+
+  fclose(pFile);
+
+  return result;
+}
+
 Poliza PolizaArchivo::leer(int pos) {
   Poliza registro;
   bool result;
@@ -103,4 +122,11 @@ int PolizaArchivo::buscarID(int id) {
   fclose(pFile);
 
   return pos;
+}
+
+bool PolizaArchivo::eliminar(int pos) {
+  Poliza registro;
+  registro = leer(pos);
+  registro.setEliminado(true);
+  return guardar(registro, pos);
 }
