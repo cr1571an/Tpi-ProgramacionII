@@ -107,6 +107,26 @@ bool ClientesArchivo::eliminar(int id) {
     return true;
 };
 
+bool ClientesArchivo::recuperar(int id) {
+    int pos = buscarID(id);
+    if (pos == -1) {
+        return false;
+    }
+
+    Cliente registro = leer(pos);
+    registro.recuperar();
+
+    FILE *archivo_cliente = fopen(_nombreArchivo.c_str(), "rb+");
+    if (archivo_cliente == nullptr) {
+        return false;
+    }
+
+    fseek(archivo_cliente, pos * sizeof(Cliente), SEEK_SET);
+    fwrite(&registro, sizeof(Cliente), 1, archivo_cliente);
+    fclose(archivo_cliente);
+
+    return true;
+}
 
 int ClientesArchivo::buscarDNI(std::string dni) {
     FILE *archivo_vehiculo = fopen(_nombreArchivo.c_str(), "rb");

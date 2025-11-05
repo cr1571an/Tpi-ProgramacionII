@@ -14,6 +14,7 @@ class ClientesArchivo {
                 int getCantidadRegistros();
                 int getID();
                 bool eliminar(int id);
+                bool recuperar(int id);
 
         private:
                 std::string _nombreArchivo;

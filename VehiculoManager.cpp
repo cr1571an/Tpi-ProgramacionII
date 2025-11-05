@@ -79,3 +79,53 @@ void VehiculoManager::mostrarVehiculosDeCliente(int idClienteBuscado) {
         }
     }
 }
+
+
+void VehiculoManager::eliminarPorPatente() {
+    string patente;
+    cout << "Ingrese la patente del vehículo a eliminar: ";
+    cin >> patente;
+    int cantidad = _vehiculosArchivo.cantidadRegistros();
+    bool encontrado = false;
+    for (int i = 0; i < cantidad; i++) {
+        Vehiculos vehiculo = _vehiculosArchivo.leer(i);
+        if (vehiculo.getPatente() == patente && !vehiculo.getEliminado()) {
+            _vehiculosArchivo.eliminar(vehiculo.getIdVehiculos());
+            cout << "Vehículo eliminado correctamente." << endl;
+            encontrado = true;
+            break;
+        }
+    }
+    if (!encontrado) {
+        cout << "No se encontró ningún vehículo con esa patente." << endl;
+    }
+}
+
+
+
+void VehiculoManager::mostrarVehiculosDeClientePorDNI(ClienteManager& clienteManager) {
+    string dni;
+    cout << "Ingrese el DNI del cliente: ";
+    cin >> dni;
+
+    int idCliente = clienteManager.buscarIdClientePorDNI(dni);
+    if (idCliente == -1) {
+        cout << "No se encontró ningún cliente con ese DNI." << endl;
+        return;
+    }
+
+    int cantidad = _vehiculosArchivo.cantidadRegistros();
+    bool encontrado = false;
+
+    cout << "Vehículos asociados al cliente con DNI " << dni << ":" << endl;
+    for (int i = 0; i < cantidad; i++) {
+        Vehiculos vehiculo = _vehiculosArchivo.leer(i);
+        if (vehiculo.getIdCliente() == idCliente && !vehiculo.getEliminado()) {
+            mostrarLista(vehiculo);
+            encontrado = true;
+        }
+    }
+    if (!encontrado) {
+        cout << "El cliente no tiene vehículos registrados." << endl;
+    }
+}

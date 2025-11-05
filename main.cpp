@@ -1,14 +1,34 @@
 #include <iostream>
+#include "App.h"
 
-#include "Poliza.h"
-#include "PolizaArchivo.h"
-#include "Siniestro.h"
-#include "SiniestroArchivo.h"
+
 
 using namespace std;
 
 int main() {
-  cout << "Programa iniciado correctamente." << endl;
+    /*
+    ClienteManager c;
+    //c.cargar();
+    c.mostrar();
+    c.eliminar(4);
+    c.mostrar();
+    //c.mostrarDatosDeClienteDNI("43594861");
 
-  return 0;
+
+
+    //VehiculoManager v;
+    //v.cargar(3);
+    //v.eliminar(1);
+    //v.mostrar();
+    ////v.mostrarVehiculosDeCliente(13);
+    */
+    App app;
+    app.run();
+
+
+
+
+    return 0;
 }
+
+

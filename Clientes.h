@@ -10,6 +10,7 @@ class Cliente {
         void setTelefono(std::string telefono);
         void setEmail(std::string email);
         void setEliminado(bool eliminado);
+        void recuperar();
         void eliminar();
         void setIdCliente(int idCliente);
         std::string getNombre();
@@ -19,6 +20,8 @@ class Cliente {
         std::string getEmail();
         int getIdCliente();
         bool getEliminado();
+        bool getRecuperar();
+
 
     private:
         int _idCliente;
