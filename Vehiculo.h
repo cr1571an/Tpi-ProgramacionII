@@ -1,10 +1,10 @@
 #pragma once
 #include <string>
 
-class Vehiculos {
+class Vehiculo {
     public:
-    Vehiculos();
-    Vehiculos(int id, int idCliente, int anio, std::string marca, std::string modelo, std::string patente, std::string catehoria);
+    Vehiculo();
+    Vehiculo(int id, int idCliente, int anio, std::string marca, std::string modelo, std::string patente, std::string catehoria);
     void setMarca(std::string marca);
     void setModelo(std::string modelo);
     void setPatente(std::string patente);
@@ -14,7 +14,7 @@ class Vehiculos {
     void setAnio(int anio);
 
     bool getEliminado();
-    int getIdVehiculos();
+    int getIdVehiculo();
     int getIdCliente();
     int getAnio();
     std::string getMarca();

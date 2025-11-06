@@ -27,7 +27,7 @@ void VehiculoManager::cargar(int iDCliente) {
     cout << "Ingrese categoria: ";
     string categoria = cargarCadena();
 
-    if (_vehiculosArchivo.guardar(Vehiculos(id, idCliente, anio, marca, modelo, placa, categoria ))){
+    if (_vehiculosArchivo.guardar(Vehiculo(id, idCliente, anio, marca, modelo, placa, categoria ))){
         cout << "Se agrego correctamente" << endl;
     } else {
         cout << "Error!" << endl;
@@ -38,7 +38,7 @@ void VehiculoManager::cargar(int iDCliente) {
 void VehiculoManager::mostrar() {
     int cantidad = _vehiculosArchivo.cantidadRegistros();
     for (int i = 0; i < cantidad; i++) {
-        Vehiculos vehiculo = _vehiculosArchivo.leer(i);
+        Vehiculo vehiculo = _vehiculosArchivo.leer(i);
         mostrarLista(vehiculo);
     }
 }
@@ -54,10 +54,10 @@ void VehiculoManager::eliminar(int id) {
 }
 
 
-void VehiculoManager::mostrarLista(Vehiculos vehiculo) {
+void VehiculoManager::mostrarLista(Vehiculo vehiculo) {
     if (!vehiculo.getEliminado()) {
         cout << "----------------------------" <<endl;
-        cout << "ID: " << vehiculo.getIdVehiculos() << endl;
+        cout << "ID: " << vehiculo.getIdVehiculo() << endl;
         cout << "ID Cliente: " << vehiculo.getIdCliente() << endl;
         cout << "Marca: " << vehiculo.getMarca() << endl;
         cout << "Modelo: " << vehiculo.getModelo() << endl;
@@ -73,7 +73,7 @@ void VehiculoManager::mostrarVehiculosDeCliente(int idClienteBuscado) {
     cout << "Vehículos del cliente " << idClienteBuscado << ":" << endl;
 
     for (int i = 0; i < cantidad; i++) {
-        Vehiculos vehiculo = _vehiculosArchivo.leer(i);
+        Vehiculo vehiculo = _vehiculosArchivo.leer(i);
         if (vehiculo.getIdCliente() == idClienteBuscado && !vehiculo.getEliminado()) {
             mostrarLista(vehiculo);
         }
@@ -88,9 +88,9 @@ void VehiculoManager::eliminarPorPatente() {
     int cantidad = _vehiculosArchivo.cantidadRegistros();
     bool encontrado = false;
     for (int i = 0; i < cantidad; i++) {
-        Vehiculos vehiculo = _vehiculosArchivo.leer(i);
+        Vehiculo vehiculo = _vehiculosArchivo.leer(i);
         if (vehiculo.getPatente() == patente && !vehiculo.getEliminado()) {
-            _vehiculosArchivo.eliminar(vehiculo.getIdVehiculos());
+            _vehiculosArchivo.eliminar(vehiculo.getIdVehiculo());
             cout << "Vehículo eliminado correctamente." << endl;
             encontrado = true;
             break;
@@ -119,7 +119,7 @@ void VehiculoManager::mostrarVehiculosDeClientePorDNI(ClienteManager& clienteMan
 
     cout << "Vehículos asociados al cliente con DNI " << dni << ":" << endl;
     for (int i = 0; i < cantidad; i++) {
-        Vehiculos vehiculo = _vehiculosArchivo.leer(i);
+        Vehiculo vehiculo = _vehiculosArchivo.leer(i);
         if (vehiculo.getIdCliente() == idCliente && !vehiculo.getEliminado()) {
             mostrarLista(vehiculo);
             encontrado = true;

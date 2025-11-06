@@ -1,5 +1,5 @@
 #pragma once
-#include "Vehiculos.h"
+#include "Vehiculo.h"
 #include "VehiculosArchivo.h"
 #include "ClienteManager.h"
 
@@ -17,7 +17,7 @@ class VehiculoManager {
 
 
     protected:
-        void mostrarLista(Vehiculos vehiculo);
+        void mostrarLista(Vehiculo vehiculo);
 
     private:
         VehiculosArchivo _vehiculosArchivo;
