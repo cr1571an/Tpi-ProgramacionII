@@ -1,0 +1,26 @@
+id,idPoliza,fechaPago,monto,metodoDePago,estado,eliminado
+1,1,2023-05-20,15000,Tarjeta de Crédito,true,false
+2,2,2023-06-15,18000,Transferencia Bancaria,true,false
+3,3,2023-07-10,20000,Efectivo,false,false
+4,4,2023-08-05,17500,Tarjeta de Débito,true,false
+5,5,2023-09-01,22000,Tarjeta de Crédito,true,false
+6,6,2023-09-25,19500,Transferencia Bancaria,false,false
+7,7,2023-10-12,16000,Efectivo,true,false
+8,8,2023-11-03,21000,Tarjeta de Crédito,true,false
+9,9,2023-11-20,18500,Tarjeta de Débito,true,false
+10,10,2023-12-05,23000,Transferencia Bancaria,false,false
+11,11,2024-01-15,17000,Efectivo,true,false
+12,12,2024-02-02,19000,Tarjeta de Crédito,true,false
+13,13,2024-02-18,20000,Tarjeta de Débito,false,false
+14,14,2024-03-05,17500,Transferencia Bancaria,true,false
+15,15,2024-03-22,22000,Efectivo,true,false
+16,16,2024-04-10,19500,Tarjeta de Crédito,true,false
+17,17,2024-04-28,16000,Tarjeta de Débito,false,false
+18,18,2024-05-15,21000,Transferencia Bancaria,true,false
+19,19,2024-06-01,18500,Efectivo,true,false
+20,20,2024-06-18,23000,Tarjeta de Crédito,false,false
+21,21,2024-07-05,24000,Tarjeta de Débito,true,false
+22,22,2024-07-20,25000,Transferencia Bancaria,true,false
+23,23,2024-08-02,26000,Efectivo,false,false
+24,24,2024-08-18,27000,Tarjeta de Crédito,true,false
+25,25,2024-09-01,28000,Tarjeta de Débito,true,false
