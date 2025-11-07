@@ -9,7 +9,7 @@ VehiculoManager::VehiculoManager()
 };
 
 void VehiculoManager::cargar(int iDCliente) {
-    int anio;
+    string anio;
     int id = _vehiculosArchivo.getID();
     int idCliente = iDCliente;
     cout << "---------------------" << endl;
@@ -20,14 +20,14 @@ void VehiculoManager::cargar(int iDCliente) {
     string marca = cargarCadena();
     cout << "Ingrese modelo: ";
     string modelo = cargarCadena();
-    cout << "Ingrese placa: ";
-    string placa = cargarCadena();
+    cout << "Ingrese patente: ";
+    string patente = cargarCadena();
     cout << "Ingrese anio: ";
     cin >> anio;
     cout << "Ingrese categoria: ";
     string categoria = cargarCadena();
 
-    if (_vehiculosArchivo.guardar(Vehiculo(id, idCliente, anio, marca, modelo, placa, categoria ))){
+    if (_vehiculosArchivo.guardar(Vehiculo(id, idCliente, anio, marca, modelo, patente, categoria, false))){
         cout << "Se agrego correctamente" << endl;
     } else {
         cout << "Error!" << endl;
@@ -57,12 +57,12 @@ void VehiculoManager::eliminar(int id) {
 void VehiculoManager::mostrarLista(Vehiculo vehiculo) {
     if (!vehiculo.getEliminado()) {
         cout << "----------------------------" <<endl;
-        cout << "ID: " << vehiculo.getIdVehiculo() << endl;
+        cout << "ID: " << vehiculo.getId() << endl;
         cout << "ID Cliente: " << vehiculo.getIdCliente() << endl;
         cout << "Marca: " << vehiculo.getMarca() << endl;
         cout << "Modelo: " << vehiculo.getModelo() << endl;
         cout << "Placa: " << vehiculo.getPatente() << endl;
-        cout << "Catehoria: " << vehiculo.getCatehoria() << endl;
+        cout << "Catehoria: " << vehiculo.getCategoria() << endl;
         cout << "Año: " << vehiculo.getAnio() << endl;
         cout << "----------------------------" <<endl;
     }
@@ -90,7 +90,7 @@ void VehiculoManager::eliminarPorPatente() {
     for (int i = 0; i < cantidad; i++) {
         Vehiculo vehiculo = _vehiculosArchivo.leer(i);
         if (vehiculo.getPatente() == patente && !vehiculo.getEliminado()) {
-            _vehiculosArchivo.eliminar(vehiculo.getIdVehiculo());
+            _vehiculosArchivo.eliminar(vehiculo.getId());
             cout << "Vehículo eliminado correctamente." << endl;
             encontrado = true;
             break;

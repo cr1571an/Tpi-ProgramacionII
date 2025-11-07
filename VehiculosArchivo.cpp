@@ -36,7 +36,7 @@ int VehiculosArchivo::buscarID(int id) {
     Vehiculo registro;
     int posicion = 0;
     while (fread(&registro, sizeof(Vehiculo), 1, archivo_vehiculo) == 1) {
-        if (registro.getIdVehiculo() == id) {
+        if (registro.getId() == id) {
             fclose(archivo_vehiculo);
             return posicion;
         }

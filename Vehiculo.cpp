@@ -6,20 +6,24 @@
 
 using namespace std;
 
-Vehiculo::Vehiculo(): _id(0), _idCliente(0), _anio(0), _marca(""), _modelo(""), _patente(""), _catehoria(""), _eliminado(false) {
+Vehiculo::Vehiculo(): _id(0), _idCliente(0), _anio(""), _marca(""), _modelo(""), _patente(""), _categoria(""), _eliminado(false) {
 
 };
 
-Vehiculo::Vehiculo(int id, int idCliente, int anio, std::string marca, std::string modelo, std::string patente, std::string catehoria) {
-    _id = id;
-    _idCliente = idCliente;
-    setPatente(patente);
-    setModelo(modelo);
-    setCatehoria(catehoria);
-    setEliminado(false);
-    setMarca(marca);
+Vehiculo::Vehiculo(int id, int idCliente, std::string anio, std::string marca, std::string modelo, std::string patente, std::string categoria, bool eliminado) {
+    setId(id);
+    setIdCliente(idCliente);
     setAnio(anio);
+    setMarca(marca);
+    setModelo(modelo);
+    setPatente(patente);
+    setCategoria(categoria);
+    setEliminado(eliminado);
 };
+
+void Vehiculo::setId(int id) { _id = id; }
+
+void Vehiculo::setIdCliente(int id) { _idCliente = id; }
 
 void Vehiculo::setMarca(std::string marca) {
     strncpy(_marca, marca.c_str(), 19);
@@ -36,9 +40,9 @@ void Vehiculo::setPatente(std::string patente) {
     _patente[9] = '\0';
 };
 
-void Vehiculo::setCatehoria(std::string catehoria) {
-    strncpy(_catehoria, catehoria.c_str(), 19);
-    _catehoria[19] = '\0';
+void Vehiculo::setCategoria(std::string categoria) {
+    strncpy(_categoria, categoria.c_str(), 19);
+    _categoria[19] = '\0';
 };
 
 void Vehiculo::setEliminado(bool eliminado) {
@@ -50,17 +54,19 @@ void Vehiculo::setEliminado(bool eliminado) {
     }
 };
 
-void Vehiculo::setAnio(int anio) {
-    if (anio >= 1900 && anio <= 2026) {
-        _anio = anio;
+void Vehiculo::setAnio(std::string anio) {
+    int anioInt = atoi(anio.c_str());
+    if (anioInt >= 1900 && anioInt <= 2026) {
+        strncpy(_anio, anio.c_str(), sizeof(_anio) - 1);
+        _anio[sizeof(_anio) - 1] = '\0';
     }
 };
 
-int Vehiculo::getIdVehiculo() {return _id;};
+int Vehiculo::getId() {return _id;};
 
 int Vehiculo::getIdCliente() {return _idCliente;};
 
-int Vehiculo::getAnio() {return _anio;};
+std::string Vehiculo::getAnio() {return _anio;};
 
 std::string Vehiculo::getMarca() {return _marca;};
 
@@ -68,7 +74,7 @@ std::string Vehiculo::getModelo() {return _modelo;};
 
 std::string Vehiculo::getPatente() {return _patente;};
 
-std::string Vehiculo::getCatehoria() {return _catehoria;};
+std::string Vehiculo::getCategoria() {return _categoria;};
 
 bool Vehiculo::getEliminado() {return _eliminado;};
 
