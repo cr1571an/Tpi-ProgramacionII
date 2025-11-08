@@ -4,13 +4,19 @@
 
 class VehiculoMenu {
     public:
+
         VehiculoMenu();
         void mostrar();
-
-    protected:
         void mostrarOpciones();
-        int seleccionOpcion();
         void ejecutarOpcion(int opcion);
+        void mostrarMenuUso();
+        void mostrarMenuCategoria();
+        int seleccionOpcion();
+        int seleccionOpcionMenuCategoria();
+        int seleccionOpcionMenuUso();
+        std::string ejecutarOpcionMenuUso(int opcion);
+        std::string ejecutarOpcionMenuCategoria(int opcion);
+
 
     private:
         int _cantidadOpciones;

@@ -3,17 +3,20 @@
 #include "Clientes.h"
 
 
-Cliente::Cliente(): _idCliente(0), _nombre("") , _apellido(""), _dni(""), _telefono(""), _email(""), _eliminado(false) {
+    Cliente::Cliente(): _idCliente(0), _nombre("") , _apellido(""), _dni(""), _telefono(""), _email(""), _eliminado(false), _codigoPostal(0) {
+        _localidad = Localidad();
     };
 
-    Cliente::Cliente(int idCliente, std::string nombre, std::string apellido, std::string dni, std::string telefono, std::string email) {
+    Cliente::Cliente(int idCliente, std::string nombre, std::string apellido, std::string dni, std::string telefono, std::string email, Localidad localidad, Fecha fechaNacimiento) {
         _idCliente = idCliente;
-        setApellido(apellido);
         setNombre(nombre);
+        setApellido(apellido);
         setDni(dni);
         setTelefono(telefono);
         setEmail(email);
         setEliminado(false);
+        _localidad = localidad;
+        _fechaNacimiento = fechaNacimiento;
     };
 
     void Cliente::setNombre(std::string nombre) {
@@ -57,6 +60,17 @@ Cliente::Cliente(): _idCliente(0), _nombre("") , _apellido(""), _dni(""), _telef
         _idCliente = idCliente;
     };
 
+    void Cliente::setCodigoPostal(int codigoPostal) {
+        _codigoPostal = codigoPostal;
+    };
+
+    void Cliente::setLocalidad(Localidad localidad) {
+        _localidad = localidad;
+    };
+
+    void Cliente::setFechaNacimiento(Fecha fechaNacimiento) {
+        _fechaNacimiento = fechaNacimiento;
+    };
 
     int Cliente::getIdCliente() {return _idCliente;};
 
@@ -72,4 +86,6 @@ Cliente::Cliente(): _idCliente(0), _nombre("") , _apellido(""), _dni(""), _telef
 
     bool Cliente::getEliminado() {return _eliminado;};
 
+    Localidad Cliente::getLocalidad(){return _localidad;};
 
+    Fecha Cliente::getFechaNacimiento(){return _fechaNacimiento;};

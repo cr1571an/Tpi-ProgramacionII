@@ -1,4 +1,5 @@
 #include "ClientesArchivo.h"
+#include <iostream>
 using namespace std;
 
 ClientesArchivo::ClientesArchivo(std::string nombreArchivo)
@@ -44,7 +45,7 @@ int ClientesArchivo::buscarID(int id) {
 Cliente ClientesArchivo::leer(int pos) {
     FILE *archivo_cliente = fopen(_nombreArchivo.c_str(), "rb");
     if (archivo_cliente == nullptr) {
-        return Cliente ();
+        return Cliente();
     }
 
     Cliente registro;
@@ -95,45 +96,39 @@ bool ClientesArchivo::eliminar(int id) {
     Cliente registro = leer(pos);
     registro.eliminar();
 
+    return actualizarRegistro(pos, registro);
+};
+
+
+bool ClientesArchivo::actualizarRegistro(int pos, Cliente registro) {
     FILE *archivo_cliente = fopen(_nombreArchivo.c_str(), "rb+");
     if (archivo_cliente == nullptr) {
         return false;
     }
 
     fseek(archivo_cliente, pos * sizeof(Cliente), SEEK_SET);
+    bool actualizacion = fwrite(&registro, sizeof(Cliente), 1, archivo_cliente);
 
-    fwrite(&registro, sizeof(Cliente), 1, archivo_cliente);
     fclose(archivo_cliente);
-    return true;
-};
+    return actualizacion;
+}
 
 bool ClientesArchivo::recuperar(int id) {
     int pos = buscarID(id);
     if (pos == -1) {
         return false;
     }
-
     Cliente registro = leer(pos);
     registro.recuperar();
-
-    FILE *archivo_cliente = fopen(_nombreArchivo.c_str(), "rb+");
-    if (archivo_cliente == nullptr) {
-        return false;
-    }
-
-    fseek(archivo_cliente, pos * sizeof(Cliente), SEEK_SET);
-    fwrite(&registro, sizeof(Cliente), 1, archivo_cliente);
-    fclose(archivo_cliente);
-
-    return true;
+    return actualizarRegistro(pos, registro);
 }
+
 
 int ClientesArchivo::buscarDNI(std::string dni) {
     FILE *archivo_vehiculo = fopen(_nombreArchivo.c_str(), "rb");
     if (archivo_vehiculo == nullptr) {
         return -1;
     }
-
     Cliente registro;
     int posicion = 0;
     while (fread(&registro, sizeof(Cliente), 1, archivo_vehiculo) == 1) {
@@ -146,4 +141,3 @@ int ClientesArchivo::buscarDNI(std::string dni) {
     fclose(archivo_vehiculo);
     return -1;
 }
-

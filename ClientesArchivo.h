@@ -14,6 +14,7 @@ class ClientesArchivo {
                 int getCantidadRegistros();
                 int getID();
                 bool eliminar(int id);
+                bool actualizarRegistro(int pos, Cliente registro);
                 bool recuperar(int id);
 
         private:

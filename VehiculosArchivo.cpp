@@ -12,7 +12,7 @@ std::string VehiculosArchivo::getNombreArchivo() const {
 }
 
 
-bool VehiculosArchivo::guardar(Vehiculo registro) {
+bool VehiculosArchivo::guardar(Vehiculos registro) {
     FILE *archivo_vehiculo;
     bool guardado = false;
     archivo_vehiculo = fopen(_nombreArchivo.c_str(), "ab");
@@ -33,10 +33,10 @@ int VehiculosArchivo::buscarID(int id) {
         return -1;
     }
 
-    Vehiculo registro;
+    Vehiculos registro;
     int posicion = 0;
-    while (fread(&registro, sizeof(Vehiculo), 1, archivo_vehiculo) == 1) {
-        if (registro.getId() == id) {
+    while (fread(&registro, sizeof(Vehiculos), 1, archivo_vehiculo) == 1) {
+        if (registro.getIdVehiculos() == id) {
             fclose(archivo_vehiculo);
             return posicion;
         }
@@ -48,12 +48,12 @@ int VehiculosArchivo::buscarID(int id) {
 
 
 
-Vehiculo VehiculosArchivo::leer(int pos) {
+Vehiculos VehiculosArchivo::leer(int pos) {
     FILE *archivo_vehiculo;
-    Vehiculo registro;
+    Vehiculos registro;
     archivo_vehiculo = fopen(_nombreArchivo.c_str(), "rb");
     if (archivo_vehiculo == nullptr) {
-        return Vehiculo();
+        return Vehiculos();
     }
     fseek(archivo_vehiculo, pos * sizeof(registro), SEEK_SET);
     fread(&registro, sizeof(registro), 1, archivo_vehiculo);
@@ -62,13 +62,13 @@ Vehiculo VehiculosArchivo::leer(int pos) {
 };
 
 
-int VehiculosArchivo::leerTodos(Vehiculo vehiculo[], int cantidad) {
+int VehiculosArchivo::leerTodos(Vehiculos vehiculo[], int cantidad) {
     FILE *archivo_vehiculo;
     archivo_vehiculo = fopen(_nombreArchivo.c_str(), "rb");
     if (archivo_vehiculo == nullptr) {
         return 0;
     }
-    int result = fread(vehiculo, sizeof(Vehiculo), cantidad, archivo_vehiculo);
+    int result = fread(vehiculo, sizeof(Vehiculos), cantidad, archivo_vehiculo);
     fclose(archivo_vehiculo);
     return result;
 };
@@ -81,7 +81,7 @@ int VehiculosArchivo::cantidadRegistros() {
         return 0;
     }
     fseek(archivo_vehiculo, 0, SEEK_END);
-    int cantidad = ftell(archivo_vehiculo) / sizeof(Vehiculo);
+    int cantidad = ftell(archivo_vehiculo) / sizeof(Vehiculos);
     fclose(archivo_vehiculo);
     return cantidad;
 };
@@ -97,7 +97,7 @@ bool VehiculosArchivo::eliminar(int id) {
     if (pos == -1) {
         return false;
     }
-    Vehiculo registro = leer(pos);
+    Vehiculos registro = leer(pos);
     registro.eliminar();
 
     FILE *archivo_vehiculo;
@@ -105,8 +105,8 @@ bool VehiculosArchivo::eliminar(int id) {
     if (archivo_vehiculo == nullptr) {
         return false;
     }
-    fseek(archivo_vehiculo, pos * sizeof(Vehiculo), SEEK_SET);
-    fwrite(&registro, sizeof(Vehiculo), 1, archivo_vehiculo);
+    fseek(archivo_vehiculo, pos * sizeof(Vehiculos), SEEK_SET);
+    fwrite(&registro, sizeof(Vehiculos), 1, archivo_vehiculo);
     fclose(archivo_vehiculo);
     return true;
 }
@@ -114,14 +114,14 @@ bool VehiculosArchivo::eliminar(int id) {
 
 int VehiculosArchivo::buscarIDCliente(int iDCliente) {
     FILE *archivo_vehiculo;
-    Vehiculo registro;
+    Vehiculos registro;
     int posicion = 0;
     archivo_vehiculo = fopen(_nombreArchivo.c_str(), "rb");
     if (archivo_vehiculo == nullptr) {
         return -1;
     }
 
-    while (fread(&registro, sizeof(Vehiculo), 1, archivo_vehiculo) == 1) {
+    while (fread(&registro, sizeof(Vehiculos), 1, archivo_vehiculo) == 1) {
         if (registro.getIdCliente() == iDCliente) {
             fclose(archivo_vehiculo);
             return posicion;

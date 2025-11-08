@@ -1,6 +1,7 @@
 #include <string>
 #include "ClientesArchivo.h"
 #include "ClienteManager.h"
+#include "LocalidadArchivo.h"
 
 #include <iostream>
 #include <bits/ostream.tcc>
@@ -21,42 +22,44 @@ void ClienteManager::cargar() {
   string nombre = cargarCadena();
   cout << "Ingrese apellido: ";
   string apellido = cargarCadena();
+
   cout << "Ingrese DNI: ";
   string dni = cargarCadena();
-
-  int p = _clientesArchivo.buscarDNI(dni);
-  if (p != -1) {
-    Cliente registro = _clientesArchivo.leer(p);
-    if (!registro.getEliminado()) {
-      cout << "Ya estás registrado." <<endl;
-      return;
-    }
-    else {
-      int opcion;
-      cout << "Ya tienes una cuenta registrada. ¿Quieres volver a habilitarla?" <<endl;
-      cout << "1. Sí" << endl;
-      cout << "2. No" << endl;
-      cout << "Opción: ";
-      cin >> opcion;
-      if (opcion == 1) {
-        registro.recuperar();
-        _clientesArchivo.eliminar(registro.getIdCliente());
-        _clientesArchivo.guardar(registro);
-        cout << "Se habilitó correctamente." << endl;
-      }
-      return;
-    }
+  if (!verificarYRegistrarPorDNI(dni)) {
+    return;
   }
 
-  cout << "Ingrese teléfono: ";
+  cout << "Ingrese telefono: ";
   string telefono = cargarCadena();
   cout << "Ingrese email: ";
   string email = cargarCadena();
 
-  if (_clientesArchivo.guardar(Cliente(id, nombre, apellido, dni, telefono, email))) {
-    cout << "Se agregó correctamente." << endl;
+  LocalidadArchivo archivo;
+  Localidad localidad = archivo.pedirLocalidadPorCodigoPostalInteractivo();
+  if (localidad.getCodigoPostal() == 0) {
+    return;
+  }
+
+
+  cout << "Partido: " << localidad.getPartido() << endl;
+  cout << "Localidad: " << localidad.getLocalidad() << endl;
+  cout << "Ingrese fecha de nacimiento." << endl;
+  cout << "Ingrese dia: ";
+  int dia; cin >> dia;
+  cout << "Ingrese mes: ";
+  int mes; cin >> mes;
+  cout << "Ingrese anio: ";
+  int anio; cin >> anio;
+  cin.ignore();
+
+  Fecha fechaNacimiento(dia, mes, anio);
+
+  Cliente nuevoCliente(id, nombre, apellido, dni, telefono, email, localidad, fechaNacimiento);
+
+  if (_clientesArchivo.guardar(nuevoCliente)) {
+    cout << "Se agrego correctamente." << endl;
   } else {
-    cout << "¡Error! Usuario ya existente." << endl;
+    cout << "Error! Usuario ya existente." << endl;
   }
 }
 
@@ -91,36 +94,39 @@ bool ClienteManager::eliminar(int id) {
 
 bool ClienteManager::recuperar(int id) {
   if (_clientesArchivo.recuperar(id)) {
-    std::cout << "El usuario fue recuperado correctamente." << std::endl;
+    cout << "El usuario fue recuperado correctamente." << std::endl;
     return true;
   } else {
-    std::cout << "No se pudo recuperar el usuario." << std::endl;
+    cout << "No se pudo recuperar el usuario." << std::endl;
     return false;
   }
 }
 
 void ClienteManager::mostrarLista(Cliente cliente) {
   if (!cliente.getEliminado()) {
-    cout << "----------------------------" <<endl;
-    cout << "ID: "<< cliente.getIdCliente() << endl;
-    cout << "Nombre: "<< cliente.getNombre() << endl;
-    cout << "Apellido: "<< cliente.getApellido() << endl;
-    cout << "DNI: "<< cliente.getDni() << endl;
-    cout << "Telefono: "<< cliente.getTelefono() << endl;
-    cout << "Email: "<< cliente.getEmail() << endl;
-    cout << "----------------------------" <<endl;
+    cout << "----------------------------" << endl;
+    cout << "ID: " << cliente.getIdCliente() << endl;
+    cout << "Nombre: " << cliente.getNombre() << endl;
+    cout << "Apellido: " << cliente.getApellido() << endl;
+    cout << "DNI: " << cliente.getDni() << endl;
+    cout << "Telefono: " << cliente.getTelefono() << endl;
+    cout << "Email: " << cliente.getEmail() << endl;
+    cout << "Codigo Postal: " << cliente.getLocalidad().getCodigoPostal() << endl;
+    cout << "Localidad: " << cliente.getLocalidad().getLocalidad() << endl;
+    cout << "Partido: " << cliente.getLocalidad().getPartido() << endl;
+    cout << "Fecha de nacimiento: " << cliente.getFechaNacimiento().formatoFecha() << endl;
+    cout << "----------------------------" << endl;
   }
-};
+}
 
 int ClienteManager::getUltimoId() {
   return _clientesArchivo.getID() - 1;
 }
 
-
 void ClienteManager::mostrarDatosDeClienteDNI() {
-    std::string dni;
-    std::cout << "Ingrese el DNI del cliente: ";
-    std::cin >> dni;
+    string dni;
+    cout << "Ingrese el DNI del cliente: ";
+    cin >> dni;
     int p=_clientesArchivo.buscarDNI(dni);
     if(p != -1) {
       Cliente registro = _clientesArchivo.leer(p);
@@ -131,55 +137,49 @@ void ClienteManager::mostrarDatosDeClienteDNI() {
       mostrarLista(registro);
     }
     else {
-      cout << "No se encontró a ningún cliente con ese DNI."<< endl;
+      cout << "No se encontro a ningun cliente con ese DNI."<< endl;
     }
 }
-
-
 
 bool ClienteManager::eliminarPorDNI() {
-  std::string dni;
-  std::cout << "Ingrese el DNI del cliente a eliminar: ";
-  std::cin >> dni;
+  string dni;
+  cout << "Ingrese el DNI del cliente a eliminar: ";
+  cin >> dni;
   int pos = _clientesArchivo.buscarDNI(dni);
   if (pos != -1) {
     Cliente cliente = _clientesArchivo.leer(pos);
-    if (!cliente.getEliminado()){
+    if (!cliente.getEliminado()) {
       int id = cliente.getIdCliente();
       return eliminar(id);
-    }
-    else {
-      std::cout << "El cliente con ese DNI ya está eliminado." << std::endl;
+    } else {
+      cout << "El cliente con ese DNI ya esta eliminado." << endl;
       return false;
     }
   }
-  std::cout << "No se encontró ningún cliente con ese DNI." << std::endl;
+  cout << "No se encontro ningun cliente con ese DNI." << endl;
   return false;
 }
 
-
 bool ClienteManager::recuperarPorDNI() {
-  std::string dni;
-  std::cout << "Ingrese el DNI del cliente quiere recuperar: ";
-  std::cin >> dni;
+  string dni;
+  cout << "Ingrese el DNI del cliente quiere recuperar: ";
+  cin >> dni;
   int pos = _clientesArchivo.buscarDNI(dni);
   if (pos != -1) {
     Cliente cliente = _clientesArchivo.leer(pos);
-    if (cliente.getEliminado()){
+    if (cliente.getEliminado()) {
       int id = cliente.getIdCliente();
       return recuperar(id);
-    }
-    else {
-      std::cout << "El cliente con ese DNI no está eliminado." << std::endl;
+    } else {
+      cout << "El cliente con ese DNI no esta eliminado." << endl;
       return false;
     }
   }
-  std::cout << "No se encontró ningún cliente con ese DNI." << std::endl;
+  cout << "No se encontro ningun cliente con ese DNI." << endl;
   return false;
 }
 
-
-int ClienteManager::buscarIdClientePorDNI(const std::string& dni) {
+int ClienteManager::buscarIdClientePorDNI(std::string& dni) {
   int pos = _clientesArchivo.buscarDNI(dni);
   if (pos!=-1) {
     Cliente cliente = _clientesArchivo.leer(pos);
@@ -188,4 +188,24 @@ int ClienteManager::buscarIdClientePorDNI(const std::string& dni) {
     }
   }
   return -1;
+}
+
+bool ClienteManager::verificarYRegistrarPorDNI(std::string dni) {
+  int pos = _clientesArchivo.buscarDNI(dni);
+  if (pos != -1) {
+    Cliente cliente = _clientesArchivo.leer(pos);
+    if (!cliente.getEliminado()) {
+      cout << "El DNI ya esta registrado. No puede volver a registrar." << endl;
+      return false;
+    } else {
+      if (_clientesArchivo.recuperar(cliente.getIdCliente())) {
+        cout << "El cliente estaba eliminado y fue habilitado nuevamente." << endl;
+        return false;
+      } else {
+        cout << "No se pudo recuperar el cliente." << endl;
+        return false;
+      }
+    }
+  }
+  return true;
 }

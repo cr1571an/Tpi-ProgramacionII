@@ -13,7 +13,9 @@ class ClienteManager {
         int getUltimoId();
         bool eliminarPorDNI();
         bool recuperarPorDNI();
-        int buscarIdClientePorDNI(const std::string& dni);
+        int buscarIdClientePorDNI(std::string& dni);
+        bool verificarYRegistrarPorDNI(std::string dni);
+
 
     protected:
         void mostrarLista(Cliente cliente);

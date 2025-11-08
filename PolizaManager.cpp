@@ -13,7 +13,7 @@ void PolizaManager::mostrar() {
     for (int i = 0; i < cantidad; i++) {
         Poliza p = _archivo.leer(i);
         if (!p.getEliminado()) {
-            cout << "ID: " << p.getId() << ", Cliente: " //TODO: Obtener dato Cliente.
+            cout << "ID: " << p.getId() << ", Cliente: " << p.getIdCliente()
                  << ", Vehiculo: " << p.getIdVehiculo()
                  << ", Seguro: " << p.getTipoSeguro()
                  << ", Vigente: " << (p.getVigente() ? "Sí" : "No") << endl;
@@ -30,7 +30,7 @@ void PolizaManager::cargar(int idCliente, int idVehiculo) {
     cout << "Tipo de seguro: "; tipo = cargarCadena();
     cout << "Prima mensual: "; cin >> prima;
 
-    Poliza p(id, idVehiculo, inicio, fin, prima, tipo, true, false);
+    Poliza p(id, idVehiculo, idCliente, inicio, fin, prima, tipo, true, false);
     if (_archivo.guardar(p)) cout << "Poliza guardada." << endl;
     else cout << "Error al guardar." << endl;
 }

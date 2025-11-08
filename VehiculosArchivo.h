@@ -2,17 +2,17 @@
 #include <string>
 
 #include "Clientes.h"
-#include "Vehiculo.h"
+#include "Vehiculos.h"
 #include "VehiculosArchivo.h"
 
 class VehiculosArchivo {
         public:
             VehiculosArchivo(std::string nombreArchivo = "Vehiculos.dat");
-            bool guardar(Vehiculo registro);
+            bool guardar(Vehiculos registro);
             int buscarID(int id);
             int buscarIDCliente(int id);
-            Vehiculo leer(int pos);
-            int leerTodos(Vehiculo vehiculo[], int cantidad);
+            Vehiculos leer(int pos);
+            int leerTodos(Vehiculos vehiculo[], int cantidad);
             int cantidadRegistros();
             int getID();
             bool eliminar(int id);
