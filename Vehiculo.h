@@ -26,7 +26,7 @@ class Vehiculo {
 
     private:
     int _id, _idCliente;
-    char _anio[4],_marca[20], _modelo[20], _patente[10], _categoria[20];
+    char _anio[5],_marca[20], _modelo[20], _patente[10], _categoria[20];
     bool _eliminado;
 };
 
