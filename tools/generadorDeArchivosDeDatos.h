@@ -2,3 +2,6 @@
 
 int generarClientes();
 int generarVehiculos();
+int generarPagos();
+int generarPolizas();
+int generarSiniestros();
