@@ -1,6 +1,6 @@
 #pragma once
 #include "Localidad.h"
-#include "fecha.h"
+#include "Fecha.h"
 
 class Cliente {
     public:

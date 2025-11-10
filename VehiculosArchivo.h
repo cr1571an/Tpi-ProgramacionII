@@ -1,18 +1,18 @@
 #pragma once
 #include <string>
 
-#include "Clientes.h"
-#include "Vehiculos.h"
+#include "Cliente.h"
+#include "Vehiculo.h"
 #include "VehiculosArchivo.h"
 
 class VehiculosArchivo {
         public:
             VehiculosArchivo(std::string nombreArchivo = "Vehiculos.dat");
-            bool guardar(Vehiculos registro);
+            bool guardar(Vehiculo registro);
             int buscarID(int id);
             int buscarIDCliente(int id);
-            Vehiculos leer(int pos);
-            int leerTodos(Vehiculos vehiculo[], int cantidad);
+            Vehiculo leer(int pos);
+            int leerTodos(Vehiculo vehiculo[], int cantidad);
             int cantidadRegistros();
             int getID();
             bool eliminar(int id);

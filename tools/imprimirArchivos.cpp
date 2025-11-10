@@ -1,6 +1,6 @@
 #include <iostream>
 
-#include "../Clientes.h"
+#include "../Cliente.h"
 #include "../ClientesArchivo.h"
 #include "../Fecha.h"
 #include "../Pago.h"

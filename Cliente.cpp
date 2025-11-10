@@ -1,6 +1,6 @@
 #include <string>
 #include <cstring>
-#include "Clientes.h"
+#include "Cliente.h"
 
 
     Cliente::Cliente(): _idCliente(0), _nombre("") , _apellido(""), _dni(""), _telefono(""), _email(""), _eliminado(false), _codigoPostal(0) {

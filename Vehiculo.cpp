@@ -6,20 +6,25 @@
 
 using namespace std;
 
-Vehiculo::Vehiculo(): _id(0), _idCliente(0), _anio(""), _marca(""), _modelo(""), _patente(""), _categoria(""), _eliminado(false) {
-
+Vehiculo::Vehiculo(): _id(0), _idCliente(0), _anio(""), _marca(""), _modelo(""), _patente(""), _categoria(""),
+                        _eliminado(false), _numChasis(""), _numMotor(""), _uso("") {
 };
 
-Vehiculo::Vehiculo(int id, int idCliente, std::string anio, std::string marca, std::string modelo, std::string patente, std::string categoria, bool eliminado) {
+Vehiculo::Vehiculo(int id, int idCliente, std::string anio, std::string marca, std::string modelo,
+        std::string patente, std::string categoria, std::string numChasis, std::string numMotor, std::string uso) {
     setId(id);
     setIdCliente(idCliente);
-    setAnio(anio);
-    setMarca(marca);
-    setModelo(modelo);
     setPatente(patente);
+    setModelo(modelo);
     setCategoria(categoria);
-    setEliminado(eliminado);
+    setEliminado(false);
+    setMarca(marca);
+    setAnio(anio);
+    setNumChasis(numChasis);
+    setNumMotor(numMotor);
+    setUso(uso);
 };
+
 
 void Vehiculo::setId(int id) { _id = id; }
 
@@ -40,8 +45,8 @@ void Vehiculo::setPatente(std::string patente) {
     _patente[9] = '\0';
 };
 
-void Vehiculo::setCategoria(std::string categoria) {
-    strncpy(_categoria, categoria.c_str(), 19);
+void Vehiculo::setCategoria(std::string catehoria) {
+    strncpy(_categoria, catehoria.c_str(), 19);
     _categoria[19] = '\0';
 };
 
@@ -61,6 +66,34 @@ void Vehiculo::setAnio(std::string anio) {
         _anio[sizeof(_anio) - 1] = '\0';
     }
 };
+
+void Vehiculo::setUso(std::string uso) {
+    strncpy(_uso, uso.c_str(), 19);
+    _uso[19] = '\0';
+}
+
+std::string Vehiculo::getUso() {
+    return _uso;
+}
+
+
+void Vehiculo::setNumChasis(std::string numChasis) {
+    strncpy(_numChasis, numChasis.c_str(), 19);
+    _numChasis[19] = '\0';
+}
+
+std::string Vehiculo::getNumChasis() {
+    return _numChasis;
+}
+
+void Vehiculo::setNumMotor(std::string numMotor) {
+    strncpy(_numMotor, numMotor.c_str(), 19);
+    _numMotor[19] = '\0';
+}
+
+std::string Vehiculo::getNumMotor() {
+    return _numMotor;
+}
 
 int Vehiculo::getId() {return _id;};
 

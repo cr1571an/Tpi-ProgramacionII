@@ -1,6 +1,6 @@
 #include <iostream>
 #include "App.h"
-#include "localidadarchivo.h"
+#include "LocalidadArchivo.h"
 
 using namespace std;
 
