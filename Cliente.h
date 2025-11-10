@@ -7,7 +7,7 @@ class Cliente {
         Cliente();
         Cliente(int idCliente, std::string nombre, std::string apellido,
                 std::string dni, std::string telefono, std::string email,
-                Localidad localidad, Fecha fechaNacimiento);
+                bool eliminado,Localidad localidad, Fecha fechaNacimiento);
 
         void setNombre(std::string nombre);
         void setApellido(std::string apellido);

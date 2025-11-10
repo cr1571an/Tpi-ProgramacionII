@@ -7,14 +7,14 @@
         _localidad = Localidad();
     };
 
-    Cliente::Cliente(int idCliente, std::string nombre, std::string apellido, std::string dni, std::string telefono, std::string email, Localidad localidad, Fecha fechaNacimiento) {
+    Cliente::Cliente(int idCliente, std::string nombre, std::string apellido, std::string dni, std::string telefono, std::string email,bool eliminado, Localidad localidad, Fecha fechaNacimiento) {
         _idCliente = idCliente;
         setNombre(nombre);
         setApellido(apellido);
         setDni(dni);
         setTelefono(telefono);
         setEmail(email);
-        setEliminado(false);
+        setEliminado(eliminado);
         _localidad = localidad;
         _fechaNacimiento = fechaNacimiento;
     };

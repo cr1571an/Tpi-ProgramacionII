@@ -54,7 +54,7 @@ void ClienteManager::cargar() {
 
   Fecha fechaNacimiento(dia, mes, anio);
 
-  Cliente nuevoCliente(id, nombre, apellido, dni, telefono, email, localidad, fechaNacimiento);
+  Cliente nuevoCliente(id, nombre, apellido, dni, telefono, email, false,localidad, fechaNacimiento);
 
   if (_clientesArchivo.guardar(nuevoCliente)) {
     cout << "Se agrego correctamente." << endl;
