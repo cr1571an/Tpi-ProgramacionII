@@ -37,9 +37,6 @@ build/
 .vscode/
 
 # Code::Blocks
-*.cbp
-*.depend
-*.layout
 
 # CLion
 .idea/

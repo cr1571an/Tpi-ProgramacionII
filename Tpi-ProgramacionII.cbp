@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="Tpi-ProgramacionII" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="bin/Debug/Tpi-ProgramacionII" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Debug/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-g" />
+				</Compiler>
+			</Target>
+			<Target title="Release">
+				<Option output="bin/Release/Tpi-ProgramacionII" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Release/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-O2" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-Wall" />
+			<Add option="-fexceptions" />
+		</Compiler>
+		<Unit filename=".gitignore" />
+		<Unit filename="App.cpp" />
+		<Unit filename="App.h" />
+		<Unit filename="CMakeLists.txt" />
+		<Unit filename="Cliente.cpp" />
+		<Unit filename="Cliente.h" />
+		<Unit filename="ClienteManager.cpp" />
+		<Unit filename="ClienteManager.h" />
+		<Unit filename="ClienteMenu.cpp" />
+		<Unit filename="ClienteMenu.h" />
+		<Unit filename="Clientes.dat" />
+		<Unit filename="ClientesArchivo.cpp" />
+		<Unit filename="ClientesArchivo.h" />
+		<Unit filename="Fecha.cpp" />
+		<Unit filename="Fecha.h" />
+		<Unit filename="Localidad.cpp" />
+		<Unit filename="Localidad.h" />
+		<Unit filename="LocalidadArchivo.cpp" />
+		<Unit filename="LocalidadArchivo.h" />
+		<Unit filename="Localidades.dat" />
+		<Unit filename="Pago.cpp" />
+		<Unit filename="Pago.h" />
+		<Unit filename="PagoArchivo.cpp" />
+		<Unit filename="PagoArchivo.h" />
+		<Unit filename="PagoManager.cpp" />
+		<Unit filename="PagoManager.h" />
+		<Unit filename="Poliza.cpp" />
+		<Unit filename="Poliza.h" />
+		<Unit filename="PolizaArchivo.cpp" />
+		<Unit filename="PolizaArchivo.h" />
+		<Unit filename="PolizaManager.cpp" />
+		<Unit filename="PolizaManager.h" />
+		<Unit filename="README.md" />
+		<Unit filename="Siniestro.cpp" />
+		<Unit filename="Siniestro.h" />
+		<Unit filename="SiniestroArchivo.cpp" />
+		<Unit filename="SiniestroArchivo.h" />
+		<Unit filename="SiniestroManager.cpp" />
+		<Unit filename="SiniestroManager.h" />
+		<Unit filename="Tpi-ProgramacionII.cbp" />
+		<Unit filename="Vehiculo.cpp" />
+		<Unit filename="Vehiculo.h" />
+		<Unit filename="VehiculoManager.cpp" />
+		<Unit filename="VehiculoManager.h" />
+		<Unit filename="VehiculoMenu.cpp" />
+		<Unit filename="VehiculoMenu.h" />
+		<Unit filename="Vehiculos.dat" />
+		<Unit filename="VehiculosArchivo.cpp" />
+		<Unit filename="VehiculosArchivo.h" />
+		<Unit filename="inputData/clientes.csv" />
+		<Unit filename="inputData/pagos.csv" />
+		<Unit filename="inputData/polizas.csv" />
+		<Unit filename="inputData/siniestros.csv" />
+		<Unit filename="inputData/vehiculos.csv" />
+		<Unit filename="main.cpp" />
+		<Unit filename="pago.dat" />
+		<Unit filename="poliza.dat" />
+		<Unit filename="siniestro.dat" />
+		<Unit filename="tools/generadorDeArchivosDeDatos.cpp" />
+		<Unit filename="tools/generadorDeArchivosDeDatos.h" />
+		<Unit filename="tools/imprimirArchivos.cpp" />
+		<Unit filename="tools/imprimirArchivos.h" />
+		<Unit filename="utils.cpp" />
+		<Unit filename="utils.h" />
+		<Extensions>
+			<lib_finder disable_auto="1" />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>

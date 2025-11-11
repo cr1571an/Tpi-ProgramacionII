@@ -1,0 +1,242 @@
+# depslib dependency file v1.0
+1762789291 source:c:\users\usuario\source\utn\tpi-programacionii\app.cpp
+	<iostream>
+	"App.h"
+
+1762789291 c:\users\usuario\source\utn\tpi-programacionii\app.h
+	"ClienteMenu.h"
+	"VehiculoMenu.h"
+	"PolizaMenu.h"
+	"SiniestroMenu.h"
+	"PagoMenu.h"
+
+1762789291 c:\users\usuario\source\utn\tpi-programacionii\clientemenu.h
+	"ClienteManager.h"
+
+1762789291 c:\users\usuario\source\utn\tpi-programacionii\clientemanager.h
+	"ClientesArchivo.h"
+
+1762789291 c:\users\usuario\source\utn\tpi-programacionii\clientesarchivo.h
+	<string>
+	"ClientesArchivo.h"
+	"Cliente.h"
+
+1762800088 c:\users\usuario\source\utn\tpi-programacionii\cliente.h
+	"Localidad.h"
+	"Fecha.h"
+
+1762789291 c:\users\usuario\source\utn\tpi-programacionii\localidad.h
+	<string>
+
+1762789291 c:\users\usuario\source\utn\tpi-programacionii\fecha.h
+	<string>
+
+1762789291 c:\users\usuario\source\utn\tpi-programacionii\vehiculomenu.h
+	"VehiculoManager.h"
+	"ClienteManager.h"
+
+1762789291 c:\users\usuario\source\utn\tpi-programacionii\vehiculomanager.h
+	"Vehiculo.h"
+	"VehiculosArchivo.h"
+	"ClienteManager.h"
+
+1762822206 c:\users\usuario\source\utn\tpi-programacionii\vehiculo.h
+	<string>
+
+1762789291 c:\users\usuario\source\utn\tpi-programacionii\vehiculosarchivo.h
+	<string>
+	"Cliente.h"
+	"Vehiculo.h"
+	"VehiculosArchivo.h"
+
+1762800165 source:c:\users\usuario\source\utn\tpi-programacionii\cliente.cpp
+	<string>
+	<cstring>
+	"Cliente.h"
+
+1762800199 source:c:\users\usuario\source\utn\tpi-programacionii\clientemanager.cpp
+	<string>
+	"ClientesArchivo.h"
+	"ClienteManager.h"
+	"LocalidadArchivo.h"
+	<iostream>
+	<bits/ostream.tcc>
+	"utils.h"
+
+1762789291 c:\users\usuario\source\utn\tpi-programacionii\localidadarchivo.h
+	"Localidad.h"
+	<string>
+
+1762789291 c:\users\usuario\source\utn\tpi-programacionii\utils.h
+	<string>
+	"Fecha.h"
+
+1762789291 source:c:\users\usuario\source\utn\tpi-programacionii\clientemenu.cpp
+	<iostream>
+	"ClienteMenu.h"
+
+1762789291 source:c:\users\usuario\source\utn\tpi-programacionii\clientesarchivo.cpp
+	"ClientesArchivo.h"
+	<iostream>
+
+1762789291 source:c:\users\usuario\source\utn\tpi-programacionii\fecha.cpp
+	<iostream>
+	<ctime>
+	"Fecha.h"
+
+1762789291 source:c:\users\usuario\source\utn\tpi-programacionii\localidad.cpp
+	"Localidad.h"
+	<cstring>
+
+1762789291 source:c:\users\usuario\source\utn\tpi-programacionii\localidadarchivo.cpp
+	"LocalidadArchivo.h"
+	<iostream>
+
+1762822993 source:c:\users\usuario\source\utn\tpi-programacionii\main.cpp
+	<windows.h>
+	<iostream>
+	"App.h"
+	"tools/imprimirArchivos.h"
+	"tools/generadorDeArchivosDeDatos.h"
+
+1762789291 source:c:\users\usuario\source\utn\tpi-programacionii\pago.cpp
+	"Pago.h"
+	<cstring>
+
+1762789291 c:\users\usuario\source\utn\tpi-programacionii\pago.h
+	<string>
+	"Fecha.h"
+
+1762789291 source:c:\users\usuario\source\utn\tpi-programacionii\pagoarchivo.cpp
+	"PagoArchivo.h"
+	<iostream>
+
+1762789291 c:\users\usuario\source\utn\tpi-programacionii\pagoarchivo.h
+	<string>
+	"Pago.h"
+
+1762789291 source:c:\users\usuario\source\utn\tpi-programacionii\pagomanager.cpp
+	"PagoManager.h"
+	<iostream>
+	<string>
+
+1762789291 c:\users\usuario\source\utn\tpi-programacionii\pagomanager.h
+	"PagoArchivo.h"
+	"Pago.h"
+
+1762822704 source:c:\users\usuario\source\utn\tpi-programacionii\poliza.cpp
+	"Poliza.h"
+	<cstring>
+
+1762822666 c:\users\usuario\source\utn\tpi-programacionii\poliza.h
+	<string>
+	"Fecha.h"
+
+1762789291 source:c:\users\usuario\source\utn\tpi-programacionii\polizaarchivo.cpp
+	"PolizaArchivo.h"
+	<iostream>
+
+1762789291 c:\users\usuario\source\utn\tpi-programacionii\polizaarchivo.h
+	<string>
+	"Poliza.h"
+
+1762822788 source:c:\users\usuario\source\utn\tpi-programacionii\polizamanager.cpp
+	"PolizaManager.h"
+	"PolizaArchivo.h"
+	"utils.h"
+	<iostream>
+
+1762822812 c:\users\usuario\source\utn\tpi-programacionii\polizamanager.h
+	"PolizaArchivo.h"
+	"Poliza.h"
+
+1762789291 source:c:\users\usuario\source\utn\tpi-programacionii\siniestro.cpp
+	"Siniestro.h"
+	<cstring>
+
+1762789291 c:\users\usuario\source\utn\tpi-programacionii\siniestro.h
+	<string>
+	"Fecha.h"
+
+1762789291 source:c:\users\usuario\source\utn\tpi-programacionii\siniestroarchivo.cpp
+	"SiniestroArchivo.h"
+	<iostream>
+
+1762789291 c:\users\usuario\source\utn\tpi-programacionii\siniestroarchivo.h
+	<string>
+	"Siniestro.h"
+
+1762789291 source:c:\users\usuario\source\utn\tpi-programacionii\siniestromanager.cpp
+	"SiniestroManager.h"
+	<iostream>
+	"utils.h"
+
+1762789291 c:\users\usuario\source\utn\tpi-programacionii\siniestromanager.h
+	"SiniestroArchivo.h"
+
+1762805592 source:c:\users\usuario\source\utn\tpi-programacionii\tools\generadordearchivosdedatos.cpp
+	"generadorDeArchivosDeDatos.h"
+	<filesystem>
+	<fstream>
+	<iostream>
+	<sstream>
+	"../Cliente.h"
+	"../ClientesArchivo.h"
+	"../Fecha.h"
+	"../Pago.h"
+	"../PagoArchivo.h"
+	"../Poliza.h"
+	"../PolizaArchivo.h"
+	"../Siniestro.h"
+	"../SiniestroArchivo.h"
+	"../Vehiculo.h"
+	"../VehiculosArchivo.h"
+	"../utils.h"
+
+1762789291 c:\users\usuario\source\utn\tpi-programacionii\tools\generadordearchivosdedatos.h
+
+1762823137 source:c:\users\usuario\source\utn\tpi-programacionii\tools\imprimirarchivos.cpp
+	<iostream>
+	"../Cliente.h"
+	"../ClientesArchivo.h"
+	"../Fecha.h"
+	"../Pago.h"
+	"../PagoArchivo.h"
+	"../Poliza.h"
+	"../PolizaArchivo.h"
+	"../Siniestro.h"
+	"../SiniestroArchivo.h"
+	"../Vehiculo.h"
+	"../VehiculosArchivo.h"
+	"../Localidad.h"
+	"../LocalidadArchivo.h"
+
+1762789291 source:c:\users\usuario\source\utn\tpi-programacionii\utils.cpp
+	"utils.h"
+	<cctype>
+	<iostream>
+	<string>
+
+1762822179 source:c:\users\usuario\source\utn\tpi-programacionii\vehiculo.cpp
+	<string>
+	<cstring>
+	<iostream>
+	"Vehiculo.h"
+
+1762822328 source:c:\users\usuario\source\utn\tpi-programacionii\vehiculomanager.cpp
+	<iostream>
+	<string>
+	"VehiculoManager.h"
+	"utils.h"
+	"VehiculoMenu.h"
+
+1762789291 source:c:\users\usuario\source\utn\tpi-programacionii\vehiculomenu.cpp
+	<iostream>
+	"VehiculoMenu.h"
+
+1762789291 source:c:\users\usuario\source\utn\tpi-programacionii\vehiculosarchivo.cpp
+	"VehiculosArchivo.h"
+	<iostream>
+
+1762789291 c:\users\usuario\source\utn\tpi-programacionii\tools\imprimirarchivos.h
+
