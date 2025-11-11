@@ -5,7 +5,7 @@ class Vehiculo {
     public:
     Vehiculo();
     Vehiculo(int id, int idCliente, std::string anio, std::string marca, std::string modelo,
-        std::string patente, std::string categoria, std::string numChasis, std::string numMotor, std::string uso);
+        std::string patente, std::string categoria, bool eliminado, std::string numChasis, std::string numMotor, std::string uso);
     void setId(int id);
     void setIdCliente(int idCliente);
     void setMarca(std::string marca);

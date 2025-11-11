@@ -11,13 +11,13 @@ Vehiculo::Vehiculo(): _id(0), _idCliente(0), _anio(""), _marca(""), _modelo(""),
 };
 
 Vehiculo::Vehiculo(int id, int idCliente, std::string anio, std::string marca, std::string modelo,
-        std::string patente, std::string categoria, std::string numChasis, std::string numMotor, std::string uso) {
+        std::string patente, std::string categoria, bool eliminado,std::string numChasis, std::string numMotor, std::string uso) {
     setId(id);
     setIdCliente(idCliente);
     setPatente(patente);
     setModelo(modelo);
     setCategoria(categoria);
-    setEliminado(false);
+    setEliminado(eliminado);
     setMarca(marca);
     setAnio(anio);
     setNumChasis(numChasis);

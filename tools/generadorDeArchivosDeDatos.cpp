@@ -21,7 +21,7 @@ using namespace std;
 #include "../utils.h"
 
 int generarClientes() {
-  std::ifstream archivo("../inputData/clientes.csv");
+  std::ifstream archivo("inputData/clientes.csv");
   if (!archivo.is_open()) {
     cerr << "Error al abrir el archivo." << endl;
     return 1;
@@ -76,7 +76,7 @@ int generarClientes() {
 }
 
 int generarVehiculos() {
-  std::ifstream archivo("../inputData/vehiculos.csv");
+  std::ifstream archivo("inputData/vehiculos.csv");
   if (!archivo.is_open()) {
     cerr << "Error al abrir el archivo." << endl;
     return 1;
@@ -135,7 +135,7 @@ int generarVehiculos() {
 }
 
 int generarPolizas() {
-  std::ifstream archivo("../inputData/polizas.csv");
+  std::ifstream archivo("inputData/polizas.csv");
   if (!archivo.is_open()) {
     cerr << "Error al abrir el archivo." << endl;
     return 1;
@@ -196,7 +196,7 @@ int generarPolizas() {
 }
 
 int generarPagos() {
-  std::ifstream archivo("../inputData/pagos.csv");
+  std::ifstream archivo("inputData/pagos.csv");
   if (!archivo.is_open()) {
     cerr << "Error al abrir el archivo." << endl;
     return 1;
@@ -251,7 +251,7 @@ int generarPagos() {
 }
 
 int generarSiniestros() {
-  std::ifstream archivo("../inputData/siniestros.csv");
+  std::ifstream archivo("inputData/siniestros.csv");
   if (!archivo.is_open()) {
     cerr << "Error al abrir el archivo." << endl;
     return 1;

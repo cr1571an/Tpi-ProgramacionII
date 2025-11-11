@@ -40,7 +40,7 @@ void VehiculoManager::cargar(int iDCliente) {
     cout << "Ingrese numero de motor:";
     cin>> numeroMotor;
 
-    if (_vehiculosArchivo.guardar(Vehiculo(id, idCliente, anio, marca, modelo, patente, categoria, chasis, numeroMotor,uso))){
+    if (_vehiculosArchivo.guardar(Vehiculo(id, idCliente, anio, marca, modelo, patente, categoria, false, chasis, numeroMotor,uso))){
         cout << "Se agrego correctamente" << endl;
     } else {
         cout << "Error!" << endl;

@@ -11,7 +11,8 @@
 #include "../SiniestroArchivo.h"
 #include "../Vehiculo.h"
 #include "../VehiculosArchivo.h"
-#include "generadorDeArchivosDeDatos.h"
+#include "../Localidad.h"
+#include "../LocalidadArchivo.h"
 
 using namespace std;
 
@@ -21,24 +22,28 @@ void imprimirArchivos() {
   PagoArchivo archivoPagos;
   SiniestroArchivo archivoSiniestros;
   PolizaArchivo archivoPolizas;
+  LocalidadArchivo archivoLocalidad;
 
   int cantidadClientes = archivoClientes.getCantidadRegistros();
   int cantidadVehiculos = archivoVehiculos.cantidadRegistros();
   int cantidadPagos = archivoPagos.getCantidadRegistros();
   int cantidadSiniestros = archivoSiniestros.getCantidadRegistros();
   int cantidadPolizas = archivoPolizas.getCantidadRegistros();
+  int cantidadLocalidades = archivoLocalidad.getCantidadRegistros();
 
   Cliente* vClientes = new Cliente[cantidadClientes];
   Vehiculo* vVehiculos = new Vehiculo[cantidadVehiculos];
   Pago* vPagos = new Pago[cantidadPagos];
   Siniestro* vSiniestros = new Siniestro[cantidadSiniestros];
   Poliza* vPolizas = new Poliza[cantidadPolizas];
+  Localidad*  vLocalidad = new Localidad[cantidadLocalidades];
 
   archivoClientes.leerTodos(vClientes, cantidadClientes);
   archivoVehiculos.leerTodos(vVehiculos, cantidadVehiculos);
   archivoPagos.leerTodos(vPagos, cantidadPagos);
   archivoSiniestros.leerTodos(vSiniestros, cantidadSiniestros);
   archivoPolizas.leerTodos(vPolizas, cantidadPolizas);
+  archivoLocalidad.leerTodos(vLocalidad,cantidadLocalidades);
 
   cout << "--------------CLIENTES-------------------" << endl;
   for (int i = 0; i < cantidadClientes; i++) {
@@ -98,9 +103,19 @@ void imprimirArchivos() {
 
   cout << "-------------------------------------" << endl
        << "-------------------------------------" << endl;
+
+  cout << "-------------LOCALIDADES--------------" << endl;
+  for (int i = 0; i < cantidadLocalidades; i++) {
+    cout << vLocalidad[i].getCodigoPostal() << " | " << vLocalidad[i].getLocalidad() << " | "
+         << vLocalidad[i].getPartido()<< endl;
+  }
+  cout << "-------------------------------------" << endl
+       << "-------------------------------------" << endl;
+
   delete[] vClientes;
   delete[] vVehiculos;
   delete[] vPagos;
   delete[] vSiniestros;
   delete[] vPolizas;
+  delete[] vLocalidad;
 }
