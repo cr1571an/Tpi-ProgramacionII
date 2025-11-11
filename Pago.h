@@ -2,8 +2,7 @@
 #include <string>
 #include "Fecha.h"
 
-class Pago
-{
+class Pago{
 public:
     Pago();
     Pago(int id, int idPoliza, Fecha fechaPago, float monto, std::string metodoDePago, bool estado, bool eliminado);
@@ -15,6 +14,7 @@ public:
     std::string getMetodoDePago();
     bool getEstado();
     bool getEliminado();
+
     void setId(int id);
     void setIdPoliza(int idPoliza);
     void setFechaPago(Fecha fechaPago);

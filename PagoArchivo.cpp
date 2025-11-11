@@ -1,5 +1,6 @@
 #include "PagoArchivo.h"
 #include <iostream>
+#include <cstdio>
 using namespace std;
 
 PagoArchivo::PagoArchivo(std::string nombreArchivo)
@@ -17,28 +18,7 @@ bool PagoArchivo::guardar(Pago registro)
         return false;
     }
 
-    result = fwrite(&registro, sizeof(Pago), 1, pFile);
-
-    fclose(pFile);
-
-    return result;
-}
-
-bool PagoArchivo::guardar(Pago registro, int pos)
-{
-    bool result;
-    FILE* pFile;
-
-    pFile = fopen(_nombreArchivo.c_str(), "rb+");
-
-    if (pFile == nullptr)
-    {
-        return false;
-    }
-
-    fseek(pFile, sizeof(Pago) * pos, SEEK_SET);
-
-    result = fwrite(&registro, sizeof(Pago), 1, pFile);
+    result = (fwrite(&registro, sizeof(Pago), 1, pFile)==1);
 
     fclose(pFile);
 
@@ -48,23 +28,32 @@ bool PagoArchivo::guardar(Pago registro, int pos)
 Pago PagoArchivo::leer(int pos)
 {
     Pago registro;
-    bool result;
     FILE* pFile;
 
     pFile = fopen(_nombreArchivo.c_str(), "rb");
-
     if (pFile == nullptr)
     {
         registro.setId(-1);
         return registro;
     }
 
-    fseek(pFile, sizeof(Pago) * pos, SEEK_SET);
+    int cant = getCantidadRegistros();
+    if (pos < 0 || pos >= cant)
+    {
+        fclose(pFile);
+        registro.setId(-1);
+        return registro;
+    }
 
-    fread(&registro, sizeof(Pago), 1, pFile);
+    fseek(pFile, sizeof(Pago) * pos, SEEK_SET);
+    size_t leidos = fread(&registro, sizeof(Pago), 1, pFile);
 
     fclose(pFile);
 
+    if (leidos != 1)
+    {
+        registro.setId(-1);
+    }
     return registro;
 }
 
@@ -74,7 +63,6 @@ int PagoArchivo::leerTodos(Pago Pagos[], int cantidad)
     FILE* pFile;
 
     pFile = fopen(_nombreArchivo.c_str(), "rb");
-
     if (pFile == nullptr)
     {
         return 0;
@@ -93,17 +81,15 @@ int PagoArchivo::getCantidadRegistros()
     FILE* pFile;
 
     pFile = fopen(_nombreArchivo.c_str(), "rb");
-
     if (pFile == nullptr)
     {
         return 0;
     }
 
     fseek(pFile, 0, SEEK_END);
-    cantidad = ftell(pFile) / sizeof(Pago);
+    cantidad = (ftell(pFile) / sizeof(Pago));
 
     fclose(pFile);
-
     return cantidad;
 }
 
@@ -119,30 +105,50 @@ int PagoArchivo::buscarID(int id)
     int pos = -1;
 
     pFile = fopen(_nombreArchivo.c_str(), "rb");
-
     if (pFile == nullptr)
     {
         return pos;
     }
 
-    while (fread(&registro, sizeof(Pago), 1, pFile))
+    while (fread(&registro, sizeof(Pago), 1, pFile) == 1)
     {
         if (registro.getId() == id)
         {
-            pos = ftell(pFile) / sizeof(Pago) - 1;
+            pos = (ftell(pFile) / sizeof(Pago)) - 1;
             break;
         }
     }
 
     fclose(pFile);
-
     return pos;
 }
 
-bool PagoArchivo::eliminar(int pos)
+bool PagoArchivo::eliminar(int id)
 {
-    Pago registro;
-    registro = leer(pos);
+    int pos = buscarID(id);
+    if (pos < 0) return false;
+
+    Pago registro = leer(pos);
+    if (registro.getId() == -1) return false;
+
     registro.setEliminado(true);
-    return guardar(registro, pos);
+    return sobrescribir(registro, pos);
+}
+
+bool PagoArchivo::sobrescribir(Pago registro, int pos)
+{
+    bool result;
+    FILE* pFile;
+
+    pFile = fopen(_nombreArchivo.c_str(), "rb+");
+    if (pFile == nullptr)
+    {
+        return false;
+    }
+
+    fseek(pFile, sizeof(Pago) * pos, SEEK_SET);
+    result = (fwrite(&registro, sizeof(Pago), 1, pFile) == 1);
+
+    fclose(pFile);
+    return result;
 }
