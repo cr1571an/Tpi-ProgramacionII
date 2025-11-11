@@ -5,7 +5,7 @@
 using namespace std;
 
 PolizaManager::PolizaManager()
-    : _archivo("Polizas.dat") {
+    : _archivo("Polizas.dat"), _vehiculoManager() {
 }
 
 void PolizaManager::mostrar() {
@@ -22,17 +22,25 @@ void PolizaManager::mostrar() {
 }
 
 
-void PolizaManager::cargar(int idVehiculo) {
-    int id = _archivo.getNuevoID();
-    Fecha inicio, fin;
-    float prima;
-    string tipo;
-    cout << "Tipo de seguro: "; tipo = cargarCadena();
-    cout << "Prima mensual: "; cin >> prima;
+void PolizaManager::cargar() {
+    string patente;
+    cout << "Ingrese patente del vehiculo: ";
+    cin >> patente;
+    int idVehiculo = _vehiculoManager.buscarIdPorPatente(patente);
+    if (idVehiculo != -1) {
+        int id = _archivo.getNuevoID();
+        Fecha inicio, fin;
+        float prima;
+        string tipo;
+        cout << "Tipo de seguro: "; tipo = cargarCadena();
+        cout << "Prima mensual: "; cin >> prima;
 
-    Poliza p(id, idVehiculo, inicio, fin, prima, tipo, true, false);
-    if (_archivo.guardar(p)) cout << "Poliza guardada." << endl;
-    else cout << "Error al guardar." << endl;
+        Poliza p(id, idVehiculo, inicio, fin, prima, tipo, true, false);
+        if (_archivo.guardar(p)) cout << "Poliza guardada." << endl;
+        else cout << "Error al guardar." << endl;
+    } else {
+        cout << "No se encontraron vehiculos con esa patente." << endl;
+    }
 }
 
 

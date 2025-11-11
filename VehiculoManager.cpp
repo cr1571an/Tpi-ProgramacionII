@@ -145,3 +145,15 @@ void VehiculoManager::mostrarVehiculosDeClientePorDNI(ClienteManager& clienteMan
         cout << "El cliente no tiene vehículos registrados." << endl;
     }
 }
+
+int VehiculoManager::buscarIdPorPatente(string patente) {
+    int cantidad = _vehiculosArchivo.cantidadRegistros();
+    for (int i = 0; i < cantidad; i++) {
+        Vehiculo vehiculo = _vehiculosArchivo.leer(i);
+        if (vehiculo.getPatente() == patente && !vehiculo.getEliminado()) {
+            return vehiculo.getId();
+            break;
+        }
+    }
+    return -1;
+}
