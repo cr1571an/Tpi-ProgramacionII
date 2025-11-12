@@ -7,7 +7,7 @@
 using namespace std;
 
 Vehiculo::Vehiculo(): _id(0), _idCliente(0), _anio(""), _marca(""), _modelo(""), _patente(""), _categoria(""),
-                        _eliminado(false), _numChasis(""), _numMotor(""), _uso("") {
+                        _numChasis(""), _numMotor(""), _uso(""),_eliminado(false) {
 };
 
 Vehiculo::Vehiculo(int id, int idCliente, std::string anio, std::string marca, std::string modelo,
