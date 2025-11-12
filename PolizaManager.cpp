@@ -64,3 +64,21 @@ void PolizaManager::eliminar() {
         cout<<"El ID ingresado es invalido.";
     }
 }
+void PolizaManager::recuperar() {
+    int idPoliza;
+    cout << "Ingrese un numero de poliza: ";
+    cin >> idPoliza;
+    if (idPoliza>= 0){
+        int pos = _archivo.buscarID(idPoliza);
+        if (pos != -1 ){
+            Poliza poliza = _archivo.leer(pos);
+            poliza.setEliminado(false);            
+            cout<< (_archivo.guardar(poliza, pos) ? "Poliza recuperada." : "No se pudo recuperar la poliza.") << endl;          
+        }
+        else
+            cout<<"El ID ingresado no se encontro.";
+    }
+    else{
+        cout<<"El ID ingresado es invalido.";
+    }
+}

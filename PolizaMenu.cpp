@@ -64,7 +64,9 @@ void PolizaMenu::ejecutarOpcion(int opcion) {
             _polizaManager.eliminar();
             break;
         }
-
-
+        case 5:{
+            _polizaManager.recuperar();
+            break;
+        }
     }
 }

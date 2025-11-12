@@ -11,6 +11,7 @@ class PolizaManager {
         void mostrar();
         void cargar();
         void eliminar();
+        void recuperar();
     private:
         PolizaArchivo _archivo;
         VehiculoManager _vehiculoManager;
