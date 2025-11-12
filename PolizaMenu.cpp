@@ -3,7 +3,7 @@
 using namespace std;
 
 PolizaMenu::PolizaMenu(){
-    _cantidadOpciones = 2;
+    _cantidadOpciones = 3;
 }
 void PolizaMenu::mostrar(){
     int opcion;
@@ -24,9 +24,10 @@ void PolizaMenu::mostrarOpciones(){
 |||||||||||||||||||||||||||||||||||||||||||
 ||     1 - CARGAR POLIZA                 ||
 ||     2 - MOSTRAR TODAS LAS POLIZAS     ||
-||     3 - ELIMINAR CLIENTE              ||
-||     4 - BUSCAR POR D.N.I              ||
-||     5 - RECUPERAR CLIENTE             ||
+||     3 - ELIMINAR POLIZA               ||
+||     4 - BUSCAR POR PATENTE            ||
+||     5 - RECUPERAR POLIZA              ||
+||     6 - MODIFICAR POLIZA              ||
 |||||||||||||||||||||||||||||||||||||||||||
 ||     0 - SALIR                         ||
 |||||||||||||||||||||||||||||||||||||||||||
@@ -59,7 +60,11 @@ void PolizaMenu::ejecutarOpcion(int opcion) {
             _polizaManager.mostrar();
             break;
         }
-            
-            
+        case 3:{
+            _polizaManager.eliminar();
+            break;
+        }
+
+
     }
 }
