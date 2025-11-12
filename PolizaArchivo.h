@@ -5,7 +5,7 @@
 
 class PolizaArchivo {
  public:
-  PolizaArchivo(std::string nombreArchivo = "poliza.dat");
+  PolizaArchivo(std::string nombreArchivo = "Polizas.dat");
   bool guardar(Poliza registro);
   bool guardar(Poliza registro, int pos);
   int buscarID(int id);
