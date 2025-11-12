@@ -12,6 +12,7 @@ class PolizaManager {
         void cargar();
         void eliminar();
         void recuperar();
+        void buscarPorPatente();
     private:
         PolizaArchivo _archivo;
         VehiculoManager _vehiculoManager;

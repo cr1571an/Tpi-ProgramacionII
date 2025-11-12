@@ -3,7 +3,7 @@
 using namespace std;
 
 PolizaMenu::PolizaMenu(){
-    _cantidadOpciones = 3;
+    _cantidadOpciones = 5;
 }
 void PolizaMenu::mostrar(){
     int opcion;
@@ -62,6 +62,10 @@ void PolizaMenu::ejecutarOpcion(int opcion) {
         }
         case 3:{
             _polizaManager.eliminar();
+            break;
+        }
+        case 4:{
+            _polizaManager.buscarPorPatente();
             break;
         }
         case 5:{
