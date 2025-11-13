@@ -13,10 +13,14 @@ class PolizaManager {
         void eliminar();
         void recuperar();
         void buscarPorPatente();
+        void modificarFechaInicio();
+        void modificarPrima();
+        void modificarTipoSeguro();
     private:
         PolizaArchivo _archivo;
         VehiculoManager _vehiculoManager;
         ClientesArchivo _archivoCliente;
         VehiculosArchivo _archivoVehiculos;
 
+        int buscarPorId();
 };

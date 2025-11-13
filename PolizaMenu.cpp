@@ -3,18 +3,61 @@
 using namespace std;
 
 PolizaMenu::PolizaMenu(){
-    _cantidadOpciones = 5;
+    _cantidadOpciones = 6;
+    _cantidadOpcionesSubMenuModificar = 3;
 }
 void PolizaMenu::mostrar(){
+    
     int opcion;
 
     do{
-        system("cls");
+      //  system("cls");
         opcion = seleccionOpcion();
-        system("cls");
+      //  system("cls");
         ejecutarOpcion(opcion);
-        system("pause");
+        //system("pause");
     }while(opcion != 0);
+}
+
+void PolizaMenu::subMenuModificar(){
+    int opcion;
+
+    do{
+       // system("cls");
+        opcion = seleccionOpcionSubMenuModificar();
+        //system("cls");
+        ejecutarOpcionSubMenuModificar(opcion);
+      //  system("pause");
+    }while(opcion != 0);
+}
+
+int PolizaMenu::seleccionOpcionSubMenuModificar(){
+    int opcion;
+    mostrarOpcionesSubMenuModificar();
+    cin >> opcion;
+
+    while(opcion < 0 || opcion > _cantidadOpcionesSubMenuModificar){
+        cout << "Opcion incorrecta..."<<endl;
+        cout << "Seleccione una opción: ";
+        cin >> opcion;
+    }
+    return opcion;
+}
+
+void PolizaMenu::mostrarOpcionesSubMenuModificar(){
+    cout << R"(
+|||||||||||||||||||||||||||||||||||||||||||
+||          MODIFICAR POLIZA             ||
+|||||||||||||||||||||||||||||||||||||||||||
+||     1 - FECHA INICIO                  ||
+||     2 - PRIMA MENSUAL                 ||
+||     3 - TIPO DE SEGURO                ||
+|||||||||||||||||||||||||||||||||||||||||||
+||     0 - SALIR                         ||
+|||||||||||||||||||||||||||||||||||||||||||
+
+)";
+    cout << "Seleccione una opcion: ";
 }
 
 void PolizaMenu::mostrarOpciones(){
@@ -70,6 +113,28 @@ void PolizaMenu::ejecutarOpcion(int opcion) {
         }
         case 5:{
             _polizaManager.recuperar();
+            break;
+        }
+        case 6:{
+
+            subMenuModificar();
+            break;
+        }
+    }
+}
+
+void PolizaMenu::ejecutarOpcionSubMenuModificar(int opcion) {
+    switch(opcion) {
+        case 1:{
+            _polizaManager.modificarFechaInicio();
+            break;
+        }
+        case 2:{
+            _polizaManager.modificarPrima();
+            break;
+        }
+        case 3:{
+            _polizaManager.modificarTipoSeguro();
             break;
         }
     }
