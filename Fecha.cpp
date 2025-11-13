@@ -51,7 +51,9 @@ int Fecha::getMes(){
     return _mes;
 }
 
-void Fecha::sumarDias(int dias) {
+void Fecha::sumarDias() {
+    int plazoPoliza = 90;
+
     std::tm fecha_tm = {};
     fecha_tm.tm_mday = _dia;
     fecha_tm.tm_mon  = _mes - 1;
@@ -59,7 +61,7 @@ void Fecha::sumarDias(int dias) {
 
     std::time_t tiempo = std::mktime(&fecha_tm);
 
-    tiempo += static_cast<time_t>(dias) * 24 * 60 * 60;
+    tiempo += static_cast<time_t>(plazoPoliza) * 24 * 60 * 60;
 
     std::tm* nueva_fecha = std::localtime(&tiempo);
 

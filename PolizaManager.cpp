@@ -34,7 +34,7 @@ void PolizaManager::cargar() {
     if (idVehiculo != -1) {
         int id = _archivo.getNuevoID();
         Fecha inicio, fin;
-        fin.sumarDias(90);
+        fin.sumarDias();
         float prima;
         string tipo;
         cout << "Tipo de seguro: "; tipo = cargarCadena();
@@ -115,3 +115,47 @@ void PolizaManager::buscarPorPatente(){
     }
 
 }
+
+int PolizaManager::buscarPorId(){
+    int idPoliza;    
+    
+    cout << "Ingrese un numero de poliza: ";
+    cin >> idPoliza;
+    if (idPoliza>= 0){
+        int pos = _archivo.buscarID(idPoliza);
+        return pos;
+    }
+    else{
+        cout<<"El ID ingresado es invalido.";
+    }
+
+    return -1;
+}
+void PolizaManager::modificarFechaInicio(){
+    int dia,mes,anio;
+    int pos = buscarPorId();
+    if (pos != -1){
+        Poliza poliza = _archivo.leer(pos);
+        Fecha nuevaFechaInicio, nuevaFechaFin;
+        cout << "Ingrese el dia de la fecha de inicio: ";
+        cin >> dia;
+        cout << "Ingrese el mes de la fecha de inicio: ";
+        cin >> mes;
+        cout << "Ingrese el anio de la fecha de inicio: ";
+        cin >> anio;
+
+        nuevaFechaInicio.setDia(dia);
+        nuevaFechaInicio.setMes(mes);
+        nuevaFechaInicio.setAnio(anio);
+        nuevaFechaFin = nuevaFechaInicio;
+        nuevaFechaFin.sumarDias();
+        poliza.setFechaInicio(nuevaFechaInicio);
+        poliza.setFechaFin(nuevaFechaFin);
+        
+        cout << (_archivo.guardar(poliza, pos) ? "Poliza modificada." : "No se pudo modificar la poliza.");
+    }
+    else
+        cout<<"El ID ingresado no se encontro.";
+}
+void PolizaManager::modificarPrima(){}
+void PolizaManager::modificarTipoSeguro(){}
