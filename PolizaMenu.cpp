@@ -7,7 +7,7 @@ PolizaMenu::PolizaMenu(){
     _cantidadOpcionesSubMenuModificar = 3;
 }
 void PolizaMenu::mostrar(){
-    
+
     int opcion;
 
     do{
@@ -15,7 +15,7 @@ void PolizaMenu::mostrar(){
         opcion = seleccionOpcion();
         system("cls");
         ejecutarOpcion(opcion);
-        //system("pause");
+        system("pause");
     }while(opcion != 0);
 }
 
