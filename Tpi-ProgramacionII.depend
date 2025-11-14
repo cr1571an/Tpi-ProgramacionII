@@ -27,7 +27,7 @@
 1762789291 c:\users\usuario\source\utn\tpi-programacionii\localidad.h
 	<string>
 
-1762946168 c:\users\usuario\source\utn\tpi-programacionii\fecha.h
+1763114535 c:\users\usuario\source\utn\tpi-programacionii\fecha.h
 	<string>
 
 1762789291 c:\users\usuario\source\utn\tpi-programacionii\vehiculomenu.h
@@ -79,12 +79,12 @@
 	"ClientesArchivo.h"
 	<iostream>
 
-1762946167 source:c:\users\usuario\source\utn\tpi-programacionii\fecha.cpp
+1763114535 source:c:\users\usuario\source\utn\tpi-programacionii\fecha.cpp
 	<iostream>
 	<ctime>
 	"Fecha.h"
 
-1762907417 source:c:\users\usuario\source\utn\tpi-programacionii\localidad.cpp
+1762948611 source:c:\users\usuario\source\utn\tpi-programacionii\localidad.cpp
 	"Localidad.h"
 	<cstring>
 
@@ -92,7 +92,7 @@
 	"LocalidadArchivo.h"
 	<iostream>
 
-1762945109 source:c:\users\usuario\source\utn\tpi-programacionii\main.cpp
+1762949396 source:c:\users\usuario\source\utn\tpi-programacionii\main.cpp
 	<windows.h>
 	<iostream>
 	"App.h"
@@ -140,14 +140,14 @@
 	<string>
 	"Poliza.h"
 
-1762947734 source:c:\users\usuario\source\utn\tpi-programacionii\polizamanager.cpp
+1763114535 source:c:\users\usuario\source\utn\tpi-programacionii\polizamanager.cpp
 	"PolizaManager.h"
 	"PolizaArchivo.h"
 	"utils.h"
 	"Cliente.h"
 	<iostream>
 
-1762947132 c:\users\usuario\source\utn\tpi-programacionii\polizamanager.h
+1763114535 c:\users\usuario\source\utn\tpi-programacionii\polizamanager.h
 	"PolizaArchivo.h"
 	"Poliza.h"
 	"VehiculoManager.h"
@@ -178,7 +178,7 @@
 1762789291 c:\users\usuario\source\utn\tpi-programacionii\siniestromanager.h
 	"SiniestroArchivo.h"
 
-1762891152 source:c:\users\usuario\source\utn\tpi-programacionii\tools\generadordearchivosdedatos.cpp
+1762949493 source:c:\users\usuario\source\utn\tpi-programacionii\tools\generadordearchivosdedatos.cpp
 	"generadorDeArchivosDeDatos.h"
 	<filesystem>
 	<fstream>
@@ -199,7 +199,7 @@
 
 1762789291 c:\users\usuario\source\utn\tpi-programacionii\tools\generadordearchivosdedatos.h
 
-1762945030 source:c:\users\usuario\source\utn\tpi-programacionii\tools\imprimirarchivos.cpp
+1762949493 source:c:\users\usuario\source\utn\tpi-programacionii\tools\imprimirarchivos.cpp
 	<iostream>
 	"../Cliente.h"
 	"../ClientesArchivo.h"
@@ -215,7 +215,7 @@
 	"../Localidad.h"
 	"../LocalidadArchivo.h"
 
-1762789291 source:c:\users\usuario\source\utn\tpi-programacionii\utils.cpp
+1762948611 source:c:\users\usuario\source\utn\tpi-programacionii\utils.cpp
 	"utils.h"
 	<cctype>
 	<iostream>
@@ -244,10 +244,10 @@
 
 1762789291 c:\users\usuario\source\utn\tpi-programacionii\tools\imprimirarchivos.h
 
-1762887689 c:\users\usuario\source\utn\tpi-programacionii\polizamenu.h
+1763114535 c:\users\usuario\source\utn\tpi-programacionii\polizamenu.h
 	"PolizaManager.h"
 
-1762947812 source:c:\users\usuario\source\utn\tpi-programacionii\polizamenu.cpp
+1763114891 source:c:\users\usuario\source\utn\tpi-programacionii\polizamenu.cpp
 	<iostream>
 	"PolizaMenu.h"
 
