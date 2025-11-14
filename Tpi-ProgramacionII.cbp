@@ -58,6 +58,8 @@
 		<Unit filename="PagoArchivo.h" />
 		<Unit filename="PagoManager.cpp" />
 		<Unit filename="PagoManager.h" />
+		<Unit filename="PagoMenu.cpp" />
+		<Unit filename="PagoMenu.h" />
 		<Unit filename="Poliza.cpp" />
 		<Unit filename="Poliza.h" />
 		<Unit filename="PolizaArchivo.cpp" />

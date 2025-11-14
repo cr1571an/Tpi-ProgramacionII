@@ -1,9 +1,9 @@
 # depslib dependency file v1.0
-1762888641 source:c:\users\usuario\source\utn\tpi-programacionii\app.cpp
+1763116144 source:c:\users\usuario\source\utn\tpi-programacionii\app.cpp
 	<iostream>
 	"App.h"
 
-1762887689 c:\users\usuario\source\utn\tpi-programacionii\app.h
+1763116144 c:\users\usuario\source\utn\tpi-programacionii\app.h
 	"ClienteMenu.h"
 	"VehiculoMenu.h"
 	"PolizaMenu.h"
@@ -92,35 +92,37 @@
 	"LocalidadArchivo.h"
 	<iostream>
 
-1762949396 source:c:\users\usuario\source\utn\tpi-programacionii\main.cpp
+1763116357 source:c:\users\usuario\source\utn\tpi-programacionii\main.cpp
 	<windows.h>
 	<iostream>
 	"App.h"
 	"tools/imprimirArchivos.h"
 	"tools/generadorDeArchivosDeDatos.h"
 
-1762789291 source:c:\users\usuario\source\utn\tpi-programacionii\pago.cpp
+1763116144 source:c:\users\usuario\source\utn\tpi-programacionii\pago.cpp
 	"Pago.h"
 	<cstring>
 
-1762789291 c:\users\usuario\source\utn\tpi-programacionii\pago.h
+1763116144 c:\users\usuario\source\utn\tpi-programacionii\pago.h
 	<string>
 	"Fecha.h"
 
-1762789291 source:c:\users\usuario\source\utn\tpi-programacionii\pagoarchivo.cpp
+1763116144 source:c:\users\usuario\source\utn\tpi-programacionii\pagoarchivo.cpp
 	"PagoArchivo.h"
 	<iostream>
+	<cstdio>
 
-1762891097 c:\users\usuario\source\utn\tpi-programacionii\pagoarchivo.h
+1763116144 c:\users\usuario\source\utn\tpi-programacionii\pagoarchivo.h
 	<string>
 	"Pago.h"
 
-1762789291 source:c:\users\usuario\source\utn\tpi-programacionii\pagomanager.cpp
-	"PagoManager.h"
+1763117301 source:c:\users\usuario\source\utn\tpi-programacionii\pagomanager.cpp
 	<iostream>
 	<string>
+	<limits>
+	"PagoManager.h"
 
-1762789291 c:\users\usuario\source\utn\tpi-programacionii\pagomanager.h
+1763116144 c:\users\usuario\source\utn\tpi-programacionii\pagomanager.h
 	"PagoArchivo.h"
 	"Pago.h"
 
@@ -247,7 +249,14 @@
 1763114535 c:\users\usuario\source\utn\tpi-programacionii\polizamenu.h
 	"PolizaManager.h"
 
-1763114891 source:c:\users\usuario\source\utn\tpi-programacionii\polizamenu.cpp
+1763116151 source:c:\users\usuario\source\utn\tpi-programacionii\polizamenu.cpp
 	<iostream>
 	"PolizaMenu.h"
+
+1763116144 c:\users\usuario\source\utn\tpi-programacionii\pagomenu.h
+	"PagoManager.h"
+
+1763116144 source:c:\users\usuario\source\utn\tpi-programacionii\pagomenu.cpp
+	<iostream>
+	"PagoMenu.h"
 
