@@ -21,6 +21,7 @@ void PolizaManager::mostrar() {
                  << ", Seguro: " << p.getTipoSeguro()
                  << ", Fecha Inicio: " << p.getfechaInicio().formatoFecha()
                  << ", Fecha Fin: " << p.getfechaFin().formatoFecha()
+                 << ", Prima: " << p.getPrimaMensual()
                  << ", Vigente: " << (p.getVigente() ? "Sí" : "No") << endl;
         }
     }
@@ -157,5 +158,18 @@ void PolizaManager::modificarFechaInicio(){
     else
         cout<<"El ID ingresado no se encontro.";
 }
-void PolizaManager::modificarPrima(){}
+void PolizaManager::modificarPrima(){
+    float nuevaPrima;
+    int pos = buscarPorId();
+    if (pos != -1){
+        Poliza poliza = _archivo.leer(pos);
+        cout << "Ingrese la nueva prima mensual: ";
+        cin >> nuevaPrima;
+        poliza.setPrimaMensual(nuevaPrima);
+        cout << (_archivo.guardar(poliza, pos) ? "Poliza modificada." : "No se pudo modificar la poliza.");
+    }
+    else
+        cout<<"El ID ingresado no se encontro.";
+
+}
 void PolizaManager::modificarTipoSeguro(){}
