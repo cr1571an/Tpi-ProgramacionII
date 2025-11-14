@@ -5,7 +5,7 @@
 using namespace std;
 
 PagoManager::PagoManager()
-    : _pagoArchivo("pago.dat") {}
+    : _pagoArchivo() {}
 
 void PagoManager::cargar(int idPoliza)
 {
