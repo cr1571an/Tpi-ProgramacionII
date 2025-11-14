@@ -172,4 +172,17 @@ void PolizaManager::modificarPrima(){
         cout<<"El ID ingresado no se encontro.";
 
 }
-void PolizaManager::modificarTipoSeguro(){}
+void PolizaManager::modificarTipoSeguro(
+){
+    string nuevoTipo;
+    int pos = buscarPorId();
+    if (pos != -1){
+        Poliza poliza = _archivo.leer(pos);
+        cout << "Ingrese el nuevo tipo de seguro: ";
+        nuevoTipo = cargarCadena();
+        poliza.setTipoSeguro(nuevoTipo);
+        cout << (_archivo.guardar(poliza, pos) ? "Poliza modificada." : "No se pudo modificar la poliza.");
+    }
+    else
+        cout<<"El ID ingresado no se encontro.";
+}
