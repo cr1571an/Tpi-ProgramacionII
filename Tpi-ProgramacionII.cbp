@@ -64,6 +64,8 @@
 		<Unit filename="PolizaArchivo.h" />
 		<Unit filename="PolizaManager.cpp" />
 		<Unit filename="PolizaManager.h" />
+		<Unit filename="PolizaMenu.cpp" />
+		<Unit filename="PolizaMenu.h" />
 		<Unit filename="README.md" />
 		<Unit filename="Siniestro.cpp" />
 		<Unit filename="Siniestro.h" />

@@ -1,13 +1,26 @@
 #pragma once
 #include "PolizaArchivo.h"
 #include "Poliza.h"
+#include "VehiculoManager.h"
+#include "ClientesArchivo.h"
+#include "VehiculosArchivo.h"
 
 class PolizaManager {
     public:
         PolizaManager();
         void mostrar();
-        void cargar(int idVehiculo);
-        void eliminar(int id);
+        void cargar();
+        void eliminar();
+        void recuperar();
+        void buscarPorPatente();
+        void modificarFechaInicio();
+        void modificarPrima();
+        void modificarTipoSeguro();
     private:
         PolizaArchivo _archivo;
+        VehiculoManager _vehiculoManager;
+        ClientesArchivo _archivoCliente;
+        VehiculosArchivo _archivoVehiculos;
+
+        int buscarPorId();
 };

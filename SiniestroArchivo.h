@@ -5,7 +5,7 @@
 
 class SiniestroArchivo {
  public:
-  SiniestroArchivo(std::string nombreArchivo = "siniestro.dat");
+  SiniestroArchivo(std::string nombreArchivo = "Siniestros.dat");
   bool guardar(Siniestro registro);
   int buscarID(int id);
   Siniestro leer(int pos);

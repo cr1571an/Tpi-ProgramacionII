@@ -57,10 +57,10 @@ void App::ejecutarOpcion(int opcion){
             _vehiculoMenu.mostrar();
             break;
         case 3:
-            //_polizaMenu.mostrar();
+            _polizaMenu.mostrar();
             break;
         case 4:
-            //_pagoMenu.mostrar();
+            _pagoMenu.mostrar();
             break;
         case 5:
             //_siniestroMenu.mostrar();

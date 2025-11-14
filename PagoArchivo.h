@@ -5,7 +5,7 @@
 class PagoArchivo
 {
 public:
-    PagoArchivo(std::string nombreArchivo = "pago.dat");
+    PagoArchivo(std::string nombreArchivo = "Pagos.dat");
     bool guardar(Pago registro);
     int buscarID(int id);
     Pago leer(int pos);

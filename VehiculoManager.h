@@ -2,6 +2,7 @@
 #include "Vehiculo.h"
 #include "VehiculosArchivo.h"
 #include "ClienteManager.h"
+#include <string>
 
 class VehiculoManager {
     public:
@@ -13,6 +14,7 @@ class VehiculoManager {
         void actualizar();
         void mostrarVehiculosDeCliente(int idClienteBuscado);
         void mostrarVehiculosDeClientePorDNI(ClienteManager& clienteManager);
+        int buscarIdPorPatente(std::string patente);
 
 
 

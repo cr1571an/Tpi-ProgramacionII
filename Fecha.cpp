@@ -51,6 +51,26 @@ int Fecha::getMes(){
     return _mes;
 }
 
+void Fecha::sumarDias() {
+    int plazoPoliza = 90;
+
+    std::tm fecha_tm = {};
+    fecha_tm.tm_mday = _dia;
+    fecha_tm.tm_mon  = _mes - 1;
+    fecha_tm.tm_year = _anio - 1900;
+
+    std::time_t tiempo = std::mktime(&fecha_tm);
+
+    tiempo += static_cast<time_t>(plazoPoliza) * 24 * 60 * 60;
+
+    std::tm* nueva_fecha = std::localtime(&tiempo);
+
+    _dia  = nueva_fecha->tm_mday;
+    _mes  = nueva_fecha->tm_mon + 1;
+    _anio = nueva_fecha->tm_year + 1900;
+}
+
+
 string Fecha::formatoFecha() {
     return to_string(_dia) + "/" + to_string(_mes) + "/" + to_string(_anio);
 }
