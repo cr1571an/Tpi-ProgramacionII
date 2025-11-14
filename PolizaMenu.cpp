@@ -11,9 +11,9 @@ void PolizaMenu::mostrar(){
     int opcion;
 
     do{
-      //  system("cls");
+        system("cls");
         opcion = seleccionOpcion();
-      //  system("cls");
+        system("cls");
         ejecutarOpcion(opcion);
         //system("pause");
     }while(opcion != 0);
@@ -23,11 +23,11 @@ void PolizaMenu::subMenuModificar(){
     int opcion;
 
     do{
-       // system("cls");
+        system("cls");
         opcion = seleccionOpcionSubMenuModificar();
-        //system("cls");
+        system("cls");
         ejecutarOpcionSubMenuModificar(opcion);
-      //  system("pause");
+        system("pause");
     }while(opcion != 0);
 }
 
