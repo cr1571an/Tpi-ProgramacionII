@@ -9,9 +9,9 @@ void App::run(){
     int opcion;
 
     do{
-      //  system("cls");
+        system("cls");
         opcion = seleccionOpcion();
-       // system("cls");
+        system("cls");
         ejecutarOpcion(opcion);
     }while(opcion != 0);
 }

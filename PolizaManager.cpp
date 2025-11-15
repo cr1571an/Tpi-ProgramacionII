@@ -186,6 +186,21 @@ void PolizaManager::listarPolizasActivas() {
     delete[] polizas;
 }
 
+void PolizaManager::listarPolizasInactivas() {
+    int cantidad = _archivo.getCantidadRegistros();
+    Poliza* polizas = new Poliza[cantidad]{};
+
+    int totalPolizas = _archivo.leerTodos(polizas, cantidad);
+    for (int i = 0; i < totalPolizas; i++) {
+        Poliza p = polizas[i];
+        if (!p.getVigente() && !p.getEliminado()) {
+            mostrarPoliza(p);
+        }
+    }
+
+    delete[] polizas;
+}
+
 void PolizaManager::modificarActivaInactiva() {
     int pos = buscarPorId();
     if (pos != -1) {
@@ -270,4 +285,24 @@ void PolizaManager::buscarPorDniCliente(){
     else {
         cout << "No se encontraron clientes con ese DNI." << endl;
     }
+}
+
+void PolizaManager::procesarPolizas(){
+    int cantidad = _archivo.getCantidadRegistros();
+    Poliza* polizas = new Poliza[cantidad]{};
+    _archivo.leerTodos(polizas, cantidad);
+   
+    for (int i = 0; i < cantidad; i++) {
+        Poliza p = polizas[i];
+        Fecha fechaFin = p.getfechaFin();
+        Fecha fechaActual;
+
+        if (fechaActual > fechaFin && p.getVigente() && !p.getEliminado()) {
+            p.setVigente(false);
+            _archivo.guardar(p, i);
+            cout << "Poliza ID " << p.getId() << " ha sido marcada como no vigente." << endl;
+        }        
+    } 
+
+    delete [] polizas;    
 }

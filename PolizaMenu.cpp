@@ -3,7 +3,7 @@
 using namespace std;
 
 PolizaMenu::PolizaMenu(){
-    _cantidadOpciones = 9;
+    _cantidadOpciones = 11;
     _cantidadOpcionesSubMenuModificar = 4;
 }
 void PolizaMenu::mostrar(){
@@ -11,11 +11,11 @@ void PolizaMenu::mostrar(){
     int opcion;
 
     do{
-      //  system("cls");
+        system("cls");
         opcion = seleccionOpcion();
-      //  system("cls");
+        system("cls");
         ejecutarOpcion(opcion);
-      //  system("pause");
+        system("pause");
     }while(opcion != 0);
 }
 
@@ -23,11 +23,11 @@ void PolizaMenu::subMenuModificar(){
     int opcion;
 
     do{
-     //   system("cls");
+        system("cls");
         opcion = seleccionOpcionSubMenuModificar();
-    //    system("cls");
+        system("cls");
         ejecutarOpcionSubMenuModificar(opcion);
-     //   system("pause");
+        system("pause");
     }while(opcion != 0);
 }
 
@@ -74,7 +74,9 @@ void PolizaMenu::mostrarOpciones(){
 ||     6 - RECUPERAR POLIZA                ||
 ||     7 - MODIFICAR POLIZA                ||
 ||     8 - LISTAR POLIZAS ACTIVAS          ||
-||     9 - LISTAR POR FECHA DE VENCIMIENTO ||
+||     9 - LISTAR POLIZAS INACTIVAS        ||
+||     10 - LISTAR POR FECHA DE VENCIMIENTO||
+||     11 - PROCESAR POLIZAS               ||
 |||||||||||||||||||||||||||||||||||||||||||||
 ||     0 - SALIR                         ||||
 |||||||||||||||||||||||||||||||||||||||||||||
@@ -132,7 +134,15 @@ void PolizaMenu::ejecutarOpcion(int opcion) {
             break;
         }
         case 9:{
+            _polizaManager.listarPolizasInactivas();
+            break;
+        }
+        case 10:{
             _polizaManager.listarPorFechaVencimiento();
+            break;
+        }
+        case 11:{
+            _polizaManager.procesarPolizas();
             break;
         }
     }
