@@ -4,7 +4,7 @@ using namespace std;
 
 PolizaMenu::PolizaMenu(){
     _cantidadOpciones = 7;
-    _cantidadOpcionesSubMenuModificar = 3;
+    _cantidadOpcionesSubMenuModificar = 4;
 }
 void PolizaMenu::mostrar(){
 
@@ -52,6 +52,7 @@ void PolizaMenu::mostrarOpcionesSubMenuModificar(){
 ||     1 - FECHA INICIO                  ||
 ||     2 - PRIMA MENSUAL                 ||
 ||     3 - TIPO DE SEGURO                ||
+||     4 - ACTIVA O INACTIVA             ||
 |||||||||||||||||||||||||||||||||||||||||||
 ||     0 - SALIR                         ||
 |||||||||||||||||||||||||||||||||||||||||||
@@ -140,6 +141,10 @@ void PolizaMenu::ejecutarOpcionSubMenuModificar(int opcion) {
         }
         case 3:{
             _polizaManager.modificarTipoSeguro();
+            break;
+        }
+        case 4:{
+            _polizaManager.modificarActivaInactiva();
             break;
         }
     }

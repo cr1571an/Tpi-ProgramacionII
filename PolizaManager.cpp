@@ -206,3 +206,15 @@ void PolizaManager::listarPolizasActivas() {
         }
     }
 }
+
+void PolizaManager::modificarActivaInactiva() {
+    int pos = buscarPorId();
+    if (pos != -1) {
+        Poliza poliza = _archivo.leer(pos);
+        bool vigente = poliza.getVigente();
+        poliza.setVigente(!vigente);
+        cout << (_archivo.guardar(poliza, pos) ? "Poliza modificada." : "No se pudo modificar la poliza.");
+    } else {
+        cout << "El ID ingresado no se encontro.";
+    }
+}
