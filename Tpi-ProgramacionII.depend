@@ -1,12 +1,13 @@
 # depslib dependency file v1.0
-1763116144 source:c:\users\usuario\source\utn\tpi-programacionii\app.cpp
+1763235860 source:c:\users\usuario\source\utn\tpi-programacionii\app.cpp
 	<iostream>
 	"App.h"
 
-1763116144 c:\users\usuario\source\utn\tpi-programacionii\app.h
+1763235860 c:\users\usuario\source\utn\tpi-programacionii\app.h
 	"ClienteMenu.h"
 	"VehiculoMenu.h"
 	"PolizaMenu.h"
+	"SiniestroMenu.h"
 	"PagoMenu.h"
 
 1762789291 c:\users\usuario\source\utn\tpi-programacionii\clientemenu.h
@@ -27,14 +28,14 @@
 1762789291 c:\users\usuario\source\utn\tpi-programacionii\localidad.h
 	<string>
 
-1763114535 c:\users\usuario\source\utn\tpi-programacionii\fecha.h
+1763247125 c:\users\usuario\source\utn\tpi-programacionii\fecha.h
 	<string>
 
 1762789291 c:\users\usuario\source\utn\tpi-programacionii\vehiculomenu.h
 	"VehiculoManager.h"
 	"ClienteManager.h"
 
-1762887689 c:\users\usuario\source\utn\tpi-programacionii\vehiculomanager.h
+1763234886 c:\users\usuario\source\utn\tpi-programacionii\vehiculomanager.h
 	"Vehiculo.h"
 	"VehiculosArchivo.h"
 	"ClienteManager.h"
@@ -79,7 +80,7 @@
 	"ClientesArchivo.h"
 	<iostream>
 
-1763114535 source:c:\users\usuario\source\utn\tpi-programacionii\fecha.cpp
+1763247125 source:c:\users\usuario\source\utn\tpi-programacionii\fecha.cpp
 	<iostream>
 	<ctime>
 	"Fecha.h"
@@ -92,37 +93,37 @@
 	"LocalidadArchivo.h"
 	<iostream>
 
-1763116357 source:c:\users\usuario\source\utn\tpi-programacionii\main.cpp
+1763117451 source:c:\users\usuario\source\utn\tpi-programacionii\main.cpp
 	<windows.h>
 	<iostream>
 	"App.h"
 	"tools/imprimirArchivos.h"
 	"tools/generadorDeArchivosDeDatos.h"
 
-1763116144 source:c:\users\usuario\source\utn\tpi-programacionii\pago.cpp
+1763234886 source:c:\users\usuario\source\utn\tpi-programacionii\pago.cpp
 	"Pago.h"
 	<cstring>
 
-1763116144 c:\users\usuario\source\utn\tpi-programacionii\pago.h
+1763234886 c:\users\usuario\source\utn\tpi-programacionii\pago.h
 	<string>
 	"Fecha.h"
 
-1763116144 source:c:\users\usuario\source\utn\tpi-programacionii\pagoarchivo.cpp
+1763234886 source:c:\users\usuario\source\utn\tpi-programacionii\pagoarchivo.cpp
 	"PagoArchivo.h"
 	<iostream>
 	<cstdio>
 
-1763116144 c:\users\usuario\source\utn\tpi-programacionii\pagoarchivo.h
+1763234886 c:\users\usuario\source\utn\tpi-programacionii\pagoarchivo.h
 	<string>
 	"Pago.h"
 
-1763117301 source:c:\users\usuario\source\utn\tpi-programacionii\pagomanager.cpp
+1763234886 source:c:\users\usuario\source\utn\tpi-programacionii\pagomanager.cpp
 	<iostream>
 	<string>
 	<limits>
 	"PagoManager.h"
 
-1763116144 c:\users\usuario\source\utn\tpi-programacionii\pagomanager.h
+1763247126 c:\users\usuario\source\utn\tpi-programacionii\pagomanager.h
 	"PagoArchivo.h"
 	"Pago.h"
 
@@ -138,18 +139,18 @@
 	"PolizaArchivo.h"
 	<iostream>
 
-1762891097 c:\users\usuario\source\utn\tpi-programacionii\polizaarchivo.h
+1763234886 c:\users\usuario\source\utn\tpi-programacionii\polizaarchivo.h
 	<string>
 	"Poliza.h"
 
-1763114535 source:c:\users\usuario\source\utn\tpi-programacionii\polizamanager.cpp
+1763248065 source:c:\users\usuario\source\utn\tpi-programacionii\polizamanager.cpp
 	"PolizaManager.h"
 	"PolizaArchivo.h"
 	"utils.h"
 	"Cliente.h"
 	<iostream>
 
-1763114535 c:\users\usuario\source\utn\tpi-programacionii\polizamanager.h
+1763247126 c:\users\usuario\source\utn\tpi-programacionii\polizamanager.h
 	"PolizaArchivo.h"
 	"Poliza.h"
 	"VehiculoManager.h"
@@ -164,21 +165,22 @@
 	<string>
 	"Fecha.h"
 
-1762789291 source:c:\users\usuario\source\utn\tpi-programacionii\siniestroarchivo.cpp
+1763235860 source:c:\users\usuario\source\utn\tpi-programacionii\siniestroarchivo.cpp
 	"SiniestroArchivo.h"
 	<iostream>
 
-1762891097 c:\users\usuario\source\utn\tpi-programacionii\siniestroarchivo.h
+1763235860 c:\users\usuario\source\utn\tpi-programacionii\siniestroarchivo.h
 	<string>
 	"Siniestro.h"
 
-1762789291 source:c:\users\usuario\source\utn\tpi-programacionii\siniestromanager.cpp
+1763235860 source:c:\users\usuario\source\utn\tpi-programacionii\siniestromanager.cpp
 	"SiniestroManager.h"
 	<iostream>
 	"utils.h"
 
-1762789291 c:\users\usuario\source\utn\tpi-programacionii\siniestromanager.h
+1763235860 c:\users\usuario\source\utn\tpi-programacionii\siniestromanager.h
 	"SiniestroArchivo.h"
+	"PolizaArchivo.h"
 
 1762949493 source:c:\users\usuario\source\utn\tpi-programacionii\tools\generadordearchivosdedatos.cpp
 	"generadorDeArchivosDeDatos.h"
@@ -223,13 +225,13 @@
 	<iostream>
 	<string>
 
-1762902598 source:c:\users\usuario\source\utn\tpi-programacionii\vehiculo.cpp
+1763234886 source:c:\users\usuario\source\utn\tpi-programacionii\vehiculo.cpp
 	<string>
 	<cstring>
 	<iostream>
 	"Vehiculo.h"
 
-1762887689 source:c:\users\usuario\source\utn\tpi-programacionii\vehiculomanager.cpp
+1763234886 source:c:\users\usuario\source\utn\tpi-programacionii\vehiculomanager.cpp
 	<iostream>
 	<string>
 	"VehiculoManager.h"
@@ -246,17 +248,24 @@
 
 1762789291 c:\users\usuario\source\utn\tpi-programacionii\tools\imprimirarchivos.h
 
-1763114535 c:\users\usuario\source\utn\tpi-programacionii\polizamenu.h
+1763234886 c:\users\usuario\source\utn\tpi-programacionii\polizamenu.h
 	"PolizaManager.h"
 
-1763116151 source:c:\users\usuario\source\utn\tpi-programacionii\polizamenu.cpp
+1763247126 source:c:\users\usuario\source\utn\tpi-programacionii\polizamenu.cpp
 	<iostream>
 	"PolizaMenu.h"
 
-1763116144 c:\users\usuario\source\utn\tpi-programacionii\pagomenu.h
+1763234886 c:\users\usuario\source\utn\tpi-programacionii\pagomenu.h
 	"PagoManager.h"
 
-1763116144 source:c:\users\usuario\source\utn\tpi-programacionii\pagomenu.cpp
+1763234886 source:c:\users\usuario\source\utn\tpi-programacionii\pagomenu.cpp
 	<iostream>
 	"PagoMenu.h"
+
+1763235860 c:\users\usuario\source\utn\tpi-programacionii\siniestromenu.h
+	"SiniestroManager.h"
+
+1763235860 source:c:\users\usuario\source\utn\tpi-programacionii\siniestromenu.cpp
+	<iostream>
+	"SiniestroMenu.h"
 
