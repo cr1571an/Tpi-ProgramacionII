@@ -63,7 +63,7 @@ void App::ejecutarOpcion(int opcion){
             _pagoMenu.mostrar();
             break;
         case 5:
-            //_siniestroMenu.mostrar();
+            _siniestroMenu.mostrar();
             break;
         case 0:
             cout << "Gracias por utilizar la APP! " << endl;
