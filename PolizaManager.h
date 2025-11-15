@@ -19,6 +19,7 @@ class PolizaManager {
         void listarPolizasActivas();
         void modificarActivaInactiva();
         void listarPorFechaVencimiento();
+        void buscarPorDniCliente();
 
     private:
         PolizaArchivo _archivo;

@@ -157,8 +157,7 @@ void PolizaManager::modificarPrima(){
         cout<<"El ID ingresado no se encontro.";
 
 }
-void PolizaManager::modificarTipoSeguro(
-){
+void PolizaManager::modificarTipoSeguro(){
     string nuevoTipo;
     int pos = buscarPorId();
     if (pos != -1){
@@ -235,6 +234,7 @@ void PolizaManager::mostrarPoliza(Poliza poliza){
     cout << "ID: " << poliza.getId() 
          << ", Cliente: " << cliente.getApellido() << " " << cliente.getNombre()
          << ", Vehiculo ID: " << poliza.getIdVehiculo()
+         << ", Patente: " << vehiculo.getPatente()
          << ", Tipo de Seguro: " << poliza.getTipoSeguro()         
          << ", Fecha Inicio: " << poliza.getfechaInicio().formatoFecha()
          << ", Fecha Fin: " << poliza.getfechaFin().formatoFecha()
@@ -242,4 +242,32 @@ void PolizaManager::mostrarPoliza(Poliza poliza){
          << ", Vigente: " << (poliza.getVigente() ? "Sí" : "No")
          << ", Eliminado: " << (poliza.getEliminado() ? "Sí" : "No") 
          << endl;
+}
+
+void PolizaManager::buscarPorDniCliente(){
+    bool encontrado = false;
+    string dni;
+    cout << "Ingrese DNI del cliente: ";
+    dni = cargarCadena();
+    int idCliente = _archivoCliente.buscarDNI(dni);    
+    if (idCliente != -1) {
+        int cantidad = _archivo.getCantidadRegistros();
+        Poliza* polizas = new Poliza[cantidad]{};
+        _archivo.leerTodos(polizas, cantidad);
+        for (int i = 0; i < cantidad; i++) {
+            Poliza p = polizas[i];
+            Vehiculo vehiculo = _archivoVehiculos.leer(p.getIdVehiculo());
+            if (vehiculo.getIdCliente() == idCliente && !p.getEliminado()) {
+                mostrarPoliza(p);
+                encontrado = true;
+            }            
+        }
+        delete[] polizas;
+        if (!encontrado) {
+            cout << "No se encontraron polizas para ese cliente." << endl;
+        }        
+    }
+    else {
+        cout << "No se encontraron clientes con ese DNI." << endl;
+    }
 }

@@ -3,7 +3,7 @@
 using namespace std;
 
 PolizaMenu::PolizaMenu(){
-    _cantidadOpciones = 8;
+    _cantidadOpciones = 9;
     _cantidadOpcionesSubMenuModificar = 4;
 }
 void PolizaMenu::mostrar(){
@@ -69,11 +69,12 @@ void PolizaMenu::mostrarOpciones(){
 ||     1 - CARGAR POLIZA                   ||
 ||     2 - MOSTRAR TODAS LAS POLIZAS       ||
 ||     3 - ELIMINAR POLIZA                 ||
-||     4 - BUSCAR POR PATENTE              ||
-||     5 - RECUPERAR POLIZA                ||
-||     6 - MODIFICAR POLIZA                ||
-||     7 - LISTAR POLIZAS ACTIVAS          ||
-||     8 - LISTAR POR FECHA DE VENCIMIENTO ||
+||     4 - BUSCAR POR DNI CLIENTE          ||
+||     5 - BUSCAR POR PATENTE              ||
+||     6 - RECUPERAR POLIZA                ||
+||     7 - MODIFICAR POLIZA                ||
+||     8 - LISTAR POLIZAS ACTIVAS          ||
+||     9 - LISTAR POR FECHA DE VENCIMIENTO ||
 |||||||||||||||||||||||||||||||||||||||||||||
 ||     0 - SALIR                         ||||
 |||||||||||||||||||||||||||||||||||||||||||||
@@ -111,23 +112,26 @@ void PolizaMenu::ejecutarOpcion(int opcion) {
             break;
         }
         case 4:{
-            _polizaManager.buscarPorPatente();
+            _polizaManager.buscarPorDniCliente();
             break;
         }
         case 5:{
-            _polizaManager.recuperar();
+            _polizaManager.buscarPorPatente();
             break;
         }
         case 6:{
-
-            subMenuModificar();
+            _polizaManager.recuperar();
             break;
         }
         case 7:{
-            _polizaManager.listarPolizasActivas();
+            subMenuModificar();
             break;
         }
         case 8:{
+            _polizaManager.listarPolizasActivas();
+            break;
+        }
+        case 9:{
             _polizaManager.listarPorFechaVencimiento();
             break;
         }
