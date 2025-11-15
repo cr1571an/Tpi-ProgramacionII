@@ -186,3 +186,23 @@ void PolizaManager::modificarTipoSeguro(
     else
         cout<<"El ID ingresado no se encontro.";
 }
+
+void PolizaManager::listarPolizasActivas() {
+    int cantidad = _archivo.getCantidadRegistros();
+    Poliza* polizas = new Poliza[cantidad]{};
+
+    int totalPolizas = _archivo.leerTodos(polizas, cantidad);
+    for (int i = 0; i < totalPolizas; i++) {
+        Poliza p = polizas[i];
+        if (p.getVigente() && !p.getEliminado()) {
+            Vehiculo vehiculo = _archivoVehiculos.leer(p.getIdVehiculo());
+            Cliente cliente = _archivoCliente.leer(vehiculo.getIdCliente());
+            cout << "ID: " << p.getId() << ", Cliente Apellido: " << cliente.getApellido() << " " << cliente.getNombre()
+                 << ", Vehiculo: " << p.getIdVehiculo()
+                 << ", Seguro: " << p.getTipoSeguro()
+                 << ", Fecha Inicio: " << p.getfechaInicio().formatoFecha()
+                 << ", Fecha Fin: " << p.getfechaFin().formatoFecha()
+                 << ", Prima: " << p.getPrimaMensual() << endl;
+        }
+    }
+}

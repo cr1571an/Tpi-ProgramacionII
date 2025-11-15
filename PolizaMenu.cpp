@@ -3,7 +3,7 @@
 using namespace std;
 
 PolizaMenu::PolizaMenu(){
-    _cantidadOpciones = 6;
+    _cantidadOpciones = 7;
     _cantidadOpcionesSubMenuModificar = 3;
 }
 void PolizaMenu::mostrar(){
@@ -11,11 +11,11 @@ void PolizaMenu::mostrar(){
     int opcion;
 
     do{
-        system("cls");
+      //  system("cls");
         opcion = seleccionOpcion();
-        system("cls");
+      //  system("cls");
         ejecutarOpcion(opcion);
-        system("pause");
+      //  system("pause");
     }while(opcion != 0);
 }
 
@@ -23,11 +23,11 @@ void PolizaMenu::subMenuModificar(){
     int opcion;
 
     do{
-        system("cls");
+     //   system("cls");
         opcion = seleccionOpcionSubMenuModificar();
-        system("cls");
+    //    system("cls");
         ejecutarOpcionSubMenuModificar(opcion);
-        system("pause");
+     //   system("pause");
     }while(opcion != 0);
 }
 
@@ -71,6 +71,7 @@ void PolizaMenu::mostrarOpciones(){
 ||     4 - BUSCAR POR PATENTE            ||
 ||     5 - RECUPERAR POLIZA              ||
 ||     6 - MODIFICAR POLIZA              ||
+||     7 - LISTADO DE POLIZAS ACTIVAS    ||
 |||||||||||||||||||||||||||||||||||||||||||
 ||     0 - SALIR                         ||
 |||||||||||||||||||||||||||||||||||||||||||
@@ -118,6 +119,10 @@ void PolizaMenu::ejecutarOpcion(int opcion) {
         case 6:{
 
             subMenuModificar();
+            break;
+        }
+        case 7:{
+            _polizaManager.listarPolizasActivas();
             break;
         }
     }

@@ -16,6 +16,7 @@ class PolizaManager {
         void modificarFechaInicio();
         void modificarPrima();
         void modificarTipoSeguro();
+        void listarPolizasActivas();
     private:
         PolizaArchivo _archivo;
         VehiculoManager _vehiculoManager;

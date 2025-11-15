@@ -10,6 +10,7 @@ class PagoManager {
         void mostrarPagosDePoliza(int idPolizaBuscado);
         void eliminar(int id);
         void actualizar();
+        
 
     protected:
         void mostrarLista(Pago pago);
