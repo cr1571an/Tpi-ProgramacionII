@@ -3,7 +3,7 @@
 using namespace std;
 
 PolizaMenu::PolizaMenu(){
-    _cantidadOpciones = 7;
+    _cantidadOpciones = 8;
     _cantidadOpcionesSubMenuModificar = 4;
 }
 void PolizaMenu::mostrar(){
@@ -63,19 +63,20 @@ void PolizaMenu::mostrarOpcionesSubMenuModificar(){
 
 void PolizaMenu::mostrarOpciones(){
     cout << R"(
-|||||||||||||||||||||||||||||||||||||||||||
-||             MENU POLIZAS              ||
-|||||||||||||||||||||||||||||||||||||||||||
-||     1 - CARGAR POLIZA                 ||
-||     2 - MOSTRAR TODAS LAS POLIZAS     ||
-||     3 - ELIMINAR POLIZA               ||
-||     4 - BUSCAR POR PATENTE            ||
-||     5 - RECUPERAR POLIZA              ||
-||     6 - MODIFICAR POLIZA              ||
-||     7 - LISTADO DE POLIZAS ACTIVAS    ||
-|||||||||||||||||||||||||||||||||||||||||||
-||     0 - SALIR                         ||
-|||||||||||||||||||||||||||||||||||||||||||
+|||||||||||||||||||||||||||||||||||||||||||||
+||             MENU POLIZAS                ||
+|||||||||||||||||||||||||||||||||||||||||||||
+||     1 - CARGAR POLIZA                   ||
+||     2 - MOSTRAR TODAS LAS POLIZAS       ||
+||     3 - ELIMINAR POLIZA                 ||
+||     4 - BUSCAR POR PATENTE              ||
+||     5 - RECUPERAR POLIZA                ||
+||     6 - MODIFICAR POLIZA                ||
+||     7 - LISTAR POLIZAS ACTIVAS          ||
+||     8 - LISTAR POR FECHA DE VENCIMIENTO ||
+|||||||||||||||||||||||||||||||||||||||||||||
+||     0 - SALIR                         ||||
+|||||||||||||||||||||||||||||||||||||||||||||
 
 )";
     cout << "Seleccione una opcion: ";
@@ -124,6 +125,10 @@ void PolizaMenu::ejecutarOpcion(int opcion) {
         }
         case 7:{
             _polizaManager.listarPolizasActivas();
+            break;
+        }
+        case 8:{
+            _polizaManager.listarPorFechaVencimiento();
             break;
         }
     }

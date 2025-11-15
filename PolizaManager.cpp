@@ -205,6 +205,8 @@ void PolizaManager::listarPolizasActivas() {
                  << ", Prima: " << p.getPrimaMensual() << endl;
         }
     }
+
+    delete[] polizas;
 }
 
 void PolizaManager::modificarActivaInactiva() {
@@ -217,4 +219,49 @@ void PolizaManager::modificarActivaInactiva() {
     } else {
         cout << "El ID ingresado no se encontro.";
     }
+}
+
+void PolizaManager::listarPorFechaVencimiento() {
+    int cantidad = _archivo.getCantidadRegistros();
+    Poliza* polizas = new Poliza[cantidad]{};
+    _archivo.leerTodos(polizas, cantidad);
+   
+    for(int i=0; i<cantidad-1; i++){
+        bool intercambio = false;
+        for(int j=0; j<cantidad - 1 - i; j++){
+            if(polizas[j].getfechaFin() > polizas[j+1].getfechaFin()){
+                Poliza aux = polizas[j];
+                polizas[j] = polizas[j+1];
+                polizas[j+1] = aux;
+                intercambio = true;
+            }
+        } 
+        
+        if(!intercambio){
+            break;    
+        }
+  }  
+
+  for (int i = 0; i < cantidad; i++)
+  {
+    mostrarPoliza(polizas[i]);
+    cout << "------------------------" << endl;
+  }
+    
+    delete [] polizas;    
+}
+
+void PolizaManager::mostrarPoliza(Poliza poliza){
+    Vehiculo vehiculo = _archivoVehiculos.leer(poliza.getIdVehiculo());
+    Cliente cliente = _archivoCliente.leer(vehiculo.getIdCliente());
+    cout << "ID: " << poliza.getId() 
+         << ", Cliente: " << cliente.getApellido() << " " << cliente.getNombre()
+         << ", Vehiculo ID: " << poliza.getIdVehiculo()
+         << ", Tipo de Seguro: " << poliza.getTipoSeguro()         
+         << ", Fecha Inicio: " << poliza.getfechaInicio().formatoFecha()
+         << ", Fecha Fin: " << poliza.getfechaFin().formatoFecha()
+         << ", Prima Mensual: " << poliza.getPrimaMensual()
+         << ", Vigente: " << (poliza.getVigente() ? "Sí" : "No")
+         << ", Eliminado: " << (poliza.getEliminado() ? "Sí" : "No") 
+         << endl;
 }

@@ -18,6 +18,8 @@ class PolizaManager {
         void modificarTipoSeguro();
         void listarPolizasActivas();
         void modificarActivaInactiva();
+        void listarPorFechaVencimiento();
+
     private:
         PolizaArchivo _archivo;
         VehiculoManager _vehiculoManager;
@@ -25,4 +27,5 @@ class PolizaManager {
         VehiculosArchivo _archivoVehiculos;
 
         int buscarPorId();
+        void mostrarPoliza(Poliza poliza);
 };
