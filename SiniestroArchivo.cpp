@@ -24,6 +24,25 @@ bool SiniestroArchivo::guardar(Siniestro registro) {
   return result;
 }
 
+bool SiniestroArchivo::guardar(Siniestro registro, int pos) {
+  bool result;
+  FILE* pFile;
+
+  pFile = fopen(_nombreArchivo.c_str(), "rb+");
+
+  if (pFile == nullptr) {
+    return false;
+  }
+
+  fseek(pFile, sizeof(Siniestro) * pos, SEEK_SET);
+
+  result = fwrite(&registro, sizeof(Siniestro), 1, pFile);
+
+  fclose(pFile);
+
+  return result;
+}
+
 Siniestro SiniestroArchivo::leer(int pos) {
   Siniestro registro;
   bool result;
@@ -103,4 +122,11 @@ int SiniestroArchivo::buscarID(int id) {
   fclose(pFile);
 
   return pos;
+}
+
+bool SiniestroArchivo::eliminar(int pos) {
+  Siniestro registro;
+  registro = leer(pos);
+  registro.setEliminado(true);
+  return guardar(registro, pos);
 }
