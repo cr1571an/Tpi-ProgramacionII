@@ -14,15 +14,7 @@ void PolizaManager::mostrar() {
     for (int i = 0; i < cantidad; i++) {
         Poliza p = _archivo.leer(i);
         if (!p.getEliminado()) {
-            Vehiculo vehiculo = _archivoVehiculos.leer(p.getIdVehiculo());
-            Cliente cliente = _archivoCliente.leer(vehiculo.getIdCliente());
-            cout << "ID: " << p.getId() << ", Cliente Apellido: " << cliente.getApellido() << " " << cliente.getNombre()
-                 << ", Vehiculo: " << p.getIdVehiculo()
-                 << ", Seguro: " << p.getTipoSeguro()
-                 << ", Fecha Inicio: " << p.getfechaInicio().formatoFecha()
-                 << ", Fecha Fin: " << p.getfechaFin().formatoFecha()
-                 << ", Prima: " << p.getPrimaMensual()
-                 << ", Vigente: " << (p.getVigente() ? "Sí" : "No") << endl;
+            mostrarPoliza(p);
         }
     }
 }
@@ -95,14 +87,7 @@ void PolizaManager::buscarPorPatente(){
         for (int i = 0; i < cantidad; i++) {
             Poliza p = _archivo.leer(i);
             if (p.getIdVehiculo() == idVehiculo && !p.getEliminado()) {
-                Vehiculo vehiculo = _archivoVehiculos.leer(p.getIdVehiculo());
-                Cliente cliente = _archivoCliente.leer(vehiculo.getIdCliente());
-                cout << "ID: " << p.getId() << ", Cliente Apellido: " << cliente.getApellido() << " " << cliente.getNombre()
-                     << ", Vehiculo: " << p.getIdVehiculo()
-                     << ", Seguro: " << p.getTipoSeguro()
-                     << ", Fecha Inicio: " << p.getfechaInicio().formatoFecha()
-                     << ", Fecha Fin: " << p.getfechaFin().formatoFecha()
-                     << ", Vigente: " << (p.getVigente() ? "Sí" : "No") << endl;
+                mostrarPoliza(p);
                 encontrado = true;
                 break;
             }            
@@ -195,14 +180,7 @@ void PolizaManager::listarPolizasActivas() {
     for (int i = 0; i < totalPolizas; i++) {
         Poliza p = polizas[i];
         if (p.getVigente() && !p.getEliminado()) {
-            Vehiculo vehiculo = _archivoVehiculos.leer(p.getIdVehiculo());
-            Cliente cliente = _archivoCliente.leer(vehiculo.getIdCliente());
-            cout << "ID: " << p.getId() << ", Cliente Apellido: " << cliente.getApellido() << " " << cliente.getNombre()
-                 << ", Vehiculo: " << p.getIdVehiculo()
-                 << ", Seguro: " << p.getTipoSeguro()
-                 << ", Fecha Inicio: " << p.getfechaInicio().formatoFecha()
-                 << ", Fecha Fin: " << p.getfechaFin().formatoFecha()
-                 << ", Prima: " << p.getPrimaMensual() << endl;
+            mostrarPoliza(p);
         }
     }
 
