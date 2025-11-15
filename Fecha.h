@@ -17,6 +17,7 @@ public:
     void setMes(int mes);
     void setAnio(int anio);
     void sumarDias();
+    bool operator>(Fecha fecha);
 
     std::string formatoFecha(); // mes/dia/anio
 

@@ -70,6 +70,17 @@ void Fecha::sumarDias() {
     _anio = nueva_fecha->tm_year + 1900;
 }
 
+bool Fecha::operator>(Fecha fecha) {
+    if (_anio != fecha.getAnio())
+        return _anio > fecha.getAnio();
+
+    if (_mes != fecha.getMes())
+        return _mes > fecha.getMes();
+
+    return _dia > fecha.getDia();
+}
+
+
 
 string Fecha::formatoFecha() {
     return to_string(_dia) + "/" + to_string(_mes) + "/" + to_string(_anio);
