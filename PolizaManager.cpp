@@ -312,7 +312,7 @@ void PolizaManager::procesarPolizas(){
     delete [] polizas;
 }
 
-void PolizaManager::(){
+void PolizaManager::reportePolizasVigentesYVencidas(){
     int mes, anio;
     cout << "Ingrese mes para la consulta del reporte: ";
     cin >> mes;
