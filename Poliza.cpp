@@ -8,19 +8,19 @@ Poliza::Poliza()
       _fechaInicio(),
       _fechaFin(),
       _primaMensual(0.0),
-      _tipoSeguro(""),
+      _idTipoSeguro(0),
       _vigente(false),
       _eliminado(false) {}
 
 Poliza::Poliza(int id, int idVehiculo, Fecha fechaInicio,
-               Fecha FechaFin, float primaMensual, std::string tipoSeguro,
+               Fecha FechaFin, float primaMensual, int idTipoSeguro,
                bool vigente, bool eliminado) {
   setId(id);
   setIdVehiculo(idVehiculo);
   setFechaInicio(fechaInicio);
   setFechaFin(FechaFin);
   setPrimaMensual(primaMensual);
-  setTipoSeguro(tipoSeguro);
+  setIdTipoSeguro(idTipoSeguro);
   setVigente(vigente);
   setEliminado(eliminado);
 }
@@ -30,7 +30,7 @@ int Poliza::getIdVehiculo() { return _idVehiculo; }
 Fecha Poliza::getfechaInicio() { return _fechaInicio; }
 Fecha Poliza::getfechaFin() { return _fechaFin; }
 float Poliza::getPrimaMensual() { return _primaMensual; }
-std::string Poliza::getTipoSeguro() { return std::string(_tipoSeguro); }
+int Poliza::getIdTipoSeguro() { return _idTipoSeguro; }
 bool Poliza::getVigente() { return _vigente; }
 bool Poliza::getEliminado() { return _eliminado; }
 void Poliza::setId(int id) { _id = id; }
@@ -40,9 +40,8 @@ void Poliza::setFechaFin(Fecha FechaFin) { _fechaFin = FechaFin; }
 void Poliza::setPrimaMensual(float primaMensual) {
   _primaMensual = primaMensual;
 }
-void Poliza::setTipoSeguro(std::string tipoSeguro) {
-  strncpy(_tipoSeguro, tipoSeguro.c_str(), sizeof(_tipoSeguro) - 1);
-  _tipoSeguro[sizeof(_tipoSeguro) - 1] = '\0';
+void Poliza::setIdTipoSeguro(int idTipoSeguro) {
+  _idTipoSeguro = idTipoSeguro;
 }
 void Poliza::setVigente(bool vigente) { _vigente = vigente; }
 void Poliza::setEliminado(bool eliminado) { _eliminado = eliminado; }

@@ -2,6 +2,7 @@
 #include "PolizaArchivo.h"
 #include "utils.h"
 #include "Cliente.h"
+#include "TipoSeguro.h"
 #include <iostream>
 using namespace std;
 
@@ -11,6 +12,10 @@ PolizaManager::PolizaManager()
 
 void PolizaManager::mostrar() {
     int cantidad = _archivo.getCantidadRegistros();
+    if (cantidad == 0) {
+        cout << "No hay polizas para mostrar." << endl;
+        return;
+    }
     for (int i = 0; i < cantidad; i++) {
         Poliza p = _archivo.leer(i);
         if (!p.getEliminado()) {
@@ -29,8 +34,8 @@ void PolizaManager::cargar() {
         Fecha inicio, fin;
         fin.sumarDias();
         float prima;
-        string tipo;
-        cout << "Tipo de seguro: "; tipo = cargarCadena();
+        int tipo;
+        cout << "Id Tipo de seguro: "; cin >> tipo;
         cout << "Prima mensual: "; cin >> prima;
 
         Poliza p(id, idVehiculo, inicio, fin, prima, tipo, true, false);
@@ -158,13 +163,13 @@ void PolizaManager::modificarPrima(){
 
 }
 void PolizaManager::modificarTipoSeguro(){
-    string nuevoTipo;
+    int nuevoTipo;
     int pos = buscarPorId();
     if (pos != -1){
         Poliza poliza = _archivo.leer(pos);
-        cout << "Ingrese el nuevo tipo de seguro: ";
-        nuevoTipo = cargarCadena();
-        poliza.setTipoSeguro(nuevoTipo);
+        cout << "Ingrese el id del nuevo tipo de seguro: ";
+        cin >> nuevoTipo;
+        poliza.setIdTipoSeguro(nuevoTipo);
         cout << (_archivo.guardar(poliza, pos) ? "Poliza modificada." : "No se pudo modificar la poliza.");
     }
     else
@@ -246,11 +251,12 @@ void PolizaManager::listarPorFechaVencimiento() {
 void PolizaManager::mostrarPoliza(Poliza poliza){
     Vehiculo vehiculo = _archivoVehiculos.leer(poliza.getIdVehiculo());
     Cliente cliente = _archivoCliente.leer(vehiculo.getIdCliente());
+    TipoSeguro tipoSeguro = _archivoTipoSeguros.leer(poliza.getIdTipoSeguro());
     cout << "ID: " << poliza.getId() 
          << ", Cliente: " << cliente.getApellido() << " " << cliente.getNombre()
          << ", Vehiculo ID: " << poliza.getIdVehiculo()
          << ", Patente: " << vehiculo.getPatente()
-         << ", Tipo de Seguro: " << poliza.getTipoSeguro()         
+         << ", Tipo de Seguro: " << tipoSeguro.getDescripcion()         
          << ", Fecha Inicio: " << poliza.getfechaInicio().formatoFecha()
          << ", Fecha Fin: " << poliza.getfechaFin().formatoFecha()
          << ", Prima Mensual: " << poliza.getPrimaMensual()

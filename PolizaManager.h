@@ -4,6 +4,7 @@
 #include "VehiculoManager.h"
 #include "ClientesArchivo.h"
 #include "VehiculosArchivo.h"
+#include "TiposSegurosArchivo.h"
 
 class PolizaManager {
     public:
@@ -29,6 +30,7 @@ class PolizaManager {
         VehiculoManager _vehiculoManager;
         ClientesArchivo _archivoCliente;
         VehiculosArchivo _archivoVehiculos;
+        TiposSegurosArchivo _archivoTipoSeguros;
 
         int buscarPorId();
         void mostrarPoliza(Poliza poliza);

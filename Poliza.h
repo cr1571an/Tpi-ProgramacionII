@@ -7,7 +7,7 @@ class Poliza {
  public:
   Poliza();
   Poliza(int id, int idVehiculo, Fecha fechaInicio,
-         Fecha FechaFin, float primaMensual, std::string tipoSeguro,
+         Fecha FechaFin, float primaMensual, int idTipoSeguro,
          bool vigente, bool eliminado);
 
   int getId();
@@ -15,7 +15,7 @@ class Poliza {
   Fecha getfechaInicio();
   Fecha getfechaFin();
   float getPrimaMensual();
-  std::string getTipoSeguro();
+  int getIdTipoSeguro();
   bool getVigente();
   bool getEliminado();
   void setId(int id);
@@ -23,17 +23,18 @@ class Poliza {
   void setFechaInicio(Fecha fechaInicio);
   void setFechaFin(Fecha FechaFin);
   void setPrimaMensual(float primaMensual);
-  void setTipoSeguro(std::string tipoSeguro);
+  void setIdTipoSeguro(int idTipoSeguro);
   void setVigente(bool vigente);
   void setEliminado(bool eliminado);
 
  private:
   int _id;
   int _idVehiculo;
+  int _idTipoSeguro;
   Fecha _fechaInicio;
   Fecha _fechaFin;
   float _primaMensual;
-  char _tipoSeguro[30];
+  
   bool _vigente;
   bool _eliminado;
 };
