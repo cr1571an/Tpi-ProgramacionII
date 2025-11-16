@@ -7,13 +7,13 @@ class Siniestro {
  public:
   Siniestro();
   Siniestro(int id, int idPoliza, Fecha fechaSiniestro,
-            std::string tipoSiniestro, float costoEstimado, bool estado,
+            int idTipoSiniestro, float costoEstimado, bool estado,
             bool eliminado);
 
   int getId();
   int getIdPoliza();
   Fecha getFechaSiniestro();
-  std::string getTipoSiniestro();
+  int getIdTipoSiniestro();
   float getCostoEstimado();
   bool getEstado();
   bool getEliminado();
@@ -21,7 +21,7 @@ class Siniestro {
   void setIdPoliza(int idPoliza);
   void setFechaSiniestro(Fecha fechaSiniestro);
   void setCostoEstimado(float costoEstimado);
-  void setTipoSiniestro(std::string tipoSiniestro);
+  void setIdTipoSiniestro(int idTipoSiniestro);
   void setEstado(bool estado);
   void setEliminado(bool eliminado);
 
@@ -29,7 +29,7 @@ class Siniestro {
   int _id;
   int _idPoliza;
   Fecha _fechaSiniestro;
-  char _tipoSiniestro[15];
+  int _idTipoSiniestro;
   float _costoEstimado;
   bool _estado;
   bool _eliminado;
