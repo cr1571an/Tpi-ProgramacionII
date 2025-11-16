@@ -137,7 +137,7 @@ int generarVehiculos() {
 }
 
 int generarPolizas() {
-  std::ifstream archivo("../inputData/polizas.csv");
+  std::ifstream archivo("inputData/polizas.csv");
   if (!archivo.is_open()) {
     cerr << "Error al abrir el archivo." << endl;
     return 1;
@@ -323,7 +323,7 @@ bool generarTiposSeguros(){
     TiposSegurosArchivo repositorioTiposSeguros;
 
     string linea;
-    getline(archivo, linea); 
+    getline(archivo, linea);
 
     while (getline(archivo, linea)) {
         stringstream ss(linea);
@@ -351,5 +351,5 @@ bool generarTiposSeguros(){
 
     archivo.close();
 
-    return true;    
+    return true;
 }
