@@ -21,6 +21,8 @@ using namespace std;
 #include "../utils.h"
 #include "../TipoSeguro.h"
 #include "../TiposSegurosArchivo.h"
+#include "../TiposSiniestrosArchivo.h"
+#include "../TipoSiniestro.h"
 
 int generarClientes() {
   std::ifstream archivo("inputData/clientes.csv");
@@ -286,7 +288,8 @@ int generarSiniestros() {
     s.setFechaSiniestro(fechaSiniestro);
 
     getline(ss, campo, ',');
-    s.setTipoSiniestro(campo);
+    int idTipoSiniestro = atoi(campo.c_str());
+    s.setIdTipoSiniestro(idTipoSiniestro);
 
     getline(ss, campo, ',');
     float campoFloat = atof(campo.c_str());
@@ -346,6 +349,50 @@ bool generarTiposSeguros(){
         }
         else {
             cout << "Error al agregar tipo de seguro: " << ts.getDescripcion() << endl;
+        }
+    }
+
+    archivo.close();
+
+    return true;
+}
+
+bool generarTiposSiniestros(){
+    std::ifstream archivo("inputData/tiposSiniestros.csv");
+    if (!archivo.is_open()) {
+        cerr << "Error al abrir el archivo de tipos de siniestros." << endl;
+        return false;
+    }
+    else {
+        cout << "Archivo de tipos de siniestros abierto correctamente!" << endl;
+    }
+
+    TiposSiniestrosArchivo repositorioTiposSiniestros;
+
+    string linea;
+    getline(archivo, linea);
+
+    while (getline(archivo, linea)) {
+        stringstream ss(linea);
+        string campo;
+
+        TipoSiniestro ts{};
+
+        getline(ss, campo, ',');
+        int id = atoi(campo.c_str());
+        ts.setId(id);
+
+        getline(ss, campo, ',');
+        ts.setDescripcion(campo);
+
+        getline(ss, campo, ',');
+        ts.setEliminado(campo == "true" ? true : false);
+
+        if (repositorioTiposSiniestros.guardar(ts)) {
+            cout << "Tipo de siniestro agregado: " << ts.getDescripcion() << endl;
+        }
+        else {
+            cout << "Error al agregar tipo de siniestro: " << ts.getDescripcion() << endl;
         }
     }
 
