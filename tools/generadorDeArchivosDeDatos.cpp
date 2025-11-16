@@ -19,6 +19,8 @@ using namespace std;
 #include "../Vehiculo.h"
 #include "../VehiculosArchivo.h"
 #include "../utils.h"
+#include "../TipoSeguro.h"
+#include "../TiposSegurosArchivo.h"
 
 int generarClientes() {
   std::ifstream archivo("inputData/clientes.csv");
@@ -135,7 +137,7 @@ int generarVehiculos() {
 }
 
 int generarPolizas() {
-  std::ifstream archivo("inputData/polizas.csv");
+  std::ifstream archivo("../inputData/polizas.csv");
   if (!archivo.is_open()) {
     cerr << "Error al abrir el archivo." << endl;
     return 1;
@@ -175,7 +177,8 @@ int generarPolizas() {
     p.setPrimaMensual(campoFloat);
 
     getline(ss, campo, ',');
-    p.setTipoSeguro(campo);
+    int idTipoSeguro = atoi(campo.c_str());
+    p.setIdTipoSeguro(idTipoSeguro);
 
     getline(ss, campo, ',');
     p.setVigente(campo == "true" ? true : false);
@@ -305,4 +308,48 @@ int generarSiniestros() {
   archivo.close();
 
   return 0;
+}
+
+bool generarTiposSeguros(){
+    std::ifstream archivo("inputData/tiposSeguros.csv");
+    if (!archivo.is_open()) {
+        cerr << "Error al abrir el archivo de tipos de seguros." << endl;
+        return false;
+    }
+    else {
+        cout << "Archivo de tipos de seguros abierto correctamente!" << endl;
+    }
+
+    TiposSegurosArchivo repositorioTiposSeguros;
+
+    string linea;
+    getline(archivo, linea); 
+
+    while (getline(archivo, linea)) {
+        stringstream ss(linea);
+        string campo;
+
+        TipoSeguro ts{};
+
+        getline(ss, campo, ',');
+        int id = atoi(campo.c_str());
+        ts.setId(id);
+
+        getline(ss, campo, ',');
+        ts.setDescripcion(campo);
+
+        getline(ss, campo, ',');
+        ts.setEliminado(campo == "true" ? true : false);
+
+        if (repositorioTiposSeguros.guardar(ts)) {
+            cout << "Tipo de seguro agregado: " << ts.getDescripcion() << endl;
+        }
+        else {
+            cout << "Error al agregar tipo de seguro: " << ts.getDescripcion() << endl;
+        }
+    }
+
+    archivo.close();
+
+    return true;    
 }

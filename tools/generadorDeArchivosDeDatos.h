@@ -5,3 +5,4 @@ int generarVehiculos();
 int generarPagos();
 int generarPolizas();
 int generarSiniestros();
+bool generarTiposSeguros();

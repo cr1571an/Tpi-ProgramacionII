@@ -97,7 +97,7 @@ void imprimirArchivos() {
          << vPolizas[i].getfechaInicio().formatoFecha() << " | "
          << vPolizas[i].getfechaFin().formatoFecha() << " | "
          << vPolizas[i].getPrimaMensual() << " | "
-         << vPolizas[i].getTipoSeguro() << " | " << vPolizas[i].getVigente()
+         << vPolizas[i].getIdTipoSeguro() << " | " << vPolizas[i].getVigente()
          << " | " << vPolizas[i].getEliminado() << endl;
   }
 
