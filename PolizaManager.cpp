@@ -306,3 +306,56 @@ void PolizaManager::procesarPolizas(){
 
     delete [] polizas;    
 }
+
+void PolizaManager::reportePolizasVigentesYVencidas(){    
+    int mes, anio;
+    cout << "Ingrese mes para la consulta del reporte: ";
+    cin >> mes;
+    if (mes < 1 || mes > 12) {
+        cout << "Mes invalido. Debe estar entre 1 y 12." << endl;
+        return;
+    }
+    cout << "Ingrese anio para la consulta del reporte: ";
+    cin >> anio;
+    if (anio < 1900 || anio > 2100) {
+        cout << "Anio invalido. Debe estar entre 1900 y 2100." << endl;
+        return;
+    }
+
+    int cantidad = _archivo.getCantidadRegistros();
+    Poliza* polizas = new Poliza[cantidad]{};
+    _archivo.leerTodos(polizas, cantidad);
+
+    int cantidadFiltradas = cantidadPolizasPeriodo(polizas, cantidad, Fecha(1,mes,anio));
+    if (cantidadFiltradas == 0) {
+        cout << "No se encontraron polizas vencientes y vigentes en el periodo indicado." << endl;
+        delete [] polizas;
+        return;
+    }
+
+    Poliza** polizasFiltradas = new Poliza*[cantidadFiltradas]{};
+    filtrarPolizasPorFecha(polizas, polizasFiltradas, cantidad, Fecha(1,mes,anio));
+
+    delete [] polizas;
+    delete [] polizasFiltradas;
+}
+
+int PolizaManager::cantidadPolizasPeriodo(Poliza polizas[],int cantidadPolizas, Fecha FechaConsulta){
+    int contador = 0;
+    for (int i = 0; i < cantidadPolizas; i++) {
+        if (polizas[i].getfechaFin() == FechaConsulta && !polizas[i].getEliminado()) {
+            contador++;
+        }
+    }
+    return contador;
+}
+
+void PolizaManager::filtrarPolizasPorFecha(Poliza polizas[], Poliza* polizasFiltradas[], int cantidadPolizas,Fecha FechaConsulta){
+    int indiceFiltrado = 0;
+    for (int i = 0; i < cantidadPolizas; i++) {
+        if (polizas[i].getfechaFin() == FechaConsulta && !polizas[i].getEliminado()) {
+            polizasFiltradas[indiceFiltrado] = &polizas[i];
+            indiceFiltrado++;            
+        }
+    }
+}

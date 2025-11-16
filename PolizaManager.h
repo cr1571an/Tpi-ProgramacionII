@@ -22,6 +22,7 @@ class PolizaManager {
         void listarPorFechaVencimiento();
         void buscarPorDniCliente();
         void procesarPolizas();
+        void reportePolizasVigentesYVencidas();
 
     private:
         PolizaArchivo _archivo;
@@ -31,4 +32,6 @@ class PolizaManager {
 
         int buscarPorId();
         void mostrarPoliza(Poliza poliza);
+        int cantidadPolizasPeriodo(Poliza polizas[],int cantidadPolizas, Fecha FechaConsulta);
+        void filtrarPolizasPorFecha(Poliza polizas[], Poliza* polizasFiltradas[], int cantidadPolizas,Fecha FechaConsulta);
 };
