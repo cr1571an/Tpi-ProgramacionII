@@ -80,7 +80,15 @@ bool Fecha::operator>(Fecha fecha) {
     return _dia > fecha.getDia();
 }
 
+bool Fecha::operator==(Fecha fecha) {
+    if (_anio != fecha.getAnio())
+        return false;
 
+    if (_mes != fecha.getMes())
+        return false;
+
+    return true;
+}
 
 string Fecha::formatoFecha() {
     return to_string(_dia) + "/" + to_string(_mes) + "/" + to_string(_anio);
