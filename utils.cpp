@@ -3,6 +3,9 @@
 #include <cctype>
 #include <iostream>
 #include <string>
+#include <limits>
+
+using namespace std;
 
 std::string cargarCadena() {
   std::string texto;
@@ -24,6 +27,28 @@ int buscarMaximo(int vec[], int cant) {
     }
   }
   return indexMax;
+}
+
+Fecha leerFechaValida(){
+    int d,m,a;
+    while (true)
+    {
+        cout << "Ingrese fecha con espacios (DD MM AAAA): ";
+        if (!(cin >> d >> m >> a))
+        {
+            cout << "Entrada invalida.";
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            continue;
+        }
+        int diasMes[] = {0,31,28,31,30,31,30,31,31,30,31,30,31};
+        bool bisiesto = (a%4==0) && ((a%100!=0) || (a%400==0));
+        if (m==2 && bisiesto) diasMes[2] = 29;
+        if (a>=2020 && a<=2025 && m>=1 && m<=12 && d>=1 && d<=diasMes[m]) break;
+
+        cout << "Fecha invalida." << endl;
+    }
+    return Fecha(d,m,a);
 }
 
 Fecha procesarFecha(std::string fecha) {
