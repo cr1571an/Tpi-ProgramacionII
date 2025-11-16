@@ -77,6 +77,10 @@
 		<Unit filename="SiniestroManager.h" />
 		<Unit filename="SiniestroMenu.cpp" />
 		<Unit filename="SiniestroMenu.h" />
+		<Unit filename="TipoSeguro.cpp" />
+		<Unit filename="TipoSeguro.h" />
+		<Unit filename="TiposSegurosArchivo.cpp" />
+		<Unit filename="TiposSegurosArchivo.h" />
 		<Unit filename="Tpi-ProgramacionII.cbp" />
 		<Unit filename="Vehiculo.cpp" />
 		<Unit filename="Vehiculo.h" />
