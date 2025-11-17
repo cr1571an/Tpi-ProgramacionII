@@ -34,10 +34,11 @@ class Cliente {
         int getIdCliente();
         bool getEliminado();
         bool getRecuperar();
+        bool operator==( Cliente otro);
 
     private:
         int _idCliente, _codigoPostal;
-        char _nombre[20], _apellido[20],  _dni[9], _telefono[20], _email[50];
+        char _nombre[25], _apellido[20],  _dni[9], _telefono[20], _email[50];
         bool _eliminado;
         Localidad _localidad;
         Fecha _fechaNacimiento;

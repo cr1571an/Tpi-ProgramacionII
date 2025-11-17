@@ -7,12 +7,12 @@
 using namespace std;
 
 Vehiculo::Vehiculo(): _id(0), _idCliente(0), _anio(""), _marca(""), _modelo(""), _patente(""), _categoria(""),
-                        _numChasis(""), _numMotor(""), _uso(""),_eliminado(false) {
+                        _numMotor(""), _numChasis(""), _uso(""),_eliminado(false) {
 };
 
 Vehiculo::Vehiculo(int id, int idCliente, std::string anio, std::string marca, std::string modelo,
         std::string patente, std::string categoria, bool eliminado,std::string numChasis, std::string numMotor, std::string uso) {
-    setId(id);
+    setIdVehiculo(id);
     setIdCliente(idCliente);
     setPatente(patente);
     setModelo(modelo);
@@ -26,7 +26,7 @@ Vehiculo::Vehiculo(int id, int idCliente, std::string anio, std::string marca, s
 };
 
 
-void Vehiculo::setId(int id) { _id = id; }
+void Vehiculo::setIdVehiculo(int id) { _id = id; }
 
 void Vehiculo::setIdCliente(int id) { _idCliente = id; }
 
@@ -95,7 +95,7 @@ std::string Vehiculo::getNumMotor() {
     return _numMotor;
 }
 
-int Vehiculo::getId() {return _id;};
+int Vehiculo::getIdVehiculo() {return _id;};
 
 int Vehiculo::getIdCliente() {return _idCliente;};
 
@@ -112,3 +112,5 @@ std::string Vehiculo::getCategoria() {return _categoria;};
 bool Vehiculo::getEliminado() {return _eliminado;};
 
 void Vehiculo::eliminar() {_eliminado = true;};
+
+void Vehiculo::recuperar() {_eliminado = false;};

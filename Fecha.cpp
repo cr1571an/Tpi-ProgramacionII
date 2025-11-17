@@ -75,3 +75,22 @@ string Fecha::formatoFecha() {
     return to_string(_dia) + "/" + to_string(_mes) + "/" + to_string(_anio);
 }
 
+int Fecha::validarEdad( Fecha fechaActual) {
+    int edad = fechaActual.getAnio() - _anio;
+
+    if (edad > 105) return -1;
+    if (edad < 18) return -2;
+    if (edad == 18) {
+        if (fechaActual.getMes() < _mes ||
+            (fechaActual.getMes() == _mes && fechaActual.getDia() < _dia)) {
+            return -2;
+            }
+    }
+    if (edad == 105) {
+        if (fechaActual.getMes() > _mes ||
+            (fechaActual.getMes() == _mes && fechaActual.getDia() >= _dia)) {
+            return -1;
+            }
+    }
+    return edad;
+}

@@ -7,20 +7,27 @@ class LocalidadArchivo {
         LocalidadArchivo();
         LocalidadArchivo(std::string nombreArchivo);
 
+        void mostrarLocalidad(Localidad loc);
+        void mostrar();
+        void cargarLocalidad();
+
         bool guardar(Localidad registro);
-        Localidad leer(int pos);
+        bool existeLocalidad( Localidad loc);
+
         int leerTodos(Localidad registros[], int cantidad);
         int getCantidadRegistros();
         int buscarPorCodigoPostal(int codigoPostal);
-        Localidad pedirLocalidadPorCodigoPostal();
+        int getUltimoID();
         int listarPorCodigoPostal(int codigoPostal, Localidad coincidencias[], int max);
+        int partidosUnicos(std::string partidos[], int maxPartidos);
+
+        Localidad leer(int pos);
+        Localidad pedirLocalidadPorCodigoPostal();
         Localidad pedirLocalidadPorCodigoPostalInteractivo();
-        void mostrarLocalidad(Localidad loc);
-        void mostrar();
 
     private:
-        int buscarCoincidenciasPorCodigoPostal(int codigoPostal, Localidad coincidencias[], int maxCoincidencias);
         void mostrarOpcionesLocalidad(Localidad coincidencias[], int cantCoincidencias);
+        int buscarCoincidenciasPorCodigoPostal(int codigoPostal, Localidad coincidencias[], int maxCoincidencias);
 
         std::string _nombreArchivo;
 };

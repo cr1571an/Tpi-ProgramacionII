@@ -7,14 +7,13 @@ class PagoArchivo
 public:
     PagoArchivo(std::string nombreArchivo = "Pagos.dat");
     bool guardar(Pago registro);
-    bool guardar(Pago registro, int pos);
     int buscarID(int id);
     Pago leer(int pos);
-    bool eliminar(int pos);
-
     int leerTodos(Pago Pagos[], int cantidad);
     int getCantidadRegistros();
     int getNuevoID();
+    bool eliminar(int id);
+    bool sobrescribir(Pago registro, int pos);
 
 private:
     std::string _nombreArchivo;

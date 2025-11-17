@@ -6,9 +6,11 @@ Pago::Pago():
     _idPoliza(0),
     _fechaPago(),
     _monto(0.0),
-    _metodoDePago(""),
     _estado(false),
-    _eliminado(false) {}
+    _eliminado(false)
+{
+    _metodoDePago[0] = '\0';
+}
 
 Pago::Pago(int id, int idPoliza, Fecha fechaPago, float monto, std::string metodoDePago, bool estado, bool eliminado)
 {

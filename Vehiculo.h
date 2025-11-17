@@ -6,7 +6,7 @@ class Vehiculo {
     Vehiculo();
     Vehiculo(int id, int idCliente, std::string anio, std::string marca, std::string modelo,
         std::string patente, std::string categoria, bool eliminado, std::string numChasis, std::string numMotor, std::string uso);
-    void setId(int id);
+    void setIdVehiculo(int id);
     void setIdCliente(int idCliente);
     void setMarca(std::string marca);
     void setModelo(std::string modelo);
@@ -14,6 +14,7 @@ class Vehiculo {
     void setCategoria(std::string catehoria);
     void setEliminado(bool eliminado);
     void eliminar();
+    void recuperar();
     void setAnio(std::string anio);
     void setNumMotor(std::string numMotor);
     void setNumChasis(std::string numChasis);
@@ -23,7 +24,7 @@ class Vehiculo {
     std::string getNumChasis();
     std::string getNumMotor();
     bool getEliminado();
-    int getId();
+    int getIdVehiculo();
     int getIdCliente();
     std::string getAnio();
     std::string getMarca();

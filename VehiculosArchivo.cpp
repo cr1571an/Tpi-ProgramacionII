@@ -3,11 +3,11 @@ using namespace std;
 #include <iostream>
 
 
-VehiculosArchivo::VehiculosArchivo(std::string nombreArchivo)
+VehiculosArchivo::VehiculosArchivo(string nombreArchivo)
 :_nombreArchivo(nombreArchivo){
 };
 
-std::string VehiculosArchivo::getNombreArchivo() const {
+string VehiculosArchivo::getNombreArchivo() {
     return _nombreArchivo;
 }
 
@@ -16,27 +16,23 @@ bool VehiculosArchivo::guardar(Vehiculo registro) {
     FILE *archivo_vehiculo;
     bool guardado = false;
     archivo_vehiculo = fopen(_nombreArchivo.c_str(), "ab");
-
     if (archivo_vehiculo == nullptr) {
         return guardado;
     }
     guardado = fwrite(&registro, sizeof(registro), 1, archivo_vehiculo);
     fclose(archivo_vehiculo);
-
     return guardado;
 };
 
-
-int VehiculosArchivo::buscarID(int id) {
+int VehiculosArchivo::buscarIdVehiculo(int id) {
     FILE *archivo_vehiculo = fopen(_nombreArchivo.c_str(), "rb");
     if (archivo_vehiculo == nullptr) {
         return -1;
     }
-
     Vehiculo registro;
     int posicion = 0;
     while (fread(&registro, sizeof(Vehiculo), 1, archivo_vehiculo) == 1) {
-        if (registro.getId() == id) {
+        if (registro.getIdVehiculo() == id) {
             fclose(archivo_vehiculo);
             return posicion;
         }
@@ -45,8 +41,6 @@ int VehiculosArchivo::buscarID(int id) {
     fclose(archivo_vehiculo);
     return -1;
 }
-
-
 
 Vehiculo VehiculosArchivo::leer(int pos) {
     FILE *archivo_vehiculo;
@@ -61,7 +55,6 @@ Vehiculo VehiculosArchivo::leer(int pos) {
     return registro;
 };
 
-
 int VehiculosArchivo::leerTodos(Vehiculo vehiculo[], int cantidad) {
     FILE *archivo_vehiculo;
     archivo_vehiculo = fopen(_nombreArchivo.c_str(), "rb");
@@ -72,7 +65,6 @@ int VehiculosArchivo::leerTodos(Vehiculo vehiculo[], int cantidad) {
     fclose(archivo_vehiculo);
     return result;
 };
-
 
 int VehiculosArchivo::cantidadRegistros() {
     FILE *archivo_vehiculo;
@@ -86,31 +78,29 @@ int VehiculosArchivo::cantidadRegistros() {
     return cantidad;
 };
 
-
-int VehiculosArchivo::getID() {
+int VehiculosArchivo::getIdVehiculoUltimo() {
     return cantidadRegistros()+1;
 };
 
-
-bool VehiculosArchivo::eliminar(int id) {
-    int pos = buscarID(id);
+bool VehiculosArchivo::eliminarVehiculo(int id) {
+    int pos = buscarIdVehiculo(id);
     if (pos == -1) {
         return false;
     }
     Vehiculo registro = leer(pos);
     registro.eliminar();
-
-    FILE *archivo_vehiculo;
-    archivo_vehiculo = fopen(_nombreArchivo.c_str(), "rb+");
-    if (archivo_vehiculo == nullptr) {
-        return false;
-    }
-    fseek(archivo_vehiculo, pos * sizeof(Vehiculo), SEEK_SET);
-    fwrite(&registro, sizeof(Vehiculo), 1, archivo_vehiculo);
-    fclose(archivo_vehiculo);
-    return true;
+    return actualizarVehiculo(pos, registro);
 }
 
+bool VehiculosArchivo::recuperarVehiculo(int id) {
+    int pos = buscarIdVehiculo(id);
+    if (pos == -1) {
+        return false;
+    }
+    Vehiculo registro = leer(pos);
+    registro.recuperar();
+    return actualizarVehiculo(pos, registro);
+}
 
 int VehiculosArchivo::buscarIDCliente(int iDCliente) {
     FILE *archivo_vehiculo;
@@ -133,3 +123,13 @@ int VehiculosArchivo::buscarIDCliente(int iDCliente) {
     return -1;
 }
 
+bool VehiculosArchivo::actualizarVehiculo(int pos, Vehiculo registro) {
+    FILE *archivo_vehiculo = fopen(_nombreArchivo.c_str(), "rb+");
+    if (archivo_vehiculo == nullptr) {
+        return false;
+    }
+    fseek(archivo_vehiculo, pos * sizeof(Vehiculo), SEEK_SET);
+    bool actualizacion = fwrite(&registro, sizeof(Vehiculo), 1, archivo_vehiculo);
+    fclose(archivo_vehiculo);
+    return actualizacion;
+}

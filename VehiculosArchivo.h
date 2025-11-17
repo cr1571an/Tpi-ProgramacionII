@@ -8,15 +8,20 @@
 class VehiculosArchivo {
         public:
             VehiculosArchivo(std::string nombreArchivo = "Vehiculos.dat");
-            bool guardar(Vehiculo registro);
-            int buscarID(int id);
+
+            int buscarIdVehiculo(int id);
             int buscarIDCliente(int id);
-            Vehiculo leer(int pos);
             int leerTodos(Vehiculo vehiculo[], int cantidad);
             int cantidadRegistros();
-            int getID();
-            bool eliminar(int id);
-            std::string getNombreArchivo() const;
+            int getIdVehiculoUltimo();
+
+            bool guardar(Vehiculo registro);
+            bool actualizarVehiculo(int pos, Vehiculo registro);
+            bool eliminarVehiculo(int idVehiculo);
+            bool recuperarVehiculo(int idVehiculo);
+
+            std::string getNombreArchivo();
+            Vehiculo leer(int pos);
 
         private:
             std::string _nombreArchivo;
