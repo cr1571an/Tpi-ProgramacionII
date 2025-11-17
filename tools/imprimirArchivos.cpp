@@ -13,6 +13,8 @@
 #include "../VehiculosArchivo.h"
 #include "../Localidad.h"
 #include "../LocalidadArchivo.h"
+#include "../TiposSiniestrosArchivo.h"
+#include "../TipoSiniestro.h"
 
 using namespace std;
 
@@ -23,6 +25,8 @@ void imprimirArchivos() {
   SiniestroArchivo archivoSiniestros;
   PolizaArchivo archivoPolizas;
   LocalidadArchivo archivoLocalidad;
+  TiposSiniestrosArchivo archivoTiposSiniestros;
+  
 
   int cantidadClientes = archivoClientes.getCantidadRegistros();
   int cantidadVehiculos = archivoVehiculos.cantidadRegistros();
@@ -30,6 +34,7 @@ void imprimirArchivos() {
   int cantidadSiniestros = archivoSiniestros.getCantidadRegistros();
   int cantidadPolizas = archivoPolizas.getCantidadRegistros();
   int cantidadLocalidades = archivoLocalidad.getCantidadRegistros();
+  int cantidadTiposSiniestros = archivoTiposSiniestros.getCantidadRegistros();
 
   Cliente* vClientes = new Cliente[cantidadClientes];
   Vehiculo* vVehiculos = new Vehiculo[cantidadVehiculos];
@@ -37,6 +42,7 @@ void imprimirArchivos() {
   Siniestro* vSiniestros = new Siniestro[cantidadSiniestros];
   Poliza* vPolizas = new Poliza[cantidadPolizas];
   Localidad*  vLocalidad = new Localidad[cantidadLocalidades];
+  TipoSiniestro* vTiposSiniestros = new TipoSiniestro[cantidadTiposSiniestros];
 
   archivoClientes.leerTodos(vClientes, cantidadClientes);
   archivoVehiculos.leerTodos(vVehiculos, cantidadVehiculos);
@@ -44,6 +50,7 @@ void imprimirArchivos() {
   archivoSiniestros.leerTodos(vSiniestros, cantidadSiniestros);
   archivoPolizas.leerTodos(vPolizas, cantidadPolizas);
   archivoLocalidad.leerTodos(vLocalidad,cantidadLocalidades);
+  archivoTiposSiniestros.leerTodos(vTiposSiniestros,cantidadTiposSiniestros);
 
   cout << "--------------CLIENTES-------------------" << endl;
   for (int i = 0; i < cantidadClientes; i++) {
@@ -83,7 +90,7 @@ void imprimirArchivos() {
   for (int i = 0; i < cantidadSiniestros; i++) {
     cout << vSiniestros[i].getId() << " | " << vSiniestros[i].getIdPoliza()
          << " | " << vSiniestros[i].getFechaSiniestro().formatoFecha() << " | "
-         << vSiniestros[i].getTipoSiniestro() << " | "
+         << vSiniestros[i].getIdTipoSiniestro() << " | "
          << vSiniestros[i].getCostoEstimado() << " | "
          << vSiniestros[i].getEstado() << " | " << vSiniestros[i].getEliminado()
          << endl;
@@ -97,7 +104,7 @@ void imprimirArchivos() {
          << vPolizas[i].getfechaInicio().formatoFecha() << " | "
          << vPolizas[i].getfechaFin().formatoFecha() << " | "
          << vPolizas[i].getPrimaMensual() << " | "
-         << vPolizas[i].getTipoSeguro() << " | " << vPolizas[i].getVigente()
+         << vPolizas[i].getIdTipoSeguro() << " | " << vPolizas[i].getVigente()
          << " | " << vPolizas[i].getEliminado() << endl;
   }
 
@@ -112,10 +119,16 @@ void imprimirArchivos() {
   cout << "-------------------------------------" << endl
        << "-------------------------------------" << endl;
 
+  cout << "----------TIPOS DE SINIESTROS---------" << endl;
+  for (int i = 0; i < cantidadTiposSiniestros; i++){
+     cout << vTiposSiniestros[i].getId() << " | " << vTiposSiniestros[i].getDescripcion() << " | " << vTiposSiniestros[i].getEliminado() << endl;
+  }
+
   delete[] vClientes;
   delete[] vVehiculos;
   delete[] vPagos;
   delete[] vSiniestros;
   delete[] vPolizas;
   delete[] vLocalidad;
+  delete[] vTiposSiniestros;
 }

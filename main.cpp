@@ -23,7 +23,8 @@ int main() {
 //  generarPolizas();
 //  generarVehiculos();
 //  generarSiniestros();
-
+//  generarTiposSeguros();
+//  generarTiposSiniestros();
 
     return 0;
 }

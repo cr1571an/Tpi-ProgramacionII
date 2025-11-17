@@ -4,6 +4,7 @@
 #include "VehiculoManager.h"
 #include "ClientesArchivo.h"
 #include "VehiculosArchivo.h"
+#include "TiposSegurosArchivo.h"
 
 class PolizaManager {
     public:
@@ -16,12 +17,23 @@ class PolizaManager {
         void modificarFechaInicio();
         void modificarPrima();
         void modificarTipoSeguro();
+        void listarPolizasActivas();
+        void listarPolizasInactivas();
+        void modificarActivaInactiva();
+        void listarPorFechaVencimiento();
+        void buscarPorDniCliente();
+        void procesarPolizas();
+        void reportePolizasVigentesYVencidas();
+
     private:
         PolizaArchivo _archivo;
         VehiculoManager _vehiculoManager;
         ClientesArchivo _archivoCliente;
         VehiculosArchivo _archivoVehiculos;
-        ClienteMenu _clienteMenu;
+        TiposSegurosArchivo _archivoTipoSeguros;
 
         int buscarPorId();
+        void mostrarPoliza(Poliza poliza);
+        int cantidadPolizasPeriodo(Poliza polizas[],int cantidadPolizas, Fecha FechaConsulta);
+        void filtrarPolizasPorFecha(Poliza polizas[], Poliza* polizasFiltradas[], int cantidadPolizas,Fecha FechaConsulta);
 };

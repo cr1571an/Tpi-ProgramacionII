@@ -46,11 +46,23 @@ int App::seleccionOpcion(){
 
 void App::ejecutarOpcion(int opcion){
     switch(opcion){
-        case 1:_clienteMenu.mostrar();break;
-        case 2:_vehiculoMenu.mostrar();break;
-        case 3:_polizaMenu.mostrar();break;
-        case 4://_pagoMenu.mostrar();break;
-        case 5://_siniestroMenu.mostrar();break;
-        case 0:cout << "SE CERRO LA APP..." << endl;break;
+        case 1:
+            _clienteMenu.mostrar();
+            break;
+        case 2:
+            _vehiculoMenu.mostrar();
+            break;
+        case 3:
+            _polizaMenu.mostrar();
+            break;
+        case 4:
+            _pagoMenu.mostrar();
+            break;
+        case 5:
+            _siniestroMenu.mostrar();
+            break;
+        case 0:
+            cout << "Gracias por utilizar la APP! " << endl;
+            break;
     }
 }

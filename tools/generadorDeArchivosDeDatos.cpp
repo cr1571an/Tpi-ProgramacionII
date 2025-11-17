@@ -19,14 +19,18 @@ using namespace std;
 #include "../Vehiculo.h"
 #include "../VehiculosArchivo.h"
 #include "../utils.h"
+#include "../TipoSeguro.h"
+#include "../TiposSegurosArchivo.h"
+#include "../TiposSiniestrosArchivo.h"
+#include "../TipoSiniestro.h"
 
 int generarClientes() {
   std::ifstream archivo("inputData/clientes.csv");
   if (!archivo.is_open()) {
-    cerr << "Error al abrir el archivo." << endl;
+    cerr << "Error al abrir el archivo clientes.csv." << endl;
     return 1;
   } else {
-    cout << "Archivo abierto correctamente!" << endl;
+    cout << "Archivo clientes.csv abierto correctamente!" << endl;
   }
 
   ClientesArchivo repositorioClientes;
@@ -78,10 +82,10 @@ int generarClientes() {
 int generarVehiculos() {
   std::ifstream archivo("inputData/vehiculos.csv");
   if (!archivo.is_open()) {
-    cerr << "Error al abrir el archivo." << endl;
+    cerr << "Error al abrir el archivo vehiculos.csv." << endl;
     return 1;
   } else {
-    cout << "Archivo abierto correctamente!" << endl;
+    cout << "Archivo vehiculos.csv abierto correctamente!" << endl;
   }
 
   VehiculosArchivo repositorioVehiculos;
@@ -137,10 +141,10 @@ int generarVehiculos() {
 int generarPolizas() {
   std::ifstream archivo("inputData/polizas.csv");
   if (!archivo.is_open()) {
-    cerr << "Error al abrir el archivo." << endl;
+    cerr << "Error al abrir el archivo polizas.csv." << endl;
     return 1;
   } else {
-    cout << "Archivo abierto correctamente!" << endl;
+    cout << "Archivo polizas.csv abierto correctamente!" << endl;
   }
 
   PolizaArchivo repositorioPolizas;
@@ -175,7 +179,8 @@ int generarPolizas() {
     p.setPrimaMensual(campoFloat);
 
     getline(ss, campo, ',');
-    p.setTipoSeguro(campo);
+    int idTipoSeguro = atoi(campo.c_str());
+    p.setIdTipoSeguro(idTipoSeguro);
 
     getline(ss, campo, ',');
     p.setVigente(campo == "true" ? true : false);
@@ -198,10 +203,10 @@ int generarPolizas() {
 int generarPagos() {
   std::ifstream archivo("inputData/pagos.csv");
   if (!archivo.is_open()) {
-    cerr << "Error al abrir el archivo." << endl;
+    cerr << "Error al abrir el archivo pagos.csv." << endl;
     return 1;
   } else {
-    cout << "Archivo abierto correctamente!" << endl;
+    cout << "Archivo pagos.csv abierto correctamente!" << endl;
   }
 
   PagoArchivo repositorioPagos;
@@ -253,10 +258,10 @@ int generarPagos() {
 int generarSiniestros() {
   std::ifstream archivo("inputData/siniestros.csv");
   if (!archivo.is_open()) {
-    cerr << "Error al abrir el archivo." << endl;
+    cerr << "Error al abrir el archivo siniestros.csv." << endl;
     return 1;
   } else {
-    cout << "Archivo abierto correctamente!" << endl;
+    cout << "Archivo siniestros.csv abierto correctamente!" << endl;
   }
 
   SiniestroArchivo repositorioSiniestros;
@@ -283,7 +288,8 @@ int generarSiniestros() {
     s.setFechaSiniestro(fechaSiniestro);
 
     getline(ss, campo, ',');
-    s.setTipoSiniestro(campo);
+    int idTipoSiniestro = atoi(campo.c_str());
+    s.setIdTipoSiniestro(idTipoSiniestro);
 
     getline(ss, campo, ',');
     float campoFloat = atof(campo.c_str());
@@ -305,4 +311,92 @@ int generarSiniestros() {
   archivo.close();
 
   return 0;
+}
+
+bool generarTiposSeguros(){
+    std::ifstream archivo("inputData/tiposSeguros.csv");
+    if (!archivo.is_open()) {
+        cerr << "Error al abrir el archivo tiposSeguros.csv." << endl;
+        return false;
+    }
+    else {
+        cout << "Archivo tiposSeguros.csv abierto correctamente!" << endl;
+    }
+
+    TiposSegurosArchivo repositorioTiposSeguros;
+
+    string linea;
+    getline(archivo, linea);
+
+    while (getline(archivo, linea)) {
+        stringstream ss(linea);
+        string campo;
+
+        TipoSeguro ts{};
+
+        getline(ss, campo, ',');
+        int id = atoi(campo.c_str());
+        ts.setId(id);
+
+        getline(ss, campo, ',');
+        ts.setDescripcion(campo);
+
+        getline(ss, campo, ',');
+        ts.setEliminado(campo == "true" ? true : false);
+
+        if (repositorioTiposSeguros.guardar(ts)) {
+            cout << "Tipo de seguro agregado: " << ts.getDescripcion() << endl;
+        }
+        else {
+            cout << "Error al agregar tipo de seguro: " << ts.getDescripcion() << endl;
+        }
+    }
+
+    archivo.close();
+
+    return true;
+}
+
+bool generarTiposSiniestros(){
+    std::ifstream archivo("inputData/tiposSiniestros.csv");
+    if (!archivo.is_open()) {
+        cerr << "Error al abrir el archivo tiposSiniestros.csv." << endl;
+        return false;
+    }
+    else {
+        cout << "Archivo tiposSiniestros.csv abierto correctamente!" << endl;
+    }
+
+    TiposSiniestrosArchivo repositorioTiposSiniestros;
+
+    string linea;
+    getline(archivo, linea);
+
+    while (getline(archivo, linea)) {
+        stringstream ss(linea);
+        string campo;
+
+        TipoSiniestro ts{};
+
+        getline(ss, campo, ',');
+        int id = atoi(campo.c_str());
+        ts.setId(id);
+
+        getline(ss, campo, ',');
+        ts.setDescripcion(campo);
+
+        getline(ss, campo, ',');
+        ts.setEliminado(campo == "true" ? true : false);
+
+        if (repositorioTiposSiniestros.guardar(ts)) {
+            cout << "Tipo de siniestro agregado: " << ts.getDescripcion() << endl;
+        }
+        else {
+            cout << "Error al agregar tipo de siniestro: " << ts.getDescripcion() << endl;
+        }
+    }
+
+    archivo.close();
+
+    return true;
 }

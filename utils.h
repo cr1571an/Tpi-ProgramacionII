@@ -4,4 +4,5 @@
 
 std::string cargarCadena();
 int buscarMaximo(int vec[], int cant);
+Fecha leerFechaValida();
 Fecha procesarFecha(std::string fecha);

@@ -1,13 +1,13 @@
-#include "SiniestroArchivo.h"
+#include "TiposSegurosArchivo.h"
 
 #include <iostream>
 
 using namespace std;
 
-SiniestroArchivo::SiniestroArchivo(std::string nombreArchivo)
+TiposSegurosArchivo::TiposSegurosArchivo(std::string nombreArchivo)
     : _nombreArchivo(nombreArchivo) {}
 
-bool SiniestroArchivo::guardar(Siniestro registro) {
+bool TiposSegurosArchivo::guardar(TipoSeguro registro) {
   bool result;
   FILE* pFile;
 
@@ -17,14 +17,14 @@ bool SiniestroArchivo::guardar(Siniestro registro) {
     return false;
   }
 
-  result = fwrite(&registro, sizeof(Siniestro), 1, pFile);
+  result = fwrite(&registro, sizeof(TipoSeguro), 1, pFile);
 
   fclose(pFile);
 
   return result;
 }
 
-bool SiniestroArchivo::guardar(Siniestro registro, int pos) {
+bool TiposSegurosArchivo::guardar(TipoSeguro registro, int pos) {
   bool result;
   FILE* pFile;
 
@@ -34,17 +34,18 @@ bool SiniestroArchivo::guardar(Siniestro registro, int pos) {
     return false;
   }
 
-  fseek(pFile, sizeof(Siniestro) * pos, SEEK_SET);
+  fseek(pFile, sizeof(TipoSeguro) * pos, SEEK_SET);
 
-  result = fwrite(&registro, sizeof(Siniestro), 1, pFile);
+  result = fwrite(&registro, sizeof(TipoSeguro), 1, pFile);
 
   fclose(pFile);
 
   return result;
 }
 
-Siniestro SiniestroArchivo::leer(int pos) {
-  Siniestro registro;
+TipoSeguro TiposSegurosArchivo::leer(int pos) {
+  TipoSeguro registro;
+  bool result;
   FILE* pFile;
 
   pFile = fopen(_nombreArchivo.c_str(), "rb");
@@ -54,16 +55,16 @@ Siniestro SiniestroArchivo::leer(int pos) {
     return registro;
   }
 
-  fseek(pFile, sizeof(Siniestro) * pos, SEEK_SET);
+  fseek(pFile, sizeof(TipoSeguro) * pos, SEEK_SET);
 
-  fread(&registro, sizeof(Siniestro), 1, pFile);
+  fread(&registro, sizeof(TipoSeguro), 1, pFile);
 
   fclose(pFile);
 
   return registro;
 }
 
-int SiniestroArchivo::leerTodos(Siniestro siniestros[], int cantidad) {
+int TiposSegurosArchivo::leerTodos(TipoSeguro tiposSeguros[], int cantidad) {
   int result;
   FILE* pFile;
 
@@ -73,14 +74,14 @@ int SiniestroArchivo::leerTodos(Siniestro siniestros[], int cantidad) {
     return 0;
   }
 
-  result = fread(siniestros, sizeof(Siniestro), cantidad, pFile);
+  result = fread(tiposSeguros, sizeof(TipoSeguro), cantidad, pFile);
 
   fclose(pFile);
 
   return result;
 }
 
-int SiniestroArchivo::getCantidadRegistros() {
+int TiposSegurosArchivo::getCantidadRegistros() {
   int cantidad;
   FILE* pFile;
 
@@ -91,17 +92,17 @@ int SiniestroArchivo::getCantidadRegistros() {
   }
 
   fseek(pFile, 0, SEEK_END);
-  cantidad = ftell(pFile) / sizeof(Siniestro);
+  cantidad = ftell(pFile) / sizeof(TipoSeguro);
 
   fclose(pFile);
 
   return cantidad;
 }
 
-int SiniestroArchivo::getNuevoID() { return getCantidadRegistros() + 1; }
+int TiposSegurosArchivo::getNuevoID() { return getCantidadRegistros() + 1; }
 
-int SiniestroArchivo::buscarID(int id) {
-  Siniestro registro;
+int TiposSegurosArchivo::buscarID(int id) {
+  TipoSeguro registro;
   FILE* pFile;
   int pos = -1;
 
@@ -111,9 +112,9 @@ int SiniestroArchivo::buscarID(int id) {
     return pos;
   }
 
-  while (fread(&registro, sizeof(Siniestro), 1, pFile)) {
+  while (fread(&registro, sizeof(TipoSeguro), 1, pFile)) {
     if (registro.getId() == id) {
-      pos = ftell(pFile) / sizeof(Siniestro) - 1;
+      pos = ftell(pFile) / sizeof(TipoSeguro) - 1;
       break;
     }
   }
@@ -123,8 +124,8 @@ int SiniestroArchivo::buscarID(int id) {
   return pos;
 }
 
-bool SiniestroArchivo::eliminar(int pos) {
-  Siniestro registro;
+bool TiposSegurosArchivo::eliminar(int pos) {
+  TipoSeguro registro;
   registro = leer(pos);
   registro.setEliminado(true);
   return guardar(registro, pos);
