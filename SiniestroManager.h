@@ -2,7 +2,7 @@
 
 #include "SiniestroArchivo.h"
 #include "PolizaArchivo.h"
-
+#include "TiposSiniestrosArchivo.h"
 
 class SiniestroManager {
     public:
@@ -19,4 +19,7 @@ class SiniestroManager {
     private:
         SiniestroArchivo _archivo;
         PolizaArchivo _polizaArchivo;
+        TiposSiniestrosArchivo _tiposSiniestrosArchivo;
+
+        void mostrarSiniestro(Siniestro siniestro);
 };

@@ -9,16 +9,15 @@ SiniestroManager::SiniestroManager()
 
 void SiniestroManager::mostrar() {
     int cantidad = _archivo.getCantidadRegistros();
-    for (int i = 0; i < cantidad; i++) {
-        Siniestro s = _archivo.leer(i);
-        if (!s.getEliminado()) {
-            cout << "ID: " << s.getId() << ", Poliza: " << s.getIdPoliza()
-                 << ", Tipo: " << s.getTipoSiniestro()
-                 << ", Costo: $" << s.getCostoEstimado()
-                 << ", Fecha Siniestro: " << s.getFechaSiniestro().formatoFecha()
-                 << ", Vigente: " << (s.getEstado() ? "Sí" : "No")
-                 << endl;
+    if (cantidad != 0) {
+        for (int i = 0; i < cantidad; i++) {
+            Siniestro s = _archivo.leer(i);
+            if (!s.getEliminado()) 
+                mostrarSiniestro(s);
         }
+    }
+    else {
+        cout << "No hay siniestros para mostrar." << endl;
     }
 }
 
@@ -35,13 +34,24 @@ void SiniestroManager::cargar() {
     cin >> mes;
     cout << "Ingrese el anio de la fecha del siniestro: ";
     cin >> anio;
-    Fecha fecha(dia, mes, anio);
-    string tipo;
-    float costo;
-    cout << "Tipo de siniestro: "; tipo = cargarCadena();
-    cout << "Costo estimado: "; cin >> costo;
 
-    Siniestro s(id, idPoliza, fecha, tipo, costo, true, false);
+    Fecha fecha(dia, mes, anio);
+    int idTipo;    
+    float costo;
+    
+    cout << "Id del Tipo de siniestro: "; cin >> idTipo;
+    if (_tiposSiniestrosArchivo.buscarID(idTipo) == -1) {
+        cout << "La poliza asociada no existe. Operacion cancelada." << endl;
+        return;
+    }
+
+    cout << "Costo estimado: "; cin >> costo;
+    if (costo < 0) {
+        cout << "El costo estimado no puede ser negativo. Operacion cancelada." << endl;
+        return;
+    }
+
+    Siniestro s(id, idPoliza, fecha, idTipo, costo, true, false);
     if (_archivo.guardar(s)) cout << "Siniestro registrado." << endl;
     else cout << "Error al guardar." << endl;
 }
@@ -91,11 +101,7 @@ void SiniestroManager::buscarPorIdPoliza() {
     for (int i = 0; i < cantidad; i++) {
         Siniestro s = _archivo.leer(i);
         if (s.getIdPoliza() == idPoliza && !s.getEliminado()) {
-            cout << "ID: " << s.getId() << ", Tipo: " << s.getTipoSiniestro()
-                 << ", Costo: $" << s.getCostoEstimado()
-                 << ", Fecha Siniestro: " << s.getFechaSiniestro().formatoFecha()
-                 << ", Vigente: " << (s.getEstado() ? "Sí" : "No")
-                 << endl;
+            mostrarSiniestro(s);
             encontrado = true;
         }
     }
@@ -128,9 +134,15 @@ void SiniestroManager::modificarTipoSiniestro() {
     int pos = _archivo.buscarID(id);
     if (pos != -1) {
         Siniestro s = _archivo.leer(pos);
-        string nuevoTipo;
-        cout << "Nuevo tipo de siniestro: "; nuevoTipo = cargarCadena();
-        s.setTipoSiniestro(nuevoTipo);
+        int nuevoTipo;
+        cout << "Nuevo tipo de siniestro: "; 
+        cin >> nuevoTipo;
+        int posTipo = _tiposSiniestrosArchivo.buscarID(nuevoTipo);
+        if (posTipo == -1) {
+            cout << "Tipo de siniestro no encontrado. Modificación cancelada." << endl;
+            return;
+        }
+        s.setIdTipoSiniestro(nuevoTipo);
         cout << (_archivo.guardar(s, pos) ? "Tipo de siniestro modificado." : "Error al modificar el tipo de siniestro.") << endl;
     } else {
         cout << "No se encontró el siniestro." << endl;
@@ -165,4 +177,15 @@ void SiniestroManager::modificarEstadoSiniestro() {
     } else {
         cout << "No se encontró el siniestro." << endl;
     }
+}
+
+void SiniestroManager::mostrarSiniestro(Siniestro siniestro) {
+    int posicion = _tiposSiniestrosArchivo.buscarID(siniestro.getIdTipoSiniestro());
+    TipoSiniestro tipoSiniestro = _tiposSiniestrosArchivo.leer(posicion); 
+    cout << "ID: " << siniestro.getId() << ", Poliza: " << siniestro.getIdPoliza()
+         << ", Tipo: " << tipoSiniestro.getDescripcion()
+         << ", Costo: $" << siniestro.getCostoEstimado()
+         << ", Fecha Siniestro: " << siniestro.getFechaSiniestro().formatoFecha()
+         << ", Vigente: " << (siniestro.getEstado() ? "Sí" : "No")
+         << endl;
 }
