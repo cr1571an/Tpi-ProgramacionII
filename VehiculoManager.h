@@ -10,17 +10,29 @@ class VehiculoManager {
         void cargar(int iDCliente);
         void mostrar();
         void eliminar(int id);
-        void eliminarPorPatente();
-        void actualizar();
         void mostrarVehiculosDeCliente(int idClienteBuscado);
-        void mostrarVehiculosDeClientePorDNI(ClienteManager& clienteManager);
+        void mensajeErrorNumeroChasis();
+        void mensajeErrorNumeroMotor();
+        void mensajeErrorPatente();
+        void modificarPatente(int id);
+        void modificarUso(int id);
+        void modificarCategoria(int id);
+        void modificarNumChasis(int id);
+        void modificarNumMotor(int id);
+        void modificarAnio(int id);
+        void listadoPorMarca();
+        void listadoPorAnio();
+
+        int estadoCliente(int id);
         int buscarIdPorPatente(std::string patente);
 
-
-
-    protected:
+        std::string nombreApellidoClinete(int idCliente);
+        bool buscarNumMotor(std::string numMotor);
+        bool buscarNumChasis(std::string numChasis);
         void mostrarLista(Vehiculo vehiculo);
 
     private:
         VehiculosArchivo _vehiculosArchivo;
+        ClientesArchivo _clientesArchivo;
+
 };

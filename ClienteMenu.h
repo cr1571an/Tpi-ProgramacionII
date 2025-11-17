@@ -1,17 +1,24 @@
 #pragma once
 #include "ClienteManager.h"
 
+
 class ClienteMenu {
-    public:
-      ClienteMenu();
-      void mostrar();
+  public:
+    ClienteMenu();
+    void mostrar();
+    int buscarCliente();
+    void modificarCliente();
+    void darAltaCliente(int id);
+    void buscar();
+    void mostrarReportes();
 
-    protected:
-      void mostrarOpciones();
-      int seleccionOpcion();
-      void ejecutarOpcion(int opcion);
-      ClienteManager _clienteMenu;
+  protected:
+    void mostrarOpciones();
+    int seleccionOpcion();
+    void ejecutarOpcion(int opcion);
 
-    private:
-      int _cantidadOpciones;
+  private:
+    int _cantidadOpciones;
+    ClienteManager _clienteManager;
+    ClientesArchivo _clientesArchivo;
 };

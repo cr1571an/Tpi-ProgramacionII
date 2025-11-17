@@ -1,6 +1,6 @@
 #pragma once
+#include "ClienteMenu.h"
 #include "PolizaArchivo.h"
-#include "Poliza.h"
 #include "VehiculoManager.h"
 #include "ClientesArchivo.h"
 #include "VehiculosArchivo.h"
@@ -21,6 +21,7 @@ class PolizaManager {
         VehiculoManager _vehiculoManager;
         ClientesArchivo _archivoCliente;
         VehiculosArchivo _archivoVehiculos;
+        ClienteMenu _clienteMenu;
 
         int buscarPorId();
 };

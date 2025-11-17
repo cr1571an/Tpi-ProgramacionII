@@ -12,6 +12,8 @@ public:
     int getAnioVencimiento();
     int getDiaVencimiento();
     int getMesVencimiento();
+    int validarEdad(Fecha fechaActual) ;
+
 
     void setDia(int dia);
     void setMes(int mes);

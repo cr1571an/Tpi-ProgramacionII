@@ -35,7 +35,7 @@ int generarClientes() {
   getline(archivo, linea);  // salteamos encabezado
 
   while (getline(archivo, linea)) {
-    int id = repositorioClientes.getID();
+    int id = repositorioClientes.getIdClienteUltimo();
     stringstream ss(linea);
     string campo;
 
@@ -90,13 +90,13 @@ int generarVehiculos() {
   getline(archivo, linea);  // salteamos encabezado
 
   while (getline(archivo, linea)) {
-    int id = repositorioVehiculos.getID();
+   // int id = repositorioVehiculos.getIdVehiculo();
     stringstream ss(linea);
     string campo;
 
     Vehiculo v{};
 
-    v.setId(id);
+   // v.setId(id);
 
     getline(ss, campo, ',');
     int idCliente = atoi(campo.c_str());

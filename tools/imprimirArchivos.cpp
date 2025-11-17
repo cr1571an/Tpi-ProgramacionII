@@ -58,7 +58,7 @@ void imprimirArchivos() {
 
   cout << "-------------VEHICULOS-------------------" << endl;
   for (int i = 0; i < cantidadVehiculos; i++) {
-    cout << vVehiculos[i].getId() << " | " << vVehiculos[i].getIdCliente()
+    cout << vVehiculos[i].getIdVehiculo() << " | " << vVehiculos[i].getIdCliente()
          << " | " << vVehiculos[i].getAnio() << " | "
          << vVehiculos[i].getMarca() << " | " << vVehiculos[i].getModelo()
          << " | " << vVehiculos[i].getPatente() << " | "

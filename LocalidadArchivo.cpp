@@ -1,12 +1,14 @@
 #include "LocalidadArchivo.h"
 #include <iostream>
+
+#include "utils.h"
 using namespace std;
 
 LocalidadArchivo::LocalidadArchivo(): _nombreArchivo("Localidades.dat") {
 
 }
 
-LocalidadArchivo::LocalidadArchivo(std::string nombreArchivo)
+LocalidadArchivo::LocalidadArchivo(string nombreArchivo)
     : _nombreArchivo(nombreArchivo) {
 }
 
@@ -65,6 +67,10 @@ int LocalidadArchivo::getCantidadRegistros() {
     return cantidad;
 }
 
+int LocalidadArchivo::getUltimoID() {
+    return getCantidadRegistros() + 1;
+}
+
 int LocalidadArchivo::buscarPorCodigoPostal(int codigoPostal) {
     Localidad registro;
     int pos = -1;
@@ -84,9 +90,10 @@ int LocalidadArchivo::buscarPorCodigoPostal(int codigoPostal) {
 }
 
 void LocalidadArchivo::mostrarLocalidad(Localidad loc) {
-    cout << loc.getPartido() << " | "
-         << loc.getLocalidad() << " | "
-         << loc.getCodigoPostal() << endl;
+    cout << loc.getIDLocalidad()<< " | "
+         << loc.getCodigoPostal()<< " | "
+         << loc.getPartido() << " | "
+         << loc.getLocalidad() << endl;
 }
 
 
@@ -100,8 +107,7 @@ void LocalidadArchivo::mostrar() {
     }
 
     leerTodos(vLocalidad, cantidad);
-    cout << "PARTIDO | LOCALIDAD | C.P " << endl;
-
+    cout << "ID |  C.P  |    PARTIDO   |   LOCALIDAD " << endl;
     for (int i = 0; i < cantidad; i++) {
         mostrarLocalidad(vLocalidad[i]);
     }
@@ -127,11 +133,11 @@ int LocalidadArchivo::listarPorCodigoPostal(int codigoPostal, Localidad coincide
 
 Localidad LocalidadArchivo::pedirLocalidadPorCodigoPostal() {
     int codigoPostal;
-    cout << "Ingrese el codigo postal: ";
+    cout << "INGRESE EL CODIGO POSTAL: ";
     cin >> codigoPostal;
     int pos = buscarPorCodigoPostal(codigoPostal);
     if (pos == -1) {
-        cout << "No se encontro localidad con ese codigo postal." << endl;
+        cout << "NO HAY CORBERTURA CON ESE CODIGO POSTAL." << endl;
         return Localidad();
     }
     return leer(pos);
@@ -139,24 +145,24 @@ Localidad LocalidadArchivo::pedirLocalidadPorCodigoPostal() {
 
 Localidad LocalidadArchivo::pedirLocalidadPorCodigoPostalInteractivo() {
     int codigoPostal;
-    cout << "Ingrese el codigo postal: ";
+    cout << "INGRESE EL CODIGO POSTAL: ";
     cin >> codigoPostal;
 
     Localidad coincidencias[20];
     int cantCoincidencias = buscarCoincidenciasPorCodigoPostal(codigoPostal, coincidencias, 20);
 
     if (cantCoincidencias == 0) {
-        cout << "Lo sentimos!. No tenemos corbetura con ese C.Postal." << std::endl;
+        cout << "NO HAY CORBERTURA CON ESE CODIGO POSTAL." << endl;
         return Localidad();
     } else if (cantCoincidencias == 1) {
         return coincidencias[0];
     } else {
         mostrarOpcionesLocalidad(coincidencias, cantCoincidencias);
         int opcion;
-        cout << "Ingrese una de las opciones: ";
+        cout << "INGRESE UNA DE LA OPCIONES: ";
         cin >> opcion;
         if (opcion < 1 || opcion > cantCoincidencias) {
-            cout << "Opcion invalida." << std::endl;
+            cout << "OPCION INCORRECTA." << endl;
             return Localidad();
         }
         return coincidencias[opcion-1];
@@ -190,9 +196,75 @@ int LocalidadArchivo::buscarCoincidenciasPorCodigoPostal(int codigoPostal, Local
 
 
 void LocalidadArchivo::mostrarOpcionesLocalidad(Localidad coincidencias[], int cantCoincidencias) {
-    cout << "Elija su localidad:" << endl;
+    cout << "ELIJA SU LOCALIDAD: " << endl;
+    cout << "OPCION |       PARTIDO       |        LOCALIDAD" << endl;
     for (int i = 0; i < cantCoincidencias; i++) {
-        cout << i+1 << ") " << coincidencias[i].getLocalidad()
-                  << " - " << coincidencias[i].getPartido() << endl;
+        cout << i+1 << "| " << coincidencias[i].getPartido()
+                  << " - " << coincidencias[i].getLocalidad() << endl;
     }
+}
+
+bool LocalidadArchivo::existeLocalidad( Localidad loc) {
+    int cantidad = getCantidadRegistros();
+    Localidad* registros = new Localidad[cantidad];
+    leerTodos(registros, cantidad);
+
+    for (int i = 0; i < cantidad; i++) {
+        if (registros[i] == loc) {
+            delete[] registros;
+            return true;
+        }
+    }
+    delete[] registros;
+    return false;
+}
+
+void LocalidadArchivo::cargarLocalidad() {
+    int codigoPostal;
+    int id = getCantidadRegistros() + 1;
+
+    cout << "|||||||||||||||||||||||||||||||||||||" << endl;
+    cout << "||        CARGAR LOCALIDAD         ||" << endl;
+    cout << "|||||||||||||||||||||||||||||||||||||" << endl;
+    cout << "ID: " << id << endl;
+    cout << "INGRESE CODIGO POSTAL: ";
+    cin >> codigoPostal;
+    cin.ignore();
+    cout << "INGRESE NOMBRE DE LA LOCALIDAD: ";
+    string localidad = cargarCadena();
+    cout << "INGRESE PARTIDO: ";
+    string partido = cargarCadena();
+    Localidad reg(id, codigoPostal, localidad, partido);
+    if (existeLocalidad(reg)) {
+        cout << "YA EXISTE UN REGISTRO IGUAL." << endl;
+        return;
+    }
+    if (guardar(reg)) {
+        cout << "SE GUARDO CORRECTAMENTE" << endl;
+    } else {
+        cout << "ERROR!" << endl;
+    }
+}
+
+
+int LocalidadArchivo::partidosUnicos(string partidos[], int maxPartidos) {
+    int cant = getCantidadRegistros();
+    Localidad *localidades = new Localidad[cant];
+    leerTodos(localidades, cant);
+    int partidosUsados = 0;
+    for (int i = 0; i < cant; ++i) {
+        string partido = localidades[i].getPartido();
+        bool existe = false;
+        for (int j = 0; j < partidosUsados; ++j) {
+            if (partidos[j] == partido) {
+                existe = true;
+                break;
+            }
+        }
+        if (!existe && partidosUsados < maxPartidos) {
+            partidos[partidosUsados++] = partido;
+        }
+    }
+    delete[] localidades;
+    return partidosUsados;
 }
