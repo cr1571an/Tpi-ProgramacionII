@@ -90,7 +90,16 @@ bool Fecha::operator==(Fecha fecha) {
     return true;
 }
 
+bool Fecha::operator<(Fecha fecha) {
+    if (_anio != fecha.getAnio())
+        return _anio < fecha.getAnio();
+
+    if (_mes != fecha.getMes())
+        return _mes < fecha.getMes();
+
+    return _dia < fecha.getDia();
+}
+
 string Fecha::formatoFecha() {
     return to_string(_dia) + "/" + to_string(_mes) + "/" + to_string(_anio);
 }
-

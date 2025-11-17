@@ -1,7 +1,7 @@
 #pragma once
 #include <string>
 
-class Fecha {
+class Fecha{
 public:
     Fecha();
     Fecha(int dia, int mes, int anio);
@@ -19,8 +19,9 @@ public:
     void sumarDias();
     bool operator>(Fecha fecha);
     bool operator==(Fecha fecha);
+    bool operator<(Fecha fecha);
 
-    std::string formatoFecha(); // mes/dia/anio
+    std::string formatoFecha();
 
 private:
     int _dia, _mes, _anio;
