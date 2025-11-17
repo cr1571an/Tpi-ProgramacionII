@@ -196,9 +196,9 @@ void ClienteMenu::mostrarReportes() {
     cout << "SELECCIONE UNA OPCION: ";
     cin >> opcion;
     switch (opcion) {
-        case 1: _clienteManager.listadoPorApellido(); break;
-        case 2: _clienteManager.listadoActivos(); break;
-        case 3: _clienteManager.listadoEliminados(); break;
+      //  case 1: _clienteManager.listadoPorApellido(); break;
+    //    case 2: _clienteManager.listadoActivos(); break;
+     //   case 3: _clienteManager.listadoEliminados(); break;
         case 4: //_clienteManager.clientePorRangoEdad(); break;
         case 0: cout << "VOLVER AL MENU ANTERIOR..."<<endl; break;
         default: cout << "OPCION INVALIDA."<<endl; break;

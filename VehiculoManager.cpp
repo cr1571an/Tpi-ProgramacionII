@@ -275,44 +275,44 @@ void VehiculoManager::modificarAnio(int idVehiculo) {
     }
 }
 
-void VehiculoManager::listadoPorMarca() {
-    int cantidad = _vehiculosArchivo.cantidadRegistros();
-    Vehiculo vehiculos[cantidad];
-    _vehiculosArchivo.leerTodos(vehiculos, cantidad);
-    for (int i = 0; i < cantidad - 1; i++) {
-        for (int j = 0; j < cantidad - i - 1; j++) {
-            if (vehiculos[j].getMarca() > vehiculos[j + 1].getMarca()) {
-                Vehiculo aux = vehiculos[j];
-                vehiculos[j] = vehiculos[j + 1];
-                vehiculos[j + 1] = aux;
-            }
-        }
-    }
-    cout << "LISTADO DE VEHICULOS POR MARCA:" << endl;
-    for (int i = 0; i < cantidad; i++) {
-        if (!vehiculos[i].getEliminado()) {
-            mostrarLista(vehiculos[i]);
-        }
-    }
-}
+//void VehiculoManager::listadoPorMarca() {
+//    int cantidad = _vehiculosArchivo.cantidadRegistros();
+//    Vehiculo vehiculos[cantidad];
+//    _vehiculosArchivo.leerTodos(vehiculos, cantidad);
+//    for (int i = 0; i < cantidad - 1; i++) {
+//        for (int j = 0; j < cantidad - i - 1; j++) {
+//            if (vehiculos[j].getMarca() > vehiculos[j + 1].getMarca()) {
+//                Vehiculo aux = vehiculos[j];
+//                vehiculos[j] = vehiculos[j + 1];
+//                vehiculos[j + 1] = aux;
+//            }
+//        }
+//    }
+//    cout << "LISTADO DE VEHICULOS POR MARCA:" << endl;
+//    for (int i = 0; i < cantidad; i++) {
+//        if (!vehiculos[i].getEliminado()) {
+//            mostrarLista(vehiculos[i]);
+//        }
+//    }
+//}
 
-void VehiculoManager::listadoPorAnio() {
-    int cantidad = _vehiculosArchivo.cantidadRegistros();
-    Vehiculo vehiculos[cantidad];
-    _vehiculosArchivo.leerTodos(vehiculos, cantidad);
-    for (int i = 0; i < cantidad - 1; i++) {
-        for (int j = 0; j < cantidad - i - 1; j++) {
-            if (vehiculos[j].getAnio() > vehiculos[j + 1].getAnio()) {
-                Vehiculo aux = vehiculos[j];
-                vehiculos[j] = vehiculos[j + 1];
-                vehiculos[j + 1] = aux;
-            }
-        }
-    }
-    cout << "LISTADO DE VEHICULOS POR ANIO:" << endl;
-    for (int i = 0; i < cantidad; i++) {
-        if (!vehiculos[i].getEliminado()) {
-            mostrarLista(vehiculos[i]);
-        }
-    }
-}
+//void VehiculoManager::listadoPorAnio() {
+//    int cantidad = _vehiculosArchivo.cantidadRegistros();
+//    Vehiculo vehiculos[cantidad];
+//    _vehiculosArchivo.leerTodos(vehiculos, cantidad);
+//    for (int i = 0; i < cantidad - 1; i++) {
+//        for (int j = 0; j < cantidad - i - 1; j++) {
+//            if (vehiculos[j].getAnio() > vehiculos[j + 1].getAnio()) {
+//                Vehiculo aux = vehiculos[j];
+//                vehiculos[j] = vehiculos[j + 1];
+//                vehiculos[j + 1] = aux;
+//            }
+//        }
+//    }
+//    cout << "LISTADO DE VEHICULOS POR ANIO:" << endl;
+//    for (int i = 0; i < cantidad; i++) {
+//        if (!vehiculos[i].getEliminado()) {
+//            mostrarLista(vehiculos[i]);
+//        }
+//    }
+//}

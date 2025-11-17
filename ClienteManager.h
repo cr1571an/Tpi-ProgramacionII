@@ -12,7 +12,6 @@ public:
     void modificarCorreo(int idCliente);
     void modificarFechaNacimiento(int idCliente);
     void modificarLocalidad(int idCliente);
-    void listadoPorApellido();
     void listadoActivos();
     void listadoEliminados();
     //void clientePorRangoEdad();

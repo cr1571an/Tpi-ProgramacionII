@@ -364,8 +364,8 @@ void VehiculoMenu::mostrarReportes() {
         cout << "SELECCIONE UNA OPCION: ";
         cin >> opcion;
         switch (opcion) {
-            case 1: _vehiculoManager.listadoPorMarca(); break;
-            case 2: _vehiculoManager.listadoPorAnio(); break;
+         //   case 1: _vehiculoManager.listadoPorMarca(); break;
+          //  case 2: _vehiculoManager.listadoPorAnio(); break;
             case 0: cout << "VOLVER AL MENU ANTERIOR..." << endl; break;
             default: cout << "OPCION INVALIDA." << endl; break;
         }

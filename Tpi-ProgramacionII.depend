@@ -1,61 +1,63 @@
 # depslib dependency file v1.0
-1763235860 source:c:\users\usuario\source\utn\tpi-programacionii\app.cpp
+1763420222 source:c:\users\usuario\source\utn\tpi-programacionii\app.cpp
 	<iostream>
 	"App.h"
 
-1763235860 c:\users\usuario\source\utn\tpi-programacionii\app.h
+1763420222 c:\users\usuario\source\utn\tpi-programacionii\app.h
 	"ClienteMenu.h"
 	"VehiculoMenu.h"
 	"PolizaMenu.h"
 	"SiniestroMenu.h"
 	"PagoMenu.h"
 
-1762789291 c:\users\usuario\source\utn\tpi-programacionii\clientemenu.h
+1763420222 c:\users\usuario\source\utn\tpi-programacionii\clientemenu.h
 	"ClienteManager.h"
 
-1762789291 c:\users\usuario\source\utn\tpi-programacionii\clientemanager.h
+1763420445 c:\users\usuario\source\utn\tpi-programacionii\clientemanager.h
 	"ClientesArchivo.h"
 
-1762789291 c:\users\usuario\source\utn\tpi-programacionii\clientesarchivo.h
+1763420222 c:\users\usuario\source\utn\tpi-programacionii\clientesarchivo.h
 	<string>
 	"ClientesArchivo.h"
 	"Cliente.h"
 
-1762823345 c:\users\usuario\source\utn\tpi-programacionii\cliente.h
+1763420222 c:\users\usuario\source\utn\tpi-programacionii\cliente.h
 	"Localidad.h"
 	"Fecha.h"
 
-1762789291 c:\users\usuario\source\utn\tpi-programacionii\localidad.h
+1763420222 c:\users\usuario\source\utn\tpi-programacionii\localidad.h
 	<string>
 
-1763417976 c:\users\usuario\source\utn\tpi-programacionii\fecha.h
+1763420222 c:\users\usuario\source\utn\tpi-programacionii\fecha.h
 	<string>
 
-1762789291 c:\users\usuario\source\utn\tpi-programacionii\vehiculomenu.h
+1763420223 c:\users\usuario\source\utn\tpi-programacionii\vehiculomenu.h
 	"VehiculoManager.h"
 	"ClienteManager.h"
+	"ClienteMenu.h"
+	"ClientesArchivo.h"
 
-1763234886 c:\users\usuario\source\utn\tpi-programacionii\vehiculomanager.h
+1763420223 c:\users\usuario\source\utn\tpi-programacionii\vehiculomanager.h
 	"Vehiculo.h"
 	"VehiculosArchivo.h"
 	"ClienteManager.h"
 	<string>
 
-1762823345 c:\users\usuario\source\utn\tpi-programacionii\vehiculo.h
+1763420223 c:\users\usuario\source\utn\tpi-programacionii\vehiculo.h
 	<string>
 
-1762789291 c:\users\usuario\source\utn\tpi-programacionii\vehiculosarchivo.h
+1763420223 c:\users\usuario\source\utn\tpi-programacionii\vehiculosarchivo.h
 	<string>
 	"Cliente.h"
 	"Vehiculo.h"
 	"VehiculosArchivo.h"
 
-1762823345 source:c:\users\usuario\source\utn\tpi-programacionii\cliente.cpp
+1763420222 source:c:\users\usuario\source\utn\tpi-programacionii\cliente.cpp
 	<string>
 	<cstring>
 	"Cliente.h"
 
-1762823345 source:c:\users\usuario\source\utn\tpi-programacionii\clientemanager.cpp
+1763420539 source:c:\users\usuario\source\utn\tpi-programacionii\clientemanager.cpp
 	<string>
 	"ClientesArchivo.h"
 	"ClienteManager.h"
@@ -64,75 +66,77 @@
 	<bits/ostream.tcc>
 	"utils.h"
 
-1762789291 c:\users\usuario\source\utn\tpi-programacionii\localidadarchivo.h
+1763420222 c:\users\usuario\source\utn\tpi-programacionii\localidadarchivo.h
 	"Localidad.h"
 	<string>
 
-1763324159 c:\users\usuario\source\utn\tpi-programacionii\utils.h
+1763420223 c:\users\usuario\source\utn\tpi-programacionii\utils.h
 	<string>
 	"Fecha.h"
 
-1762789291 source:c:\users\usuario\source\utn\tpi-programacionii\clientemenu.cpp
+1763420539 source:c:\users\usuario\source\utn\tpi-programacionii\clientemenu.cpp
 	<iostream>
 	"ClienteMenu.h"
+	"utils.h"
 
-1762789291 source:c:\users\usuario\source\utn\tpi-programacionii\clientesarchivo.cpp
+1763420222 source:c:\users\usuario\source\utn\tpi-programacionii\clientesarchivo.cpp
 	"ClientesArchivo.h"
 	<iostream>
 
-1763417976 source:c:\users\usuario\source\utn\tpi-programacionii\fecha.cpp
+1763420222 source:c:\users\usuario\source\utn\tpi-programacionii\fecha.cpp
 	<iostream>
 	<ctime>
 	"Fecha.h"
 
-1762948611 source:c:\users\usuario\source\utn\tpi-programacionii\localidad.cpp
+1763420222 source:c:\users\usuario\source\utn\tpi-programacionii\localidad.cpp
 	"Localidad.h"
 	<cstring>
 
-1762789291 source:c:\users\usuario\source\utn\tpi-programacionii\localidadarchivo.cpp
+1763420222 source:c:\users\usuario\source\utn\tpi-programacionii\localidadarchivo.cpp
 	"LocalidadArchivo.h"
 	<iostream>
+	"utils.h"
 
-1763418154 source:c:\users\usuario\source\utn\tpi-programacionii\main.cpp
+1763420223 source:c:\users\usuario\source\utn\tpi-programacionii\main.cpp
 	<windows.h>
 	<iostream>
 	"App.h"
 	"tools/imprimirArchivos.h"
 	"tools/generadorDeArchivosDeDatos.h"
 
-1763234886 source:c:\users\usuario\source\utn\tpi-programacionii\pago.cpp
+1763420222 source:c:\users\usuario\source\utn\tpi-programacionii\pago.cpp
 	"Pago.h"
 	<cstring>
 
-1763234886 c:\users\usuario\source\utn\tpi-programacionii\pago.h
+1763420222 c:\users\usuario\source\utn\tpi-programacionii\pago.h
 	<string>
 	"Fecha.h"
 
-1763234886 source:c:\users\usuario\source\utn\tpi-programacionii\pagoarchivo.cpp
+1763420222 source:c:\users\usuario\source\utn\tpi-programacionii\pagoarchivo.cpp
 	"PagoArchivo.h"
 	<iostream>
 	<cstdio>
 
-1763234886 c:\users\usuario\source\utn\tpi-programacionii\pagoarchivo.h
+1763420222 c:\users\usuario\source\utn\tpi-programacionii\pagoarchivo.h
 	<string>
 	"Pago.h"
 
-1763417976 source:c:\users\usuario\source\utn\tpi-programacionii\pagomanager.cpp
+1763420222 source:c:\users\usuario\source\utn\tpi-programacionii\pagomanager.cpp
 	<iostream>
 	<string>
 	<limits>
 	"utils.h"
 	"PagoManager.h"
 
-1763417976 c:\users\usuario\source\utn\tpi-programacionii\pagomanager.h
+1763420222 c:\users\usuario\source\utn\tpi-programacionii\pagomanager.h
 	"PagoArchivo.h"
 	"Pago.h"
 
-1763324159 source:c:\users\usuario\source\utn\tpi-programacionii\poliza.cpp
+1763420222 source:c:\users\usuario\source\utn\tpi-programacionii\poliza.cpp
 	"Poliza.h"
 	<cstring>
 
-1763324159 c:\users\usuario\source\utn\tpi-programacionii\poliza.h
+1763420222 c:\users\usuario\source\utn\tpi-programacionii\poliza.h
 	<string>
 	"Fecha.h"
 
@@ -144,7 +148,7 @@
 	<string>
 	"Poliza.h"
 
-1763380137 source:c:\users\usuario\source\utn\tpi-programacionii\polizamanager.cpp
+1763420222 source:c:\users\usuario\source\utn\tpi-programacionii\polizamanager.cpp
 	"PolizaManager.h"
 	"PolizaArchivo.h"
 	"utils.h"
@@ -152,41 +156,41 @@
 	"TipoSeguro.h"
 	<iostream>
 
-1763324159 c:\users\usuario\source\utn\tpi-programacionii\polizamanager.h
+1763420222 c:\users\usuario\source\utn\tpi-programacionii\polizamanager.h
+	"ClienteMenu.h"
 	"PolizaArchivo.h"
-	"Poliza.h"
 	"VehiculoManager.h"
 	"ClientesArchivo.h"
 	"VehiculosArchivo.h"
 	"TiposSegurosArchivo.h"
 
-1763380137 source:c:\users\usuario\source\utn\tpi-programacionii\siniestro.cpp
+1763420222 source:c:\users\usuario\source\utn\tpi-programacionii\siniestro.cpp
 	"Siniestro.h"
 	<cstring>
 
-1763380137 c:\users\usuario\source\utn\tpi-programacionii\siniestro.h
+1763420222 c:\users\usuario\source\utn\tpi-programacionii\siniestro.h
 	<string>
 	"Fecha.h"
 
-1763380137 source:c:\users\usuario\source\utn\tpi-programacionii\siniestroarchivo.cpp
+1763420222 source:c:\users\usuario\source\utn\tpi-programacionii\siniestroarchivo.cpp
 	"SiniestroArchivo.h"
 	<iostream>
 
-1763235860 c:\users\usuario\source\utn\tpi-programacionii\siniestroarchivo.h
+1763420222 c:\users\usuario\source\utn\tpi-programacionii\siniestroarchivo.h
 	<string>
 	"Siniestro.h"
 
-1763380137 source:c:\users\usuario\source\utn\tpi-programacionii\siniestromanager.cpp
+1763420222 source:c:\users\usuario\source\utn\tpi-programacionii\siniestromanager.cpp
 	"SiniestroManager.h"
 	<iostream>
 	"utils.h"
 
-1763380137 c:\users\usuario\source\utn\tpi-programacionii\siniestromanager.h
+1763420222 c:\users\usuario\source\utn\tpi-programacionii\siniestromanager.h
 	"SiniestroArchivo.h"
 	"PolizaArchivo.h"
 	"TiposSiniestrosArchivo.h"
 
-1763380137 source:c:\users\usuario\source\utn\tpi-programacionii\tools\generadordearchivosdedatos.cpp
+1763420223 source:c:\users\usuario\source\utn\tpi-programacionii\tools\generadordearchivosdedatos.cpp
 	"generadorDeArchivosDeDatos.h"
 	<filesystem>
 	<fstream>
@@ -209,9 +213,9 @@
 	"../TiposSiniestrosArchivo.h"
 	"../TipoSiniestro.h"
 
-1763380137 c:\users\usuario\source\utn\tpi-programacionii\tools\generadordearchivosdedatos.h
+1763420223 c:\users\usuario\source\utn\tpi-programacionii\tools\generadordearchivosdedatos.h
 
-1763380137 source:c:\users\usuario\source\utn\tpi-programacionii\tools\imprimirarchivos.cpp
+1763420223 source:c:\users\usuario\source\utn\tpi-programacionii\tools\imprimirarchivos.cpp
 	<iostream>
 	"../Cliente.h"
 	"../ClientesArchivo.h"
@@ -229,31 +233,31 @@
 	"../TiposSiniestrosArchivo.h"
 	"../TipoSiniestro.h"
 
-1763324159 source:c:\users\usuario\source\utn\tpi-programacionii\utils.cpp
+1763420223 source:c:\users\usuario\source\utn\tpi-programacionii\utils.cpp
 	"utils.h"
 	<cctype>
 	<iostream>
 	<string>
 	<limits>
 
-1763234886 source:c:\users\usuario\source\utn\tpi-programacionii\vehiculo.cpp
+1763420223 source:c:\users\usuario\source\utn\tpi-programacionii\vehiculo.cpp
 	<string>
 	<cstring>
 	<iostream>
 	"Vehiculo.h"
 
-1763234886 source:c:\users\usuario\source\utn\tpi-programacionii\vehiculomanager.cpp
+1763420608 source:c:\users\usuario\source\utn\tpi-programacionii\vehiculomanager.cpp
 	<iostream>
 	<string>
 	"VehiculoManager.h"
 	"utils.h"
 	"VehiculoMenu.h"
 
-1762789291 source:c:\users\usuario\source\utn\tpi-programacionii\vehiculomenu.cpp
+1763420798 source:c:\users\usuario\source\utn\tpi-programacionii\vehiculomenu.cpp
 	<iostream>
 	"VehiculoMenu.h"
 
-1762789291 source:c:\users\usuario\source\utn\tpi-programacionii\vehiculosarchivo.cpp
+1763420223 source:c:\users\usuario\source\utn\tpi-programacionii\vehiculosarchivo.cpp
 	"VehiculosArchivo.h"
 	<iostream>
 
@@ -262,52 +266,52 @@
 1763234886 c:\users\usuario\source\utn\tpi-programacionii\polizamenu.h
 	"PolizaManager.h"
 
-1763324159 source:c:\users\usuario\source\utn\tpi-programacionii\polizamenu.cpp
+1763420222 source:c:\users\usuario\source\utn\tpi-programacionii\polizamenu.cpp
 	<iostream>
 	"PolizaMenu.h"
 
-1763417976 c:\users\usuario\source\utn\tpi-programacionii\pagomenu.h
+1763420222 c:\users\usuario\source\utn\tpi-programacionii\pagomenu.h
 	"PagoManager.h"
 
-1763417976 source:c:\users\usuario\source\utn\tpi-programacionii\pagomenu.cpp
+1763420222 source:c:\users\usuario\source\utn\tpi-programacionii\pagomenu.cpp
 	<iostream>
 	<limits>
 	"PagoMenu.h"
 
-1763235860 c:\users\usuario\source\utn\tpi-programacionii\siniestromenu.h
+1763420222 c:\users\usuario\source\utn\tpi-programacionii\siniestromenu.h
 	"SiniestroManager.h"
 
-1763235860 source:c:\users\usuario\source\utn\tpi-programacionii\siniestromenu.cpp
+1763420222 source:c:\users\usuario\source\utn\tpi-programacionii\siniestromenu.cpp
 	<iostream>
 	"SiniestroMenu.h"
 
-1763324159 c:\users\usuario\source\utn\tpi-programacionii\tipossegurosarchivo.h
+1763420223 c:\users\usuario\source\utn\tpi-programacionii\tipossegurosarchivo.h
 	<string>
 	"TipoSeguro.h"
 
-1763380137 c:\users\usuario\source\utn\tpi-programacionii\tiposeguro.h
+1763420222 c:\users\usuario\source\utn\tpi-programacionii\tiposeguro.h
 	<string>
 
-1763380137 source:c:\users\usuario\source\utn\tpi-programacionii\tiposeguro.cpp
+1763420222 source:c:\users\usuario\source\utn\tpi-programacionii\tiposeguro.cpp
 	"TipoSeguro.h"
 	<cstring>
 
-1763324159 source:c:\users\usuario\source\utn\tpi-programacionii\tipossegurosarchivo.cpp
+1763420223 source:c:\users\usuario\source\utn\tpi-programacionii\tipossegurosarchivo.cpp
 	"TiposSegurosArchivo.h"
 	<iostream>
 
-1763380137 c:\users\usuario\source\utn\tpi-programacionii\tipossiniestrosarchivo.h
+1763420223 c:\users\usuario\source\utn\tpi-programacionii\tipossiniestrosarchivo.h
 	<string>
 	"TipoSiniestro.h"
 
-1763380137 c:\users\usuario\source\utn\tpi-programacionii\tiposiniestro.h
+1763420222 c:\users\usuario\source\utn\tpi-programacionii\tiposiniestro.h
 	<string>
 
-1763380137 source:c:\users\usuario\source\utn\tpi-programacionii\tiposiniestro.cpp
+1763420222 source:c:\users\usuario\source\utn\tpi-programacionii\tiposiniestro.cpp
 	"TipoSiniestro.h"
 	<cstring>
 
-1763380137 source:c:\users\usuario\source\utn\tpi-programacionii\tipossiniestrosarchivo.cpp
+1763420223 source:c:\users\usuario\source\utn\tpi-programacionii\tipossiniestrosarchivo.cpp
 	"TiposSiniestrosArchivo.h"
 	<iostream>
 

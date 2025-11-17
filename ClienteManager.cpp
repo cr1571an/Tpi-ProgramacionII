@@ -333,50 +333,30 @@ bool ClienteManager::validarEdad(Fecha fechaNacimiento) {
   return true;
 }
 
-void ClienteManager::listadoPorApellido() {
-  int cantidad = _clientesArchivo.getCantidadRegistros();
-  Cliente clientes[cantidad];
-  _clientesArchivo.leerTodos(clientes, cantidad);
-  for (int i = 0; i<cantidad-1; i++) {
-    for (int j = 0; j<cantidad-i-1; j++) {
-      if (clientes[j].getApellido() > clientes[j+1].getApellido()){
-        Cliente aux =clientes[j];
-        clientes[j] =clientes[j+1];
-        clientes[j+1] =aux;
-       }
-    }
-  }
-  for (int i = 0; i < cantidad; i++) {
-    if (!clientes[i].getEliminado()) {
-      mostrarLista(clientes[i], false);
-     }
-  }
-}
+//void ClienteManager::listadoActivos(){
+//  int cantidad = _clientesArchivo.getCantidadRegistros();
+//  Cliente clientes[cantidad];
+//  _clientesArchivo.leerTodos(clientes, cantidad);
+//  cout <<"||||||||||||||||||||||||||||||||||||"<<endl;
+//  cout <<"||        CLIENTES ACTIVOS        ||"<<endl;
+//  cout <<"||||||||||||||||||||||||||||||||||||"<<endl;
+//  for (int i = 0; i < cantidad; i++){
+//    if (!clientes[i].getEliminado()){
+//      mostrarLista(clientes[i], false);
+//    }
+//  }
+//}
 
-void ClienteManager::listadoActivos(){
-  int cantidad = _clientesArchivo.getCantidadRegistros();
-  Cliente clientes[cantidad];
-  _clientesArchivo.leerTodos(clientes, cantidad);
-  cout <<"||||||||||||||||||||||||||||||||||||"<<endl;
-  cout <<"||        CLIENTES ACTIVOS        ||"<<endl;
-  cout <<"||||||||||||||||||||||||||||||||||||"<<endl;
-  for (int i = 0; i < cantidad; i++){
-    if (!clientes[i].getEliminado()){
-      mostrarLista(clientes[i], false);
-    }
-  }
-}
-
-void ClienteManager::listadoEliminados() {
-  int cantidad = _clientesArchivo.getCantidadRegistros();
-  Cliente clientes[cantidad];
-  _clientesArchivo.leerTodos(clientes, cantidad);
-  cout <<"|||||||||||||||||||||||||||||||||||||"<<endl;
-  cout <<"||       CLIENTES ELIMINADOS       ||"<<endl;
-  cout <<"|||||||||||||||||||||||||||||||||||||"<<endl;
-  for (int i = 0; i < cantidad; i++) {
-    if (clientes[i].getEliminado()) {
-      mostrarLista(clientes[i],true);
-     }
-  }
-}
+//void ClienteManager::listadoEliminados() {
+//  int cantidad = _clientesArchivo.getCantidadRegistros();
+//  Cliente clientes[cantidad];
+//  _clientesArchivo.leerTodos(clientes, cantidad);
+//  cout <<"|||||||||||||||||||||||||||||||||||||"<<endl;
+//  cout <<"||       CLIENTES ELIMINADOS       ||"<<endl;
+//  cout <<"|||||||||||||||||||||||||||||||||||||"<<endl;
+//  for (int i = 0; i < cantidad; i++) {
+//    if (clientes[i].getEliminado()) {
+//      mostrarLista(clientes[i],true);
+//     }
+//  }
+//}
