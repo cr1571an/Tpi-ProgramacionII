@@ -24,7 +24,7 @@ int main() {
 //  generarVehiculos();
 //  generarSiniestros();
 //  generarTiposSeguros();
-
+//  generarTiposSiniestros();
 
     return 0;
 }
