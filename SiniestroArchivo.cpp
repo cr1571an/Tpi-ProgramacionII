@@ -45,7 +45,6 @@ bool SiniestroArchivo::guardar(Siniestro registro, int pos) {
 
 Siniestro SiniestroArchivo::leer(int pos) {
   Siniestro registro;
-  bool result;
   FILE* pFile;
 
   pFile = fopen(_nombreArchivo.c_str(), "rb");
