@@ -27,10 +27,10 @@ using namespace std;
 int generarClientes() {
   std::ifstream archivo("inputData/clientes.csv");
   if (!archivo.is_open()) {
-    cerr << "Error al abrir el archivo." << endl;
+    cerr << "Error al abrir el archivo clientes.csv." << endl;
     return 1;
   } else {
-    cout << "Archivo abierto correctamente!" << endl;
+    cout << "Archivo clientes.csv abierto correctamente!" << endl;
   }
 
   ClientesArchivo repositorioClientes;
@@ -82,10 +82,10 @@ int generarClientes() {
 int generarVehiculos() {
   std::ifstream archivo("inputData/vehiculos.csv");
   if (!archivo.is_open()) {
-    cerr << "Error al abrir el archivo." << endl;
+    cerr << "Error al abrir el archivo vehiculos.csv." << endl;
     return 1;
   } else {
-    cout << "Archivo abierto correctamente!" << endl;
+    cout << "Archivo vehiculos.csv abierto correctamente!" << endl;
   }
 
   VehiculosArchivo repositorioVehiculos;
@@ -141,10 +141,10 @@ int generarVehiculos() {
 int generarPolizas() {
   std::ifstream archivo("inputData/polizas.csv");
   if (!archivo.is_open()) {
-    cerr << "Error al abrir el archivo." << endl;
+    cerr << "Error al abrir el archivo polizas.csv." << endl;
     return 1;
   } else {
-    cout << "Archivo abierto correctamente!" << endl;
+    cout << "Archivo polizas.csv abierto correctamente!" << endl;
   }
 
   PolizaArchivo repositorioPolizas;
@@ -203,10 +203,10 @@ int generarPolizas() {
 int generarPagos() {
   std::ifstream archivo("inputData/pagos.csv");
   if (!archivo.is_open()) {
-    cerr << "Error al abrir el archivo." << endl;
+    cerr << "Error al abrir el archivo pagos.csv." << endl;
     return 1;
   } else {
-    cout << "Archivo abierto correctamente!" << endl;
+    cout << "Archivo pagos.csv abierto correctamente!" << endl;
   }
 
   PagoArchivo repositorioPagos;
@@ -258,10 +258,10 @@ int generarPagos() {
 int generarSiniestros() {
   std::ifstream archivo("inputData/siniestros.csv");
   if (!archivo.is_open()) {
-    cerr << "Error al abrir el archivo." << endl;
+    cerr << "Error al abrir el archivo siniestros.csv." << endl;
     return 1;
   } else {
-    cout << "Archivo abierto correctamente!" << endl;
+    cout << "Archivo siniestros.csv abierto correctamente!" << endl;
   }
 
   SiniestroArchivo repositorioSiniestros;
@@ -316,11 +316,11 @@ int generarSiniestros() {
 bool generarTiposSeguros(){
     std::ifstream archivo("inputData/tiposSeguros.csv");
     if (!archivo.is_open()) {
-        cerr << "Error al abrir el archivo de tipos de seguros." << endl;
+        cerr << "Error al abrir el archivo tiposSeguros.csv." << endl;
         return false;
     }
     else {
-        cout << "Archivo de tipos de seguros abierto correctamente!" << endl;
+        cout << "Archivo tiposSeguros.csv abierto correctamente!" << endl;
     }
 
     TiposSegurosArchivo repositorioTiposSeguros;
@@ -360,11 +360,11 @@ bool generarTiposSeguros(){
 bool generarTiposSiniestros(){
     std::ifstream archivo("inputData/tiposSiniestros.csv");
     if (!archivo.is_open()) {
-        cerr << "Error al abrir el archivo de tipos de siniestros." << endl;
+        cerr << "Error al abrir el archivo tiposSiniestros.csv." << endl;
         return false;
     }
     else {
-        cout << "Archivo de tipos de siniestros abierto correctamente!" << endl;
+        cout << "Archivo tiposSiniestros.csv abierto correctamente!" << endl;
     }
 
     TiposSiniestrosArchivo repositorioTiposSiniestros;
