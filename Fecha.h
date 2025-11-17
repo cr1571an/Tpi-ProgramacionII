@@ -9,9 +9,6 @@ public:
     int getDia();
     int getMes();
     int getAnio();
-    int getAnioVencimiento();
-    int getDiaVencimiento();
-    int getMesVencimiento();
 
     void setDia(int dia);
     void setMes(int mes);
