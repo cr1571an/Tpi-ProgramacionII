@@ -49,43 +49,6 @@ void PolizaManager::cargar() {
     } else {
         cout << "No se encontraron vehiculos con esa patente." << endl;
     }
-    if (pos == -3) {
-        cout << "ERROR!. EL CLIENTE ESTA ELIMINADO." << endl;
-        _clienteMenu.darAltaCliente(idCliente);
-        return;
-    }
-    Cliente cliente = _archivoCliente.leer(pos);
-    if (cliente.getEliminado()) {
-        cout << "ERROR!. EL CLIENTE ESTA ELIMINADO." << endl;
-        _clienteMenu.darAltaCliente(idCliente);
-        return;
-    }
-    _vehiculoManager.mostrarVehiculosDeCliente(idCliente);
-    cout << "INGRESE EL ID DEL VEHICULO PARA LA POLIZA: ";
-    int idVehiculo;
-    cin >> idVehiculo;
-    int posVehiculo = _archivoVehiculos.buscarIdVehiculo(idVehiculo);
-    if (posVehiculo < 0) {
-        cout << "ERROR!. EL VEHICULO NO EXISTE." << endl;
-        return;
-    }
-    Vehiculo vehiculo = _archivoVehiculos.leer(posVehiculo);
-    if (vehiculo.getIdCliente() != idCliente || vehiculo.getEliminado()) {
-        cout << "ERROR!. EL VEHICULO NO PERTENECE AL CLIENTE O ESTA ELIMINADO." << endl;
-        return;
-    }
-
-    int id = _archivo.getNuevoID();
-    Fecha inicio, fin;
-    fin.sumarDias();
-    float prima;
-    string tipo;
-    cout << "TIPO DE SEGURO: "; tipo = cargarCadena();
-    cout << "PRIMA MENSUAL: "; cin >> prima;
-
-    Poliza p(id, idVehiculo, inicio, fin, prima, tipo, true, false);
-    if (_archivo.guardar(p)) cout << "POLIZA GUARDADA." << endl;
-    else cout << "ERROR AL GUARDAR." << endl;
 }
 
 
@@ -292,9 +255,9 @@ void PolizaManager::listarPorFechaVencimiento() {
 }
 
 void PolizaManager::mostrarPoliza(Poliza poliza){
-    int posVehiculo = _archivoVehiculos.buscarID(poliza.getIdVehiculo());
+    int posVehiculo = _archivoVehiculos.buscarIdVehiculo(poliza.getIdVehiculo());
     Vehiculo vehiculo = _archivoVehiculos.leer(posVehiculo);
-    int posCliente = _archivoCliente.buscarID(vehiculo.getIdCliente());
+    int posCliente = _archivoCliente.buscarIdCliente(vehiculo.getIdCliente());
     Cliente cliente = _archivoCliente.leer(posCliente);
     int posTipoSeguro = _archivoTipoSeguros.buscarID(poliza.getIdTipoSeguro());
     TipoSeguro tipoSeguro = _archivoTipoSeguros.leer(posTipoSeguro);
