@@ -36,11 +36,16 @@ void PolizaManager::cargar() {
         float prima;
         int tipo;
         cout << "Id Tipo de seguro: "; cin >> tipo;
+        int posTipoSeguro = _archivoTipoSeguros.buscarID(tipo);
+        if (posTipoSeguro == -1) {
+            cout << "Tipo de seguro no encontrado. Operacion cancelada." << endl;
+            return;
+        }
+
         cout << "Prima mensual: "; cin >> prima;
 
         Poliza p(id, idVehiculo, inicio, fin, prima, tipo, true, false);
-        if (_archivo.guardar(p)) cout << "Poliza guardada." << endl;
-        else cout << "Error al guardar." << endl;
+        cout << (_archivo.guardar(p) ? "Poliza creada." : "No se pudo crear la poliza.") << endl;
     } else {
         cout << "No se encontraron vehiculos con esa patente." << endl;
     }
@@ -239,7 +244,9 @@ void PolizaManager::listarPorFechaVencimiento() {
   }
 
   for (int i = 0; i < cantidad; i++)
-  {
+  { 
+    if (polizas[i].getEliminado() || !polizas[i].getVigente())
+      continue;
     mostrarPoliza(polizas[i]);
     cout << "------------------------" << endl;
   }
@@ -248,9 +255,12 @@ void PolizaManager::listarPorFechaVencimiento() {
 }
 
 void PolizaManager::mostrarPoliza(Poliza poliza){
-    Vehiculo vehiculo = _archivoVehiculos.leer(poliza.getIdVehiculo());
-    Cliente cliente = _archivoCliente.leer(vehiculo.getIdCliente());
-    TipoSeguro tipoSeguro = _archivoTipoSeguros.leer(poliza.getIdTipoSeguro());
+    int posVehiculo = _archivoVehiculos.buscarID(poliza.getIdVehiculo());
+    Vehiculo vehiculo = _archivoVehiculos.leer(posVehiculo);
+    int posCliente = _archivoCliente.buscarID(vehiculo.getIdCliente());
+    Cliente cliente = _archivoCliente.leer(posCliente);
+    int posTipoSeguro = _archivoTipoSeguros.buscarID(poliza.getIdTipoSeguro());
+    TipoSeguro tipoSeguro = _archivoTipoSeguros.leer(posTipoSeguro);
     cout << "ID: " << poliza.getId()
          << ", Cliente: " << cliente.getApellido() << " " << cliente.getNombre()
          << ", Vehiculo ID: " << poliza.getIdVehiculo()
