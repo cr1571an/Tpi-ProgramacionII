@@ -2,7 +2,7 @@
 #include <cstring>
 
 TipoSeguro::TipoSeguro(): _id(0), _descripcion(""), _eliminado(false){}
-TipoSeguro::TipoSeguro(int id, const std::string descripcion, bool eliminado) {
+TipoSeguro::TipoSeguro(int id, std::string descripcion, bool eliminado) {
     setId(id);
     setDescripcion(descripcion);
     setEliminado(eliminado);

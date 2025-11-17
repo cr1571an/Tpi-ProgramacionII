@@ -3,7 +3,7 @@
 class TipoSeguro {
  public:
   TipoSeguro();
-  TipoSeguro(int id, const std::string descripcion, bool eliminado);
+  TipoSeguro(int id, std::string descripcion, bool eliminado);
 
   int getId();
   std::string getDescripcion();

@@ -3,7 +3,7 @@
 class TipoSiniestro {
  public:
   TipoSiniestro();
-  TipoSiniestro(int id, const std::string descripcion, bool eliminado);
+  TipoSiniestro(int id, std::string descripcion, bool eliminado);
 
   int getId();
   std::string getDescripcion();
