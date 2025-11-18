@@ -6,11 +6,11 @@
 
 using namespace std;
 
-Vehiculo::Vehiculo(): _id(0), _idCliente(0), _anio(""), _marca(""), _modelo(""), _patente(""), _categoria(""),
+Vehiculo::Vehiculo(): _id(0), _idCliente(0), _anio(0), _marca(""), _modelo(""), _patente(""), _categoria(""),
                         _numMotor(""), _numChasis(""), _uso(""),_eliminado(false) {
 }
 
-Vehiculo::Vehiculo(int id, int idCliente, std::string anio, std::string marca, std::string modelo,
+Vehiculo::Vehiculo(int id, int idCliente, int anio, std::string marca, std::string modelo,
         std::string patente, std::string categoria, bool eliminado,std::string numChasis, std::string numMotor, std::string uso) {
     setIdVehiculo(id);
     setIdCliente(idCliente);
@@ -30,24 +30,24 @@ void Vehiculo::setIdVehiculo(int id) { _id = id; }
 
 void Vehiculo::setIdCliente(int id) { _idCliente = id; }
 
-void Vehiculo::setMarca(std::string marca) {
-    strncpy(_marca, marca.c_str(), 19);
-    _marca[19] = '\0';
+void Vehiculo::setMarca(string marca) {
+    strncpy(_marca, marca.c_str(),sizeof(_marca) - 1);
+    _marca[sizeof(_marca) - 1] = '\0';
 }
 
-void Vehiculo::setModelo(std::string modelo) {
-    strncpy(_modelo, modelo.c_str(), 19);
-    _modelo[19] = '\0';
+void Vehiculo::setModelo(string modelo) {
+    strncpy(_modelo, modelo.c_str(), sizeof(_modelo) - 1);
+    _modelo[sizeof(_modelo) - 1] = '\0';
 }
 
-void Vehiculo::setPatente(std::string patente) {
-    strncpy(_patente, patente.c_str(), 9);
-    _patente[9] = '\0';
+void Vehiculo::setPatente(string patente) {
+    strncpy(_patente, patente.c_str(), sizeof(_patente) - 1);
+    _patente[sizeof(_patente) - 1] = '\0';
 }
 
-void Vehiculo::setCategoria(std::string catehoria) {
-    strncpy(_categoria, catehoria.c_str(), 19);
-    _categoria[19] = '\0';
+void Vehiculo::setCategoria(string catehoria) {
+    strncpy(_categoria, catehoria.c_str(), sizeof(_categoria) - 1);
+    _categoria[sizeof(_categoria) - 1] = '\0';
 }
 
 void Vehiculo::setEliminado(bool eliminado) {
@@ -59,39 +59,38 @@ void Vehiculo::setEliminado(bool eliminado) {
     }
 }
 
-void Vehiculo::setAnio(std::string anio) {
-    int anioInt = atoi(anio.c_str());
-    if (anioInt >= 1900 && anioInt <= 2026) {
-        strncpy(_anio, anio.c_str(), sizeof(_anio) - 1);
-        _anio[sizeof(_anio) - 1] = '\0';
+void Vehiculo::setAnio(int anio) {
+    if (anio >= 1900 && anio < 2026) {
+        _anio=anio;
     }
+    else {_anio = 0;}
 }
 
-void Vehiculo::setUso(std::string uso) {
-    strncpy(_uso, uso.c_str(), 19);
-    _uso[19] = '\0';
+void Vehiculo::setUso(string uso) {
+    strncpy(_uso, uso.c_str(), sizeof(_uso) - 1);
+    _uso[sizeof(_uso) - 1] = '\0';
 }
 
-std::string Vehiculo::getUso() {
+string Vehiculo::getUso() {
     return _uso;
 }
 
 
-void Vehiculo::setNumChasis(std::string numChasis) {
-    strncpy(_numChasis, numChasis.c_str(), 19);
-    _numChasis[19] = '\0';
+void Vehiculo::setNumChasis(string numChasis) {
+    strncpy(_numChasis, numChasis.c_str(), sizeof(_numChasis) - 1);
+    _numChasis[sizeof(_numChasis) - 1] = '\0';
 }
 
-std::string Vehiculo::getNumChasis() {
+string Vehiculo::getNumChasis() {
     return _numChasis;
 }
 
-void Vehiculo::setNumMotor(std::string numMotor) {
-    strncpy(_numMotor, numMotor.c_str(), 19);
-    _numMotor[19] = '\0';
+void Vehiculo::setNumMotor(string numMotor) {
+    strncpy(_numMotor, numMotor.c_str(),sizeof(_numMotor) - 1);
+    _numMotor[sizeof(_numMotor) - 1] = '\0';
 }
 
-std::string Vehiculo::getNumMotor() {
+string Vehiculo::getNumMotor() {
     return _numMotor;
 }
 
@@ -99,15 +98,15 @@ int Vehiculo::getIdVehiculo() {return _id;}
 
 int Vehiculo::getIdCliente() {return _idCliente;}
 
-std::string Vehiculo::getAnio() {return _anio;}
+int Vehiculo::getAnio() {return _anio;}
 
-std::string Vehiculo::getMarca() {return _marca;}
+string Vehiculo::getMarca() {return _marca;}
 
-std::string Vehiculo::getModelo() {return _modelo;}
+string Vehiculo::getModelo() {return _modelo;}
 
-std::string Vehiculo::getPatente() {return _patente;}
+string Vehiculo::getPatente() {return _patente;}
 
-std::string Vehiculo::getCategoria() {return _categoria;}
+string Vehiculo::getCategoria() {return _categoria;}
 
 bool Vehiculo::getEliminado() {return _eliminado;}
 

@@ -11,7 +11,6 @@ string VehiculosArchivo::getNombreArchivo() {
     return _nombreArchivo;
 }
 
-
 bool VehiculosArchivo::guardar(Vehiculo registro) {
     FILE *archivo_vehiculo;
     bool guardado = false;
@@ -119,25 +118,3 @@ int VehiculosArchivo::buscarVehiculo(int idVehiculo) {
     return -1;
 }
 
-int VehiculosArchivo::buscarVehiculo(string patente) {
-    int cantidad = cantidadRegistros();
-    for (int i = 0; i < cantidad; ++i) {
-        Vehiculo v = leer(i);
-        if (v.getPatente() == patente) {
-            return i;
-        }
-    }
-    return -1;
-}
-
-
-int VehiculosArchivo::buscarVehiculoPorCliente(int idCliente) {
-    int cantidad = cantidadRegistros();
-    for (int i = 0; i < cantidad; ++i) {
-        Vehiculo v = leer(i);
-        if (v.getIdCliente() == idCliente) {
-            return i;
-        }
-    }
-    return -1;
-}

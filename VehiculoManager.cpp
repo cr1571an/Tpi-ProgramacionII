@@ -11,6 +11,7 @@ VehiculoManager::VehiculoManager()
 void VehiculoManager::cargar(int iDCliente) {
     VehiculoMenu menu;
     int id = _vehiculosArchivo.getIdVehiculoUltimo();
+    int anio;
     cout <<"|||||||||||||||||||||||||||||||||||||"<<endl;
     cout <<"||      CARGAR NUEVO VEHICULO      ||"<<endl;
     cout <<"|||||||||||||||||||||||||||||||||||||"<<endl;
@@ -22,17 +23,18 @@ void VehiculoManager::cargar(int iDCliente) {
     string modelo = cargarCadena();
     cout << "INGRESE PATENTE: ";
     string patente = cargarCadena();
-    if (buscarIdPorPatente(patente)!=-1) { mensajeErrorPatente(); return; }
+    if (buscarIdPorPatente(patente)!=-1) {cout << "YA EXISTE UN VEHICULO CON ESA PATENTE." << endl; return; }
     cout << "INGRESE ANIO: ";
-    string anio = cargarCadena();
+    cin >> anio;
+    if (anio > 1990 && anio < 2025) {cout << "ANIO INCORRECTO." << endl; return; }
     string uso = menu.mostrarUso();
     string categoria = menu.mostrarCategoria();
     cout << "INGRESE NUMERO DE CHASIS: ";
     string chasis = cargarCadena();
-    if (!buscarNumChasis(chasis)) { mensajeErrorNumeroChasis(); return; }
+    if (!buscarNumChasis(chasis)) {cout << "YA EXISTE UN VEHICULO CON ESE NUMERO DE CHASIS." << endl; return; }
     cout << "INGRESE NUMERO DEL MOTOR: ";
     string numeroMotor = cargarCadena();
-    if (!buscarNumMotor(numeroMotor)) { mensajeErrorNumeroMotor(); return; }
+    if (!buscarNumMotor(numeroMotor)) {cout << "YA EXISTE UN VEHICULO CON ESE NUMERO DE MOTOR." << endl; return; }
     if (_vehiculosArchivo.guardar(Vehiculo(id, iDCliente, anio, marca, modelo, patente, categoria, false, chasis, numeroMotor, uso))) {
         cout << "SE GUARDO CORRECTAMENTE" << endl;
     } else {
@@ -82,28 +84,40 @@ void VehiculoManager::mostrarLista(Vehiculo vehiculo) {
     cout << endl;
 }
 
-void VehiculoManager::mostrarVehiculosDeCliente(int idClienteBuscado) {
+int VehiculoManager::mostrarYContarVehiculosDeCliente(int idClienteBuscado) {
     int cantidad = _vehiculosArchivo.cantidadRegistros();
+    int contador = 0;
     for (int i = 0; i < cantidad; i++) {
-        Vehiculo vehiculo = _vehiculosArchivo.leer(i);
-        if (vehiculo.getIdCliente() == idClienteBuscado) {
-            mostrarLista(vehiculo);
+        Vehiculo v = _vehiculosArchivo.leer(i);
+        if ( v.getIdCliente() == idClienteBuscado) {
+            mostrarLista(v);
+            contador++;
         }
     }
+    return contador;
+}
+
+int VehiculoManager::posVehiculoPorClienteId(int idCliente) {
+    int cantidad = _vehiculosArchivo.cantidadRegistros();
+    Vehiculo v;
+    for (int i = 0; i < cantidad; i++) {
+        v = _vehiculosArchivo.leer(i);
+        if (!v.getEliminado() && v.getIdCliente() == idCliente) {
+            return i;
+        }
+    }
+    return -1;
 }
 
 int VehiculoManager::buscarIdPorPatente(string patente) {
-    int cant = _vehiculosArchivo.cantidadRegistros();
-    Vehiculo *vehiculos = new Vehiculo[cant];
-    _vehiculosArchivo.leerTodos(vehiculos, cant);
-    for (int i = 0; i < cant; i++) {
-        if (vehiculos[i].getPatente() ==patente) {
-            int id = vehiculos[i].getIdVehiculo();
-            delete[] vehiculos;
-            return id;
+    int cantidad = _vehiculosArchivo.cantidadRegistros();
+    Vehiculo v;
+    for (int i = 0; i < cantidad; i++) {
+        v = _vehiculosArchivo.leer(i);
+        if (!v.getEliminado() && v.getPatente() == patente) {
+            return v.getIdVehiculo();
         }
     }
-    delete[] vehiculos;
     return -1;
 }
 
@@ -135,18 +149,6 @@ bool VehiculoManager::buscarNumMotor(string numMotor) {
     return true;
 }
 
-void VehiculoManager::mensajeErrorNumeroChasis() {
-    cout << "YA EXISTE UN VEHICULO CON ESE NUMERO DE CHASIS." << endl;
-}
-
-void VehiculoManager::mensajeErrorNumeroMotor() {
-    cout << "YA EXISTE UN VEHICULO CON ESE NUMERO DE MOTOR." << endl;
-}
-
-void VehiculoManager::mensajeErrorPatente() {
-    cout << "YA EXISTE UN VEHICULO CON ESA PATENTE." << endl;
-}
-
 string VehiculoManager::nombreApellidoClinete(int idCliente) {
     int pos = _clientesArchivo.buscarIdCliente(idCliente);
     if (pos < 0) {
@@ -167,7 +169,7 @@ void VehiculoManager::modificarPatente(int idVehiculo) {
         string nuevaPatente;
         cin >> nuevaPatente;
         if (buscarIdPorPatente(nuevaPatente) != -1) {
-            mensajeErrorPatente();
+            cout << "YA EXISTE UN VEHICULO CON ESA PATENTE." << endl;
             return;
         }
         vehiculo.setPatente(nuevaPatente);
@@ -223,7 +225,7 @@ void VehiculoManager::modificarNumChasis(int idVehiculo) {
         string nuevoChasis;
         cin >> nuevoChasis;
         if (!buscarNumChasis(nuevoChasis)) {
-            mensajeErrorNumeroChasis();
+        cout << "YA EXISTE UN VEHICULO CON ESE NUMERO DE CHASIS." << endl;
             return;
         }
         vehiculo.setNumChasis(nuevoChasis);
@@ -245,7 +247,7 @@ void VehiculoManager::modificarNumMotor(int idVehiculo) {
         string nuevoMotor;
         cin >> nuevoMotor;
         if (!buscarNumMotor(nuevoMotor)) {
-            mensajeErrorNumeroMotor();
+        cout << "YA EXISTE UN VEHICULO CON ESE NUMERO DE MOTOR." << endl;
             return;
         }
         vehiculo.setNumMotor(nuevoMotor);
@@ -261,11 +263,12 @@ void VehiculoManager::modificarNumMotor(int idVehiculo) {
 
 void VehiculoManager::modificarAnio(int idVehiculo) {
     int pos = _vehiculosArchivo.buscarVehiculo(idVehiculo);
+    int nuevoAnio;
     if (pos != -1) {
         Vehiculo vehiculo = _vehiculosArchivo.leer(pos);
         cout << "INGRESE EL NUEVO ANIO: ";
-        string nuevoAnio;
         cin >> nuevoAnio;
+        if (nuevoAnio > 1990 && nuevoAnio < 2025) { cout << "ANIO INCORRECTO." << endl; return;}
         vehiculo.setAnio(nuevoAnio);
         if (_vehiculosArchivo.actualizarVehiculo(pos, vehiculo)) {
             cout << "ANIO MODIFICADO CORRECTAMENTE." << endl;
@@ -276,132 +279,3 @@ void VehiculoManager::modificarAnio(int idVehiculo) {
         cout << "VEHICULO NO ENCONTRADO." << endl;
     }
 }
-
-void VehiculoManager::listadoActivos(bool mostrarTotalVehiculosActivos) {
-    int cantidad = _vehiculosArchivo.cantidadRegistros();
-    int dato = 0;
-    if (cantidad == 0) {
-        cout << "NO HAY VEHICULOS REGISTRADOS." <<endl;
-        return;
-    }
-    Vehiculo *vehiculos = new Vehiculo[cantidad];
-    _vehiculosArchivo.leerTodos(vehiculos, cantidad);
-    cout << "||||||||||||||||||||||||||||||||||||" <<endl;
-    cout << "||       VEHICULOS ACTIVOS        ||" << endl;
-    cout << "||||||||||||||||||||||||||||||||||||" << endl;
-    for (int i = 0; i < cantidad; i++) {
-        if (!vehiculos[i].getEliminado()) {
-            dato++;
-            if (!mostrarTotalVehiculosActivos) {
-                mostrarLista(vehiculos[i]);
-            }
-        }
-    }
-    if (mostrarTotalVehiculosActivos) {
-        cout <<"TOTAL DE VEHICULOS ACTIVOS: " << dato <<endl<<endl;
-    }
-    delete[] vehiculos;
-}
-
-void VehiculoManager::listadoEliminados(bool mostrarTotalVehiculosEliminados) {
-    int cantidad = _vehiculosArchivo.cantidadRegistros();
-    int dato = 0;
-    if (cantidad == 0) {
-        cout << "NO HAY VEHICULOS REGISTRADOS."<<endl;
-        return;
-    }
-    Vehiculo *vehiculos = new Vehiculo[cantidad];
-    _vehiculosArchivo.leerTodos(vehiculos, cantidad);
-    cout << "|||||||||||||||||||||||||||||||||||||" <<endl;
-    cout << "||      VEHICULOS ELIMINADOS       ||" <<endl;
-    cout << "|||||||||||||||||||||||||||||||||||||"<<endl;
-    for (int i = 0; i < cantidad; i++) {
-        if (vehiculos[i].getEliminado()) {
-            dato++;
-            if (!mostrarTotalVehiculosEliminados) {
-                mostrarLista(vehiculos[i]);
-            }
-        }
-    }
-    if (mostrarTotalVehiculosEliminados) {
-        cout <<"TOTAL DE VEHICULOS ELIMINADOS: " << dato <<endl<<endl;
-    }
-    delete[] vehiculos;
-}
-
-void VehiculoManager::cantidadVehiculosPorEstado() {
-    listadoActivos(true);
-    listadoEliminados(true);
-}
-
-void VehiculoManager::reporteCantidadPorCategoria() {
-    int cantidad = _vehiculosArchivo.cantidadRegistros();
-    if (cantidad == 0) {
-        cout << "NO HAY VEHICULOS REGISTRADOS." << endl;
-        return;
-    }
-    Vehiculo *vehiculos = new Vehiculo[cantidad];
-    _vehiculosArchivo.leerTodos(vehiculos, cantidad);
-    int activos[5] = {};
-    int inactivos[5] = {};
-    string categorias[5] = {"AUTOMOVIL", "MOTO", "CAMIONETA", "COLECTIVO", "REMOLQUE"};
-    for (int i = 0; i < cantidad; i++) {
-        string cat = vehiculos[i].getCategoria();
-        for (int j = 0; j < 5; j++) {
-            if (cat == categorias[j]) {
-                if (vehiculos[i].getEliminado()) {
-                    inactivos[j]++;
-                } else {
-                    activos[j]++;
-                }
-                break;
-            }
-        }
-    }
-    cout << "|||||||||||||||||||||||||||||||||||||||||"<< endl;
-    cout << "|| REPORTE DE VEHICULOS POR CATEGORIA  ||"<< endl;
-    cout << "|||||||||||||||||||||||||||||||||||||||||"<<endl;
-    for (int j = 0; j < 5; j++) {
-        cout << endl;
-        cout <<categorias[j] <<" ACTIVOS: " << activos[j]<<endl;
-        cout <<categorias[j] <<" INACTIVOS: " << inactivos[j]<<endl;
-    }
-    delete[] vehiculos;
-}
-
-void VehiculoManager::reporteCantidadPorUso() {
-    int cantidad = _vehiculosArchivo.cantidadRegistros();
-    if (cantidad == 0) {
-        cout << "NO HAY VEHICULOS REGISTRADOS." << endl;
-        return;
-    }
-    Vehiculo *vehiculos = new Vehiculo[cantidad];
-    _vehiculosArchivo.leerTodos(vehiculos, cantidad);
-    int activos[6] = {};
-    int inactivos[6] = {};
-    string usos[6] = {"PARTICULAR", "COMERCIAL", "CARGA", "SERVICIO PUBLICO", "ALQUILER", "EMERGENCIA"};
-    for (int i = 0; i < cantidad; i++){
-        string uso = vehiculos[i].getUso();
-        for (int j = 0; j < 6; j++) {
-            if (uso == usos[j]) {
-                if (vehiculos[i].getEliminado()) {
-                    inactivos[j]++;
-                } else {
-                    activos[j]++;
-                }
-                break;
-            }
-        }
-    }
-    cout << "|||||||||||||||||||||||||||||||||||" << endl;
-    cout << "|| REPORTE DE VEHICULOS POR USO ||" << endl;
-    cout << "|||||||||||||||||||||||||||||||||||" << endl;
-    for (int j = 0; j < 6; j++) {
-        cout << endl;
-        cout << usos[j] << " ACTIVOS: " << activos[j]<<endl;
-        cout << usos[j] << " INACTIVOS: " << inactivos[j] << endl;
-    }
-
-    delete[] vehiculos;
-}
-

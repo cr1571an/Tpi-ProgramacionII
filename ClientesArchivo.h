@@ -8,7 +8,6 @@ class ClientesArchivo {
                 ClientesArchivo(std::string nombreArchivo = "Clientes.dat");
                 bool guardar(Cliente registro);
                 int buscarIdCliente(int id);
-                int buscarDNI(std::string dni);
                 Cliente leer(int pos);
                 int leerTodos(Cliente cliente[], int cantidad);
                 int getCantidadRegistros();

@@ -28,6 +28,7 @@ class PolizaManager {
     private:
         PolizaArchivo _archivo;
         VehiculoManager _vehiculoManager;
+        ClienteManager _clienteManager;
         ClientesArchivo _archivoCliente;
         VehiculosArchivo _archivoVehiculos;
         TiposSegurosArchivo _archivoTipoSeguros;
