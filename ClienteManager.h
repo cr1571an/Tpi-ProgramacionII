@@ -1,5 +1,6 @@
 #pragma once
 #include "ClientesArchivo.h"
+#include "VehiculosArchivo.h"
 
 class ClienteManager {
 public:
@@ -12,9 +13,9 @@ public:
     void modificarCorreo(int idCliente);
     void modificarFechaNacimiento(int idCliente);
     void modificarLocalidad(int idCliente);
-    void listadoActivos();
-    void listadoEliminados();
-    //void clientePorRangoEdad();
+    void listadoActivos(bool mostarTotalClientesActivos);
+    void listadoEliminados(bool mostarTotalClientesEliminado);
+    void cantidadClientesPorEstado();
 
     int buscarIdClientePorDNI(std::string dni);
 

@@ -9,7 +9,7 @@ class VehiculoManager {
         VehiculoManager();
         void cargar(int iDCliente);
         void mostrar();
-        void eliminar(int id);
+        void eliminar(int idVehiculo);
         void mostrarVehiculosDeCliente(int idClienteBuscado);
         void mensajeErrorNumeroChasis();
         void mensajeErrorNumeroMotor();
@@ -20,10 +20,13 @@ class VehiculoManager {
         void modificarNumChasis(int id);
         void modificarNumMotor(int id);
         void modificarAnio(int id);
-        void listadoPorMarca();
-        void listadoPorAnio();
+        void cantidadVehiculosPorEstado();
+        void listadoEliminados(bool mostrarTotalVehiculosEliminados);
+        void listadoActivos(bool mostrarTotalVehiculosActivos);
+        void reporteCantidadPorCategoria();
+        void reporteCantidadPorUso();
 
-        int estadoCliente(int id);
+        bool estadoCliente(int idCliente);
         int buscarIdPorPatente(std::string patente);
 
         std::string nombreApellidoClinete(int idCliente);

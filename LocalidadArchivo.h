@@ -4,8 +4,7 @@
 
 class LocalidadArchivo {
     public:
-        LocalidadArchivo();
-        LocalidadArchivo(std::string nombreArchivo);
+        LocalidadArchivo(std::string nombreArchivo = "Localidades.dat");
 
         void mostrarLocalidad(Localidad loc);
         void mostrar();
@@ -22,7 +21,6 @@ class LocalidadArchivo {
         int partidosUnicos(std::string partidos[], int maxPartidos);
 
         Localidad leer(int pos);
-        Localidad pedirLocalidadPorCodigoPostal();
         Localidad pedirLocalidadPorCodigoPostalInteractivo();
 
     private:

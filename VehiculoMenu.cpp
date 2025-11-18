@@ -71,8 +71,7 @@ void VehiculoMenu::ejecutarOpcion(int opcion) {
     }
 }
 
-
-void VehiculoMenu::mostrarMenuUso(){
+string VehiculoMenu::mostrarUso() {
     cout << "|||||||||||||||||||||||||||||||||||||||||" << endl;
     cout << "||         MENU USO DEL VEHICULO       ||" << endl;
     cout << "|||||||||||||||||||||||||||||||||||||||||" << endl;
@@ -83,36 +82,21 @@ void VehiculoMenu::mostrarMenuUso(){
     cout << "||     5 - ALQUILER                    ||" << endl;
     cout << "||     6 - EMERGENCIA                  ||" << endl;
     cout << "|||||||||||||||||||||||||||||||||||||||||" << endl<<endl;
-}
-
-
-string VehiculoMenu::ejecutarOpcionMenuUso(int opcion) {
-    switch (opcion) {
-        case 1: return "PARTICULAR";
-        case 2: return "COMERCIAL";
-        case 3: return "CARGA";
-        case 4: return "SERVICIO PUBLICO";
-        case 5: return "ALQUILER";
-        case 6: return "EMERGENCIA";
-        default: return "";
-    }
-}
-
-string VehiculoMenu::mostrarUso(){
     int opcion;
-    mostrarMenuUso();
-    cout << "SELECCIONE UNA OPCION: ";
-    cin >> opcion;
-    while(opcion < 0 || opcion > 6){
-        cout << "OPCION INCORRECTA..."<<endl;
+    do {
         cout << "SELECCIONE UNA OPCION: ";
         cin >> opcion;
-    }
-    return ejecutarOpcionMenuUso(opcion);;
+        if (opcion < 1 || opcion > 6) {
+            cout << "OPCION INCORRECTA..." << endl;
+        }
+    } while (opcion < 1 || opcion > 6);
+
+    string usos[6] = {"PARTICULAR", "COMERCIAL", "CARGA",
+        "SERVICIO PUBLICO", "ALQUILER", "EMERGENCIA"};
+    return usos[opcion-1];
 }
 
-
-void VehiculoMenu::mostrarMenuCategoria() {
+string VehiculoMenu::mostrarCategoria() {
     cout << "||||||||||||||||||||||||||||||||||||||||||||" << endl;
     cout << "||       MENU CATEGORIA DE VEHICULO       ||" << endl;
     cout << "||||||||||||||||||||||||||||||||||||||||||||" << endl;
@@ -121,31 +105,17 @@ void VehiculoMenu::mostrarMenuCategoria() {
     cout << "||     3 - CAMIONETA                      ||" << endl;
     cout << "||     4 - COLECTIVO                      ||" << endl;
     cout << "||     5 - REMOLQUE                       ||" << endl;
-    cout << "||||||||||||||||||||||||||||||||||||||||||||" << endl<<endl;
-}
-
-string VehiculoMenu::ejecutarOpcionMenuCategoria(int opcion) {
-    switch (opcion) {
-        case 1: return "AUTOMOVIL";
-        case 2: return "MOTO";
-        case 3: return "CAMIONETA";
-        case 4: return "COLECTIVO";
-        case 5: return "REMOLQUE";
-        default: return"";
-    }
-}
-
-string VehiculoMenu::mostrarCategoria() {
+    cout << "||||||||||||||||||||||||||||||||||||||||||||" << endl << endl;
     int opcion;
-    mostrarMenuCategoria();
-    cout << "SELECCIONE UNA OPCION: ";
-    cin >> opcion;
-    while(opcion < 1 || opcion > 5){
-        cout << "OPCION INCORRECTA..." << endl;
+    do {
         cout << "SELECCIONE UNA OPCION: ";
         cin >> opcion;
-    }
-    return ejecutarOpcionMenuCategoria(opcion);
+        if (opcion < 1 || opcion > 5) {
+            cout << "OPCION INCORRECTA..." << endl;
+        }
+    } while (opcion < 1 || opcion > 5);
+    string categorias[] = {"AUTOMOVIL", "MOTO", "CAMIONETA", "COLECTIVO", "REMOLQUE"};
+    return categorias[opcion-1];
 }
 
 void VehiculoMenu::cargar() {
@@ -183,7 +153,7 @@ void VehiculoMenu::buscarVehiculoPorID() {
     cout << "INGRESE EL ID DEL VEHICULO: ";
     int id;
     cin >> id;
-    int pos = _vehiculosArchivo.buscarIdVehiculo(id);
+    int pos = _vehiculosArchivo.buscarVehiculo(id);
     if (pos == -1) {
         cout << "NO SE ENCONTRO NINGUN VEHICULO CON ESE ID." << endl;
         return;
@@ -201,7 +171,7 @@ void VehiculoMenu::buscarVehiculoPorPatente() {
         cout << "NO SE ENCONTRO NINGUN VEHICULO CON ESA PATENTE." << endl;
         return;
     }
-    int pos = _vehiculosArchivo.buscarIdVehiculo(id);
+    int pos = _vehiculosArchivo.buscarVehiculo(id);
     if (pos == -1) {
         cout << "ERROR AL BUSCAR EL VEHICULO EN EL ARCHIVO." << endl;
         return;
@@ -231,20 +201,20 @@ int VehiculoMenu::seleccionarVehiculo(bool modificar) {
             if (posCliente < 0) {
                 cout << "ERROR!. EL CLIENTE NO EXISTE." << endl;
                 return -1;}
-            int cantidad = _vehiculosArchivo.cantidadRegistros();
-            for (int i = 0; i < cantidad; i++) {
-                Vehiculo vehiculo = _vehiculosArchivo.leer(i);
-                if (vehiculo.getIdCliente() == idCliente) {
-                    _vehiculoManager.mostrarLista(vehiculo);
-                }
+            Cliente cliente = _clientesArchivo.leer(posCliente);
+            if (cliente.getEliminado()) {
+                cout << "EL CLIENTE FUE ELIMINADO." << endl;
+                _clienteMenu.darAltaCliente(idCliente);
+                return -1;
             }
+            _vehiculoManager.mostrarVehiculosDeCliente(idCliente);
             if (modificar) {
                 cout << "INGRESE EL ID DEL VEHICULO: ";
                 cin >> idVehiculo;
                 cin.ignore();
-                int posVehiculo = _vehiculosArchivo.buscarIdVehiculo(idVehiculo);
+                int posVehiculo = _vehiculosArchivo.buscarVehiculo(idVehiculo);
                 if (posVehiculo < 0) {
-                    cout << "ERROR: El vehículo no existe." << endl;
+                    cout << "ERROR. NO EXISTE." << endl;
                     return -1;}
                 Vehiculo vehiculo = _vehiculosArchivo.leer(posVehiculo);
                 if (vehiculo.getIdCliente() != idCliente) {
@@ -276,12 +246,18 @@ int VehiculoMenu::seleccionarVehiculo(bool modificar) {
 
 void VehiculoMenu::modificarVehiculo() {
     int idVehiculo = seleccionarVehiculo(true);
+    if (!_vehiculoManager.estadoCliente(idVehiculo)) {
+        cout << "ERROR!. EL CLIENTE ELIMINADO." << endl;
+
+        return;}
     if (idVehiculo < 0) return;
-    int posVehiculo = _vehiculosArchivo.buscarIdVehiculo(idVehiculo);
+    int posVehiculo = _vehiculosArchivo.buscarVehiculo(idVehiculo);
     if (posVehiculo < 0) {
         cout << "ERROR!. EL VEHICULO NO EXISTE." << endl;
         return;
     }
+    if (!darAltaClientePorIdVehiculo(posVehiculo)) {
+        return;};
     Vehiculo vehiculo = _vehiculosArchivo.leer(posVehiculo);
     if (vehiculo.getEliminado()) {
         cout << "EL VEHICULO CON ESE ID ESTA ELIMINADO." << endl;
@@ -326,7 +302,9 @@ void VehiculoMenu::darAltaVehiculo(int idVehiculo) {
     cin >> opcion;
     switch (opcion) {
         case 1:
-            _vehiculosArchivo.recuperarVehiculo(idVehiculo);
+            if(_vehiculosArchivo.recuperarVehiculo(idVehiculo)) {
+                cout << "EL VEHICULO FUE DADO DE ALTA." << endl;
+            }else cout << "ERROR AL DAR DE ALTA EL VEHICULO." << endl;
             break;
         case 0:
             cout << "VOLVER AL MENU ANTERIOR..." << endl;
@@ -342,7 +320,7 @@ void VehiculoMenu::buscarVehiculo() {
     cout << "||            BUSCAR VEHICULO             ||" << endl;
     int idVehiculo = seleccionarVehiculo(false);
     if (idVehiculo < 0) return;
-    int posVehiculo = _vehiculosArchivo.buscarIdVehiculo(idVehiculo);
+    int posVehiculo = _vehiculosArchivo.buscarVehiculo(idVehiculo);
     if (posVehiculo < 0) {
         cout << "ERROR!. EL VEHICULO NO EXISTE." << endl;
         return;
@@ -353,20 +331,41 @@ void VehiculoMenu::buscarVehiculo() {
 
 void VehiculoMenu::mostrarReportes() {
     int opcion;
-        cout << "||||||||||||||||||||||||||||||||||||||||||||" << endl;
-        cout << "||       MENU CATEGORIA DE VEHICULO       ||" << endl;
-        cout << "||||||||||||||||||||||||||||||||||||||||||||" << endl;
-        cout << "||     1 - LISTADO POR MARCA              ||" << endl;
-        cout << "||     2 - LISTADO POR ANIO               ||" << endl;
-        cout << "||||||||||||||||||||||||||||||||||||||||||||" << endl;
-        cout << "||     0 - VOLVER                         ||" << endl;
-        cout << "||||||||||||||||||||||||||||||||||||||||||||" << endl<<endl;
+        cout << "||||||||||||||||||||||||||||||||||||||||||||||||" << endl;
+        cout << "||        MENU CATEGORIA DE VEHICULO          ||" << endl;
+        cout << "||||||||||||||||||||||||||||||||||||||||||||||||" << endl;
+        cout << "||     1 - LISTADO VEHICULOS ACTIVOS          ||" << endl;
+        cout << "||     2 - LISTADO VEHICULOS INACTIVAS        ||" << endl;
+        cout << "||     3 - CANTIDAD DE VEHICULO POR ESTADO    ||"<<endl;
+        cout << "||     4 - CANTIDAD DE VEHICULO POR USO       ||"<<endl;
+        cout << "||     5 - CANTIDAD DE VEHICULO POR CATEGORIA ||"<<endl;
+        cout << "||||||||||||||||||||||||||||||||||||||||||||||||" << endl;
+        cout << "||     0 - VOLVER                             ||" << endl;
+        cout << "||||||||||||||||||||||||||||||||||||||||||||||||" << endl<<endl;
         cout << "SELECCIONE UNA OPCION: ";
         cin >> opcion;
         switch (opcion) {
-         //   case 1: _vehiculoManager.listadoPorMarca(); break;
-          //  case 2: _vehiculoManager.listadoPorAnio(); break;
+            case 1: _vehiculoManager.listadoActivos(false); break;
+            case 2: _vehiculoManager.listadoEliminados(false); break;
+            case 3: _vehiculoManager.cantidadVehiculosPorEstado(); break;
+            case 4: _vehiculoManager.reporteCantidadPorUso();break;
+            case 5: _vehiculoManager.reporteCantidadPorCategoria();break;
             case 0: cout << "VOLVER AL MENU ANTERIOR..." << endl; break;
             default: cout << "OPCION INVALIDA." << endl; break;
         }
+}
+
+bool VehiculoMenu::darAltaClientePorIdVehiculo(int posVehiculo) {
+    Vehiculo vehiculo = _vehiculosArchivo.leer(posVehiculo);
+    int posCliente = _clientesArchivo.buscarIdCliente(vehiculo.getIdCliente());
+    if (posCliente < 0) {
+        cout << "ERROR!. EL CLIENTE NO EXISTE." << endl;
+        return false;}
+    Cliente cliente = _clientesArchivo.leer(posCliente);
+    if (cliente.getEliminado()) {
+        cout << "EL CLIENTE FUE ELIMINADO." << endl;
+        _clienteMenu.darAltaCliente(vehiculo.getIdCliente());
+        return false;
+    }
+    return true;
 }

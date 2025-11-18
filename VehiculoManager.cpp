@@ -22,7 +22,7 @@ void VehiculoManager::cargar(int iDCliente) {
     string modelo = cargarCadena();
     cout << "INGRESE PATENTE: ";
     string patente = cargarCadena();
-    if (buscarIdPorPatente(patente) != -1) { mensajeErrorPatente(); return; }
+    if (buscarIdPorPatente(patente)!=-1) { mensajeErrorPatente(); return; }
     cout << "INGRESE ANIO: ";
     string anio = cargarCadena();
     string uso = menu.mostrarUso();
@@ -56,17 +56,19 @@ void VehiculoManager::eliminar(int idVehiculo) {
     }
 }
 
-int VehiculoManager::estadoCliente(int idCliente) {
+bool VehiculoManager::estadoCliente(int idCliente) {
     int pos = _clientesArchivo.buscarIdCliente(idCliente);
     if (pos != -1) {
         return _clientesArchivo.leer(pos).getEliminado();
     }
-    return -1;
+    return false;
 }
+
 
 void VehiculoManager::mostrarLista(Vehiculo vehiculo) {
     cout << endl;
     cout << "ID DEL VEHICULO: " << vehiculo.getIdVehiculo() << endl;
+    cout << "ID DEL CLIENTE: " << vehiculo.getIdCliente() << endl;
     cout << "CLIENTE: " << nombreApellidoClinete(vehiculo.getIdCliente()) << endl;
     cout << "MODELO: " << vehiculo.getModelo() << endl;
     cout << "MARCA: " << vehiculo.getMarca() << endl;
@@ -84,7 +86,7 @@ void VehiculoManager::mostrarVehiculosDeCliente(int idClienteBuscado) {
     int cantidad = _vehiculosArchivo.cantidadRegistros();
     for (int i = 0; i < cantidad; i++) {
         Vehiculo vehiculo = _vehiculosArchivo.leer(i);
-        if (vehiculo.getIdCliente() == idClienteBuscado && !vehiculo.getEliminado()) {
+        if (vehiculo.getIdCliente() == idClienteBuscado) {
             mostrarLista(vehiculo);
         }
     }
@@ -95,7 +97,7 @@ int VehiculoManager::buscarIdPorPatente(string patente) {
     Vehiculo *vehiculos = new Vehiculo[cant];
     _vehiculosArchivo.leerTodos(vehiculos, cant);
     for (int i = 0; i < cant; i++) {
-        if (vehiculos[i].getPatente() == patente && !vehiculos[i].getEliminado()) {
+        if (vehiculos[i].getPatente() ==patente) {
             int id = vehiculos[i].getIdVehiculo();
             delete[] vehiculos;
             return id;
@@ -158,7 +160,7 @@ string VehiculoManager::nombreApellidoClinete(int idCliente) {
 }
 
 void VehiculoManager::modificarPatente(int idVehiculo) {
-    int pos = _vehiculosArchivo.buscarIdVehiculo(idVehiculo);
+    int pos = _vehiculosArchivo.buscarVehiculo(idVehiculo);
     if (pos != -1) {
         Vehiculo vehiculo = _vehiculosArchivo.leer(pos);
         cout << "INGRESE LA NUEVA PATENTE: ";
@@ -180,7 +182,7 @@ void VehiculoManager::modificarPatente(int idVehiculo) {
 }
 
 void VehiculoManager::modificarUso(int idVehiculo) {
-    int pos = _vehiculosArchivo.buscarIdVehiculo(idVehiculo);
+    int pos = _vehiculosArchivo.buscarVehiculo(idVehiculo);
     if (pos != -1) {
         Vehiculo vehiculo = _vehiculosArchivo.leer(pos);
         VehiculoMenu menu;
@@ -197,7 +199,7 @@ void VehiculoManager::modificarUso(int idVehiculo) {
 }
 
 void VehiculoManager::modificarCategoria(int idVehiculo) {
-    int pos = _vehiculosArchivo.buscarIdVehiculo(idVehiculo);
+    int pos = _vehiculosArchivo.buscarVehiculo(idVehiculo);
     if (pos != -1) {
         Vehiculo vehiculo = _vehiculosArchivo.leer(pos);
         VehiculoMenu menu;
@@ -214,7 +216,7 @@ void VehiculoManager::modificarCategoria(int idVehiculo) {
 }
 
 void VehiculoManager::modificarNumChasis(int idVehiculo) {
-    int pos = _vehiculosArchivo.buscarIdVehiculo(idVehiculo);
+    int pos = _vehiculosArchivo.buscarVehiculo(idVehiculo);
     if (pos != -1) {
         Vehiculo vehiculo = _vehiculosArchivo.leer(pos);
         cout << "INGRESE EL NUEVO NUMERO DE CHASIS: ";
@@ -236,7 +238,7 @@ void VehiculoManager::modificarNumChasis(int idVehiculo) {
 }
 
 void VehiculoManager::modificarNumMotor(int idVehiculo) {
-    int pos = _vehiculosArchivo.buscarIdVehiculo(idVehiculo);
+    int pos = _vehiculosArchivo.buscarVehiculo(idVehiculo);
     if (pos != -1) {
         Vehiculo vehiculo = _vehiculosArchivo.leer(pos);
         cout << "INGRESE EL NUEVO NUMERO DE MOTOR: ";
@@ -258,7 +260,7 @@ void VehiculoManager::modificarNumMotor(int idVehiculo) {
 }
 
 void VehiculoManager::modificarAnio(int idVehiculo) {
-    int pos = _vehiculosArchivo.buscarIdVehiculo(idVehiculo);
+    int pos = _vehiculosArchivo.buscarVehiculo(idVehiculo);
     if (pos != -1) {
         Vehiculo vehiculo = _vehiculosArchivo.leer(pos);
         cout << "INGRESE EL NUEVO ANIO: ";
@@ -275,44 +277,119 @@ void VehiculoManager::modificarAnio(int idVehiculo) {
     }
 }
 
-//void VehiculoManager::listadoPorMarca() {
-//    int cantidad = _vehiculosArchivo.cantidadRegistros();
-//    Vehiculo vehiculos[cantidad];
-//    _vehiculosArchivo.leerTodos(vehiculos, cantidad);
-//    for (int i = 0; i < cantidad - 1; i++) {
-//        for (int j = 0; j < cantidad - i - 1; j++) {
-//            if (vehiculos[j].getMarca() > vehiculos[j + 1].getMarca()) {
-//                Vehiculo aux = vehiculos[j];
-//                vehiculos[j] = vehiculos[j + 1];
-//                vehiculos[j + 1] = aux;
-//            }
-//        }
-//    }
-//    cout << "LISTADO DE VEHICULOS POR MARCA:" << endl;
-//    for (int i = 0; i < cantidad; i++) {
-//        if (!vehiculos[i].getEliminado()) {
-//            mostrarLista(vehiculos[i]);
-//        }
-//    }
-//}
+void VehiculoManager::listadoActivos(bool mostrarTotalVehiculosActivos) {
+    int cantidad = _vehiculosArchivo.cantidadRegistros();
+    int dato = 0;
+    if (cantidad == 0) {
+        cout << "NO HAY VEHICULOS REGISTRADOS." <<endl;
+        return;
+    }
+    Vehiculo *vehiculos = new Vehiculo[cantidad];
+    _vehiculosArchivo.leerTodos(vehiculos, cantidad);
+    cout << "||||||||||||||||||||||||||||||||||||" <<endl;
+    cout << "||       VEHICULOS ACTIVOS        ||" << endl;
+    cout << "||||||||||||||||||||||||||||||||||||" << endl;
+    for (int i = 0; i < cantidad; i++) {
+        if (!vehiculos[i].getEliminado()) {
+            dato++;
+            if (!mostrarTotalVehiculosActivos) {
+                mostrarLista(vehiculos[i]);
+            }
+        }
+    }
+    if (mostrarTotalVehiculosActivos) {
+        cout <<"TOTAL DE VEHICULOS ACTIVOS: " << dato <<endl<<endl;
+    }
+    delete[] vehiculos;
+}
 
-//void VehiculoManager::listadoPorAnio() {
-//    int cantidad = _vehiculosArchivo.cantidadRegistros();
-//    Vehiculo vehiculos[cantidad];
-//    _vehiculosArchivo.leerTodos(vehiculos, cantidad);
-//    for (int i = 0; i < cantidad - 1; i++) {
-//        for (int j = 0; j < cantidad - i - 1; j++) {
-//            if (vehiculos[j].getAnio() > vehiculos[j + 1].getAnio()) {
-//                Vehiculo aux = vehiculos[j];
-//                vehiculos[j] = vehiculos[j + 1];
-//                vehiculos[j + 1] = aux;
-//            }
-//        }
-//    }
-//    cout << "LISTADO DE VEHICULOS POR ANIO:" << endl;
-//    for (int i = 0; i < cantidad; i++) {
-//        if (!vehiculos[i].getEliminado()) {
-//            mostrarLista(vehiculos[i]);
-//        }
-//    }
-//}
+void VehiculoManager::listadoEliminados(bool mostrarTotalVehiculosEliminados) {
+    int cantidad = _vehiculosArchivo.cantidadRegistros();
+    int dato = 0;
+    if (cantidad == 0) {
+        cout << "NO HAY VEHICULOS REGISTRADOS."<<endl;
+        return;
+    }
+    Vehiculo *vehiculos = new Vehiculo[cantidad];
+    _vehiculosArchivo.leerTodos(vehiculos, cantidad);
+    cout << "|||||||||||||||||||||||||||||||||||||" <<endl;
+    cout << "||      VEHICULOS ELIMINADOS       ||" <<endl;
+    cout << "|||||||||||||||||||||||||||||||||||||"<<endl;
+    for (int i = 0; i < cantidad; i++) {
+        if (vehiculos[i].getEliminado()) {
+            dato++;
+            if (!mostrarTotalVehiculosEliminados) {
+                mostrarLista(vehiculos[i]);
+            }
+        }
+    }
+    if (mostrarTotalVehiculosEliminados) {
+        cout <<"TOTAL DE VEHICULOS ELIMINADOS: " << dato <<endl<<endl;
+    }
+    delete[] vehiculos;
+}
+
+void VehiculoManager::cantidadVehiculosPorEstado() {
+    listadoActivos(true);
+    listadoEliminados(true);
+}
+
+void VehiculoManager::reporteCantidadPorCategoria() {
+    int cantidad = _vehiculosArchivo.cantidadRegistros();
+    if (cantidad == 0) {
+        cout << "NO HAY VEHICULOS REGISTRADOS." << endl;
+        return;
+    }
+    Vehiculo *vehiculos =new Vehiculo[cantidad];
+    _vehiculosArchivo.leerTodos(vehiculos, cantidad);
+    int contador[5] = {0,0,0,0,0};
+    string categorias[5] = {"AUTOMOVIL", "MOTO", "CAMIONETA", "COLECTIVO", "REMOLQUE"};
+    for (int i = 0; i < cantidad; i++) {
+        if (!vehiculos[i].getEliminado()){
+            string cat = vehiculos[i].getCategoria();
+            for (int j = 0; j < 5; j++) {
+                if (cat == categorias[j]) {
+                    contador[j]++;
+                    break;}
+            }
+        }
+    }
+    cout << "|||||||||||||||||||||||||||||||||||||||||" << endl;
+    cout << "|| CANTIDAD DE VEHICULOS POR CATEGORIA ||" << endl;
+    cout << "|||||||||||||||||||||||||||||||||||||||||" << endl;
+    for (int j = 0; j < 5; j++) {
+        cout << categorias[j] << ": " << contador[j] << endl;
+    }
+    delete[] vehiculos;
+}
+
+void VehiculoManager::reporteCantidadPorUso() {
+    int cantidad = _vehiculosArchivo.cantidadRegistros();
+    if (cantidad == 0) {
+        cout << "NO HAY VEHICULOS REGISTRADOS." << endl;
+        return;
+    }
+    Vehiculo *vehiculos = new Vehiculo[cantidad];
+    _vehiculosArchivo.leerTodos(vehiculos, cantidad);
+    int contador[6] = {0, 0, 0, 0, 0, 0};
+    string usos[6] = {"PARTICULAR", "COMERCIAL", "CARGA", "SERVICIO PUBLICO", "ALQUILER", "EMERGENCIA"};
+    for (int i = 0; i < cantidad; i++) {
+        if (!vehiculos[i].getEliminado()){
+            string uso = vehiculos[i].getUso();
+            for (int j = 0; j < 6; j++) {
+                if (uso == usos[j]) {
+                    contador[j]++;
+                    break;
+                }
+            }
+        }
+    }
+    cout << "|||||||||||||||||||||||||||||||||||" << endl;
+    cout << "|| CANTIDAD DE VEHICULOS POR USO ||" << endl;
+    cout << "|||||||||||||||||||||||||||||||||||" << endl;
+    for (int j = 0; j < 6; j++) {
+        cout <<usos[j] << ": " << contador[j]<< endl;
+    }
+    delete[] vehiculos;
+}
+

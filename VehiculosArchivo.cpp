@@ -5,7 +5,7 @@ using namespace std;
 
 VehiculosArchivo::VehiculosArchivo(string nombreArchivo)
 :_nombreArchivo(nombreArchivo){
-};
+}
 
 string VehiculosArchivo::getNombreArchivo() {
     return _nombreArchivo;
@@ -22,24 +22,6 @@ bool VehiculosArchivo::guardar(Vehiculo registro) {
     guardado = fwrite(&registro, sizeof(registro), 1, archivo_vehiculo);
     fclose(archivo_vehiculo);
     return guardado;
-};
-
-int VehiculosArchivo::buscarIdVehiculo(int id) {
-    FILE *archivo_vehiculo = fopen(_nombreArchivo.c_str(), "rb");
-    if (archivo_vehiculo == nullptr) {
-        return -1;
-    }
-    Vehiculo registro;
-    int posicion = 0;
-    while (fread(&registro, sizeof(Vehiculo), 1, archivo_vehiculo) == 1) {
-        if (registro.getIdVehiculo() == id) {
-            fclose(archivo_vehiculo);
-            return posicion;
-        }
-        posicion++;
-    }
-    fclose(archivo_vehiculo);
-    return -1;
 }
 
 Vehiculo VehiculosArchivo::leer(int pos) {
@@ -53,7 +35,7 @@ Vehiculo VehiculosArchivo::leer(int pos) {
     fread(&registro, sizeof(registro), 1, archivo_vehiculo);
     fclose(archivo_vehiculo);
     return registro;
-};
+}
 
 int VehiculosArchivo::leerTodos(Vehiculo vehiculo[], int cantidad) {
     FILE *archivo_vehiculo;
@@ -64,7 +46,7 @@ int VehiculosArchivo::leerTodos(Vehiculo vehiculo[], int cantidad) {
     int result = fread(vehiculo, sizeof(Vehiculo), cantidad, archivo_vehiculo);
     fclose(archivo_vehiculo);
     return result;
-};
+}
 
 int VehiculosArchivo::cantidadRegistros() {
     FILE *archivo_vehiculo;
@@ -76,14 +58,14 @@ int VehiculosArchivo::cantidadRegistros() {
     int cantidad = ftell(archivo_vehiculo) / sizeof(Vehiculo);
     fclose(archivo_vehiculo);
     return cantidad;
-};
+}
 
 int VehiculosArchivo::getIdVehiculoUltimo() {
     return cantidadRegistros()+1;
-};
+}
 
 bool VehiculosArchivo::eliminarVehiculo(int id) {
-    int pos = buscarIdVehiculo(id);
+    int pos = buscarVehiculo(id);
     if (pos == -1) {
         return false;
     }
@@ -93,7 +75,7 @@ bool VehiculosArchivo::eliminarVehiculo(int id) {
 }
 
 bool VehiculosArchivo::recuperarVehiculo(int id) {
-    int pos = buscarIdVehiculo(id);
+    int pos = buscarVehiculo(id);
     if (pos == -1) {
         return false;
     }
@@ -102,26 +84,6 @@ bool VehiculosArchivo::recuperarVehiculo(int id) {
     return actualizarVehiculo(pos, registro);
 }
 
-int VehiculosArchivo::buscarIDCliente(int iDCliente) {
-    FILE *archivo_vehiculo;
-    Vehiculo registro;
-    int posicion = 0;
-    archivo_vehiculo = fopen(_nombreArchivo.c_str(), "rb");
-    if (archivo_vehiculo == nullptr) {
-        return -1;
-    }
-
-    while (fread(&registro, sizeof(Vehiculo), 1, archivo_vehiculo) == 1) {
-        if (registro.getIdCliente() == iDCliente) {
-            fclose(archivo_vehiculo);
-            return posicion;
-        }
-        posicion++;
-    }
-
-    fclose(archivo_vehiculo);
-    return -1;
-}
 
 bool VehiculosArchivo::actualizarVehiculo(int pos, Vehiculo registro) {
     FILE *archivo_vehiculo = fopen(_nombreArchivo.c_str(), "rb+");
@@ -132,4 +94,50 @@ bool VehiculosArchivo::actualizarVehiculo(int pos, Vehiculo registro) {
     bool actualizacion = fwrite(&registro, sizeof(Vehiculo), 1, archivo_vehiculo);
     fclose(archivo_vehiculo);
     return actualizacion;
+}
+
+void VehiculosArchivo::eliminarVehiculosDeCliente(int idCliente) {
+    int cantidad = cantidadRegistros();
+    Vehiculo* v = new Vehiculo[cantidad];
+    leerTodos(v, cantidad);
+    for (int i = 0; i < cantidad; ++i) {
+        if (v[i].getIdCliente() == idCliente && !v[i].getEliminado()) {
+            eliminarVehiculo(v[i].getIdVehiculo());
+        }
+    }
+    delete[] v;
+}
+
+int VehiculosArchivo::buscarVehiculo(int idVehiculo) {
+    int cantidad = cantidadRegistros();
+    for (int i = 0; i < cantidad; ++i) {
+        Vehiculo v = leer(i);
+        if (v.getIdVehiculo() == idVehiculo) {
+            return i;
+        }
+    }
+    return -1;
+}
+
+int VehiculosArchivo::buscarVehiculo(string patente) {
+    int cantidad = cantidadRegistros();
+    for (int i = 0; i < cantidad; ++i) {
+        Vehiculo v = leer(i);
+        if (v.getPatente() == patente) {
+            return i;
+        }
+    }
+    return -1;
+}
+
+
+int VehiculosArchivo::buscarVehiculoPorCliente(int idCliente) {
+    int cantidad = cantidadRegistros();
+    for (int i = 0; i < cantidad; ++i) {
+        Vehiculo v = leer(i);
+        if (v.getIdCliente() == idCliente) {
+            return i;
+        }
+    }
+    return -1;
 }

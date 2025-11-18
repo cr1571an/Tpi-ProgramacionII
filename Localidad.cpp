@@ -2,7 +2,9 @@
 #include <cstring>
 
 Localidad::Localidad(): _idLocalidad((0)),_codigoPostal(0), _localidad(""), _partido(""){
-    }
+    _localidad[0] = '\0';
+    _partido[0] = '\0';
+}
 
 Localidad::Localidad(int idLocalidad, int codigoPostal, std::string localidad, std::string partido) {
     _idLocalidad = idLocalidad;

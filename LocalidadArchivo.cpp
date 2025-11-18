@@ -4,37 +4,29 @@
 #include "utils.h"
 using namespace std;
 
-LocalidadArchivo::LocalidadArchivo(): _nombreArchivo("Localidades.dat") {
-
-}
-
 LocalidadArchivo::LocalidadArchivo(string nombreArchivo)
     : _nombreArchivo(nombreArchivo) {
 }
 
 bool LocalidadArchivo::guardar(Localidad registro) {
     bool result;
-    FILE* pFile = fopen(_nombreArchivo.c_str(), "ab");
+    FILE *pFile = fopen(_nombreArchivo.c_str(), "ab");
     if (pFile == nullptr) {
-        return false;
-    }
+        return false;}
     result = fwrite(&registro, sizeof(Localidad), 1, pFile);
-
     fclose(pFile);
     return result;
 }
 
-
 Localidad LocalidadArchivo::leer(int pos) {
     Localidad registro;
-    FILE* pFile = fopen(_nombreArchivo.c_str(), "rb");
+    FILE *pFile = fopen(_nombreArchivo.c_str(), "rb");
     if (pFile == nullptr) {
         registro.getCodigoPostal();
         return registro;
     }
     fseek(pFile, sizeof(Localidad) * pos, SEEK_SET);
     fread(&registro, sizeof(Localidad), 1, pFile);
-
     fclose(pFile);
     return registro;
 }
@@ -42,12 +34,11 @@ Localidad LocalidadArchivo::leer(int pos) {
 
 int LocalidadArchivo::leerTodos(Localidad registros[], int cantidad) {
     int result;
-    FILE* pFile = fopen(_nombreArchivo.c_str(), "rb");
+    FILE *pFile = fopen(_nombreArchivo.c_str(), "rb");
     if (pFile == nullptr) {
         return 0;
     }
     result = fread(registros, sizeof(Localidad), cantidad, pFile);
-
     fclose(pFile);
     return result;
 }
@@ -55,15 +46,13 @@ int LocalidadArchivo::leerTodos(Localidad registros[], int cantidad) {
 
 int LocalidadArchivo::getCantidadRegistros() {
     int cantidad;
-    FILE* pFile = fopen(_nombreArchivo.c_str(), "rb");
+    FILE *pFile = fopen(_nombreArchivo.c_str(), "rb");
     if (pFile == nullptr) {
         return 0;
     }
     fseek(pFile, 0, SEEK_END);
-
     cantidad = ftell(pFile) / sizeof(Localidad);
     fclose(pFile);
-
     return cantidad;
 }
 
@@ -84,7 +73,6 @@ int LocalidadArchivo::buscarPorCodigoPostal(int codigoPostal) {
             break;
         }
     }
-
     fclose(pFile);
     return pos;
 }
@@ -131,18 +119,6 @@ int LocalidadArchivo::listarPorCodigoPostal(int codigoPostal, Localidad coincide
 }
 
 
-Localidad LocalidadArchivo::pedirLocalidadPorCodigoPostal() {
-    int codigoPostal;
-    cout << "INGRESE EL CODIGO POSTAL: ";
-    cin >> codigoPostal;
-    int pos = buscarPorCodigoPostal(codigoPostal);
-    if (pos == -1) {
-        cout << "NO HAY CORBERTURA CON ESE CODIGO POSTAL." << endl;
-        return Localidad();
-    }
-    return leer(pos);
-}
-
 Localidad LocalidadArchivo::pedirLocalidadPorCodigoPostalInteractivo() {
     int codigoPostal;
     cout << "INGRESE EL CODIGO POSTAL: ";
@@ -155,6 +131,8 @@ Localidad LocalidadArchivo::pedirLocalidadPorCodigoPostalInteractivo() {
         cout << "NO HAY CORBERTURA CON ESE CODIGO POSTAL." << endl;
         return Localidad();
     } else if (cantCoincidencias == 1) {
+        cout << "PARTIDO: " << coincidencias[0].getPartido() << endl;
+        cout << "LOCALIDAD: " << coincidencias[0].getLocalidad() << endl;
         return coincidencias[0];
     } else {
         mostrarOpcionesLocalidad(coincidencias, cantCoincidencias);
@@ -246,25 +224,3 @@ void LocalidadArchivo::cargarLocalidad() {
     }
 }
 
-
-int LocalidadArchivo::partidosUnicos(string partidos[], int maxPartidos) {
-    int cant = getCantidadRegistros();
-    Localidad *localidades = new Localidad[cant];
-    leerTodos(localidades, cant);
-    int partidosUsados = 0;
-    for (int i = 0; i < cant; ++i) {
-        string partido = localidades[i].getPartido();
-        bool existe = false;
-        for (int j = 0; j < partidosUsados; ++j) {
-            if (partidos[j] == partido) {
-                existe = true;
-                break;
-            }
-        }
-        if (!existe && partidosUsados < maxPartidos) {
-            partidos[partidosUsados++] = partido;
-        }
-    }
-    delete[] localidades;
-    return partidosUsados;
-}

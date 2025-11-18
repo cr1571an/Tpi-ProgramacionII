@@ -11,8 +11,8 @@ using namespace std;
 
 
 ClienteManager::ClienteManager()
-: _clientesArchivo("Clientes.dat") {
-};
+: _clientesArchivo() {
+}
 
 void ClienteManager::cargar() {
   int idVehiculo = _clientesArchivo.getIdClienteUltimo();
@@ -38,10 +38,8 @@ void ClienteManager::cargar() {
   Localidad localidad = archivo.pedirLocalidadPorCodigoPostalInteractivo();
   if (localidad.getCodigoPostal() == 0) {return;}
 
-  cout << "PARTIDO: " << localidad.getPartido()<<endl;
-  cout << "LOCALIDAD: " << localidad.getLocalidad()<<endl;
   cout << "INGRESAR FECHA DE NACIMIENTO."<<endl;
-  cout << "Ingrese dia: ";
+  cout << "INGRESE DIA: ";
   int dia; cin >> dia;
   cout << "INGRESE MES: ";
   int mes; cin >> mes;
@@ -73,7 +71,7 @@ void ClienteManager::mostrar() {
     mostrarLista(vCliente[i], false);
   }
   delete [] vCliente;
-};
+}
 
 bool ClienteManager::eliminar(int idCliente) {
   if (_clientesArchivo.eliminar(idCliente)) {
@@ -333,30 +331,57 @@ bool ClienteManager::validarEdad(Fecha fechaNacimiento) {
   return true;
 }
 
-//void ClienteManager::listadoActivos(){
-//  int cantidad = _clientesArchivo.getCantidadRegistros();
-//  Cliente clientes[cantidad];
-//  _clientesArchivo.leerTodos(clientes, cantidad);
-//  cout <<"||||||||||||||||||||||||||||||||||||"<<endl;
-//  cout <<"||        CLIENTES ACTIVOS        ||"<<endl;
-//  cout <<"||||||||||||||||||||||||||||||||||||"<<endl;
-//  for (int i = 0; i < cantidad; i++){
-//    if (!clientes[i].getEliminado()){
-//      mostrarLista(clientes[i], false);
-//    }
-//  }
-//}
+void ClienteManager::listadoActivos(bool mostarTotalClientesActivos) {
+    const int cantidad = _clientesArchivo.getCantidadRegistros();
+    int dato = 0;
+    if (cantidad == 0) {
+        cout << "NO HAY REGISTRO." << std::endl;
+        return;
+    }
+    Cliente *clientes = new Cliente[cantidad];
+    _clientesArchivo.leerTodos(clientes, cantidad);
+    cout << "||||||||||||||||||||||||||||||||||||"<<endl;
+    cout << "||        CLIENTES ACTIVOS        ||"<<endl;
+    cout << "||||||||||||||||||||||||||||||||||||"<<endl;
+    for (int i = 0; i < cantidad; i++) {
+        if (!clientes[i].getEliminado()) {
+          dato++;
+          if (!mostarTotalClientesActivos){
+            mostrarLista(clientes[i], false);
+          }
+        }
+    }
+    if (mostarTotalClientesActivos) {
+      cout << "TOTAL DE CLIENTES ACTIVOS: " << dato <<endl<<endl;
+    }
+    delete[] clientes;
+}
 
-//void ClienteManager::listadoEliminados() {
-//  int cantidad = _clientesArchivo.getCantidadRegistros();
-//  Cliente clientes[cantidad];
-//  _clientesArchivo.leerTodos(clientes, cantidad);
-//  cout <<"|||||||||||||||||||||||||||||||||||||"<<endl;
-//  cout <<"||       CLIENTES ELIMINADOS       ||"<<endl;
-//  cout <<"|||||||||||||||||||||||||||||||||||||"<<endl;
-//  for (int i = 0; i < cantidad; i++) {
-//    if (clientes[i].getEliminado()) {
-//      mostrarLista(clientes[i],true);
-//     }
-//  }
-//}
+void ClienteManager::listadoEliminados(bool mostarTotalClientesEliminado) {
+    int cantidad = _clientesArchivo.getCantidadRegistros();
+    int dato = 0;
+    if (cantidad == 0) {
+        cout << "NO HAT REGISTRO." <<endl;
+        return;
+    }
+    Cliente *clientes = new Cliente[cantidad];
+    _clientesArchivo.leerTodos(clientes, cantidad);
+    cout << "|||||||||||||||||||||||||||||||||||||" <<endl;
+    cout << "||       CLIENTES ELIMINADOS       ||" <<endl;
+    cout << "|||||||||||||||||||||||||||||||||||||"<<endl;
+    for (int i = 0; i < cantidad; i++) {
+        if (clientes[i].getEliminado()) {
+          dato++;
+          if (!mostarTotalClientesEliminado) {
+            mostrarLista(clientes[i], true);
+          }
+        }
+    }
+    cout << "TOTAL DE CLIENTES ELIMINADOS: " << dato <<endl<<endl;
+    delete[] clientes;
+}
+
+void ClienteManager::cantidadClientesPorEstado() {
+  listadoActivos(true);
+  listadoEliminados(true);
+}

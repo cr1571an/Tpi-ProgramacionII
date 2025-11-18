@@ -25,28 +25,28 @@ Cliente::Cliente(int idCliente, std::string nombre, std::string apellido,std::st
 }
 
 void Cliente::setNombre(std::string nombre) {
-    strncpy(_nombre, nombre.c_str(), 24);
-    _nombre[24] = '\0';
+    strncpy(_nombre, nombre.c_str(), 25);
+    _nombre[25] = '\0';
 }
 
 void Cliente::setApellido(std::string apellido) {
-    strncpy(_apellido, apellido.c_str(), 18);
-    _apellido[18] = '\0';
+    strncpy(_apellido, apellido.c_str(), 20);
+    _apellido[20] = '\0';
 }
 
 void Cliente::setDni(std::string dni) {
-    strncpy(_dni, dni.c_str(), 7);
-    _dni[7] = '\0';
+    strncpy(_dni, dni.c_str(), 9);
+    _dni[9] = '\0';
 }
 
 void Cliente::setTelefono(std::string telefono) {
-    strncpy(_telefono, telefono.c_str(), 18);
-    _telefono[18] = '\0';
+    strncpy(_telefono, telefono.c_str(), 20);
+    _telefono[20] = '\0';
 }
 
 void Cliente::setEmail(std::string email) {
-    strncpy(_email, email.c_str(), 48);
-    _email[48] = '\0';
+    strncpy(_email, email.c_str(), 50);
+    _email[50] = '\0';
 }
 
 void Cliente::setEliminado(bool eliminado) {

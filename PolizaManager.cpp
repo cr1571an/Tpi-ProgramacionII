@@ -255,7 +255,7 @@ void PolizaManager::listarPorFechaVencimiento() {
 }
 
 void PolizaManager::mostrarPoliza(Poliza poliza){
-    int posVehiculo = _archivoVehiculos.buscarIdVehiculo(poliza.getIdVehiculo());
+    int posVehiculo = _archivoVehiculos.buscarVehiculo(poliza.getIdVehiculo());
     Vehiculo vehiculo = _archivoVehiculos.leer(posVehiculo);
     int posCliente = _archivoCliente.buscarIdCliente(vehiculo.getIdCliente());
     Cliente cliente = _archivoCliente.leer(posCliente);

@@ -4,11 +4,10 @@
 using namespace std;
 
 ClienteMenu::ClienteMenu(){
-    _cantidadOpciones = 6;
+    _cantidadOpciones = 5;
 }
 void ClienteMenu::mostrar(){
     int opcion;
-
     do{
         system("cls");
         opcion = seleccionOpcion();
@@ -64,18 +63,16 @@ void ClienteMenu::ejecutarOpcion(int opcion) {
         case 5:
             mostrarReportes();
             break;
+            case 0: cout << "VOLVER AL MENU ANTERIOR..." << endl; break;
     }
 }
 
 void ClienteMenu::buscar() {
-    int id = buscarCliente();
-    if (id > 0) {
-        _clienteManager.mostrarDatosDeClienteID(id);
+    int pos = buscarCliente();
+    if (pos > 0) {
+        _clienteManager.mostrarDatosDeClienteID(pos);
     }
-    else if (id == -3) {
-        cout << "EL CLIENTE ESTA ELIMINADO." << endl;
-    }
-    else if (id == -1) {
+    else if (pos == -1) {
         cout << "ERROR!. EL CLIENTE NO EXISTE." << endl;
     }
 }
@@ -83,7 +80,7 @@ void ClienteMenu::buscar() {
 
 int ClienteMenu::buscarCliente() {
     int tipoBusqueda;
-    int id = -3;
+    int id;
     cout << "|||||||||||||||||||||||||||||||||||||||||||" << endl;
     cout << "||            BUSCAR CLIENTE             ||" << endl;
     cout << "|||||||||||||||||||||||||||||||||||||||||||" << endl;
@@ -99,14 +96,12 @@ int ClienteMenu::buscarCliente() {
             cin >> id;
             cin.ignore();
             int pos = _clientesArchivo.buscarIdCliente(id);
-            if (pos == -3) return -3;
             if (pos == -1) return -1;
             return id;
         } else if (tipoBusqueda == 2) {
             cout << "INGRESE EL D.N.I DEL CLIENTE: ";
             string dni = cargarCadena();
             int pos = _clientesArchivo.buscarDNI(dni);
-            if (pos == -3) return -3;
             if (pos == -1) return -1;
             Cliente cliente = _clientesArchivo.leer(pos);
             return cliente.getIdCliente();
@@ -149,7 +144,8 @@ void ClienteMenu::modificarCliente() {
     cin >> opcion;
     cin.ignore();
     switch (opcion) {
-        case 1: _clienteManager.eliminar(id); break;
+        case 1: _clienteManager.eliminar(id);
+            _vehiculosArchivo.eliminarVehiculosDeCliente(id);break;
         case 2: _clienteManager.modificarTelefono(id); break;
         case 3: _clienteManager.modificarCorreo(id); break;
         case 4: _clienteManager.modificarFechaNacimiento(id); break;
@@ -183,23 +179,21 @@ void ClienteMenu::darAltaCliente(int id) {
 
 void ClienteMenu::mostrarReportes() {
     int opcion;
-    cout << "|||||||||||||||||||||||||||||||||||||||||||"<<endl;
-    cout << "||           REPORTES CLIENTES           ||"<<endl;
-    cout << "|||||||||||||||||||||||||||||||||||||||||||"<<endl;
-    cout << "||     1 - LISTADO POR APELLIDO          ||"<<endl;
-    cout << "||     2 - LISTADO ACTIVOS               ||"<<endl;
-    cout << "||     3 - LISTADO ELIMINADOS            ||"<<endl;
-    cout << "||     4 - CLIENTE POR RANGO DE EDAD     ||"<<endl;
-    cout << "|||||||||||||||||||||||||||||||||||||||||||"<<endl;
-    cout << "||     0 - VOLVER                        ||"<<endl;
-    cout << "|||||||||||||||||||||||||||||||||||||||||||"<<endl<< endl;
+    cout << "|||||||||||||||||||||||||||||||||||||||||||||"<<endl;
+    cout << "||           REPORTES CLIENTES             ||"<<endl;
+    cout << "|||||||||||||||||||||||||||||||||||||||||||||"<<endl;
+    cout << "||     1 - LISTADO ACTIVOS                 ||"<<endl;
+    cout << "||     2 - LISTADO ELIMINADOS              ||"<<endl;
+    cout << "||     3 - CANTIDAD DE CLIENTE POR ESTADO  ||"<<endl;
+    cout << "|||||||||||||||||||||||||||||||||||||||||||||"<<endl;
+    cout << "||     0 - VOLVER                          ||"<<endl;
+    cout << "|||||||||||||||||||||||||||||||||||||||||||||"<<endl<< endl;
     cout << "SELECCIONE UNA OPCION: ";
     cin >> opcion;
     switch (opcion) {
-      //  case 1: _clienteManager.listadoPorApellido(); break;
-    //    case 2: _clienteManager.listadoActivos(); break;
-     //   case 3: _clienteManager.listadoEliminados(); break;
-        case 4: //_clienteManager.clientePorRangoEdad(); break;
+        case 1: _clienteManager.listadoActivos(false); break;
+        case 2: _clienteManager.listadoEliminados(false); break;
+        case 3: _clienteManager.cantidadClientesPorEstado(); break;
         case 0: cout << "VOLVER AL MENU ANTERIOR..."<<endl; break;
         default: cout << "OPCION INVALIDA."<<endl; break;
     }

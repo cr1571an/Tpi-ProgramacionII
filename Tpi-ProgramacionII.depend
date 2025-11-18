@@ -315,3 +315,319 @@
 	"TiposSiniestrosArchivo.h"
 	<iostream>
 
+1763421577 source:c:\users\54114\onedrive\escritorio\tpi-programacionii\app.cpp
+	<iostream>
+	"App.h"
+
+1763421577 c:\users\54114\onedrive\escritorio\tpi-programacionii\app.h
+	"ClienteMenu.h"
+	"VehiculoMenu.h"
+	"PolizaMenu.h"
+	"SiniestroMenu.h"
+	"PagoMenu.h"
+
+1763436046 c:\users\54114\onedrive\escritorio\tpi-programacionii\clientemenu.h
+	"ClienteManager.h"
+
+1763436046 c:\users\54114\onedrive\escritorio\tpi-programacionii\clientemanager.h
+	"ClientesArchivo.h"
+	"VehiculosArchivo.h"
+
+1763421577 c:\users\54114\onedrive\escritorio\tpi-programacionii\clientesarchivo.h
+	<string>
+	"ClientesArchivo.h"
+	"Cliente.h"
+
+1763421577 c:\users\54114\onedrive\escritorio\tpi-programacionii\cliente.h
+	"Localidad.h"
+	"Fecha.h"
+
+1763421577 c:\users\54114\onedrive\escritorio\tpi-programacionii\localidad.h
+	<string>
+
+1763421577 c:\users\54114\onedrive\escritorio\tpi-programacionii\fecha.h
+	<string>
+
+1763475170 c:\users\54114\onedrive\escritorio\tpi-programacionii\vehiculomenu.h
+	"VehiculoManager.h"
+	"ClienteManager.h"
+	"ClienteMenu.h"
+	"ClientesArchivo.h"
+
+1763476114 c:\users\54114\onedrive\escritorio\tpi-programacionii\vehiculomanager.h
+	"Vehiculo.h"
+	"VehiculosArchivo.h"
+	"ClienteManager.h"
+	<string>
+
+1763421577 c:\users\54114\onedrive\escritorio\tpi-programacionii\vehiculo.h
+	<string>
+
+1763445688 c:\users\54114\onedrive\escritorio\tpi-programacionii\vehiculosarchivo.h
+	<string>
+	"Vehiculo.h"
+	"VehiculosArchivo.h"
+
+1763421577 c:\users\54114\onedrive\escritorio\tpi-programacionii\polizamenu.h
+	"PolizaManager.h"
+
+1763421577 c:\users\54114\onedrive\escritorio\tpi-programacionii\polizamanager.h
+	"ClienteMenu.h"
+	"PolizaArchivo.h"
+	"VehiculoManager.h"
+	"ClientesArchivo.h"
+	"VehiculosArchivo.h"
+	"TiposSegurosArchivo.h"
+
+1763421577 c:\users\54114\onedrive\escritorio\tpi-programacionii\polizaarchivo.h
+	<string>
+	"Poliza.h"
+
+1763421577 c:\users\54114\onedrive\escritorio\tpi-programacionii\poliza.h
+	<string>
+	"Fecha.h"
+
+1763421577 c:\users\54114\onedrive\escritorio\tpi-programacionii\tipossegurosarchivo.h
+	<string>
+	"TipoSeguro.h"
+
+1763421577 c:\users\54114\onedrive\escritorio\tpi-programacionii\tiposeguro.h
+	<string>
+
+1763421577 c:\users\54114\onedrive\escritorio\tpi-programacionii\siniestromenu.h
+	"SiniestroManager.h"
+
+1763421577 c:\users\54114\onedrive\escritorio\tpi-programacionii\siniestromanager.h
+	"SiniestroArchivo.h"
+	"PolizaArchivo.h"
+	"TiposSiniestrosArchivo.h"
+
+1763421577 c:\users\54114\onedrive\escritorio\tpi-programacionii\siniestroarchivo.h
+	<string>
+	"Siniestro.h"
+
+1763421577 c:\users\54114\onedrive\escritorio\tpi-programacionii\siniestro.h
+	<string>
+	"Fecha.h"
+
+1763421577 c:\users\54114\onedrive\escritorio\tpi-programacionii\tipossiniestrosarchivo.h
+	<string>
+	"TipoSiniestro.h"
+
+1763421577 c:\users\54114\onedrive\escritorio\tpi-programacionii\tiposiniestro.h
+	<string>
+
+1763421577 c:\users\54114\onedrive\escritorio\tpi-programacionii\pagomenu.h
+	"PagoManager.h"
+
+1763421577 c:\users\54114\onedrive\escritorio\tpi-programacionii\pagomanager.h
+	"PagoArchivo.h"
+	"Pago.h"
+
+1763421577 c:\users\54114\onedrive\escritorio\tpi-programacionii\pagoarchivo.h
+	<string>
+	"Pago.h"
+
+1763421577 c:\users\54114\onedrive\escritorio\tpi-programacionii\pago.h
+	<string>
+	"Fecha.h"
+
+1763428510 source:c:\users\54114\onedrive\escritorio\tpi-programacionii\cliente.cpp
+	<string>
+	<cstring>
+	"Cliente.h"
+
+1763446926 source:c:\users\54114\onedrive\escritorio\tpi-programacionii\clientemanager.cpp
+	<string>
+	"ClientesArchivo.h"
+	"ClienteManager.h"
+	"LocalidadArchivo.h"
+	<iostream>
+	<bits/ostream.tcc>
+	"utils.h"
+
+1763427968 c:\users\54114\onedrive\escritorio\tpi-programacionii\localidadarchivo.h
+	"Localidad.h"
+	<string>
+
+1763421577 c:\users\54114\onedrive\escritorio\tpi-programacionii\utils.h
+	<string>
+	"Fecha.h"
+
+1763436045 source:c:\users\54114\onedrive\escritorio\tpi-programacionii\clientemenu.cpp
+	<iostream>
+	"ClienteMenu.h"
+	"utils.h"
+
+1763431075 source:c:\users\54114\onedrive\escritorio\tpi-programacionii\clientesarchivo.cpp
+	"ClientesArchivo.h"
+	<iostream>
+
+1763421577 source:c:\users\54114\onedrive\escritorio\tpi-programacionii\fecha.cpp
+	<iostream>
+	<ctime>
+	"Fecha.h"
+
+1763426070 source:c:\users\54114\onedrive\escritorio\tpi-programacionii\localidad.cpp
+	"Localidad.h"
+	<cstring>
+
+1763433068 source:c:\users\54114\onedrive\escritorio\tpi-programacionii\localidadarchivo.cpp
+	"LocalidadArchivo.h"
+	<iostream>
+	"utils.h"
+
+1763421577 source:c:\users\54114\onedrive\escritorio\tpi-programacionii\main.cpp
+	<windows.h>
+	<iostream>
+	"App.h"
+	"tools/imprimirArchivos.h"
+	"tools/generadorDeArchivosDeDatos.h"
+
+1763421577 c:\users\54114\onedrive\escritorio\tpi-programacionii\tools\imprimirarchivos.h
+
+1763421577 c:\users\54114\onedrive\escritorio\tpi-programacionii\tools\generadordearchivosdedatos.h
+
+1763421577 source:c:\users\54114\onedrive\escritorio\tpi-programacionii\pago.cpp
+	"Pago.h"
+	<cstring>
+
+1763421577 source:c:\users\54114\onedrive\escritorio\tpi-programacionii\pagoarchivo.cpp
+	"PagoArchivo.h"
+	<iostream>
+	<cstdio>
+
+1763421577 source:c:\users\54114\onedrive\escritorio\tpi-programacionii\pagomanager.cpp
+	<iostream>
+	<string>
+	<limits>
+	"utils.h"
+	"PagoManager.h"
+
+1763421577 source:c:\users\54114\onedrive\escritorio\tpi-programacionii\pagomenu.cpp
+	<iostream>
+	<limits>
+	"PagoMenu.h"
+
+1763421577 source:c:\users\54114\onedrive\escritorio\tpi-programacionii\poliza.cpp
+	"Poliza.h"
+	<cstring>
+
+1763421577 source:c:\users\54114\onedrive\escritorio\tpi-programacionii\polizaarchivo.cpp
+	"PolizaArchivo.h"
+	<iostream>
+
+1763445755 source:c:\users\54114\onedrive\escritorio\tpi-programacionii\polizamanager.cpp
+	"PolizaManager.h"
+	"PolizaArchivo.h"
+	"utils.h"
+	"Cliente.h"
+	"TipoSeguro.h"
+	<iostream>
+
+1763421577 source:c:\users\54114\onedrive\escritorio\tpi-programacionii\polizamenu.cpp
+	<iostream>
+	"PolizaMenu.h"
+
+1763421577 source:c:\users\54114\onedrive\escritorio\tpi-programacionii\siniestro.cpp
+	"Siniestro.h"
+	<cstring>
+
+1763421577 source:c:\users\54114\onedrive\escritorio\tpi-programacionii\siniestroarchivo.cpp
+	"SiniestroArchivo.h"
+	<iostream>
+
+1763421577 source:c:\users\54114\onedrive\escritorio\tpi-programacionii\siniestromanager.cpp
+	"SiniestroManager.h"
+	<iostream>
+	"utils.h"
+
+1763421577 source:c:\users\54114\onedrive\escritorio\tpi-programacionii\siniestromenu.cpp
+	<iostream>
+	"SiniestroMenu.h"
+
+1763421577 source:c:\users\54114\onedrive\escritorio\tpi-programacionii\tiposeguro.cpp
+	"TipoSeguro.h"
+	<cstring>
+
+1763421577 source:c:\users\54114\onedrive\escritorio\tpi-programacionii\tiposiniestro.cpp
+	"TipoSiniestro.h"
+	<cstring>
+
+1763421577 source:c:\users\54114\onedrive\escritorio\tpi-programacionii\tipossegurosarchivo.cpp
+	"TiposSegurosArchivo.h"
+	<iostream>
+
+1763421577 source:c:\users\54114\onedrive\escritorio\tpi-programacionii\tipossiniestrosarchivo.cpp
+	"TiposSiniestrosArchivo.h"
+	<iostream>
+
+1763421577 source:c:\users\54114\onedrive\escritorio\tpi-programacionii\tools\generadordearchivosdedatos.cpp
+	"generadorDeArchivosDeDatos.h"
+	<filesystem>
+	<fstream>
+	<iostream>
+	<sstream>
+	"../Cliente.h"
+	"../ClientesArchivo.h"
+	"../Fecha.h"
+	"../Pago.h"
+	"../PagoArchivo.h"
+	"../Poliza.h"
+	"../PolizaArchivo.h"
+	"../Siniestro.h"
+	"../SiniestroArchivo.h"
+	"../Vehiculo.h"
+	"../VehiculosArchivo.h"
+	"../utils.h"
+	"../TipoSeguro.h"
+	"../TiposSegurosArchivo.h"
+	"../TiposSiniestrosArchivo.h"
+	"../TipoSiniestro.h"
+
+1763421577 source:c:\users\54114\onedrive\escritorio\tpi-programacionii\tools\imprimirarchivos.cpp
+	<iostream>
+	"../Cliente.h"
+	"../ClientesArchivo.h"
+	"../Fecha.h"
+	"../Pago.h"
+	"../PagoArchivo.h"
+	"../Poliza.h"
+	"../PolizaArchivo.h"
+	"../Siniestro.h"
+	"../SiniestroArchivo.h"
+	"../Vehiculo.h"
+	"../VehiculosArchivo.h"
+	"../Localidad.h"
+	"../LocalidadArchivo.h"
+	"../TiposSiniestrosArchivo.h"
+	"../TipoSiniestro.h"
+
+1763421577 source:c:\users\54114\onedrive\escritorio\tpi-programacionii\utils.cpp
+	"utils.h"
+	<cctype>
+	<iostream>
+	<string>
+	<limits>
+
+1763425411 source:c:\users\54114\onedrive\escritorio\tpi-programacionii\vehiculo.cpp
+	<string>
+	<cstring>
+	<iostream>
+	"Vehiculo.h"
+
+1763476114 source:c:\users\54114\onedrive\escritorio\tpi-programacionii\vehiculomanager.cpp
+	<iostream>
+	<string>
+	"VehiculoManager.h"
+	"utils.h"
+	"VehiculoMenu.h"
+
+1763476128 source:c:\users\54114\onedrive\escritorio\tpi-programacionii\vehiculomenu.cpp
+	<iostream>
+	"VehiculoMenu.h"
+
+1763445737 source:c:\users\54114\onedrive\escritorio\tpi-programacionii\vehiculosarchivo.cpp
+	"VehiculosArchivo.h"
+	<iostream>
+

@@ -4,7 +4,7 @@ using namespace std;
 
 ClientesArchivo::ClientesArchivo(std::string nombreArchivo)
 : _nombreArchivo(nombreArchivo) {
-};
+}
 
 
 bool ClientesArchivo::guardar(Cliente registro) {
@@ -19,7 +19,7 @@ bool ClientesArchivo::guardar(Cliente registro) {
     fclose(archivo_cliente);
 
     return guardado;
-};
+}
 
 
 int ClientesArchivo::buscarIdCliente(int id) {
@@ -53,7 +53,7 @@ Cliente ClientesArchivo::leer(int pos) {
 
     fclose(archivo_cliente);
     return registro;
-};
+}
 
 
 int ClientesArchivo::leerTodos(Cliente cliente[], int cantidad) {
@@ -65,7 +65,7 @@ int ClientesArchivo::leerTodos(Cliente cliente[], int cantidad) {
 
     fclose(archivo_cliente);
     return result;
-};
+}
 
 
 int ClientesArchivo::getCantidadRegistros() {
@@ -79,12 +79,12 @@ int ClientesArchivo::getCantidadRegistros() {
 
     fclose(archivo_cliente);
     return cantidad;
-};
+}
 
 
 int ClientesArchivo::getIdClienteUltimo() {
     return getCantidadRegistros()+1;
-};
+}
 
 
 bool ClientesArchivo::eliminar(int id) {
@@ -96,7 +96,7 @@ bool ClientesArchivo::eliminar(int id) {
     registro.eliminar();
 
     return actualizarRegistro(pos, registro);
-};
+}
 
 
 bool ClientesArchivo::actualizarRegistro(int pos, Cliente registro) {
@@ -115,9 +115,6 @@ bool ClientesArchivo::actualizarRegistro(int pos, Cliente registro) {
 bool ClientesArchivo::recuperar(int id) {
     int pos = buscarIdCliente(id);
     if (pos == -1) {
-        return false;
-    }
-    if (pos == -3) {
         return false;
     }
     Cliente registro = leer(pos);

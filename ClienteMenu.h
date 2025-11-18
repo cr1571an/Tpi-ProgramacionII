@@ -21,4 +21,5 @@ class ClienteMenu {
     int _cantidadOpciones;
     ClienteManager _clienteManager;
     ClientesArchivo _clientesArchivo;
+    VehiculosArchivo _vehiculosArchivo;
 };

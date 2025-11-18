@@ -10,9 +10,8 @@ class VehiculoMenu {
         VehiculoMenu();
         void mostrar();
         void mostrarOpciones();
+        int seleccionOpcion();
         void ejecutarOpcion(int opcion);
-        void mostrarMenuUso();
-        void mostrarMenuCategoria();
         void cargar();
         void modificarVehiculo();
         void mostrarMenuModificar();
@@ -22,14 +21,12 @@ class VehiculoMenu {
         void mostrarReportes();
         void darAltaVehiculo(int idVehiculo);
 
-        int seleccionOpcion();
+        bool darAltaClientePorIdVehiculo(int posVehiculo);
+
         int seleccionarVehiculo(bool modificar);
 
         std::string mostrarCategoria();
         std::string mostrarUso();
-        std::string ejecutarOpcionMenuUso(int opcion);
-        std::string ejecutarOpcionMenuCategoria(int opcion);
-
 
     private:
         int _cantidadOpciones;
