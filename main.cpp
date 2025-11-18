@@ -17,14 +17,5 @@ int main() {
     App app;
     app.run();
 
-//  imprimirArchivos();
-//  generarClientes();
-//  generarPagos();
-//  generarPolizas();
-//  generarVehiculos();
-//  generarSiniestros();
-//  generarTiposSeguros();
-//  generarTiposSiniestros();
-
     return 0;
 }

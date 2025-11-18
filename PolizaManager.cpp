@@ -11,6 +11,7 @@ PolizaManager::PolizaManager()
 }
 
 void PolizaManager::mostrar() {
+    cout << "-- LISTADO DE POLIZAS --" << endl;
     int cantidad = _archivo.getCantidadRegistros();
     if (cantidad == 0) {
         cout << "NO HAY POLIZAS PARA MOSTRAR." << endl;
@@ -26,6 +27,7 @@ void PolizaManager::mostrar() {
 
 void PolizaManager::cargar() {
     string patente;
+    cout << "-- FORMULARIO DE ALTA DE POLIZA --" << endl;
     cout << "INGRESE LA PATENTE DEL VEHICULO: ";
     patente = cargarCadena();
     int idVehiculo = _vehiculoManager.buscarIdPorPatente(patente);
@@ -261,17 +263,22 @@ void PolizaManager::mostrarPoliza(Poliza poliza){
     Cliente cliente = _archivoCliente.leer(posCliente);
     int posTipoSeguro = _archivoTipoSeguros.buscarID(poliza.getIdTipoSeguro());
     TipoSeguro tipoSeguro = _archivoTipoSeguros.leer(posTipoSeguro);
-    cout << "ID: " << poliza.getId()
-         << ", CLIENTE: " << cliente.getApellido() << " " << cliente.getNombre()
-         << ", VEHICULO ID: " << poliza.getIdVehiculo()
-         << ", PATENTE: " << vehiculo.getPatente()
-         << ", TIPO DE SEGURO: " << tipoSeguro.getDescripcion()
-         << ", FECHA INICIO: " << poliza.getfechaInicio().formatoFecha()
-         << ", FECHA FIN: " << poliza.getfechaFin().formatoFecha()
-         << ", PRIMA MENSUAL: " << poliza.getPrimaMensual()
-         << ", VIGENTE: " << (poliza.getVigente() ? "SI" : "NO")
-         << ", ELIMINADO: " << (poliza.getEliminado() ? "SI" : "NO")
-         << endl;
+    cout << "---------------------------------------------\n";
+    cout << "              POLIZA N° " << poliza.getId() << "\n";
+    cout << "---------------------------------------------\n";
+    cout << "Cliente ID    : " << cliente.getIdCliente() << "\n";
+    cout << "Cliente        : " << cliente.getApellido() << " " << cliente.getNombre() << "\n";
+    cout << "DNI           : " << cliente.getDni() << "\n";
+    cout << "Vehículo ID    : " << poliza.getIdVehiculo() << "\n";
+    cout << "Patente        : " << vehiculo.getPatente() << "\n";
+    cout << "Tipo Seguro    : " << tipoSeguro.getDescripcion() << "\n";
+    cout << "Fecha Inicio   : " << poliza.getfechaInicio().formatoFecha() << "\n";
+    cout << "Fecha Fin      : " << poliza.getfechaFin().formatoFecha() << "\n";
+    cout << "Prima Mensual  : " << poliza.getPrimaMensual() << "\n";
+    cout << "Vigente        : " << (poliza.getVigente() ? "SI" : "NO") << "\n";
+    cout << "Eliminado      : " << (poliza.getEliminado() ? "SI" : "NO") << "\n";
+    cout << "---------------------------------------------\n";
+
 }
 
 void PolizaManager::buscarPorDniCliente(){
@@ -279,14 +286,18 @@ void PolizaManager::buscarPorDniCliente(){
     string dni;
     cout << "INGRESE DNI DEL CLIENTE: ";
     dni = cargarCadena();
-    int idCliente = _archivoCliente.buscarDNI(dni);
-    if (idCliente != -1) {
+    int posCliente = _archivoCliente.buscarDNI(dni);
+
+    if (posCliente != -1) {
+        Cliente cliente = _archivoCliente.leer(posCliente);
+        int idCliente = cliente.getIdCliente();
         int cantidad = _archivo.getCantidadRegistros();
         Poliza* polizas = new Poliza[cantidad]{};
         _archivo.leerTodos(polizas, cantidad);
         for (int i = 0; i < cantidad; i++) {
             Poliza p = polizas[i];
-            Vehiculo vehiculo = _archivoVehiculos.leer(p.getIdVehiculo());
+            int posVehiculo = _archivoVehiculos.buscarVehiculo(p.getIdVehiculo());
+            Vehiculo vehiculo = _archivoVehiculos.leer(posVehiculo);
             if (vehiculo.getIdCliente() == idCliente && !p.getEliminado()) {
                 mostrarPoliza(p);
                 encontrado = true;
@@ -347,6 +358,9 @@ void PolizaManager::reportePolizasVigentesYVencidas(){
         delete [] polizas;
         return;
     }
+
+    cout << "------------------------" << endl;
+    cout << "REPORTE DE SEGURO" << endl;
 
     int cantidadSeguros = _archivoTipoSeguros.getCantidadRegistros();
     TipoSeguro* tiposSeguros = new TipoSeguro[cantidadSeguros]{};
