@@ -340,25 +340,31 @@ void VehiculoManager::reporteCantidadPorCategoria() {
         cout << "NO HAY VEHICULOS REGISTRADOS." << endl;
         return;
     }
-    Vehiculo *vehiculos =new Vehiculo[cantidad];
+    Vehiculo *vehiculos = new Vehiculo[cantidad];
     _vehiculosArchivo.leerTodos(vehiculos, cantidad);
-    int contador[5] = {0,0,0,0,0};
+    int activos[5] = {};
+    int inactivos[5] = {};
     string categorias[5] = {"AUTOMOVIL", "MOTO", "CAMIONETA", "COLECTIVO", "REMOLQUE"};
     for (int i = 0; i < cantidad; i++) {
-        if (!vehiculos[i].getEliminado()){
-            string cat = vehiculos[i].getCategoria();
-            for (int j = 0; j < 5; j++) {
-                if (cat == categorias[j]) {
-                    contador[j]++;
-                    break;}
+        string cat = vehiculos[i].getCategoria();
+        for (int j = 0; j < 5; j++) {
+            if (cat == categorias[j]) {
+                if (vehiculos[i].getEliminado()) {
+                    inactivos[j]++;
+                } else {
+                    activos[j]++;
+                }
+                break;
             }
         }
     }
-    cout << "|||||||||||||||||||||||||||||||||||||||||" << endl;
-    cout << "|| CANTIDAD DE VEHICULOS POR CATEGORIA ||" << endl;
-    cout << "|||||||||||||||||||||||||||||||||||||||||" << endl;
+    cout << "|||||||||||||||||||||||||||||||||||||||||"<< endl;
+    cout << "|| REPORTE DE VEHICULOS POR CATEGORIA  ||"<< endl;
+    cout << "|||||||||||||||||||||||||||||||||||||||||"<<endl;
     for (int j = 0; j < 5; j++) {
-        cout << categorias[j] << ": " << contador[j] << endl;
+        cout << endl;
+        cout <<categorias[j] <<" ACTIVOS: " << activos[j]<<endl;
+        cout <<categorias[j] <<" INACTIVOS: " << inactivos[j]<<endl;
     }
     delete[] vehiculos;
 }
@@ -371,25 +377,30 @@ void VehiculoManager::reporteCantidadPorUso() {
     }
     Vehiculo *vehiculos = new Vehiculo[cantidad];
     _vehiculosArchivo.leerTodos(vehiculos, cantidad);
-    int contador[6] = {0, 0, 0, 0, 0, 0};
+    int activos[6] = {};
+    int inactivos[6] = {};
     string usos[6] = {"PARTICULAR", "COMERCIAL", "CARGA", "SERVICIO PUBLICO", "ALQUILER", "EMERGENCIA"};
-    for (int i = 0; i < cantidad; i++) {
-        if (!vehiculos[i].getEliminado()){
-            string uso = vehiculos[i].getUso();
-            for (int j = 0; j < 6; j++) {
-                if (uso == usos[j]) {
-                    contador[j]++;
-                    break;
+    for (int i = 0; i < cantidad; i++){
+        string uso = vehiculos[i].getUso();
+        for (int j = 0; j < 6; j++) {
+            if (uso == usos[j]) {
+                if (vehiculos[i].getEliminado()) {
+                    inactivos[j]++;
+                } else {
+                    activos[j]++;
                 }
+                break;
             }
         }
     }
     cout << "|||||||||||||||||||||||||||||||||||" << endl;
-    cout << "|| CANTIDAD DE VEHICULOS POR USO ||" << endl;
+    cout << "|| REPORTE DE VEHICULOS POR USO ||" << endl;
     cout << "|||||||||||||||||||||||||||||||||||" << endl;
     for (int j = 0; j < 6; j++) {
-        cout <<usos[j] << ": " << contador[j]<< endl;
+        cout << endl;
+        cout << usos[j] << " ACTIVOS: " << activos[j]<<endl;
+        cout << usos[j] << " INACTIVOS: " << inactivos[j] << endl;
     }
+
     delete[] vehiculos;
 }
-
