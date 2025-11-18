@@ -3,6 +3,8 @@
 #include "SiniestroArchivo.h"
 #include "PolizaArchivo.h"
 #include "TiposSiniestrosArchivo.h"
+#include "VehiculosArchivo.h"
+#include "ClientesArchivo.h"
 
 class SiniestroManager {
     public:
@@ -25,6 +27,8 @@ class SiniestroManager {
         SiniestroArchivo _archivo;
         PolizaArchivo _polizaArchivo;
         TiposSiniestrosArchivo _tiposSiniestrosArchivo;
+        VehiculosArchivo _vehiculoArchivo;
+        ClientesArchivo _clienteArchivo;
 
         void mostrarSiniestro(Siniestro siniestro);
         void ordenarPorFechaSiniestro(Siniestro vect[], int cantidad);
