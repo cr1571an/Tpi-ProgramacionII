@@ -30,11 +30,10 @@ class Poliza {
  private:
   int _id;
   int _idVehiculo;
-  int _idTipoSeguro;
   Fecha _fechaInicio;
   Fecha _fechaFin;
   float _primaMensual;
-  
+  int _idTipoSeguro;
   bool _vigente;
   bool _eliminado;
 };

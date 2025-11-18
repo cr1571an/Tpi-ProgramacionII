@@ -8,93 +8,109 @@ SiniestroManager::SiniestroManager()
 }
 
 void SiniestroManager::mostrar() {
-    int cantidad = _archivo.getCantidadRegistros();
+    int cantidad = _archivo.getCantidadRegistros();    
+
     if (cantidad != 0) {
+        Siniestro* vectSiniestros = new Siniestro[cantidad];
+        cantidad = _archivo.leerTodos(vectSiniestros, cantidad);
+        ordenarPorFechaSiniestro(vectSiniestros, cantidad);
         for (int i = 0; i < cantidad; i++) {
-            Siniestro s = _archivo.leer(i);
+            Siniestro s = vectSiniestros[i];
             if (!s.getEliminado()) 
                 mostrarSiniestro(s);
         }
+        delete[] vectSiniestros;
     }
     else {
-        cout << "No hay siniestros para mostrar." << endl;
+        cout << "NO HAY SINIESTROS PARA MOSTRAR." << endl;
+    }    
+}
+
+void SiniestroManager::ordenarPorFechaSiniestro(Siniestro vect[], int cantidad) {
+    for (int i = 0; i < cantidad - 1; i++) {
+        for (int j = 0; j < cantidad - i - 1; j++) {
+            if (vect[j].getFechaSiniestro() > vect[j + 1].getFechaSiniestro()) {
+                Siniestro temp = vect[j];
+                vect[j] = vect[j + 1];
+                vect[j + 1] = temp;
+            }
+        }
     }
 }
 
-
 void SiniestroManager::cargar() {
     int idPoliza;
-    cout << "ID de la poliza asociada: "; cin >> idPoliza;
+    cout << "ID DE LA POLIZA ASOCIADA: "; cin >> idPoliza;
 
     int id = _archivo.getNuevoID();
     int dia, mes, anio;
-    cout << "Ingrese el dia de la fecha del siniestro: ";
+    cout << "INGRESE EL DIA DE LA FECHA DEL SINIESTRO (DD): ";
     cin >> dia;
-    cout << "Ingrese el mes de la fecha del siniestro: ";
+    cout << "INGRESE EL MES DE LA FECHA DEL SINIESTRO (MM): ";
     cin >> mes;
-    cout << "Ingrese el anio de la fecha del siniestro: ";
+    cout << "INGRESE EL ANIO DE LA FECHA DEL SINIESTRO (AAAA): ";
     cin >> anio;
 
     Fecha fecha(dia, mes, anio);
     int idTipo;    
     float costo;
     
-    cout << "Id del Tipo de siniestro: "; cin >> idTipo;
+    cout << "ID DEL TIPO DE SINIESTRO: "; cin >> idTipo;
     if (_tiposSiniestrosArchivo.buscarID(idTipo) == -1) {
-        cout << "La poliza asociada no existe. Operacion cancelada." << endl;
+        cout << "LA POLIZA ASOCIADA NO EXISTE. OPERACION CANCELADA." << endl;
         return;
     }
 
-    cout << "Costo estimado: "; cin >> costo;
+    cout << "COSTO ESTIMADO: "; cin >> costo;
     if (costo < 0) {
-        cout << "El costo estimado no puede ser negativo. Operacion cancelada." << endl;
+        cout << "EL COSTO ESTIMADO NO PUEDE SER NEGATIVO. OPERACION CANCELADA." << endl;
         return;
     }
 
     Siniestro s(id, idPoliza, fecha, idTipo, costo, true, false);
-    if (_archivo.guardar(s)) cout << "Siniestro registrado." << endl;
-    else cout << "Error al guardar." << endl;
+    if (_archivo.guardar(s)) cout << "SINIESTRO REGISTRADO." << endl;
+    else cout << "ERROR AL GUARDAR." << endl;
 }
 
 
 void SiniestroManager::eliminar() {
     int id;
-    cout << "ID del siniestro: "; cin >> id;
+    cout << "ID DEL SINIESTRO: "; cin >> id;
     if (id >= 0){
         int pos = _archivo.buscarID(id);
         if (pos != -1) {
-            cout << (_archivo.eliminar(pos) ? "Siniestro eliminado." : "No se encontró el siniestro.") << endl;
+            cout << (_archivo.eliminar(pos) ? "SINIESTRO ELIMINADO." : "NO SE ENCONTRO EL SINIESTRO.") << endl;
         } else {
-            cout << "No se encontró el siniestro." << endl;
+            cout << "NO SE ENCONTRO EL SINIESTRO." << endl;
         }
     }
     else{
-        cout<<"El ID ingresado es invalido.";
+        cout<<"EL ID INGRESADO ES INVALIDO.";
     }
 }
 
 void SiniestroManager::recuperar() {
     int idSiniestro;
-    cout << "Ingrese un numero de siniestro: ";
+    cout << "INGRESE UN NUMERO DE SINIESTRO: ";
     cin >> idSiniestro;
     if (idSiniestro>= 0){
         int pos = _archivo.buscarID(idSiniestro);
         if (pos != -1 ){
             Siniestro siniestro = _archivo.leer(pos);
             siniestro.setEliminado(false);            
-            cout<< (_archivo.guardar(siniestro, pos) ? "Siniestro recuperado." : "No se pudo recuperar el siniestro.") << endl;          
+            cout<< (_archivo.guardar(siniestro, pos) ? "SINIESTRO RECUPERADO." : "NO SE PUDO RECUPERAR EL SINIESTRO.") << endl;          
         }
         else
-            cout<<"El ID ingresado no se encontro.";
+            cout<<"EL ID INGRESADO NO SE ENCONTRO.";
     }
     else{
-        cout<<"El ID ingresado no es invalido.";
+        cout<<"EL ID INGRESADO ES INVALIDO.";
     }
 }
 
 void SiniestroManager::buscarPorIdPoliza() {
     int idPoliza;
-    cout << "ID de la poliza: "; cin >> idPoliza;
+    cout << "ID DE LA POLIZA: "; cin >> idPoliza;
 
     int cantidad = _archivo.getCantidadRegistros();
     bool encontrado = false;
@@ -106,86 +122,158 @@ void SiniestroManager::buscarPorIdPoliza() {
         }
     }
     if (!encontrado) {
-        cout << "No se encontraron siniestros para la poliza indicada." << endl;
+        cout << "NO SE ENCONTRARON SINIESTROS PARA LA POLIZA INDICADA." << endl;
     }
 }
 
 void SiniestroManager::modificarFechaSiniestro() {
     int id;
-    cout << "ID del siniestro a modificar: "; cin >> id;
+    cout << "ID DEL SINIESTRO A MODIFICAR: "; cin >> id;
     int pos = _archivo.buscarID(id);
     if (pos != -1) {
         Siniestro s = _archivo.leer(pos);
         int dia, mes, anio;
-        cout << "Nueva fecha - Dia: "; cin >> dia;
-        cout << "Nueva fecha - Mes: "; cin >> mes;
-        cout << "Nueva fecha - Anio: "; cin >> anio;
+        cout << "NUEVA FECHA - DIA: "; cin >> dia;
+        cout << "NUEVA FECHA - MES: "; cin >> mes;
+        cout << "NUEVA FECHA - ANIO: "; cin >> anio;
         Fecha nuevaFecha(dia, mes, anio);
         s.setFechaSiniestro(nuevaFecha);
-        cout << (_archivo.guardar(s, pos) ? "Fecha modificada." : "Error al modificar la fecha.") << endl;
+        cout << (_archivo.guardar(s, pos) ? "FECHA MODIFICADA." : "ERROR AL MODIFICAR LA FECHA.") << endl;
     } else {
-        cout << "No se encontró el siniestro." << endl;
+        cout << "NO SE ENCONTRO EL SINIESTRO." << endl;
     }
 }
 
 void SiniestroManager::modificarTipoSiniestro() {
     int id;
-    cout << "ID del siniestro a modificar: "; cin >> id;
+    cout << "ID DEL SINIESTRO A MODIFICAR: "; cin >> id;
     int pos = _archivo.buscarID(id);
     if (pos != -1) {
         Siniestro s = _archivo.leer(pos);
         int nuevoTipo;
-        cout << "Nuevo tipo de siniestro: "; 
+        cout << "NUEVO TIPO DE SINIESTRO: "; 
         cin >> nuevoTipo;
         int posTipo = _tiposSiniestrosArchivo.buscarID(nuevoTipo);
         if (posTipo == -1) {
-            cout << "Tipo de siniestro no encontrado. Modificación cancelada." << endl;
+            cout << "TIPO DE SINIESTRO NO ENCONTRADO. MODIFICACION CANCELADA." << endl;
             return;
         }
         s.setIdTipoSiniestro(nuevoTipo);
-        cout << (_archivo.guardar(s, pos) ? "Tipo de siniestro modificado." : "Error al modificar el tipo de siniestro.") << endl;
+        cout << (_archivo.guardar(s, pos) ? "TIPO DE SINIESTRO MODIFICADO." : "ERROR AL MODIFICAR EL TIPO DE SINIESTRO.") << endl;
     } else {
-        cout << "No se encontró el siniestro." << endl;
+        cout << "NO SE ENCONTRO EL SINIESTRO." << endl;
     }
 }
 
 void SiniestroManager::modificarCostoEstimado() {
     int id;
-    cout << "ID del siniestro a modificar: "; cin >> id;
+    cout << "ID DEL SINIESTRO A MODIFICAR: "; cin >> id;
     int pos = _archivo.buscarID(id);
     if (pos != -1) {
         Siniestro s = _archivo.leer(pos);
         float nuevoCosto;
-        cout << "Nuevo costo estimado: "; cin >> nuevoCosto;
+        cout << "NUEVO COSTO ESTIMADO: "; cin >> nuevoCosto;
         s.setCostoEstimado(nuevoCosto);
-        cout << (_archivo.guardar(s, pos) ? "Costo estimado modificado." : "Error al modificar el costo estimado.") << endl;
+        cout << (_archivo.guardar(s, pos) ? "COSTO ESTIMADO MODIFICADO." : "ERROR AL MODIFICAR EL COSTO ESTIMADO.") << endl;
     } else {
-        cout << "No se encontró el siniestro." << endl;
+        cout << "NO SE ENCONTRO EL SINIESTRO." << endl;
     }
 }
 
 void SiniestroManager::modificarEstadoSiniestro() {
     int id;
-    cout << "ID del siniestro a modificar: "; cin >> id;
+    cout << "ID DEL SINIESTRO A MODIFICAR: "; cin >> id;
     int pos = _archivo.buscarID(id);
     if (pos != -1) {
         Siniestro s = _archivo.leer(pos);
         bool nuevoEstado;
-        cout << "Nuevo estado (1 para vigente, 0 para no vigente): "; cin >> nuevoEstado;
+        cout << "NUEVO ESTADO (1 PARA VIGENTE, 0 PARA NO VIGENTE): "; cin >> nuevoEstado;
         s.setEstado(nuevoEstado);
-        cout << (_archivo.guardar(s, pos) ? "Estado modificado." : "Error al modificar el estado.") << endl;
+        cout << (_archivo.guardar(s, pos) ? "ESTADO MODIFICADO." : "ERROR AL MODIFICAR EL ESTADO.") << endl;
     } else {
-        cout << "No se encontró el siniestro." << endl;
+        cout << "NO SE ENCONTRO EL SINIESTRO." << endl;
     }
 }
 
 void SiniestroManager::mostrarSiniestro(Siniestro siniestro) {
     int posicion = _tiposSiniestrosArchivo.buscarID(siniestro.getIdTipoSiniestro());
     TipoSiniestro tipoSiniestro = _tiposSiniestrosArchivo.leer(posicion); 
-    cout << "ID: " << siniestro.getId() << ", Poliza: " << siniestro.getIdPoliza()
-         << ", Tipo: " << tipoSiniestro.getDescripcion()
-         << ", Costo: $" << siniestro.getCostoEstimado()
-         << ", Fecha Siniestro: " << siniestro.getFechaSiniestro().formatoFecha()
-         << ", Vigente: " << (siniestro.getEstado() ? "Sí" : "No")
+    cout << "ID: " << siniestro.getId() << ", POLIZA: " << siniestro.getIdPoliza()
+         << ", TIPO: " << tipoSiniestro.getDescripcion()
+         << ", COSTO: $" << siniestro.getCostoEstimado()
+         << ", FECHA SINIESTRO: " << siniestro.getFechaSiniestro().formatoFecha()
+         << ", APROBADO: " << (siniestro.getEstado() ? "SÍ" : "NO")
          << endl;
+}
+
+void SiniestroManager::reporteSiniestrosPorTipo() {
+    int cantidadTipos = _tiposSiniestrosArchivo.getCantidadRegistros();
+    for (int i = 0; i < cantidadTipos; i++) {
+        TipoSiniestro tipo = _tiposSiniestrosArchivo.leer(i);
+        if (!tipo.getEliminado()) {
+            cout << "TIPO DE SINIESTRO: " << tipo.getDescripcion() << endl;
+            int cantidadSiniestros = _archivo.getCantidadRegistros();
+            int contador = 0;
+            for (int j = 0; j < cantidadSiniestros; j++) {
+                Siniestro s = _archivo.leer(j);
+                if (s.getIdTipoSiniestro() == tipo.getId() && !s.getEliminado()) {
+                    contador++;                    
+                }
+            }
+            cout << "CANTIDAD DE SINIESTROS: " << contador << endl;
+        }
+    }
+
+}
+
+void SiniestroManager::listadoSiniestrosPorPoliza(){
+    int idPoliza;
+    cout << "ID DE LA POLIZA: "; cin >> idPoliza;
+    int cantidadPolizas = _polizaArchivo.getCantidadRegistros();
+    if (idPoliza >= 1 && idPoliza <= cantidadPolizas){      
+        int cantidadSiniestros = _archivo.getCantidadRegistros();
+        bool encontrado = false;
+        for (int i = 0; i < cantidadSiniestros; i++) {
+            Siniestro s = _archivo.leer(i);
+            if (s.getIdPoliza() == idPoliza && !s.getEliminado()) {
+                mostrarSiniestro(s);
+                encontrado = true;
+            }
+        }
+        if (!encontrado) {
+            cout << "NO SE ENCONTRARON SINIESTROS PARA LA POLIZA INDICADA." << endl;
+        }
+    }
+    else{
+        cout<<"EL ID DE LA POLIZA ES INVALIDO." << endl;
+    }
+    
+}
+void SiniestroManager::listadoSiniestrosAprobados(){
+    int cantidadSiniestros = _archivo.getCantidadRegistros();
+    bool encontrado = false;
+    for (int i = 0; i < cantidadSiniestros; i++) {
+        Siniestro s = _archivo.leer(i);
+        if (s.getEstado() && !s.getEliminado()) {
+            mostrarSiniestro(s);
+            encontrado = true;
+        }
+    }
+    if (!encontrado) {
+        cout << "NO SE ENCONTRARON SINIESTROS APROBADOS." << endl;
+    }
+}
+void SiniestroManager::listadoSiniestrosNoAprobados(){
+    int cantidadSiniestros = _archivo.getCantidadRegistros();
+    bool encontrado = false;
+    for (int i = 0; i < cantidadSiniestros; i++) {
+        Siniestro s = _archivo.leer(i);
+        if (!s.getEstado() && !s.getEliminado()) {
+            mostrarSiniestro(s);
+            encontrado = true;
+        }
+    }
+    if (!encontrado) {
+        cout << "NO SE ENCONTRARON SINIESTROS NO APROBADOS." << endl;
+    }
 }

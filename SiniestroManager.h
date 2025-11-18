@@ -16,10 +16,16 @@ class SiniestroManager {
         void modificarTipoSiniestro();
         void modificarCostoEstimado();
         void modificarEstadoSiniestro();
+        void listadoSiniestrosPorPoliza();
+        void listadoSiniestrosAprobados();
+        void listadoSiniestrosNoAprobados();
+        void reporteSiniestrosPorTipo();
+
     private:
         SiniestroArchivo _archivo;
         PolizaArchivo _polizaArchivo;
         TiposSiniestrosArchivo _tiposSiniestrosArchivo;
 
         void mostrarSiniestro(Siniestro siniestro);
+        void ordenarPorFechaSiniestro(Siniestro vect[], int cantidad);
 };

@@ -77,8 +77,8 @@ void PolizaMenu::mostrarOpciones(){
 ||     5 - BUSCAR POR PATENTE                     ||
 ||     6 - RECUPERAR POLIZA                       ||
 ||     7 - MODIFICAR POLIZA                       ||
-||     8 - LISTAR POLIZAS ACTIVAS                 ||
-||     9 - LISTAR POLIZAS INACTIVAS               ||
+||     8 - LISTAR POLIZAS VIGENTES                ||
+||     9 - LISTAR POLIZAS VENCIDAS                ||
 ||     10 - LISTAR POR FECHA DE VENCIMIENTO       ||
 ||     11 - PROCESAR POLIZAS                      ||
 ||     12 - REPORTE POLIZAS VENCIENTES Y VIGENTES ||

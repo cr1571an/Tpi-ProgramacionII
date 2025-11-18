@@ -3,7 +3,7 @@
 using namespace std;
 
 SiniestroMenu::SiniestroMenu(){
-    _cantidadOpciones = 6;
+    _cantidadOpciones = 10;
     _cantidadOpcionesSubMenuModificar = 4;
 }
 void SiniestroMenu::mostrar(){
@@ -62,18 +62,22 @@ void SiniestroMenu::mostrarOpcionesSubMenuModificar(){
 
 void SiniestroMenu::mostrarOpciones(){
     cout << R"(
-|||||||||||||||||||||||||||||||||||||||||||
-||             MENU SINIESTROS           ||
-|||||||||||||||||||||||||||||||||||||||||||
-||     1 - CARGAR SINIESTRO              ||
-||     2 - MOSTRAR TODOS LOS SINIESTROS  ||
-||     3 - ELIMINAR SINIESTRO            ||
-||     4 - BUSCAR POR ID POLIZA          ||
-||     5 - RECUPERAR SINIESTRO           ||
-||     6 - MODIFICAR SINIESTRO           ||
-|||||||||||||||||||||||||||||||||||||||||||
-||     0 - SALIR                         ||
-|||||||||||||||||||||||||||||||||||||||||||
+||||||||||||||||||||||||||||||||||||||||||||
+||             MENU SINIESTROS            ||
+||||||||||||||||||||||||||||||||||||||||||||
+||     1 - CARGAR SINIESTRO               ||
+||     2 - MOSTRAR TODOS LOS SINIESTROS   ||
+||     3 - ELIMINAR SINIESTRO             ||
+||     4 - BUSCAR POR ID POLIZA           ||
+||     5 - RECUPERAR SINIESTRO            ||
+||     6 - MODIFICAR SINIESTRO            ||
+||     7 - SINIESTROS POR ID POLIZA       ||
+||     8 - LISTADO SINIESTROS APROBADOS   ||
+||     9 - LISTADO SINIESTROS DESAPROBADOS||
+||     10 - REPORTE SINIESTROS POR TIPO   ||
+||||||||||||||||||||||||||||||||||||||||| ||
+||     0 - SALIR                          ||
+||||||||||||||||||||||||||||||||||||||||||||
 
 )";
     cout << "Seleccione una opcion: ";
@@ -116,8 +120,23 @@ void SiniestroMenu::ejecutarOpcion(int opcion) {
             break;
         }
         case 6:{
-
             subMenuModificar();
+            break;
+        }
+        case 7:{
+            _siniestroManager.listadoSiniestrosPorPoliza();
+            break;
+        }
+        case 8:{
+            _siniestroManager.listadoSiniestrosAprobados();
+            break;
+        }
+        case 9:{
+            _siniestroManager.listadoSiniestrosNoAprobados();
+            break;
+        }
+        case 10:{
+            _siniestroManager.reporteSiniestrosPorTipo();
             break;
         }
     }
