@@ -8,19 +8,35 @@ SiniestroManager::SiniestroManager()
 }
 
 void SiniestroManager::mostrar() {
-    int cantidad = _archivo.getCantidadRegistros();
+    int cantidad = _archivo.getCantidadRegistros();    
+
     if (cantidad != 0) {
+        Siniestro* vectSiniestros = new Siniestro[cantidad];
+        cantidad = _archivo.leerTodos(vectSiniestros, cantidad);
+        ordenarPorFechaSiniestro(vectSiniestros, cantidad);
         for (int i = 0; i < cantidad; i++) {
-            Siniestro s = _archivo.leer(i);
+            Siniestro s = vectSiniestros[i];
             if (!s.getEliminado()) 
                 mostrarSiniestro(s);
         }
+        delete[] vectSiniestros;
     }
     else {
         cout << "No hay siniestros para mostrar." << endl;
-    }
+    }    
 }
 
+void SiniestroManager::ordenarPorFechaSiniestro(Siniestro vect[], int cantidad) {
+    for (int i = 0; i < cantidad - 1; i++) {
+        for (int j = 0; j < cantidad - i - 1; j++) {
+            if (vect[j].getFechaSiniestro() > vect[j + 1].getFechaSiniestro()) {
+                Siniestro temp = vect[j];
+                vect[j] = vect[j + 1];
+                vect[j + 1] = temp;
+            }
+        }
+    }
+}
 
 void SiniestroManager::cargar() {
     int idPoliza;

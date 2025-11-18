@@ -27,4 +27,5 @@ class SiniestroManager {
         TiposSiniestrosArchivo _tiposSiniestrosArchivo;
 
         void mostrarSiniestro(Siniestro siniestro);
+        void ordenarPorFechaSiniestro(Siniestro vect[], int cantidad);
 };
