@@ -35,7 +35,6 @@
 		<Unit filename=".gitignore" />
 		<Unit filename="App.cpp" />
 		<Unit filename="App.h" />
-		<Unit filename="CMakeLists.txt" />
 		<Unit filename="Cliente.cpp" />
 		<Unit filename="Cliente.h" />
 		<Unit filename="ClienteManager.cpp" />
@@ -60,6 +59,7 @@
 		<Unit filename="PagoManager.h" />
 		<Unit filename="PagoMenu.cpp" />
 		<Unit filename="PagoMenu.h" />
+		<Unit filename="Pagos.dat" />
 		<Unit filename="Poliza.cpp" />
 		<Unit filename="Poliza.h" />
 		<Unit filename="PolizaArchivo.cpp" />
@@ -68,7 +68,7 @@
 		<Unit filename="PolizaManager.h" />
 		<Unit filename="PolizaMenu.cpp" />
 		<Unit filename="PolizaMenu.h" />
-		<Unit filename="README.md" />
+		<Unit filename="Polizas.dat" />
 		<Unit filename="Siniestro.cpp" />
 		<Unit filename="Siniestro.h" />
 		<Unit filename="SiniestroArchivo.cpp" />
@@ -77,12 +77,15 @@
 		<Unit filename="SiniestroManager.h" />
 		<Unit filename="SiniestroMenu.cpp" />
 		<Unit filename="SiniestroMenu.h" />
+		<Unit filename="Siniestros.dat" />
 		<Unit filename="TipoSeguro.cpp" />
 		<Unit filename="TipoSeguro.h" />
 		<Unit filename="TipoSiniestro.cpp" />
 		<Unit filename="TipoSiniestro.h" />
+		<Unit filename="TiposSeguros.dat" />
 		<Unit filename="TiposSegurosArchivo.cpp" />
 		<Unit filename="TiposSegurosArchivo.h" />
+		<Unit filename="TiposSiniestros.dat" />
 		<Unit filename="TiposSiniestrosArchivo.cpp" />
 		<Unit filename="TiposSiniestrosArchivo.h" />
 		<Unit filename="Tpi-ProgramacionII.cbp" />
@@ -95,19 +98,7 @@
 		<Unit filename="Vehiculos.dat" />
 		<Unit filename="VehiculosArchivo.cpp" />
 		<Unit filename="VehiculosArchivo.h" />
-		<Unit filename="inputData/clientes.csv" />
-		<Unit filename="inputData/pagos.csv" />
-		<Unit filename="inputData/polizas.csv" />
-		<Unit filename="inputData/siniestros.csv" />
-		<Unit filename="inputData/vehiculos.csv" />
 		<Unit filename="main.cpp" />
-		<Unit filename="pago.dat" />
-		<Unit filename="poliza.dat" />
-		<Unit filename="siniestro.dat" />
-		<Unit filename="tools/generadorDeArchivosDeDatos.cpp" />
-		<Unit filename="tools/generadorDeArchivosDeDatos.h" />
-		<Unit filename="tools/imprimirArchivos.cpp" />
-		<Unit filename="tools/imprimirArchivos.h" />
 		<Unit filename="utils.cpp" />
 		<Unit filename="utils.h" />
 		<Extensions>
