@@ -3,7 +3,7 @@
 using namespace std;
 
 SiniestroMenu::SiniestroMenu(){
-    _cantidadOpciones = 8;
+    _cantidadOpciones = 7;
     _cantidadOpcionesSubMenuModificar = 4;
 }
 void SiniestroMenu::mostrar(){
@@ -72,7 +72,6 @@ void SiniestroMenu::mostrarOpciones(){
 ||     5 - RECUPERAR SINIESTRO           ||
 ||     6 - MODIFICAR SINIESTRO           ||
 ||     7 - REPORTE SINIESTROS POR TIPO   ||
-||     8 - REPORTE SINIESTROS POR ESTADO ||
 |||||||||||||||||||||||||||||||||||||||||||
 ||     0 - SALIR                         ||
 |||||||||||||||||||||||||||||||||||||||||||
@@ -124,10 +123,6 @@ void SiniestroMenu::ejecutarOpcion(int opcion) {
         }
         case 7:{
             _siniestroManager.reporteSiniestrosPorTipo();
-            break;
-        }
-        case 8:{
-            _siniestroManager.reporteSiniestrosPorEstado();
             break;
         }
     }

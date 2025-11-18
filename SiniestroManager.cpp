@@ -208,7 +208,3 @@ void SiniestroManager::reporteSiniestrosPorTipo() {
         }
     }
 }
-
-void SiniestroManager::reporteSiniestrosPorEstado(){
-    
-}
