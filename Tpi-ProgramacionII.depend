@@ -140,7 +140,7 @@
 	<string>
 	"Fecha.h"
 
-1762789291 source:c:\users\usuario\source\utn\tpi-programacionii\polizaarchivo.cpp
+1763464358 source:c:\users\usuario\source\utn\tpi-programacionii\polizaarchivo.cpp
 	"PolizaArchivo.h"
 	<iostream>
 
@@ -148,7 +148,7 @@
 	<string>
 	"Poliza.h"
 
-1763421370 source:c:\users\usuario\source\utn\tpi-programacionii\polizamanager.cpp
+1763468648 source:c:\users\usuario\source\utn\tpi-programacionii\polizamanager.cpp
 	"PolizaManager.h"
 	"PolizaArchivo.h"
 	"utils.h"
@@ -180,12 +180,12 @@
 	<string>
 	"Siniestro.h"
 
-1763464197 source:c:\users\usuario\source\utn\tpi-programacionii\siniestromanager.cpp
+1763468648 source:c:\users\usuario\source\utn\tpi-programacionii\siniestromanager.cpp
 	"SiniestroManager.h"
 	<iostream>
 	"utils.h"
 
-1763464197 c:\users\usuario\source\utn\tpi-programacionii\siniestromanager.h
+1763468648 c:\users\usuario\source\utn\tpi-programacionii\siniestromanager.h
 	"SiniestroArchivo.h"
 	"PolizaArchivo.h"
 	"TiposSiniestrosArchivo.h"
@@ -266,7 +266,7 @@
 1763234886 c:\users\usuario\source\utn\tpi-programacionii\polizamenu.h
 	"PolizaManager.h"
 
-1763420222 source:c:\users\usuario\source\utn\tpi-programacionii\polizamenu.cpp
+1763468648 source:c:\users\usuario\source\utn\tpi-programacionii\polizamenu.cpp
 	<iostream>
 	"PolizaMenu.h"
 
@@ -281,7 +281,7 @@
 1763420222 c:\users\usuario\source\utn\tpi-programacionii\siniestromenu.h
 	"SiniestroManager.h"
 
-1763464197 source:c:\users\usuario\source\utn\tpi-programacionii\siniestromenu.cpp
+1763468648 source:c:\users\usuario\source\utn\tpi-programacionii\siniestromenu.cpp
 	<iostream>
 	"SiniestroMenu.h"
 
@@ -296,7 +296,7 @@
 	"TipoSeguro.h"
 	<cstring>
 
-1763420223 source:c:\users\usuario\source\utn\tpi-programacionii\tipossegurosarchivo.cpp
+1763464407 source:c:\users\usuario\source\utn\tpi-programacionii\tipossegurosarchivo.cpp
 	"TiposSegurosArchivo.h"
 	<iostream>
 
@@ -311,7 +311,7 @@
 	"TipoSiniestro.h"
 	<cstring>
 
-1763420223 source:c:\users\usuario\source\utn\tpi-programacionii\tipossiniestrosarchivo.cpp
+1763464407 source:c:\users\usuario\source\utn\tpi-programacionii\tipossiniestrosarchivo.cpp
 	"TiposSiniestrosArchivo.h"
 	<iostream>
 
