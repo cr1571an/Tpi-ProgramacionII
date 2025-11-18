@@ -189,3 +189,26 @@ void SiniestroManager::mostrarSiniestro(Siniestro siniestro) {
          << ", Vigente: " << (siniestro.getEstado() ? "Sí" : "No")
          << endl;
 }
+
+void SiniestroManager::reporteSiniestrosPorTipo() {
+    int cantidadTipos = _tiposSiniestrosArchivo.getCantidadRegistros();
+    for (int i = 0; i < cantidadTipos; i++) {
+        TipoSiniestro tipo = _tiposSiniestrosArchivo.leer(i);
+        if (!tipo.getEliminado()) {
+            cout << "Tipo de Siniestro: " << tipo.getDescripcion() << endl;
+            int cantidadSiniestros = _archivo.getCantidadRegistros();
+            int contador = 0;
+            for (int j = 0; j < cantidadSiniestros; j++) {
+                Siniestro s = _archivo.leer(j);
+                if (s.getIdTipoSiniestro() == tipo.getId() && !s.getEliminado()) {
+                    contador++;                    
+                }
+            }
+            cout << "Cantidad de siniestros: " << contador << endl;
+        }
+    }
+}
+
+void SiniestroManager::reporteSiniestrosPorEstado(){
+    
+}
