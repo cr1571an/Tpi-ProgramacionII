@@ -45,7 +45,6 @@ bool PolizaArchivo::guardar(Poliza registro, int pos) {
 
 Poliza PolizaArchivo::leer(int pos) {
   Poliza registro;
-  bool result;
   FILE* pFile;
 
   pFile = fopen(_nombreArchivo.c_str(), "rb");

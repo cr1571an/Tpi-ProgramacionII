@@ -45,7 +45,6 @@ bool TiposSegurosArchivo::guardar(TipoSeguro registro, int pos) {
 
 TipoSeguro TiposSegurosArchivo::leer(int pos) {
   TipoSeguro registro;
-  bool result;
   FILE* pFile;
 
   pFile = fopen(_nombreArchivo.c_str(), "rb");
