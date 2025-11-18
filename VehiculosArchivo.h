@@ -8,8 +8,6 @@ class VehiculosArchivo {
         public:
             VehiculosArchivo(std::string nombreArchivo = "Vehiculos.dat");
             int buscarVehiculo(int idVehiculo);
-            int buscarVehiculo(std::string patente);
-            int buscarVehiculoPorCliente(int idCliente);
 
             int leerTodos(Vehiculo vehiculo[], int cantidad);
             int cantidadRegistros();

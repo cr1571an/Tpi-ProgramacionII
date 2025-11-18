@@ -11,8 +11,8 @@ Cliente::Cliente()
     _email[0] = '\0';
 }
 
-Cliente::Cliente(int idCliente, std::string nombre, std::string apellido,std::string dni, std::string telefono, std::string email,
-                 bool eliminado, Localidad localidad, Fecha fechaNacimiento){
+Cliente::Cliente(int idCliente, std::string nombre, std::string apellido,std::string dni, std::string telefono,
+                std::string email, bool eliminado, Localidad localidad, Fecha fechaNacimiento){
     _idCliente = idCliente;
     setNombre(nombre);
     setApellido(apellido);
@@ -25,28 +25,28 @@ Cliente::Cliente(int idCliente, std::string nombre, std::string apellido,std::st
 }
 
 void Cliente::setNombre(std::string nombre) {
-    strncpy(_nombre, nombre.c_str(), 25);
-    _nombre[25] = '\0';
+    strncpy(_nombre, nombre.c_str(),sizeof(_nombre) - 1);
+    _nombre[sizeof(_nombre) - 1] = '\0';
 }
 
 void Cliente::setApellido(std::string apellido) {
-    strncpy(_apellido, apellido.c_str(), 20);
-    _apellido[20] = '\0';
+    strncpy(_apellido, apellido.c_str(), sizeof(_apellido) - 1);
+    _apellido[sizeof(_apellido) - 1] = '\0';
 }
 
 void Cliente::setDni(std::string dni) {
-    strncpy(_dni, dni.c_str(), 9);
-    _dni[9] = '\0';
+    strncpy(_dni, dni.c_str(), sizeof(_dni) - 1);
+    _dni[sizeof(_dni) - 1] = '\0';
 }
 
 void Cliente::setTelefono(std::string telefono) {
-    strncpy(_telefono, telefono.c_str(), 20);
-    _telefono[20] = '\0';
+    strncpy(_telefono, telefono.c_str(), sizeof(_telefono) - 1);
+    _telefono[sizeof(_telefono) - 1] = '\0';
 }
 
 void Cliente::setEmail(std::string email) {
-    strncpy(_email, email.c_str(), 50);
-    _email[50] = '\0';
+    strncpy(_email, email.c_str(), sizeof(_email) - 1);
+    _email[sizeof(_email) - 1] = '\0';
 }
 
 void Cliente::setEliminado(bool eliminado) {

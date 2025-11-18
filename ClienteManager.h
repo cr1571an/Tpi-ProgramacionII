@@ -13,11 +13,8 @@ public:
     void modificarCorreo(int idCliente);
     void modificarFechaNacimiento(int idCliente);
     void modificarLocalidad(int idCliente);
-    void listadoActivos(bool mostarTotalClientesActivos);
-    void listadoEliminados(bool mostarTotalClientesEliminado);
-    void cantidadClientesPorEstado();
 
-    int buscarIdClientePorDNI(std::string dni);
+    int posClientePorDNI(std::string dni);
 
     bool validarEdad(Fecha fechaNacimiento);
     bool telefonoDisponible(std::string telefono);

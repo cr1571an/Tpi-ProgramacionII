@@ -286,7 +286,7 @@ void PolizaManager::buscarPorDniCliente(){
     string dni;
     cout << "INGRESE DNI DEL CLIENTE: ";
     dni = cargarCadena();
-    int posCliente = _archivoCliente.buscarDNI(dni);
+    int posCliente = _clienteManager.posClientePorDNI(dni);
 
     if (posCliente != -1) {
         Cliente cliente = _archivoCliente.leer(posCliente);

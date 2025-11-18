@@ -26,36 +26,27 @@ void ClienteManager::cargar() {
   string apellido = cargarCadena();
   cout << "INGRESA D.N.I: ";
   string dni = cargarCadena();
-  if (!verificarRegistroPorDNI(dni)) {return;}
+  if (!verificarRegistroPorDNI(dni)){cout << "EL D.N.I YA ESTA REGISTRADO. NO SE PUEDE VOLVER A REGISTRAR."<<endl;return;}
   cout << "INGRESA TELEFONO: ";
   string telefono = cargarCadena();
-  if (!telefonoDisponible(telefono)) {return;}
+  if (!telefonoDisponible(telefono)) {cout <<"EL TELEFONO YA ESTA REGISTRADO. NO SE PUEDE VOLVER A REGISTRAR."<< endl;return;}
   cout << "INGRESAR CORREO: ";
   string correo = cargarCadena();
-  if (!correoDisponible(correo)) {return;}
+  if (!correoDisponible(correo)) {cout <<"EL CORREO YA ESTA REGISTRADO. NO SE PUEDE VOLVER A REGISTRAR."<< endl;return;}
+  cout << "INGRESAR FECHA DE NACIMIENTO."<<endl;
+  Fecha fechaNacimiento = leerFechaValida();
+  if (!validarEdad(fechaNacimiento)) return;
 
   LocalidadArchivo archivo;
   Localidad localidad = archivo.pedirLocalidadPorCodigoPostalInteractivo();
   if (localidad.getCodigoPostal() == 0) {return;}
-
-  cout << "INGRESAR FECHA DE NACIMIENTO."<<endl;
-  cout << "INGRESE DIA: ";
-  int dia; cin >> dia;
-  cout << "INGRESE MES: ";
-  int mes; cin >> mes;
-  cout << "INGRESE ANIO: ";
-  int anio; cin >> anio;
-  cin.ignore();
-
-  Fecha fechaNacimiento(dia, mes, anio);
-  if (!validarEdad(fechaNacimiento)) return;
 
   Cliente nuevoCliente(idVehiculo, nombre, apellido, dni, telefono, correo, false,localidad, fechaNacimiento);
 
   if (_clientesArchivo.guardar(nuevoCliente)) {
     cout << "SE AGREGO RECTAMENTE." <<endl;
   } else {
-    cout << "ERROR! CLIENTE EXITENTE." <<endl;
+    cout << "ERROR! NO SE PUDO GUARDAR." <<endl;
   }
 }
 
@@ -102,20 +93,19 @@ void ClienteManager::mostrarLista(Cliente cliente, bool mostrarDatosDeCliente) {
     cout << "D.N.I: " << cliente.getDni()<<endl;
     cout << "TELEFONO: " << cliente.getTelefono()<<endl;
     cout << "CORREO: " << cliente.getEmail()<<endl;
+    cout << "FECHA DE NACIMIENTO: " << cliente.getFechaNacimiento().formatoFecha()<<endl;
     cout << "CODIGO POSTAL: " << cliente.getLocalidad().getCodigoPostal()<<endl;
     cout << "PARTIDO: " << cliente.getLocalidad().getPartido()<<endl;
-    cout << "LOCALIDAD: " << cliente.getLocalidad().getLocalidad()<<endl;
-    cout << "FECHA DE NACIMIENTO: " << cliente.getFechaNacimiento().formatoFecha()<<endl<<endl;
+    cout << "LOCALIDAD: " << cliente.getLocalidad().getLocalidad()<<endl<<endl;
     cout << "|||||||||||||||||||||||||||||||||||||||||||" <<endl;
   }
 }
-
 
 void ClienteManager::mostrarDatosDeClienteDNI() {
     string dni;
     cout << "INGRESE EL D.N.I DEL CLIENTE: ";
     cin >> dni;
-    int p=_clientesArchivo.buscarDNI(dni);
+    int p=posClientePorDNI(dni);
     if(p != -1) {
       Cliente registro = _clientesArchivo.leer(p);
       if (registro.getEliminado()) {
@@ -133,7 +123,7 @@ bool ClienteManager::eliminarPorDNI() {
   string dni;
   cout << "INGRESE EL D.N.I DEL CLIENTE A ELIMINAR: ";
   cin >> dni;
-  int pos = _clientesArchivo.buscarDNI(dni);
+  int pos = posClientePorDNI(dni);
   if (pos != -1) {
     Cliente cliente = _clientesArchivo.leer(pos);
     if (!cliente.getEliminado()) {
@@ -152,7 +142,7 @@ bool ClienteManager::recuperarPorDNI() {
   string dni;
   cout << "INGRESE EL D.N.I DEL CLIENTE QUIERES RECUPERAR: ";
   cin >> dni;
-  int pos = _clientesArchivo.buscarDNI(dni);
+  int pos = posClientePorDNI(dni);
   if (pos != -1) {
     Cliente cliente = _clientesArchivo.leer(pos);
     if (cliente.getEliminado()) {
@@ -167,18 +157,24 @@ bool ClienteManager::recuperarPorDNI() {
   return false;
 }
 
-int ClienteManager::buscarIdClientePorDNI(string dni) {
-  int pos = _clientesArchivo.buscarDNI(dni);
-  if (pos!=-1) {return pos;}
+int ClienteManager::posClientePorDNI( string dni) {
+  int total = _clientesArchivo.getCantidadRegistros();
+  Cliente reg;
+
+  for (int i = 0; i < total; i++) {
+    reg = _clientesArchivo.leer(i);
+    if (!reg.getEliminado() && reg.getDni() == dni) {
+      return i;
+    }
+  }
   return -1;
 }
 
 bool ClienteManager::verificarRegistroPorDNI(string dni) {
-  int pos = _clientesArchivo.buscarDNI(dni);
+  int pos = posClientePorDNI(dni);
   if (pos != -1 && pos != -2 ) {
     Cliente cliente = _clientesArchivo.leer(pos);
     if (!cliente.getEliminado()) {
-      cout << "EL D.N.I YA ESTA REGISTRADO. NO SE PUEDE VOLVER A REGISTRAR."<<endl;
       return false;
     } else {
       return false;
@@ -276,15 +272,10 @@ void ClienteManager::modificarFechaNacimiento(int idCliente) {
   if (pos!=-1) {
     Cliente cliente = _clientesArchivo.leer(pos);
     cout << "INGRESAR FECHA DE NACIMIENTO."<<endl;
-    cout << "INGRESE DIA: ";
-    int dia; cin >> dia;
-    cout << "INGRESE MES: ";
-    int mes; cin >> mes;
-    cout << "INGRESE ANIO: ";
-    int anio; cin >> anio;
-    cin.ignore();
-    Fecha fechaNacimiento(dia, mes, anio);
+    Fecha fechaNacimiento = leerFechaValida();
+
     if (!validarEdad(fechaNacimiento)) return;
+
     cliente.setFechaNacimiento(fechaNacimiento);
     if (_clientesArchivo.actualizarRegistro(pos, cliente)){
       cout << "FECHA DE NACIMIENTO MODIFICADA CORRECTAMENTE."<<endl;
@@ -329,59 +320,4 @@ bool ClienteManager::validarEdad(Fecha fechaNacimiento) {
     return false;
   }
   return true;
-}
-
-void ClienteManager::listadoActivos(bool mostarTotalClientesActivos) {
-    const int cantidad = _clientesArchivo.getCantidadRegistros();
-    int dato = 0;
-    if (cantidad == 0) {
-        cout << "NO HAY REGISTRO." << std::endl;
-        return;
-    }
-    Cliente *clientes = new Cliente[cantidad];
-    _clientesArchivo.leerTodos(clientes, cantidad);
-    cout << "||||||||||||||||||||||||||||||||||||"<<endl;
-    cout << "||        CLIENTES ACTIVOS        ||"<<endl;
-    cout << "||||||||||||||||||||||||||||||||||||"<<endl;
-    for (int i = 0; i < cantidad; i++) {
-        if (!clientes[i].getEliminado()) {
-          dato++;
-          if (!mostarTotalClientesActivos){
-            mostrarLista(clientes[i], false);
-          }
-        }
-    }
-    if (mostarTotalClientesActivos) {
-      cout << "TOTAL DE CLIENTES ACTIVOS: " << dato <<endl<<endl;
-    }
-    delete[] clientes;
-}
-
-void ClienteManager::listadoEliminados(bool mostarTotalClientesEliminado) {
-    int cantidad = _clientesArchivo.getCantidadRegistros();
-    int dato = 0;
-    if (cantidad == 0) {
-        cout << "NO HAT REGISTRO." <<endl;
-        return;
-    }
-    Cliente *clientes = new Cliente[cantidad];
-    _clientesArchivo.leerTodos(clientes, cantidad);
-    cout << "|||||||||||||||||||||||||||||||||||||" <<endl;
-    cout << "||       CLIENTES ELIMINADOS       ||" <<endl;
-    cout << "|||||||||||||||||||||||||||||||||||||"<<endl;
-    for (int i = 0; i < cantidad; i++) {
-        if (clientes[i].getEliminado()) {
-          dato++;
-          if (!mostarTotalClientesEliminado) {
-            mostrarLista(clientes[i], true);
-          }
-        }
-    }
-    cout << "TOTAL DE CLIENTES ELIMINADOS: " << dato <<endl<<endl;
-    delete[] clientes;
-}
-
-void ClienteManager::cantidadClientesPorEstado() {
-  listadoActivos(true);
-  listadoEliminados(true);
 }

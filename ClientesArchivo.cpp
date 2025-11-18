@@ -122,20 +122,3 @@ bool ClientesArchivo::recuperar(int id) {
     return actualizarRegistro(pos, registro);
 }
 
-int ClientesArchivo::buscarDNI(std::string dni) {
-    FILE *archivo_vehiculo = fopen(_nombreArchivo.c_str(), "rb");
-    if (archivo_vehiculo == nullptr) {
-        return -2;
-    }
-    Cliente registro;
-    int posicion = 0;
-    while (fread(&registro, sizeof(Cliente), 1, archivo_vehiculo) == 1) {
-        if (registro.getDni() == dni) {
-            fclose(archivo_vehiculo);
-            return posicion;
-        }
-        posicion++;
-    }
-    fclose(archivo_vehiculo);
-    return -1;
-}
