@@ -97,12 +97,14 @@ int ClienteMenu::buscarCliente() {
             cin.ignore();
             int pos = _clientesArchivo.buscarIdCliente(id);
             if (pos == -1) return -1;
+            if (pos == -2)return -2;
             return id;
         } else if (tipoBusqueda == 2) {
             cout << "INGRESE EL D.N.I DEL CLIENTE: ";
             string dni = cargarCadena();
             int pos = _clientesArchivo.buscarDNI(dni);
             if (pos == -1) return -1;
+            if (pos == -2)return -2;
             Cliente cliente = _clientesArchivo.leer(pos);
             return cliente.getIdCliente();
         } else {
@@ -122,6 +124,11 @@ void ClienteMenu::modificarCliente() {
         cout << "NO SE PUDO ENCONTRAR EL CLIENTE." << endl;
         return;
     }
+    if (pos == -2) {
+        cout << "NO HAY REGISTRO / NO SE PUDO ABRIR." << endl;
+        return;
+    }
+
     Cliente cliente = _clientesArchivo.leer(pos);
     if (cliente.getEliminado()) {
         cout << "EL CLIENTE CON ESE ID YA FUE ELIMINADO." << endl;
