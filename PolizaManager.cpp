@@ -13,7 +13,7 @@ PolizaManager::PolizaManager()
 void PolizaManager::mostrar() {
     int cantidad = _archivo.getCantidadRegistros();
     if (cantidad == 0) {
-        cout << "No hay polizas para mostrar." << endl;
+        cout << "NO HAY POLIZAS PARA MOSTRAR." << endl;
         return;
     }
     for (int i = 0; i < cantidad; i++) {
@@ -26,7 +26,7 @@ void PolizaManager::mostrar() {
 
 void PolizaManager::cargar() {
     string patente;
-    cout << "Ingrese patente del vehiculo: ";
+    cout << "INGRESE LA PATENTE DEL VEHICULO: ";
     patente = cargarCadena();
     int idVehiculo = _vehiculoManager.buscarIdPorPatente(patente);
     if (idVehiculo != -1) {
@@ -35,61 +35,61 @@ void PolizaManager::cargar() {
         fin.sumarDias();
         float prima;
         int tipo;
-        cout << "Id Tipo de seguro: "; cin >> tipo;
+        cout << "ID TIPO DE SEGURO: "; cin >> tipo;
         int posTipoSeguro = _archivoTipoSeguros.buscarID(tipo);
         if (posTipoSeguro == -1) {
-            cout << "Tipo de seguro no encontrado. Operacion cancelada." << endl;
+            cout << "TIPO DE SEGURO NO ENCONTRADO. OPERACION CANCELADA." << endl;
             return;
         }
 
-        cout << "Prima mensual: "; cin >> prima;
+        cout << "PRIMA MENSUAL: "; cin >> prima;
 
         Poliza p(id, idVehiculo, inicio, fin, prima, tipo, true, false);
-        cout << (_archivo.guardar(p) ? "Poliza creada." : "No se pudo crear la poliza.") << endl;
+        cout << (_archivo.guardar(p) ? "POLIZA CREADA." : "NO SE PUDO CREAR LA POLIZA.") << endl;
     } else {
-        cout << "No se encontraron vehiculos con esa patente." << endl;
+        cout << "NO SE ENCONTRARON VEHICULOS CON ESA PATENTE." << endl;
     }
 }
 
 
 void PolizaManager::eliminar() {
     int idPoliza;
-    cout << "Ingrese un numero de poliza: ";
+    cout << "INGRESE UN NUMERO DE POLIZA: ";
     cin >> idPoliza;
     if (idPoliza>= 0){
         int pos = _archivo.buscarID(idPoliza);
         if (pos != -1)
-            cout<< (_archivo.eliminar(pos) ? "Poliza eliminada." : "No se encontró la poliza.") << endl;
+            cout<< (_archivo.eliminar(pos) ? "POLIZA ELIMINADA." : "NO SE ENCONTRO LA POLIZA.") << endl;
         else
-            cout<<"El ID ingresado no se encontro.";
+            cout<<"EL ID INGRESADO NO SE ENCONTRO.";
     }
     else{
-        cout<<"El ID ingresado es invalido.";
+        cout<<"EL ID INGRESADO ES INVALIDO.";
     }
 }
 void PolizaManager::recuperar() {
     int idPoliza;
-    cout << "Ingrese un numero de poliza: ";
+    cout << "INGRESE UN NUMERO DE POLIZA: ";
     cin >> idPoliza;
     if (idPoliza>= 0){
         int pos = _archivo.buscarID(idPoliza);
         if (pos != -1 ){
             Poliza poliza = _archivo.leer(pos);
             poliza.setEliminado(false);
-            cout<< (_archivo.guardar(poliza, pos) ? "Poliza recuperada." : "No se pudo recuperar la poliza.") << endl;
+            cout<< (_archivo.guardar(poliza, pos) ? "POLIZA RECUPERADA." : "NO SE PUDO RECUPERAR LA POLIZA.") << endl;
         }
         else
-            cout<<"El ID ingresado no se encontro.";
+            cout<<"EL ID INGRESADO NO SE ENCONTRO.";
     }
     else{
-        cout<<"El ID ingresado es invalido.";
+        cout<<"EL ID INGRESADO ES INVALIDO.";
     }
 }
 
 void PolizaManager::buscarPorPatente(){
     bool encontrado = false;
     string patente;
-    cout << "Ingrese patente del vehiculo: ";
+    cout << "INGRESE PATENTE DEL VEHICULO: ";
     patente = cargarCadena();
     int idVehiculo = _vehiculoManager.buscarIdPorPatente(patente);
     if (idVehiculo != -1) {
@@ -103,11 +103,11 @@ void PolizaManager::buscarPorPatente(){
             }
         }
         if (!encontrado) {
-            cout << "No se encontraron polizas con esa patente." << endl;
+            cout << "NO SE ENCONTRARON POLIZAS CON ESA PATENTE." << endl;
         }
     }
     else {
-        cout << "No se encontraron vehiculos con esa patente." << endl;
+        cout << "NO SE ENCONTRARON VEHICULOS CON ESA PATENTE." << endl;
     }
 
 }
@@ -115,14 +115,14 @@ void PolizaManager::buscarPorPatente(){
 int PolizaManager::buscarPorId(){
     int idPoliza;
 
-    cout << "Ingrese un numero de poliza: ";
+    cout << "INGRESE UN NUMERO DE POLIZA: ";
     cin >> idPoliza;
     if (idPoliza>= 0){
         int pos = _archivo.buscarID(idPoliza);
         return pos;
     }
     else{
-        cout<<"El ID ingresado es invalido.";
+        cout<<"EL ID INGRESADO ES INVALIDO.";
     }
 
     return -1;
@@ -139,27 +139,27 @@ void PolizaManager::modificarFechaInicio(){
         poliza.setFechaInicio(nuevaFechaInicio);
         poliza.setFechaFin(nuevaFechaFin);
 
-        cout << (_archivo.guardar(poliza, pos) ? "Poliza modificada." : "No se pudo modificar la poliza.");
+        cout << (_archivo.guardar(poliza, pos) ? "POLIZA MODIFICADA." : "NO SE PUDO MODIFICAR LA POLIZA.");
     }
     else
-        cout<<"El ID ingresado no se encontro.";
+        cout<<"EL ID INGRESADO NO SE ENCONTRO.";
 }
 void PolizaManager::modificarPrima(){
     float nuevaPrima;
     int pos = buscarPorId();
     if (pos != -1){
         Poliza poliza = _archivo.leer(pos);
-        cout << "Ingrese la nueva prima mensual: ";
+        cout << "INGRESE LA NUEVA PRIMA MENSUAL: ";
         cin >> nuevaPrima;
         if (nuevaPrima > 0){
             poliza.setPrimaMensual(nuevaPrima);
-            cout << (_archivo.guardar(poliza, pos) ? "Poliza modificada." : "No se pudo modificar la poliza.");
+            cout << (_archivo.guardar(poliza, pos) ? "POLIZA MODIFICADA." : "NO SE PUDO MODIFICAR LA POLIZA.");
         }
         else
-            cout << "El valor ingresado es invalido.";
+            cout << "EL VALOR INGRESADO ES INVALIDO.";
     }
     else
-        cout<<"El ID ingresado no se encontro.";
+        cout<<"EL ID INGRESADO NO SE ENCONTRO.";
 
 }
 void PolizaManager::modificarTipoSeguro(){
@@ -167,17 +167,17 @@ void PolizaManager::modificarTipoSeguro(){
     int pos = buscarPorId();
     if (pos != -1){
         Poliza poliza = _archivo.leer(pos);
-        cout << "Ingrese el id del nuevo tipo de seguro: ";
+        cout << "INGRESE EL ID DEL NUEVO TIPO DE SEGURO: ";
         cin >> nuevoTipo;
         if (_archivoTipoSeguros.buscarID(nuevoTipo) != -1){
             poliza.setIdTipoSeguro(nuevoTipo);
-            cout << (_archivo.guardar(poliza, pos) ? "Poliza modificada." : "No se pudo modificar la poliza.");
+            cout << (_archivo.guardar(poliza, pos) ? "POLIZA MODIFICADA." : "NO SE PUDO MODIFICAR LA POLIZA.");
         }
         else
-            cout<<"El ID ingresado del tipo de seguro no se encontro.";
+            cout<<"EL ID INGRESADO DEL TIPO DE SEGURO NO SE ENCONTRO.";
     }
     else
-        cout<<"El ID de la poliza ingresado no se encontro.";
+        cout<<"EL ID DE LA POLIZA INGRESADO NO SE ENCONTRO.";
 }
 
 void PolizaManager::listarPolizasActivas() {
@@ -216,9 +216,9 @@ void PolizaManager::modificarActivaInactiva() {
         Poliza poliza = _archivo.leer(pos);
         bool vigente = poliza.getVigente();
         poliza.setVigente(!vigente);
-        cout << (_archivo.guardar(poliza, pos) ? "Poliza modificada." : "No se pudo modificar la poliza.");
+        cout << (_archivo.guardar(poliza, pos) ? "POLIZA MODIFICADA." : "NO SE PUDO MODIFICAR LA POLIZA.");
     } else {
-        cout << "El ID ingresado no se encontro.";
+        cout << "EL ID INGRESADO NO SE ENCONTRO.";
     }
 }
 
@@ -262,22 +262,22 @@ void PolizaManager::mostrarPoliza(Poliza poliza){
     int posTipoSeguro = _archivoTipoSeguros.buscarID(poliza.getIdTipoSeguro());
     TipoSeguro tipoSeguro = _archivoTipoSeguros.leer(posTipoSeguro);
     cout << "ID: " << poliza.getId()
-         << ", Cliente: " << cliente.getApellido() << " " << cliente.getNombre()
-         << ", Vehiculo ID: " << poliza.getIdVehiculo()
-         << ", Patente: " << vehiculo.getPatente()
-         << ", Tipo de Seguro: " << tipoSeguro.getDescripcion()
-         << ", Fecha Inicio: " << poliza.getfechaInicio().formatoFecha()
-         << ", Fecha Fin: " << poliza.getfechaFin().formatoFecha()
-         << ", Prima Mensual: " << poliza.getPrimaMensual()
-         << ", Vigente: " << (poliza.getVigente() ? "Sí" : "No")
-         << ", Eliminado: " << (poliza.getEliminado() ? "Sí" : "No")
+         << ", CLIENTE: " << cliente.getApellido() << " " << cliente.getNombre()
+         << ", VEHICULO ID: " << poliza.getIdVehiculo()
+         << ", PATENTE: " << vehiculo.getPatente()
+         << ", TIPO DE SEGURO: " << tipoSeguro.getDescripcion()
+         << ", FECHA INICIO: " << poliza.getfechaInicio().formatoFecha()
+         << ", FECHA FIN: " << poliza.getfechaFin().formatoFecha()
+         << ", PRIMA MENSUAL: " << poliza.getPrimaMensual()
+         << ", VIGENTE: " << (poliza.getVigente() ? "SI" : "NO")
+         << ", ELIMINADO: " << (poliza.getEliminado() ? "SI" : "NO")
          << endl;
 }
 
 void PolizaManager::buscarPorDniCliente(){
     bool encontrado = false;
     string dni;
-    cout << "Ingrese DNI del cliente: ";
+    cout << "INGRESE DNI DEL CLIENTE: ";
     dni = cargarCadena();
     int idCliente = _archivoCliente.buscarDNI(dni);
     if (idCliente != -1) {
@@ -294,11 +294,11 @@ void PolizaManager::buscarPorDniCliente(){
         }
         delete[] polizas;
         if (!encontrado) {
-            cout << "No se encontraron polizas para ese cliente." << endl;
+            cout << "NO SE ENCONTRARON POLIZAS PARA ESE CLIENTE." << endl;
         }
     }
     else {
-        cout << "No se encontraron clientes con ese DNI." << endl;
+        cout << "NO SE ENCONTRARON CLIENTES CON ESE DNI." << endl;
     }
 }
 
@@ -315,7 +315,7 @@ void PolizaManager::procesarPolizas(){
         if (fechaActual > fechaFin && p.getVigente() && !p.getEliminado()) {
             p.setVigente(false);
             _archivo.guardar(p, i);
-            cout << "Poliza ID " << p.getId() << " ha sido marcada como no vigente." << endl;
+            cout << "POLIZA ID " << p.getId() << " HA SIDO MARCADA COMO VENCIDA." << endl;
         }
     }
 
@@ -324,16 +324,16 @@ void PolizaManager::procesarPolizas(){
 
 void PolizaManager::reportePolizasVigentesYVencidas(){
     int mes, anio;
-    cout << "Ingrese mes para la consulta del reporte: ";
+    cout << "INGRESE MES PARA LA CONSULTA DEL REPORTE: ";
     cin >> mes;
     if (mes < 1 || mes > 12) {
-        cout << "Mes invalido. Debe estar entre 1 y 12." << endl;
+        cout << "MES INVALIDO. DEBE ESTAR ENTRE 1 Y 12." << endl;
         return;
     }
-    cout << "Ingrese anio para la consulta del reporte: ";
+    cout << "INGRESE ANIO PARA LA CONSULTA DEL REPORTE: ";
     cin >> anio;
     if (anio < 2020 || anio > 2030) {
-        cout << "Anio invalido. Debe estar entre 2020 y 2030." << endl;
+        cout << "ANIO INVALIDO. DEBE ESTAR ENTRE 2020 Y 2030." << endl;
         return;
     }
 
@@ -343,7 +343,7 @@ void PolizaManager::reportePolizasVigentesYVencidas(){
 
     int cantidadFiltradas = cantidadPolizasPeriodo(polizas, cantidad, Fecha(1,mes,anio));
     if (cantidadFiltradas == 0) {
-        cout << "No se encontraron polizas vencientes y vigentes en el periodo indicado." << endl;
+        cout << "NO SE ENCONTRARON POLIZAS VIGENTES Y VENCIDAS EN EL PERIODO INDICADO." << endl;
         delete [] polizas;
         return;
     }
@@ -361,7 +361,7 @@ void PolizaManager::reportePolizasVigentesYVencidas(){
             continue;
         }
 
-        cout << "Tipo de Seguro: " << tipoSeguro.getDescripcion() << endl;
+        cout << "TIPO DE SEGURO: " << tipoSeguro.getDescripcion() << endl;
         int contadorVigentes = 0;
         int contadorVencidas = 0;
 
@@ -377,8 +377,8 @@ void PolizaManager::reportePolizasVigentesYVencidas(){
             }
         }
 
-        cout << "  Polizas Vigentes: " << contadorVigentes << endl;
-        cout << "  Polizas Vencidas: " << contadorVencidas << endl;
+        cout << "  POLIZAS VIGENTES: " << contadorVigentes << endl;
+        cout << "  POLIZAS VENCIDAS: " << contadorVencidas << endl;
     }
 
     delete [] polizas;
