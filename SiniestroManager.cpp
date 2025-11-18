@@ -186,7 +186,7 @@ void SiniestroManager::mostrarSiniestro(Siniestro siniestro) {
          << ", Tipo: " << tipoSiniestro.getDescripcion()
          << ", Costo: $" << siniestro.getCostoEstimado()
          << ", Fecha Siniestro: " << siniestro.getFechaSiniestro().formatoFecha()
-         << ", Vigente: " << (siniestro.getEstado() ? "Sí" : "No")
+         << ", Aprobado: " << (siniestro.getEstado() ? "Sí" : "No")
          << endl;
 }
 
@@ -206,5 +206,58 @@ void SiniestroManager::reporteSiniestrosPorTipo() {
             }
             cout << "Cantidad de siniestros: " << contador << endl;
         }
+    }
+
+}
+
+void SiniestroManager::listadoSiniestrosPorPoliza(){
+    int idPoliza;
+    cout << "ID de la poliza: "; cin >> idPoliza;
+    int cantidadPolizas = _polizaArchivo.getCantidadRegistros();
+    if (idPoliza >= 1 && idPoliza <= cantidadPolizas){      
+        int cantidadSiniestros = _archivo.getCantidadRegistros();
+        bool encontrado = false;
+        for (int i = 0; i < cantidadSiniestros; i++) {
+            Siniestro s = _archivo.leer(i);
+            if (s.getIdPoliza() == idPoliza && !s.getEliminado()) {
+                mostrarSiniestro(s);
+                encontrado = true;
+            }
+        }
+        if (!encontrado) {
+            cout << "No se encontraron siniestros para la poliza indicada." << endl;
+        }
+    }
+    else{
+        cout<<"El ID de la poliza es invalido.";
+    }
+    
+}
+void SiniestroManager::listadoSiniestrosAprobados(){
+    int cantidadSiniestros = _archivo.getCantidadRegistros();
+    bool encontrado = false;
+    for (int i = 0; i < cantidadSiniestros; i++) {
+        Siniestro s = _archivo.leer(i);
+        if (s.getEstado() && !s.getEliminado()) {
+            mostrarSiniestro(s);
+            encontrado = true;
+        }
+    }
+    if (!encontrado) {
+        cout << "No se encontraron siniestros aprobados." << endl;
+    }
+}
+void SiniestroManager::listadoSiniestrosNoAprobados(){
+    int cantidadSiniestros = _archivo.getCantidadRegistros();
+    bool encontrado = false;
+    for (int i = 0; i < cantidadSiniestros; i++) {
+        Siniestro s = _archivo.leer(i);
+        if (!s.getEstado() && !s.getEliminado()) {
+            mostrarSiniestro(s);
+            encontrado = true;
+        }
+    }
+    if (!encontrado) {
+        cout << "No se encontraron siniestros no aprobados." << endl;
     }
 }

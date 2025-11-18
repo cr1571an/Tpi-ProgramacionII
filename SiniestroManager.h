@@ -16,6 +16,9 @@ class SiniestroManager {
         void modificarTipoSiniestro();
         void modificarCostoEstimado();
         void modificarEstadoSiniestro();
+        void listadoSiniestrosPorPoliza();
+        void listadoSiniestrosAprobados();
+        void listadoSiniestrosNoAprobados();
         void reporteSiniestrosPorTipo();
 
     private:
