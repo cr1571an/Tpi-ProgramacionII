@@ -683,7 +683,7 @@ void PagoManager::reportePagosPendientes()
             Poliza pol = _polizaArchivo.leer(posPol);
             int idVehiculo = pol.getIdVehiculo();
 
-            int posVeh = _vehiculosArchivo.buscarIdVehiculo(idVehiculo);
+            int posVeh = _vehiculosArchivo.buscarVehiculo(idVehiculo);
             if (posVeh != -1)
             {
                 Vehiculo veh = _vehiculosArchivo.leer(posVeh);
