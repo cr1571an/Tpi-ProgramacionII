@@ -124,9 +124,6 @@ void VehiculoMenu::cargar() {
     if (pos == -1) {
         cout << "ERROR!. EL CLIENTE NO EXISTE." << endl;
         return;}
-    if (pos == -3){
-        cout << "EL CLIENTE FUE ELIMINADO."<<endl;
-        return;}
     Cliente cliente = _clientesArchivo.leer(pos);
     if (cliente.getEliminado()) {
         cout << "ERROR!. EL CLIENTE ESTA ELIMINADO." << endl;
@@ -134,7 +131,6 @@ void VehiculoMenu::cargar() {
         return;}
     _vehiculoManager.cargar(idCliente);
 }
-
 
 void VehiculoMenu::mostrarMenuModificar() {
     cout << "||||||||||||||||||||||||||||||||||||||||||||" << endl;
@@ -246,19 +242,18 @@ int VehiculoMenu::seleccionarVehiculo(bool modificar) {
 
 void VehiculoMenu::modificarVehiculo() {
     int idVehiculo = seleccionarVehiculo(true);
-    if (!_vehiculoManager.estadoCliente(idVehiculo)) {
-        cout << "ERROR!. EL CLIENTE ELIMINADO." << endl;
-
-        return;}
     if (idVehiculo < 0) return;
     int posVehiculo = _vehiculosArchivo.buscarVehiculo(idVehiculo);
     if (posVehiculo < 0) {
         cout << "ERROR!. EL VEHICULO NO EXISTE." << endl;
         return;
     }
+    Vehiculo vehiculo = _vehiculosArchivo.leer(posVehiculo);
+    if (_vehiculoManager.estadoCliente(vehiculo.getIdCliente())) {
+        cout << "ERROR!. EL CLIENTE ELIMINADOsss." << endl;
+        return;}
     if (!darAltaClientePorIdVehiculo(posVehiculo)) {
         return;};
-    Vehiculo vehiculo = _vehiculosArchivo.leer(posVehiculo);
     if (vehiculo.getEliminado()) {
         cout << "EL VEHICULO CON ESE ID ESTA ELIMINADO." << endl;
         darAltaVehiculo(idVehiculo);
