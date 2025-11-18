@@ -14,7 +14,6 @@ public:
     std::string getMetodoDePago();
     bool getEstado();
     bool getEliminado();
-
     void setId(int id);
     void setIdPoliza(int idPoliza);
     void setFechaPago(Fecha fechaPago);

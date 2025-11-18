@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <limits>
+#include <iomanip>
 #include "utils.h"
 #include "PagoManager.h"
 using namespace std;
@@ -522,12 +523,12 @@ void PagoManager::listarOrdenadosPorMetodoPago()
 
 void PagoManager::mostrarPagosDePoliza(int idPolizaBuscado)
 {
-    //int posPoliza = _polizaArchivo.buscarID(idPolizaBuscado);
-    //if (posPoliza == -1)
-    //{
-    //    cout << "No existe una poliza con ese ID." << endl;
-    //    return;
-    //}
+    int posPoliza = _polizaArchivo.buscarID(idPolizaBuscado);
+    if (posPoliza == -1)
+    {
+        cout << "No existe una poliza con ese ID." << endl;
+        return;
+    }
 
     cout << "Pagos de la poliza " << idPolizaBuscado << ":";
     int cantidad = _pagoArchivo.getCantidadRegistros();
@@ -612,21 +613,20 @@ void PagoManager::reportePagosPendientes()
 
     Fecha fechaCorte = leerFechaValida();
 
-    int* polizas    = new int[cantidad];
-    int* meses      = new int[cantidad];
+    int*   polizas  = new int[cantidad];
+    int*   meses    = new int[cantidad];
     float* importes = new float[cantidad];
-    int validos = 0;
+    int    validos  = 0;
 
     for (int i = 0; i < cantidad; i++)
     {
         Pago p = _pagoArchivo.leer(i);
-        if (p.getId() == -1) continue;
-        if (p.getEliminado()) continue;
+        if (p.getId() == -1)      continue;
+        if (p.getEliminado())     continue;
         if (p.getEstado() == true) continue;
 
         Fecha f = p.getFechaPago();
-
-        if (f > fechaCorte) continue;
+        if (f > fechaCorte)       continue;
 
         int idPol = p.getIdPoliza();
 
@@ -643,8 +643,8 @@ void PagoManager::reportePagosPendientes()
         if (pos == -1)
         {
             pos = validos;
-            polizas[validos] = idPol;
-            meses[validos] = 0;
+            polizas[validos]  = idPol;
+            meses[validos]    = 0;
             importes[validos] = 0.0;
             validos++;
         }
@@ -664,17 +664,49 @@ void PagoManager::reportePagosPendientes()
 
     cout << endl;
     cout << "PAGOS PENDIENTES AL " << fechaCorte.formatoFecha() << endl;
-    cout << "N POLIZA\tMESES ADEUDADOS\tIMPORTE TOTAL" << endl;
-    cout << "-----------------------------------------------" << endl;
+
+    cout << left
+         << setw(10) << "N POLIZA"
+         << setw(30) << "CLIENTE"
+         << setw(18) << "MESES ADEUDADOS"
+         << setw(15) << "IMPORTE TOTAL" << endl;
+
+    cout << string(73, '-') << endl;
 
     for (int i = 0; i < validos; i++)
     {
-        cout << polizas[i] << "\t\t"
-             << meses[i] << "\t\t"
-             << "$ " << importes[i] << endl;
+        std::string nombreCliente = "N/D";
+
+        int posPol = _polizaArchivo.buscarID(polizas[i]);
+        if (posPol != -1)
+        {
+            Poliza pol = _polizaArchivo.leer(posPol);
+            int idVehiculo = pol.getIdVehiculo();
+
+            int posVeh = _vehiculosArchivo.buscarIdVehiculo(idVehiculo);
+            if (posVeh != -1)
+            {
+                Vehiculo veh = _vehiculosArchivo.leer(posVeh);
+                int idCliente = veh.getIdCliente();
+
+                int posCli = _clientesArchivo.buscarIdCliente(idCliente);
+                if (posCli != -1)
+                {
+                    Cliente cli = _clientesArchivo.leer(posCli);
+                    nombreCliente = cli.getNombre() + " " + cli.getApellido();
+                }
+            }
+        }
+
+        cout << left
+             << setw(10) << polizas[i]
+             << setw(30) << nombreCliente
+             << setw(18) << meses[i];
+
+        cout << "$ " << importes[i] << endl;
     }
 
-    cout << "-----------------------------------------------" << endl;
+    cout << string(73, '-') << endl;
 
     delete[] polizas;
     delete[] meses;
