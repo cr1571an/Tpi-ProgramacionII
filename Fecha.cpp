@@ -87,7 +87,10 @@ bool Fecha::operator==(Fecha fecha) {
     if (_mes != fecha.getMes())
         return false;
 
-    return true;
+    if (_dia != fecha.getDia())
+        return false;
+
+    return true;    
 }
 
 bool Fecha::operator<(Fecha fecha) {
@@ -98,6 +101,14 @@ bool Fecha::operator<(Fecha fecha) {
         return _mes < fecha.getMes();
 
     return _dia < fecha.getDia();
+}
+
+bool Fecha::operator>=(Fecha fecha) {
+    return *this > fecha || *this == fecha;
+}
+
+bool Fecha::operator<=(Fecha fecha) {
+    return *this < fecha || *this == fecha;
 }
 
 string Fecha::formatoFecha() {

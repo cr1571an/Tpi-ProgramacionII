@@ -14,11 +14,12 @@ public:
     void setMes(int mes);
     void setAnio(int anio);
     void sumarDias();
-    int validarEdad(Fecha fechaActual) ;
+    int validarEdad(Fecha fechaActual);
     bool operator>(Fecha fecha);
     bool operator==(Fecha fecha);
     bool operator<(Fecha fecha);
-
+    bool operator>=(Fecha fecha);
+    bool operator<=(Fecha fecha);
     std::string formatoFecha();
 
 private:
