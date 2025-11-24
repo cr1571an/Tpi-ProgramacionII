@@ -182,14 +182,52 @@ void PolizaManager::modificarTipoSeguro(){
         cout<<"EL ID DE LA POLIZA INGRESADO NO SE ENCONTRO.";
 }
 
-void PolizaManager::listarPolizasActivas() {
+void PolizaManager::listarPolizasVigentes() {
     int cantidad = _archivo.getCantidadRegistros();
+    if (cantidad == 0) {
+        cout << "NO HAY POLIZAS VIGENTES PARA MOSTRAR." << endl;
+        return;
+    }
+
+    cout << R"(
+    ||||||||||||||||||||||||||||||||||||||||||||||||||||
+    ||              POLIZAS VIGENTES                  ||
+    ||||||||||||||||||||||||||||||||||||||||||||||||||||
+    )";
+    Fecha fechaActual;
     Poliza* polizas = new Poliza[cantidad]{};
 
     int totalPolizas = _archivo.leerTodos(polizas, cantidad);
     for (int i = 0; i < totalPolizas; i++) {
         Poliza p = polizas[i];
-        if (p.getVigente() && !p.getEliminado()) {
+        if (p.getfechaInicio() <= fechaActual && fechaActual <= p.getfechaFin() && !p.getEliminado()) {
+            mostrarPoliza(p);
+        }
+    }
+
+    delete[] polizas;
+}
+
+void PolizaManager::listarPolizasNoVigentes() {
+    int cantidad = _archivo.getCantidadRegistros();
+    if (cantidad == 0) {
+        cout << "NO HAY POLIZAS NO VIGENTES PARA MOSTRAR." << endl;
+        return;
+    }
+
+    cout << R"(
+    ||||||||||||||||||||||||||||||||||||||||||||||||||||
+    ||              POLIZAS NO VIGENTES               ||
+    ||||||||||||||||||||||||||||||||||||||||||||||||||||
+    )";
+
+    Fecha fechaActual;
+    Poliza* polizas = new Poliza[cantidad]{};
+
+    int totalPolizas = _archivo.leerTodos(polizas, cantidad);
+    for (int i = 0; i < totalPolizas; i++) {
+        Poliza p = polizas[i];
+        if ((p.getfechaInicio() > fechaActual || p.getfechaFin() < fechaActual) && !p.getEliminado()) {
             mostrarPoliza(p);
         }
     }
@@ -226,6 +264,11 @@ void PolizaManager::modificarActivaInactiva() {
 
 void PolizaManager::listarPorFechaVencimiento() {
     int cantidad = _archivo.getCantidadRegistros();
+    if (cantidad == 0) {
+        cout << "NO HAY POLIZAS PARA MOSTRAR." << endl;
+        return;
+    }
+
     Poliza* polizas = new Poliza[cantidad]{};
     _archivo.leerTodos(polizas, cantidad);
 
@@ -247,7 +290,7 @@ void PolizaManager::listarPorFechaVencimiento() {
 
   for (int i = 0; i < cantidad; i++)
   { 
-    if (polizas[i].getEliminado() || !polizas[i].getVigente())
+    if (polizas[i].getEliminado())
       continue;
     mostrarPoliza(polizas[i]);
     cout << "------------------------" << endl;
@@ -334,88 +377,88 @@ void PolizaManager::procesarPolizas(){
 }
 
 void PolizaManager::reportePolizasVigentesYVencidas(){
-    int mes, anio;
-    cout << "INGRESE MES PARA LA CONSULTA DEL REPORTE: ";
-    cin >> mes;
-    if (mes < 1 || mes > 12) {
-        cout << "MES INVALIDO. DEBE ESTAR ENTRE 1 Y 12." << endl;
-        return;
-    }
-    cout << "INGRESE ANIO PARA LA CONSULTA DEL REPORTE: ";
-    cin >> anio;
-    if (anio < 2020 || anio > 2030) {
-        cout << "ANIO INVALIDO. DEBE ESTAR ENTRE 2020 Y 2030." << endl;
-        return;
-    }
+//     int mes, anio;
+//     cout << "INGRESE MES PARA LA CONSULTA DEL REPORTE: ";
+//     cin >> mes;
+//     if (mes < 1 || mes > 12) {
+//         cout << "MES INVALIDO. DEBE ESTAR ENTRE 1 Y 12." << endl;
+//         return;
+//     }
+//     cout << "INGRESE ANIO PARA LA CONSULTA DEL REPORTE: ";
+//     cin >> anio;
+//     if (anio < 2020 || anio > 2030) {
+//         cout << "ANIO INVALIDO. DEBE ESTAR ENTRE 2020 Y 2030." << endl;
+//         return;
+//     }
 
-    int cantidad = _archivo.getCantidadRegistros();
-    Poliza* polizas = new Poliza[cantidad]{};
-    _archivo.leerTodos(polizas, cantidad);
+//     int cantidad = _archivo.getCantidadRegistros();
+//     Poliza* polizas = new Poliza[cantidad]{};
+//     _archivo.leerTodos(polizas, cantidad);
 
-    int cantidadFiltradas = cantidadPolizasPeriodo(polizas, cantidad, Fecha(1,mes,anio));
-    if (cantidadFiltradas == 0) {
-        cout << "NO SE ENCONTRARON POLIZAS VIGENTES Y VENCIDAS EN EL PERIODO INDICADO." << endl;
-        delete [] polizas;
-        return;
-    }
+//     int cantidadFiltradas = cantidadPolizasPeriodo(polizas, cantidad, Fecha(1,mes,anio));
+//     if (cantidadFiltradas == 0) {
+//         cout << "NO SE ENCONTRARON POLIZAS VIGENTES Y VENCIDAS EN EL PERIODO INDICADO." << endl;
+//         delete [] polizas;
+//         return;
+//     }
 
-    cout << "------------------------" << endl;
-    cout << "REPORTE DE SEGURO" << endl;
+//     cout << "------------------------" << endl;
+//     cout << "REPORTE DE SEGURO" << endl;
 
-    int cantidadSeguros = _archivoTipoSeguros.getCantidadRegistros();
-    TipoSeguro* tiposSeguros = new TipoSeguro[cantidadSeguros]{};
-    _archivoTipoSeguros.leerTodos(tiposSeguros, cantidadSeguros);
+//     int cantidadSeguros = _archivoTipoSeguros.getCantidadRegistros();
+//     TipoSeguro* tiposSeguros = new TipoSeguro[cantidadSeguros]{};
+//     _archivoTipoSeguros.leerTodos(tiposSeguros, cantidadSeguros);
 
-    Poliza** polizasFiltradas = new Poliza*[cantidadFiltradas]{};
-    filtrarPolizasPorFecha(polizas, polizasFiltradas, cantidad, Fecha(1,mes,anio));
+//     Poliza** polizasFiltradas = new Poliza*[cantidadFiltradas]{};
+//     filtrarPolizasPorFecha(polizas, polizasFiltradas, cantidad, Fecha(1,mes,anio));
 
-    for (int i=0; i < cantidadSeguros; i++) {
-        TipoSeguro tipoSeguro = tiposSeguros[i];
-        if (tipoSeguro.getEliminado()) {
-            continue;
-        }
+//     for (int i=0; i < cantidadSeguros; i++) {
+//         TipoSeguro tipoSeguro = tiposSeguros[i];
+//         if (tipoSeguro.getEliminado()) {
+//             continue;
+//         }
 
-        cout << "TIPO DE SEGURO: " << tipoSeguro.getDescripcion() << endl;
-        int contadorVigentes = 0;
-        int contadorVencidas = 0;
+//         cout << "TIPO DE SEGURO: " << tipoSeguro.getDescripcion() << endl;
+//         int contadorVigentes = 0;
+//         int contadorVencidas = 0;
 
-        for (int j=0; j < cantidadFiltradas; j++) {
-            Poliza* poliza = polizasFiltradas[j];
-            (*poliza).getEliminado();
-            if (poliza->getIdTipoSeguro() == tipoSeguro.getId() && !poliza->getEliminado()) {
-                if (poliza->getVigente()) {
-                    contadorVigentes++;
-                } else {
-                    contadorVencidas++;
-                }
-            }
-        }
+//         for (int j=0; j < cantidadFiltradas; j++) {
+//             Poliza* poliza = polizasFiltradas[j];
+//             (*poliza).getEliminado();
+//             if (poliza->getIdTipoSeguro() == tipoSeguro.getId() && !poliza->getEliminado()) {
+//                 if (poliza->getVigente()) {
+//                     contadorVigentes++;
+//                 } else {
+//                     contadorVencidas++;
+//                 }
+//             }
+//         }
 
-        cout << "  POLIZAS VIGENTES: " << contadorVigentes << endl;
-        cout << "  POLIZAS VENCIDAS: " << contadorVencidas << endl;
-    }
+//         cout << "  POLIZAS VIGENTES: " << contadorVigentes << endl;
+//         cout << "  POLIZAS VENCIDAS: " << contadorVencidas << endl;
+//     }
 
-    delete [] polizas;
-    delete [] polizasFiltradas;
-    delete [] tiposSeguros;
-}
+//     delete [] polizas;
+//     delete [] polizasFiltradas;
+//     delete [] tiposSeguros;
+// }
 
-int PolizaManager::cantidadPolizasPeriodo(Poliza polizas[],int cantidadPolizas, Fecha FechaConsulta){
-    int contador = 0;
-    for (int i = 0; i < cantidadPolizas; i++) {
-        if (polizas[i].getfechaFin() == FechaConsulta && !polizas[i].getEliminado()) {
-            contador++;
-        }
-    }
-    return contador;
+// int PolizaManager::cantidadPolizasPeriodo(Poliza polizas[],int cantidadPolizas, Fecha FechaConsulta){
+//     int contador = 0;
+//     for (int i = 0; i < cantidadPolizas; i++) {
+//         if (polizas[i].getfechaFin() == FechaConsulta && !polizas[i].getEliminado()) {
+//             contador++;
+//         }
+//     }
+//     return contador;
 }
 
 void PolizaManager::filtrarPolizasPorFecha(Poliza polizas[], Poliza* polizasFiltradas[], int cantidadPolizas,Fecha FechaConsulta){
-    int indiceFiltrado = 0;
-    for (int i = 0; i < cantidadPolizas; i++) {
-        if (polizas[i].getfechaFin() == FechaConsulta && !polizas[i].getEliminado()) {
-            polizasFiltradas[indiceFiltrado] = &polizas[i];
-            indiceFiltrado++;
-        }
-    }
+//     int indiceFiltrado = 0;
+//     for (int i = 0; i < cantidadPolizas; i++) {
+//         if (polizas[i].getfechaFin() == FechaConsulta && !polizas[i].getEliminado()) {
+//             polizasFiltradas[indiceFiltrado] = &polizas[i];
+//             indiceFiltrado++;
+//         }
+//     }
 }

@@ -17,7 +17,8 @@ class PolizaManager {
         void modificarFechaInicio();
         void modificarPrima();
         void modificarTipoSeguro();
-        void listarPolizasActivas();
+        void listarPolizasVigentes();
+        void listarPolizasNoVigentes();
         void listarPolizasInactivas();
         void modificarActivaInactiva();
         void listarPorFechaVencimiento();

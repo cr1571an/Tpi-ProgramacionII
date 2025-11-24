@@ -78,10 +78,10 @@ void PolizaMenu::mostrarOpciones(){
 ||     6 - RECUPERAR POLIZA                       ||
 ||     7 - MODIFICAR POLIZA                       ||
 ||     8 - LISTAR POLIZAS VIGENTES                ||
+||     9 - LISTAR POLIZAS NO VIGENTES             ||
 ||     9 - LISTAR POLIZAS VENCIDAS                ||
 ||     10 - LISTAR POR FECHA DE VENCIMIENTO       ||
-||     11 - PROCESAR POLIZAS                      ||
-||     12 - REPORTE POLIZAS VENCIENTES Y VIGENTES ||
+||     11 - REPORTE POLIZAS VENCIENTES Y VIGENTES ||
 ||||||||||||||||||||||||||||||||||||||||||||||||||||
 ||     0 - SALIR                                  ||
 ||||||||||||||||||||||||||||||||||||||||||||||||||||
@@ -135,19 +135,20 @@ void PolizaMenu::ejecutarOpcion(int opcion) {
             break;
         }
         case 8:{
-            _polizaManager.listarPolizasActivas();
+            _polizaManager.listarPolizasVigentes();
             break;
         }
         case 9:{
-            _polizaManager.listarPolizasInactivas();
+            _polizaManager.listarPolizasNoVigentes();
             break;
         }
         case 10:{
-            _polizaManager.listarPorFechaVencimiento();
+            // _polizaManager.listarPolizasInactivas();
+            cout << "FUNCIONALIDAD EN DESARROLLO." << endl;
             break;
         }
         case 11:{
-            _polizaManager.procesarPolizas();
+            _polizaManager.listarPorFechaVencimiento();
             break;
         }
         case 12:{
