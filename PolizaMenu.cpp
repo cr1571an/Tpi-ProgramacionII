@@ -4,7 +4,7 @@ using namespace std;
 
 PolizaMenu::PolizaMenu(){
     _cantidadOpciones = 12;
-    _cantidadOpcionesSubMenuModificar = 4;
+    _cantidadOpcionesSubMenuModificar = 3;
 }
 void PolizaMenu::mostrar(){
 
@@ -171,10 +171,6 @@ void PolizaMenu::ejecutarOpcionSubMenuModificar(int opcion) {
         }
         case 3:{
             _polizaManager.modificarTipoSeguro();
-            break;
-        }
-        case 4:{
-            _polizaManager.modificarActivaInactiva();
             break;
         }
     }
