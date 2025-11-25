@@ -20,8 +20,6 @@ class PolizaManager {
         void modificarTipoSeguro();
         void listarPolizasVigentes();
         void listarPolizasNoVigentes();
-        void listarPolizasInactivas();
-        void modificarActivaInactiva();
         void listarPorFechaVencimiento();
         void buscarPorDniCliente();
         void reportePolizasVigentesYVencidas();
@@ -40,4 +38,6 @@ class PolizaManager {
         void filtrarPolizasPorFecha(Poliza polizas[], Poliza* polizasFiltradas[], int cantidadPolizas,Fecha FechaConsulta);
         void generarVencimientos(Poliza poliza, int cantidadVencimientos);
         float calcularMontoVencimiento(int primaMensual);
+        bool estaVigente(Poliza poliza);
+        bool tienePolizasVigentes(int idVehiculo);
 };

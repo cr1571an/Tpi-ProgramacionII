@@ -33,6 +33,10 @@ void PolizaManager::cargar() {
     patente = cargarCadena();
     int idVehiculo = _vehiculoManager.buscarIdPorPatente(patente);
     if (idVehiculo != -1) {
+        if (tienePolizasVigentes(idVehiculo)) {
+            cout << "EL VEHICULO YA TIENE UNA POLIZA VIGENTE. NO SE PUEDE CREAR UNA NUEVA POLIZA." << endl;
+            return;
+        }
         int id = _archivo.getNuevoID();
         Fecha inicio, fin;
         fin.sumarDias();
@@ -196,15 +200,14 @@ void PolizaManager::listarPolizasVigentes() {
     ||              POLIZAS VIGENTES                  ||
     ||||||||||||||||||||||||||||||||||||||||||||||||||||
     )";
-    Fecha fechaActual;
     Poliza* polizas = new Poliza[cantidad]{};
 
     int totalPolizas = _archivo.leerTodos(polizas, cantidad);
     for (int i = 0; i < totalPolizas; i++) {
         Poliza p = polizas[i];
-        if (p.getfechaInicio() <= fechaActual && fechaActual <= p.getfechaFin() && !p.getEliminado()) {
+        if (estaVigente(p) && !p.getEliminado())
             mostrarPoliza(p);
-        }
+        
     }
 
     delete[] polizas;
@@ -223,45 +226,16 @@ void PolizaManager::listarPolizasNoVigentes() {
     ||||||||||||||||||||||||||||||||||||||||||||||||||||
     )";
 
-    Fecha fechaActual;
     Poliza* polizas = new Poliza[cantidad]{};
 
     int totalPolizas = _archivo.leerTodos(polizas, cantidad);
     for (int i = 0; i < totalPolizas; i++) {
         Poliza p = polizas[i];
-        if ((p.getfechaInicio() > fechaActual || p.getfechaFin() < fechaActual) && !p.getEliminado()) {
+        if (!estaVigente(p) && !p.getEliminado())
             mostrarPoliza(p);
-        }
     }
 
     delete[] polizas;
-}
-
-void PolizaManager::listarPolizasInactivas() {
-    // int cantidad = _archivo.getCantidadRegistros();
-    // Poliza* polizas = new Poliza[cantidad]{};
-
-    // int totalPolizas = _archivo.leerTodos(polizas, cantidad);
-    // for (int i = 0; i < totalPolizas; i++) {
-    //     Poliza p = polizas[i];
-    //     if (!p.getVigente() && !p.getEliminado()) {
-    //         mostrarPoliza(p);
-    //     }
-    // }
-
-    // delete[] polizas;
-}
-
-void PolizaManager::modificarActivaInactiva() {
-    // int pos = buscarPorId();
-    // if (pos != -1) {
-    //     Poliza poliza = _archivo.leer(pos);
-    //     bool vigente = poliza.getVigente();
-    //     poliza.setVigente(!vigente);
-    //     cout << (_archivo.guardar(poliza, pos) ? "POLIZA MODIFICADA." : "NO SE PUDO MODIFICAR LA POLIZA.");
-    // } else {
-    //     cout << "EL ID INGRESADO NO SE ENCONTRO.";
-    // }
 }
 
 void PolizaManager::listarPorFechaVencimiento() {
@@ -459,4 +433,29 @@ void PolizaManager::generarVencimientos(Poliza poliza, int cantidadVencimientos)
 float PolizaManager::calcularMontoVencimiento(int primaMensual) {
     float iva = primaMensual * 0.21;
     return primaMensual + iva;
+}
+
+bool PolizaManager::estaVigente(Poliza poliza) {
+    Fecha fechaActual;
+    return (poliza.getfechaInicio() <= fechaActual && fechaActual <= poliza.getfechaFin());
+}
+
+bool PolizaManager::tienePolizasVigentes(int idVehiculo) {
+    int cantidad = _archivo.getCantidadRegistros();
+    if (cantidad == 0) {
+        return false;
+    }
+    
+    Poliza* polizas = new Poliza[cantidad]{};
+    _archivo.leerTodos(polizas, cantidad);
+    
+    for (int i = 0; i < cantidad; i++) {
+        Poliza p = polizas[i];
+        if (p.getIdVehiculo() == idVehiculo && estaVigente(p) && !p.getEliminado()) {
+            delete[] polizas;
+            return true;
+        }
+    }
+    delete[] polizas;
+    return false;
 }

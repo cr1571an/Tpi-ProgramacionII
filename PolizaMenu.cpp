@@ -67,24 +67,24 @@ void PolizaMenu::mostrarOpcionesSubMenuModificar(){
 
 void PolizaMenu::mostrarOpciones(){
     cout << R"(
-||||||||||||||||||||||||||||||||||||||||||||||||||||
-||             MENU POLIZAS                       ||
-||||||||||||||||||||||||||||||||||||||||||||||||||||
-||     1 - CARGAR POLIZA                          ||
-||     2 - MOSTRAR TODAS LAS POLIZAS              ||
-||     3 - ELIMINAR POLIZA                        ||
-||     4 - BUSCAR POR DNI CLIENTE                 ||
-||     5 - BUSCAR POR PATENTE                     ||
-||     6 - RECUPERAR POLIZA                       ||
-||     7 - MODIFICAR POLIZA                       ||
-||     8 - LISTAR POLIZAS VIGENTES                ||
-||     9 - LISTAR POLIZAS NO VIGENTES             ||
-||     9 - LISTAR POLIZAS VENCIDAS                ||
-||     10 - LISTAR POR FECHA DE VENCIMIENTO       ||
-||     11 - REPORTE POLIZAS VENCIENTES Y VIGENTES ||
-||||||||||||||||||||||||||||||||||||||||||||||||||||
-||     0 - SALIR                                  ||
-||||||||||||||||||||||||||||||||||||||||||||||||||||
+|||||||||||||||||||||||||||||||||||||||||||||||||||||||
+||             MENU POLIZAS                          ||
+|||||||||||||||||||||||||||||||||||||||||||||||||||||||
+||     1 - CARGAR POLIZA                             ||
+||     2 - MOSTRAR TODAS LAS POLIZAS                 ||
+||     3 - ELIMINAR POLIZA                           ||
+||     4 - BUSCAR POR DNI CLIENTE                    ||
+||     5 - BUSCAR POR PATENTE                        ||
+||     6 - RECUPERAR POLIZA                          ||
+||     7 - MODIFICAR POLIZA                          ||
+||     8 - LISTAR POLIZAS VIGENTES                   ||
+||     9 - LISTAR POLIZAS NO VIGENTES                ||
+||     10 - LISTAR POLIZAS SIN COBERTURA             ||
+||     11 - LISTAR POR FECHA DE VENCIMIENTO          ||
+||     12 - REPORTE POLIZAS VIGENTES Y SIN COBERTURA ||
+|||||||||||||||||||||||||||||||||||||||||||||||||||||||
+||     0 - SALIR                                     ||
+|||||||||||||||||||||||||||||||||||||||||||||||||||||||
 
 )";
     cout << "Seleccione una opcion: ";
@@ -152,7 +152,8 @@ void PolizaMenu::ejecutarOpcion(int opcion) {
             break;
         }
         case 12:{
-            _polizaManager.reportePolizasVigentesYVencidas();
+            // _polizaManager.reportePolizasVigentesYVencidas();
+            cout << "FUNCIONALIDAD EN DESARROLLO." << endl;
             break;
         }
     }
