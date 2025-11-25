@@ -37,6 +37,9 @@ void PolizaManager::cargar() {
         }
         int id = _archivo.getNuevoID();
         Fecha inicio, fin;
+        cout << "FECHA DE INICIO DE LA POLIZA:" << endl;
+        inicio = leerFechaValida();
+        fin = inicio;        
         fin.sumarDias();
         float prima;
         int tipo;
@@ -471,9 +474,9 @@ void PolizaManager::reportePolizasSinCobertura() {
         Poliza p = polizas[i];
         if (!p.getEliminado()) {
             int cantidadVencimientos = _archivoVencimientos.getCantidadRegistros();
-            cout<<"CANTIDAD DE VENCIMIENTO: " << cantidadVencimientos;
             Vencimiento * vencimientos = new Vencimiento[cantidadVencimientos]{};
             _archivoVencimientos.leerTodos(vencimientos, cantidadVencimientos);
+            
             for (int j = 0; j < cantidadVencimientos; j++) {
                 Vencimiento v = vencimientos[j];
                 if (v.getIdPoliza() == p.getId() && v.estaVencido()) {
