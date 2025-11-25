@@ -1,5 +1,6 @@
 #include "PolizaManager.h"
 #include "PolizaArchivo.h"
+#include "VencimientosArchivo.h"
 #include "utils.h"
 #include "Cliente.h"
 #include "TipoSeguro.h"
@@ -48,6 +49,7 @@ void PolizaManager::cargar() {
 
         Poliza p(id, idVehiculo, inicio, fin, prima, tipo, true, false);
         cout << (_archivo.guardar(p) ? "POLIZA CREADA." : "NO SE PUDO CREAR LA POLIZA.") << endl;
+        generarVencimientos(p,3);
     } else {
         cout << "NO SE ENCONTRARON VEHICULOS CON ESA PATENTE." << endl;
     }
@@ -236,30 +238,30 @@ void PolizaManager::listarPolizasNoVigentes() {
 }
 
 void PolizaManager::listarPolizasInactivas() {
-    int cantidad = _archivo.getCantidadRegistros();
-    Poliza* polizas = new Poliza[cantidad]{};
+    // int cantidad = _archivo.getCantidadRegistros();
+    // Poliza* polizas = new Poliza[cantidad]{};
 
-    int totalPolizas = _archivo.leerTodos(polizas, cantidad);
-    for (int i = 0; i < totalPolizas; i++) {
-        Poliza p = polizas[i];
-        if (!p.getVigente() && !p.getEliminado()) {
-            mostrarPoliza(p);
-        }
-    }
+    // int totalPolizas = _archivo.leerTodos(polizas, cantidad);
+    // for (int i = 0; i < totalPolizas; i++) {
+    //     Poliza p = polizas[i];
+    //     if (!p.getVigente() && !p.getEliminado()) {
+    //         mostrarPoliza(p);
+    //     }
+    // }
 
-    delete[] polizas;
+    // delete[] polizas;
 }
 
 void PolizaManager::modificarActivaInactiva() {
-    int pos = buscarPorId();
-    if (pos != -1) {
-        Poliza poliza = _archivo.leer(pos);
-        bool vigente = poliza.getVigente();
-        poliza.setVigente(!vigente);
-        cout << (_archivo.guardar(poliza, pos) ? "POLIZA MODIFICADA." : "NO SE PUDO MODIFICAR LA POLIZA.");
-    } else {
-        cout << "EL ID INGRESADO NO SE ENCONTRO.";
-    }
+    // int pos = buscarPorId();
+    // if (pos != -1) {
+    //     Poliza poliza = _archivo.leer(pos);
+    //     bool vigente = poliza.getVigente();
+    //     poliza.setVigente(!vigente);
+    //     cout << (_archivo.guardar(poliza, pos) ? "POLIZA MODIFICADA." : "NO SE PUDO MODIFICAR LA POLIZA.");
+    // } else {
+    //     cout << "EL ID INGRESADO NO SE ENCONTRO.";
+    // }
 }
 
 void PolizaManager::listarPorFechaVencimiento() {
@@ -318,7 +320,7 @@ void PolizaManager::mostrarPoliza(Poliza poliza){
     cout << "Fecha Inicio   : " << poliza.getfechaInicio().formatoFecha() << "\n";
     cout << "Fecha Fin      : " << poliza.getfechaFin().formatoFecha() << "\n";
     cout << "Prima Mensual  : " << poliza.getPrimaMensual() << "\n";
-    cout << "Vigente        : " << (poliza.getVigente() ? "SI" : "NO") << "\n";
+    cout << "Suma Asegurada : " << poliza.getSumaAsegurada() << "\n";
     cout << "Eliminado      : " << (poliza.getEliminado() ? "SI" : "NO") << "\n";
     cout << "---------------------------------------------\n";
 
@@ -355,27 +357,6 @@ void PolizaManager::buscarPorDniCliente(){
         cout << "NO SE ENCONTRARON CLIENTES CON ESE DNI." << endl;
     }
 }
-
-void PolizaManager::procesarPolizas(){
-    int cantidad = _archivo.getCantidadRegistros();
-    Poliza* polizas = new Poliza[cantidad]{};
-    _archivo.leerTodos(polizas, cantidad);
-
-    for (int i = 0; i < cantidad; i++) {
-        Poliza p = polizas[i];
-        Fecha fechaFin = p.getfechaFin();
-        Fecha fechaActual;
-
-        if (fechaActual > fechaFin && p.getVigente() && !p.getEliminado()) {
-            p.setVigente(false);
-            _archivo.guardar(p, i);
-            cout << "POLIZA ID " << p.getId() << " HA SIDO MARCADA COMO VENCIDA." << endl;
-        }
-    }
-
-    delete [] polizas;
-}
-
 void PolizaManager::reportePolizasVigentesYVencidas(){
 //     int mes, anio;
 //     cout << "INGRESE MES PARA LA CONSULTA DEL REPORTE: ";
@@ -461,4 +442,21 @@ void PolizaManager::filtrarPolizasPorFecha(Poliza polizas[], Poliza* polizasFilt
 //             indiceFiltrado++;
 //         }
 //     }
+}
+
+void PolizaManager::generarVencimientos(Poliza poliza, int cantidadVencimientos) {
+    VencimientosArchivo _archivoVencimientos;
+    Fecha fechaVencimiento = poliza.getfechaInicio();
+    for (int i = 0; i < cantidadVencimientos; i++) {
+        fechaVencimiento.sumarDias(30);
+        int idVencimiento = _archivoVencimientos.getNuevoID();
+        float montoVencimiento = calcularMontoVencimiento(poliza.getPrimaMensual());
+        Vencimiento vencimiento(idVencimiento, poliza.getId(), fechaVencimiento, montoVencimiento, false, false);
+        cout << (_archivoVencimientos.guardar(vencimiento) ? "VENCIMIENTO CREADO,CON FECHA: " + vencimiento.getVencimiento().formatoFecha() : "NO SE PUDO CREAR EL VENCIMIENTO.") << endl;
+    }
+}
+
+float PolizaManager::calcularMontoVencimiento(int primaMensual) {
+    float iva = primaMensual * 0.21;
+    return primaMensual + iva;
 }
