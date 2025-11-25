@@ -68,7 +68,6 @@
 		<Unit filename="PolizaManager.h" />
 		<Unit filename="PolizaMenu.cpp" />
 		<Unit filename="PolizaMenu.h" />
-		<Unit filename="Polizas.dat" />
 		<Unit filename="Siniestro.cpp" />
 		<Unit filename="Siniestro.h" />
 		<Unit filename="SiniestroArchivo.cpp" />
@@ -98,7 +97,15 @@
 		<Unit filename="Vehiculos.dat" />
 		<Unit filename="VehiculosArchivo.cpp" />
 		<Unit filename="VehiculosArchivo.h" />
+		<Unit filename="Vencimiento.cpp" />
+		<Unit filename="Vencimiento.h" />
+		<Unit filename="VencimientosArchivo.cpp" />
+		<Unit filename="VencimientosArchivo.h" />
 		<Unit filename="main.cpp" />
+		<Unit filename="tools/generadorDeArchivosDeDatos.cpp" />
+		<Unit filename="tools/generadorDeArchivosDeDatos.h" />
+		<Unit filename="tools/imprimirArchivos.cpp" />
+		<Unit filename="tools/imprimirArchivos.h" />
 		<Unit filename="utils.cpp" />
 		<Unit filename="utils.h" />
 		<Extensions>
