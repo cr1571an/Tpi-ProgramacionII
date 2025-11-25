@@ -143,8 +143,7 @@ void PolizaMenu::ejecutarOpcion(int opcion) {
             break;
         }
         case 10:{
-            // _polizaManager.listarPolizasInactivas();
-            cout << "FUNCIONALIDAD EN DESARROLLO." << endl;
+            _polizaManager.reportePolizasSinCobertura();
             break;
         }
         case 11:{

@@ -12,6 +12,7 @@ class Vencimiento {
   float getMonto();
   bool getPagado();
   bool getEliminado();
+  bool estaVencido();
 
   void setId(int id);
   void setIdPoliza(int idPoliza);

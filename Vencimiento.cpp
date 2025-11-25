@@ -53,3 +53,11 @@ void Vencimiento::setPagado(bool pagado) {
 void Vencimiento::setEliminado(bool eliminado) {
     _eliminado = eliminado;
 }
+
+bool Vencimiento::estaVencido() {
+    Fecha fechaActual;
+    if (!_pagado && fechaActual > _vencimiento && !_eliminado)
+        return true;
+
+    return false;
+}

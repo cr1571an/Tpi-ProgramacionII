@@ -1,6 +1,4 @@
 #include "PolizaManager.h"
-#include "PolizaArchivo.h"
-#include "VencimientosArchivo.h"
 #include "utils.h"
 #include "Cliente.h"
 #include "TipoSeguro.h"
@@ -458,4 +456,40 @@ bool PolizaManager::tienePolizasVigentes(int idVehiculo) {
     }
     delete[] polizas;
     return false;
+}
+
+void PolizaManager::reportePolizasSinCobertura() {
+    cout << "-- REPORTE DE POLIZAS SIN COBERTURA --" << endl;
+    int cantidad = _archivo.getCantidadRegistros();
+    if (cantidad == 0) {
+        cout << "NO HAY POLIZAS PARA MOSTRAR." << endl;
+        return; 
+    }
+    Poliza* polizas = new Poliza[cantidad]{};
+    _archivo.leerTodos(polizas, cantidad);
+    for (int i = 0; i < cantidad; i++) {
+        Poliza p = polizas[i];
+        if (!p.getEliminado()) {
+            int cantidadVencimientos = _archivoVencimientos.getCantidadRegistros();
+            cout<<"CANTIDAD DE VENCIMIENTO: " << cantidadVencimientos;
+            Vencimiento * vencimientos = new Vencimiento[cantidadVencimientos]{};
+            _archivoVencimientos.leerTodos(vencimientos, cantidadVencimientos);
+            for (int j = 0; j < cantidadVencimientos; j++) {
+                Vencimiento v = vencimientos[j];
+                if (v.getIdPoliza() == p.getId() && v.estaVencido()) {
+                    mostrarPoliza(p);
+                    delete[] vencimientos;
+                    delete[] polizas;
+                    return;
+                }
+            }
+            delete[] vencimientos;
+            if (cantidadVencimientos == 0) {
+                cout << "NO HAY VENCIMIENTOS REGISTRADOS." << endl;
+                delete[] polizas;
+                return;
+            }            
+        }
+    }
+    delete[] polizas;
 }

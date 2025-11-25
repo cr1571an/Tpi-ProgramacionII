@@ -22,6 +22,7 @@ class PolizaManager {
         void listarPolizasNoVigentes();
         void listarPorFechaVencimiento();
         void buscarPorDniCliente();
+        void reportePolizasSinCobertura();
         void reportePolizasVigentesYVencidas();
 
     private:
