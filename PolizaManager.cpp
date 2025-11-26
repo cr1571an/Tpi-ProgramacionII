@@ -470,29 +470,32 @@ void PolizaManager::reportePolizasSinCobertura() {
     }
     Poliza* polizas = new Poliza[cantidad]{};
     _archivo.leerTodos(polizas, cantidad);
+    
+    int cantidadVencimientos = _archivoVencimientos.getCantidadRegistros();
+    cout << "cantidadVencimientos: " << cantidadVencimientos << endl;
+    Vencimiento * vencimientos = new Vencimiento[cantidadVencimientos]{};
+    _archivoVencimientos.leerTodos(vencimientos, cantidadVencimientos);
+
+    if (cantidadVencimientos == 0) {
+        cout << "NO HAY VENCIMIENTOS REGISTRADOS." << endl;
+        delete[] polizas;
+        delete[] vencimientos;
+        return;
+    }            
+
     for (int i = 0; i < cantidad; i++) {
         Poliza p = polizas[i];
         if (!p.getEliminado()) {
-            int cantidadVencimientos = _archivoVencimientos.getCantidadRegistros();
-            Vencimiento * vencimientos = new Vencimiento[cantidadVencimientos]{};
-            _archivoVencimientos.leerTodos(vencimientos, cantidadVencimientos);
-            
             for (int j = 0; j < cantidadVencimientos; j++) {
                 Vencimiento v = vencimientos[j];
-                if (v.getIdPoliza() == p.getId() && v.estaVencido()) {
+                if ((v.getIdPoliza() == p.getId()) && v.estaVencido()) {
                     mostrarPoliza(p);
-                    delete[] vencimientos;
-                    delete[] polizas;
-                    return;
+                    break;                    
                 }
-            }
-            delete[] vencimientos;
-            if (cantidadVencimientos == 0) {
-                cout << "NO HAY VENCIMIENTOS REGISTRADOS." << endl;
-                delete[] polizas;
-                return;
             }            
         }
     }
+
+    delete[] vencimientos;
     delete[] polizas;
 }
