@@ -87,7 +87,6 @@ void ClienteMenu::buscar() {
 
 
 int ClienteMenu::buscarCliente() {
-    system("cls");
     int tipoBusqueda;
     int id;
     cout << "|||||||||||||||||||||||||||||||||||||||||||" << endl;
@@ -105,6 +104,7 @@ int ClienteMenu::buscarCliente() {
             return -3;
         }
         if (tipoBusqueda == 1) {
+            system("cls");
             cout << "INGRESE EL NUMERO DEL CLIENTE: ";
             cin >> id;
             cin.ignore();
@@ -113,6 +113,7 @@ int ClienteMenu::buscarCliente() {
             if (pos == -2)return -2;
             return id;
         } else if (tipoBusqueda == 2) {
+            system("cls");
             cout << "INGRESE EL D.N.I DEL CLIENTE: ";
             string dni = cargarCadena();
             int pos = _clienteManager.posClientePorDNI(dni);
@@ -172,12 +173,16 @@ void ClienteMenu::modificarCliente() {
     cin >> opcion;
     cin.ignore();
     switch (opcion) {
-        case 1: _clienteManager.eliminar(id);
-            _vehiculosArchivo.eliminarVehiculosDeCliente(id);break;
-        case 2: _clienteManager.modificarTelefono(id); break;
-        case 3: _clienteManager.modificarCorreo(id); break;
-        case 4: _clienteManager.modificarFechaNacimiento(id); break;
-        case 5: _clienteManager.modificarLocalidad(id); break;
+        case 1:_clienteManager.eliminar(id);
+            _vehiculosArchivo.eliminarVehiculosDeCliente(id);system("pause");break;
+        case 2:system("cls");
+            _clienteManager.modificarTelefono(id);system("pause");break;
+        case 3:system("cls");
+            _clienteManager.modificarCorreo(id);system("pause");break;
+        case 4:system("cls");
+            _clienteManager.modificarFechaNacimiento(id);system("pause");break;
+        case 5:system("cls");
+            _clienteManager.modificarLocalidad(id);system("pause");break;
         case 0: system("cls");break;
         default: cout << "OPCION INVALIDA." << endl; break;
     }

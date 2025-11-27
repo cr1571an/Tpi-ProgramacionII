@@ -1,12 +1,7 @@
 #ifdef _WIN32
 #include <windows.h>
 #endif
-#include <iostream>
 #include "App.h"
-#include "tools/imprimirArchivos.h"
-#include "tools/generadorDeArchivosDeDatos.h"
-
-using namespace std;
 
 int main() {
     #ifdef _WIN32

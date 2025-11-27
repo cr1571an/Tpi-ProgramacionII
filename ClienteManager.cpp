@@ -15,23 +15,32 @@ ClienteManager::ClienteManager()
 }
 
 void ClienteManager::cargar() {
+  system("cls");
+  cout <<"|||||||||||||||||||||||||||||||||||||"<<endl;
+  cout <<"||            ACLARACION!          ||"<<endl;
+  cout <<"||  SI INGRESAS '0' EN CUALQUIER   ||"<<endl;
+  cout <<"||  CAMPO, LA CARGA SE CANCELARA   ||"<<endl;
+  cout <<"||  AUTOMATICAMENTE.               ||"<<endl;
+  cout <<"|||||||||||||||||||||||||||||||||||||" << endl;
+  system("pause");
+  system("cls");
   int idVehiculo = _clientesArchivo.getIdClienteUltimo();
   cout <<"|||||||||||||||||||||||||||||||||||||"<<endl;
   cout <<"||       CARGAR NUEVO CLIENTE      ||"<<endl;
   cout <<"|||||||||||||||||||||||||||||||||||||"<<endl;
   cout << "NUMERO DEL CLIENTE: " << idVehiculo<<endl;
   cout << "INGRESA EL NOMBRE: ";
-  string nombre = cargarCadena();
+  string nombre = cargarCadena(); if (cortarSiCero(nombre)) return;
   cout << "INGRESA APELLLIDO: ";
-  string apellido = cargarCadena();
+  string apellido = cargarCadena(); if (cortarSiCero(apellido)) return;
   cout << "INGRESA D.N.I: ";
-  string dni = cargarCadena();
+  string dni = cargarCadena(); if (cortarSiCero(dni)) return;
   if (!verificarRegistroPorDNI(dni)){cout << "EL D.N.I YA ESTA REGISTRADO. NO SE PUEDE VOLVER A REGISTRAR."<<endl;return;}
   cout << "INGRESA TELEFONO: ";
-  string telefono = cargarCadena();
+  string telefono = cargarCadena(); if (cortarSiCero(telefono)) return;
   if (!telefonoDisponible(telefono)) {cout <<"EL TELEFONO YA ESTA REGISTRADO. NO SE PUEDE VOLVER A REGISTRAR."<< endl;return;}
   cout << "INGRESAR CORREO: ";
-  string correo = cargarCadena();
+  string correo = cargarCadena(); if (cortarSiCero(correo)) return;
   if (!correoDisponible(correo)) {cout <<"EL CORREO YA ESTA REGISTRADO. NO SE PUEDE VOLVER A REGISTRAR."<< endl;return;}
   cout << "INGRESAR FECHA DE NACIMIENTO."<<endl;
   Fecha fechaNacimiento = leerFechaValida();
@@ -44,7 +53,7 @@ void ClienteManager::cargar() {
   Cliente nuevoCliente(idVehiculo, nombre, apellido, dni, telefono, correo, false,localidad, fechaNacimiento);
 
   if (_clientesArchivo.guardar(nuevoCliente)) {
-    cout << "SE AGREGO RECTAMENTE." <<endl;
+    cout << "SE AGREGO CORRECTAMENTE." <<endl;
   } else {
     cout << "ERROR! NO SE PUDO GUARDAR." <<endl;
   }
@@ -94,9 +103,9 @@ void ClienteManager::mostrarLista(Cliente cliente, bool mostrarDatosDeCliente) {
     cout << "TELEFONO: " << cliente.getTelefono()<<endl;
     cout << "CORREO: " << cliente.getEmail()<<endl;
     cout << "FECHA DE NACIMIENTO: " << cliente.getFechaNacimiento().formatoFecha()<<endl;
-    cout << "CODIGO POSTAL: " << cliente.getLocalidad().getCodigoPostal()<<endl;
     cout << "PARTIDO: " << cliente.getLocalidad().getPartido()<<endl;
-    cout << "LOCALIDAD: " << cliente.getLocalidad().getLocalidad()<<endl<<endl;
+    cout << "LOCALIDAD: " << cliente.getLocalidad().getLocalidad()<<endl;
+    cout << "CODIGO POSTAL: " << cliente.getLocalidad().getCodigoPostal()<<endl<<endl;
     cout << "|||||||||||||||||||||||||||||||||||||||||||" <<endl;
   }
 }
@@ -171,15 +180,16 @@ int ClienteManager::posClientePorDNI( string dni) {
 }
 
 bool ClienteManager::verificarRegistroPorDNI(string dni) {
-  int pos = posClientePorDNI(dni);
-  if (pos != -1 && pos != -2 ) {
-    Cliente cliente = _clientesArchivo.leer(pos);
-    if (!cliente.getEliminado()) {
-      return false;
-    } else {
+  int cant = _clientesArchivo.getCantidadRegistros();
+  Cliente *clientes = new Cliente[cant];
+  _clientesArchivo.leerTodos(clientes, cant);
+  for (int i = 0; i < cant; ++i) {
+    if (clientes[i].getTelefono() == dni) {
+      delete[] clientes;
       return false;
     }
   }
+  delete[] clientes;
   return true;
 }
 
@@ -312,11 +322,11 @@ bool ClienteManager::validarEdad(Fecha fechaNacimiento) {
   Fecha fechaActual;
   int resultado = fechaNacimiento.validarEdad(fechaActual);
   if (resultado ==-2) {
-    cout << "ERROR! EL CLIENTE DEBE SER MAYOR DE EDAD."<<endl;
+    cout << "ERROR! DEBE SER MAYOR DE EDAD."<<endl;
     return false;
   }
   if (resultado==-1) {
-    cout << "ERROR! EL CLIENTE NO PUEDE TENER MAS DE 105 ANIOS."<<endl;
+    cout << "ERROR! NO PUEDE TENER MAS DE 105 ANIOS."<<endl;
     return false;
   }
   return true;

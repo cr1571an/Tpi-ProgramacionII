@@ -16,6 +16,7 @@ class VehiculoManager {
         void modificarNumChasis(int id);
         void modificarNumMotor(int id);
         void modificarAnio(int id);
+        void mostrarPantalla(Cliente cli, int id, std::string marca, std::string modelo, std::string patente, int anio, std::string chasis, std::string motor, std::string uso = "", std::string categoria = "");
 
         bool estadoCliente(int idCliente);
         int buscarIdPorPatente(std::string patente);
