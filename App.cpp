@@ -18,7 +18,7 @@ void App::run(){
 
 void App::mostrarOpciones() {
     cout << "|||||||||||||||||||||||||||||||||||||||||||" << endl;
-    cout << "||             MENU PRINCIPA             ||" << endl;
+    cout << "||            MENU PRINCIPAL             ||" << endl;
     cout << "|||||||||||||||||||||||||||||||||||||||||||" << endl;
     cout << "||     1 - CLIENTES                      ||" << endl;
     cout << "||     2 - VEHICULOS                     ||" << endl;

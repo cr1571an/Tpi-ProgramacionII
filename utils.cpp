@@ -61,3 +61,8 @@ Fecha procesarFecha(std::string fecha) {
   int dia = std::stoi(fecha.substr(8, 2));
   return Fecha(dia, mes, anio);
 }
+
+bool cortarSiCero(string texto) {
+  return texto == "0";
+}
+

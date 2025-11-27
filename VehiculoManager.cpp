@@ -9,38 +9,58 @@ VehiculoManager::VehiculoManager()
     : _vehiculosArchivo() {}
 
 void VehiculoManager::cargar(int iDCliente) {
+    system("cls");
+    cout <<"|||||||||||||||||||||||||||||||||||||"<<endl;
+    cout <<"||            ACLARACION!          ||"<<endl;
+    cout <<"||  SI INGRESAS '0' EN CUALQUIER   ||"<<endl;
+    cout <<"||  CAMPO, LA CARGA SE CANCELARA   ||"<<endl;
+    cout <<"||  AUTOMATICAMENTE.               ||"<<endl;
+    cout <<"|||||||||||||||||||||||||||||||||||||" << endl;
+    system("pause");
+    system("cls");
     VehiculoMenu menu;
     int id = _vehiculosArchivo.getIdVehiculoUltimo();
+    Cliente cliente = _clientesArchivo.leer(_clientesArchivo.buscarIdCliente(iDCliente));
+    string marca, modelo, patente, chasis, numeroMotor;
     int anio;
     cout <<"|||||||||||||||||||||||||||||||||||||"<<endl;
     cout <<"||      CARGAR NUEVO VEHICULO      ||"<<endl;
     cout <<"|||||||||||||||||||||||||||||||||||||"<<endl;
     cout << "ID: " << id << endl;
-    cout << "CLIENTE: " << nombreApellidoClinete(iDCliente) << endl;
-    cout << "INGRESE MARCA: ";
-    string marca = cargarCadena();
-    cout << "INGRESE MODELO: ";
-    string modelo = cargarCadena();
-    cout << "INGRESE PATENTE: ";
-    string patente = cargarCadena();
+    cout << "CLIENTE: " << cliente.getNombre() << " " << cliente.getApellido() << endl;
+    cout << "DNI: " << cliente.getDni() << endl;
+    cout << "INGRESE MARCA: ";   marca = cargarCadena();if (cortarSiCero(marca)) return;
+    cout << "INGRESE MODELO: ";  modelo = cargarCadena();if (cortarSiCero(modelo)) return;
+    cout << "INGRESE PATENTE: "; patente = cargarCadena();if (cortarSiCero(patente)) return;
     if (buscarIdPorPatente(patente)!=-1) {cout << "YA EXISTE UN VEHICULO CON ESA PATENTE." << endl; return; }
-    cout << "INGRESE ANIO: ";
-    cin >> anio;
-    if (anio > 1990 && anio < 2025) {cout << "ANIO INCORRECTO." << endl; return; }
-    string uso = menu.mostrarUso();
-    string categoria = menu.mostrarCategoria();
-    cout << "INGRESE NUMERO DE CHASIS: ";
-    string chasis = cargarCadena();
+    cout << "INGRESE ANIO: "; cin >> anio; cin.ignore(); if (anio == 0) return;
+    if (anio < 1990 || anio > 2025) {cout << "SOLO SE ACEPTAN VEHICULOS DEL ANIO ENTRE 1990 Y 2025." << endl; return; }
+    cout << "INGRESE CHASIS: "; chasis = cargarCadena();if (cortarSiCero(chasis)) return;
     if (!buscarNumChasis(chasis)) {cout << "YA EXISTE UN VEHICULO CON ESE NUMERO DE CHASIS." << endl; return; }
-    cout << "INGRESE NUMERO DEL MOTOR: ";
-    string numeroMotor = cargarCadena();
+    cout << "INGRESE MOTOR: "; numeroMotor = cargarCadena();if (cortarSiCero(numeroMotor)) return;
     if (!buscarNumMotor(numeroMotor)) {cout << "YA EXISTE UN VEHICULO CON ESE NUMERO DE MOTOR." << endl; return; }
-    if (_vehiculosArchivo.guardar(Vehiculo(id, iDCliente, anio, marca, modelo, patente, categoria, false, chasis, numeroMotor, uso))) {
-        cout << "SE GUARDO CORRECTAMENTE" << endl;
-    } else {
-        cout << "ERROR!" << endl;
+    mostrarPantalla(cliente, id, marca, modelo, patente, anio, chasis, numeroMotor);
+    string uso = menu.mostrarUso();
+    if (uso == "") return;
+
+    mostrarPantalla(cliente, id, marca, modelo, patente, anio, chasis, numeroMotor, uso);
+
+    string categoria = menu.mostrarCategoria();
+    if (categoria == "") return;
+
+    mostrarPantalla(cliente, id, marca, modelo, patente, anio, chasis, numeroMotor, uso, categoria);
+
+    Vehiculo v(id, iDCliente, anio, marca, modelo, patente,categoria, false, chasis, numeroMotor, uso);
+
+    if (_vehiculosArchivo.guardar(v)) {
+        cout << "VEHICULO CARGADO CORRECTAMENTE." << endl;
+    }
+    else {
+        cout << "NO SE PUDO CARGAR EL VEHICULO." << endl;
     }
 }
+
+
 
 void VehiculoManager::mostrar() {
     int cantidad = _vehiculosArchivo.cantidadRegistros();
@@ -68,20 +88,24 @@ bool VehiculoManager::estadoCliente(int idCliente) {
 
 
 void VehiculoManager::mostrarLista(Vehiculo vehiculo) {
-    cout << endl;
-    cout << "ID DEL VEHICULO: " << vehiculo.getIdVehiculo() << endl;
-    cout << "ID DEL CLIENTE: " << vehiculo.getIdCliente() << endl;
-    cout << "CLIENTE: " << nombreApellidoClinete(vehiculo.getIdCliente()) << endl;
-    cout << "MODELO: " << vehiculo.getModelo() << endl;
-    cout << "MARCA: " << vehiculo.getMarca() << endl;
-    cout << "PATENTE: " << vehiculo.getPatente() << endl;
-    cout << "USO: " << vehiculo.getUso() << endl;
-    cout << "CATEGORIA: " << vehiculo.getCategoria() << endl;
-    cout << "NUMERO DE CHASIS: " << vehiculo.getNumChasis() << endl;
-    cout << "NUMERO DEL MOTOR: " << vehiculo.getNumMotor() << endl;
-    cout << "ANIO: " << vehiculo.getAnio() << endl;
-    cout << "ESTADO: " << (vehiculo.getEliminado() ? "ELIMINADO" : "ACTIVO") << endl;
-    cout << endl;
+    int pos = _clientesArchivo.buscarIdCliente(vehiculo.getIdCliente());
+    Cliente cliente = _clientesArchivo.leer(pos);
+    if (!cliente.getEliminado()) {
+        cout << endl;
+        cout << "ID DEL VEHICULO: " << vehiculo.getIdVehiculo() << endl;
+        cout << "CLIENTE: " << cliente.getNombre() + " " + cliente.getApellido()<<endl;
+        cout << "D.N.I: "<< cliente.getDni()<<endl;
+        cout << "MODELO: " << vehiculo.getModelo() << endl;
+        cout << "MARCA: " << vehiculo.getMarca() << endl;
+        cout << "PATENTE: " << vehiculo.getPatente() << endl;
+        cout << "USO: " << vehiculo.getUso() << endl;
+        cout << "CATEGORIA: " << vehiculo.getCategoria() << endl;
+        cout << "NUMERO DE CHASIS: " << vehiculo.getNumChasis() << endl;
+        cout << "NUMERO DEL MOTOR: " << vehiculo.getNumMotor() << endl;
+        cout << "ANIO: " << vehiculo.getAnio() << endl;
+        cout << "ESTADO: " << (vehiculo.getEliminado() ? "ELIMINADO" : "ACTIVO") << endl;
+        cout << endl;
+    }
 }
 
 int VehiculoManager::mostrarYContarVehiculosDeCliente(int idClienteBuscado) {
@@ -147,18 +171,6 @@ bool VehiculoManager::buscarNumMotor(string numMotor) {
     }
     delete[] vehiculos;
     return true;
-}
-
-string VehiculoManager::nombreApellidoClinete(int idCliente) {
-    int pos = _clientesArchivo.buscarIdCliente(idCliente);
-    if (pos < 0) {
-        return "DESCONOCIDO";
-    }
-    Cliente cliente = _clientesArchivo.leer(pos);
-    if (cliente.getEliminado()) {
-        return "NO SE PUEDE CLIENTE ELIMINADO.";
-    }
-    return cliente.getNombre() + " " + cliente.getApellido();
 }
 
 void VehiculoManager::modificarPatente(int idVehiculo) {
@@ -278,4 +290,22 @@ void VehiculoManager::modificarAnio(int idVehiculo) {
     } else {
         cout << "VEHICULO NO ENCONTRADO." << endl;
     }
+}
+
+void VehiculoManager::mostrarPantalla(Cliente cli, int id, string marca, string modelo, string patente, int anio, string chasis, string motor, string uso, string categoria){
+    system("cls");
+    cout <<"|||||||||||||||||||||||||||||||||||||"<<endl;
+    cout <<"||      CARGAR NUEVO VEHICULO      ||"<<endl;
+    cout <<"|||||||||||||||||||||||||||||||||||||"<<endl;
+    cout << "ID: " << id << endl;
+    cout << "CLIENTE: " << cli.getNombre() << " " << cli.getApellido() << endl;
+    cout << "DNI: " << cli.getDni() << endl;
+    cout << "INGRESE MARCA: " << marca << endl;
+    cout << "INGRESE MODELO: " << modelo << endl;
+    cout << "INGRESE PATENTE: " << patente << endl;
+    cout << "INGRESE ANIO: " << anio << endl;
+    cout << "INGRESE NUMERO DE CHASIS: " << chasis << endl;
+    cout << "INGRESE NUMERO DE MOTOR: " << motor << endl;
+    if (uso != "") cout << "USO: " << uso << endl;
+    if (categoria != "") cout << "CATEGORIA: " << categoria << endl;
 }
