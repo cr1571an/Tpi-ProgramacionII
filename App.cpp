@@ -3,7 +3,7 @@
 using namespace std;
 
 App::App(){
-    _cantidadOpciones = 5;
+    _cantidadOpciones = 6;
 }
 void App::run(){
     int opcion;
@@ -25,6 +25,7 @@ void App::mostrarOpciones() {
     cout << "||     3 - POLIZAS                       ||" << endl;
     cout << "||     4 - PAGOS                         ||" << endl;
     cout << "||     5 - SINIESTROS                    ||" << endl;
+    cout << "||     6 - REPORTES                      ||" << endl;
     cout << "|||||||||||||||||||||||||||||||||||||||||||" << endl;
     cout << "||     0 - CERRAR PROGRAMA               ||" << endl;
     cout << "|||||||||||||||||||||||||||||||||||||||||||" << endl<<endl;
@@ -60,6 +61,9 @@ void App::ejecutarOpcion(int opcion){
             break;
         case 5:
             _siniestroMenu.mostrar();
+            break;
+        case 6:
+            _reporteMenu.mostrar();
             break;
         case 0:
             cout << "Gracias por utilizar la APP! " << endl;

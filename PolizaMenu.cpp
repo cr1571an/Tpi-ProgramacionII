@@ -3,7 +3,7 @@
 using namespace std;
 
 PolizaMenu::PolizaMenu(){
-    _cantidadOpciones = 12;
+    _cantidadOpciones = 11;
     _cantidadOpcionesSubMenuModificar = 3;
 }
 void PolizaMenu::mostrar(){
@@ -83,7 +83,7 @@ void PolizaMenu::mostrarOpciones(){
 ||     11 - LISTAR POR FECHA DE VENCIMIENTO          ||
 ||     12 - REPORTE POLIZAS VIGENTES Y SIN COBERTURA ||
 |||||||||||||||||||||||||||||||||||||||||||||||||||||||
-||     0 - SALIR                                     ||
+||     0 - VOLVER                                     ||
 |||||||||||||||||||||||||||||||||||||||||||||||||||||||
 
 )";
@@ -148,11 +148,6 @@ void PolizaMenu::ejecutarOpcion(int opcion) {
         }
         case 11:{
             _polizaManager.listarPorFechaVencimiento();
-            break;
-        }
-        case 12:{
-            // _polizaManager.reportePolizasVigentesYVencidas();
-            cout << "FUNCIONALIDAD EN DESARROLLO." << endl;
             break;
         }
     }
