@@ -107,7 +107,8 @@ int generarVehiculos() {
     v.setIdCliente(idCliente);
 
     getline(ss, campo, ',');
-    v.setAnio(campo);
+    int anio = atoi(campo.c_str());
+    v.setAnio(anio);
 
     getline(ss, campo, ',');
     v.setMarca(campo);
