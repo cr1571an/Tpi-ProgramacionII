@@ -180,11 +180,12 @@ int generarPolizas() {
     p.setPrimaMensual(campoFloat);
 
     getline(ss, campo, ',');
-    int idTipoSeguro = atoi(campo.c_str());
-    p.setIdTipoSeguro(idTipoSeguro);
+    int sumaAsegurada = atoi(campo.c_str());
+    p.setSumaAsegurada(sumaAsegurada);
 
     getline(ss, campo, ',');
-    p.setVigente(campo == "true" ? true : false);
+    int idTipoSeguro = atoi(campo.c_str());
+    p.setIdTipoSeguro(idTipoSeguro);
 
     getline(ss, campo, ',');
     p.setEliminado(campo == "true" ? true : false);

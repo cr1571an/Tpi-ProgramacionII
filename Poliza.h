@@ -7,24 +7,24 @@ class Poliza {
  public:
   Poliza();
   Poliza(int id, int idVehiculo, Fecha fechaInicio,
-         Fecha FechaFin, float primaMensual, int idTipoSeguro,
-         bool vigente, bool eliminado);
+         Fecha FechaFin, float primaMensual,int sumaAsegurada, int idTipoSeguro,
+         bool eliminado);
 
   int getId();
   int getIdVehiculo();
   Fecha getfechaInicio();
   Fecha getfechaFin();
   float getPrimaMensual();
+  int getSumaAsegurada();
   int getIdTipoSeguro();
-  bool getVigente();
   bool getEliminado();
   void setId(int id);
   void setIdVehiculo(int idVehiculo);
   void setFechaInicio(Fecha fechaInicio);
   void setFechaFin(Fecha FechaFin);
   void setPrimaMensual(float primaMensual);
+  void setSumaAsegurada(int sumaAsegurada);
   void setIdTipoSeguro(int idTipoSeguro);
-  void setVigente(bool vigente);
   void setEliminado(bool eliminado);
 
  private:
@@ -33,7 +33,7 @@ class Poliza {
   Fecha _fechaInicio;
   Fecha _fechaFin;
   float _primaMensual;
+  int _sumaAsegurada;
   int _idTipoSeguro;
-  bool _vigente;
   bool _eliminado;
 };

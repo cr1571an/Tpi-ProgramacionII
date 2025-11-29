@@ -8,20 +8,20 @@ Poliza::Poliza()
       _fechaInicio(),
       _fechaFin(),
       _primaMensual(0.0),
+      _sumaAsegurada(0),
       _idTipoSeguro(0),
-      _vigente(false),
       _eliminado(false) {}
 
 Poliza::Poliza(int id, int idVehiculo, Fecha fechaInicio,
-               Fecha FechaFin, float primaMensual, int idTipoSeguro,
-               bool vigente, bool eliminado) {
+               Fecha FechaFin, float primaMensual,int sumaAsegurada, int idTipoSeguro,
+               bool eliminado) {
   setId(id);
   setIdVehiculo(idVehiculo);
   setFechaInicio(fechaInicio);
   setFechaFin(FechaFin);
   setPrimaMensual(primaMensual);
-  setIdTipoSeguro(idTipoSeguro);
-  setVigente(vigente);
+  setSumaAsegurada(sumaAsegurada);
+  setIdTipoSeguro(idTipoSeguro);  
   setEliminado(eliminado);
 }
 
@@ -30,8 +30,8 @@ int Poliza::getIdVehiculo() { return _idVehiculo; }
 Fecha Poliza::getfechaInicio() { return _fechaInicio; }
 Fecha Poliza::getfechaFin() { return _fechaFin; }
 float Poliza::getPrimaMensual() { return _primaMensual; }
+int Poliza::getSumaAsegurada() { return _sumaAsegurada; }
 int Poliza::getIdTipoSeguro() { return _idTipoSeguro; }
-bool Poliza::getVigente() { return _vigente; }
 bool Poliza::getEliminado() { return _eliminado; }
 void Poliza::setId(int id) { _id = id; }
 void Poliza::setIdVehiculo(int idVehiculo) { _idVehiculo = idVehiculo; }
@@ -40,8 +40,10 @@ void Poliza::setFechaFin(Fecha FechaFin) { _fechaFin = FechaFin; }
 void Poliza::setPrimaMensual(float primaMensual) {
   _primaMensual = primaMensual;
 }
+void Poliza::setSumaAsegurada(int sumaAsegurada) {
+  _sumaAsegurada = sumaAsegurada;
+}
 void Poliza::setIdTipoSeguro(int idTipoSeguro) {
   _idTipoSeguro = idTipoSeguro;
 }
-void Poliza::setVigente(bool vigente) { _vigente = vigente; }
 void Poliza::setEliminado(bool eliminado) { _eliminado = eliminado; }
