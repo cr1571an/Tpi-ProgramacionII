@@ -6,7 +6,7 @@
 using namespace std;
 
 PolizaManager::PolizaManager()
-    : _archivo(), _vehiculoManager(), _archivoCliente(),_archivoVehiculos() {
+    : _archivo(), _vehiculoManager(), _archivoCliente(),_archivoVehiculos(), _archivoPagos() {
 }
 
 void PolizaManager::mostrar() {
@@ -207,7 +207,7 @@ void PolizaManager::listarPolizasVigentes() {
     int totalPolizas = _archivo.leerTodos(polizas, cantidad);
     for (int i = 0; i < totalPolizas; i++) {
         Poliza p = polizas[i];
-        if (estaVigente(p) && !p.getEliminado())
+        if (p.estaVigente() && !p.getEliminado())
             mostrarPoliza(p);
         
     }
@@ -233,7 +233,7 @@ void PolizaManager::listarPolizasNoVigentes() {
     int totalPolizas = _archivo.leerTodos(polizas, cantidad);
     for (int i = 0; i < totalPolizas; i++) {
         Poliza p = polizas[i];
-        if (!estaVigente(p) && !p.getEliminado())
+        if (!p.estaVigente() && !p.getEliminado())
             mostrarPoliza(p);
     }
 
@@ -378,13 +378,12 @@ void PolizaManager::reportePolizasVigentesYVencidas(){
 
         for (int j=0; j < cantidadFiltradas; j++) {
             Poliza* poliza = polizasFiltradas[j];
-            (*poliza).getEliminado();
             if (poliza->getIdTipoSeguro() == tipoSeguro.getId() && !poliza->getEliminado()) {
-                if (poliza->getVigente()) {
+                if (poliza->estaVigente()) 
                     contadorVigentes++;
-                } else {
-                    contadorVencidas++;
-                }
+                if (!tieneCobertura(*poliza))                
+                    contadorVencidas++; 
+                
             }
         }
 
@@ -424,7 +423,7 @@ void PolizaManager::generarVencimientos(Poliza poliza, int cantidadVencimientos)
         fechaVencimiento.sumarDias(30);
         int idVencimiento = _archivoVencimientos.getNuevoID();
         float montoVencimiento = calcularMontoVencimiento(poliza.getPrimaMensual());
-        Vencimiento vencimiento(idVencimiento, poliza.getId(), fechaVencimiento, montoVencimiento, false, false);
+        Vencimiento vencimiento(idVencimiento, poliza.getId(), fechaVencimiento, montoVencimiento, false);
         cout << (_archivoVencimientos.guardar(vencimiento) ? "VENCIMIENTO CREADO,CON FECHA: " + vencimiento.getVencimiento().formatoFecha() : "NO SE PUDO CREAR EL VENCIMIENTO.") << endl;
     }
 }
@@ -432,11 +431,6 @@ void PolizaManager::generarVencimientos(Poliza poliza, int cantidadVencimientos)
 float PolizaManager::calcularMontoVencimiento(int primaMensual) {
     float iva = primaMensual * 0.21;
     return primaMensual + iva;
-}
-
-bool PolizaManager::estaVigente(Poliza poliza) {
-    Fecha fechaActual;
-    return (poliza.getfechaInicio() <= fechaActual && fechaActual <= poliza.getfechaFin());
 }
 
 bool PolizaManager::tienePolizasVigentes(int idVehiculo) {
@@ -450,7 +444,7 @@ bool PolizaManager::tienePolizasVigentes(int idVehiculo) {
     
     for (int i = 0; i < cantidad; i++) {
         Poliza p = polizas[i];
-        if (p.getIdVehiculo() == idVehiculo && estaVigente(p) && !p.getEliminado()) {
+        if (p.getIdVehiculo() == idVehiculo && p.estaVigente() && !p.getEliminado()) {
             delete[] polizas;
             return true;
         }
@@ -496,4 +490,45 @@ void PolizaManager::reportePolizasSinCobertura() {
 
     delete[] vencimientos;
     delete[] polizas;
+}
+
+
+bool PolizaManager::tieneCobertura(Poliza p) {
+    int cantidadVencimientos = _archivoVencimientos.getCantidadRegistros();
+    if (cantidadVencimientos == 0) {
+        cout << "NO HAY VENCIMIENTOS REGISTRADOS." << endl;
+        return false;
+    }
+
+    Vencimiento* vencimientos = new Vencimiento[cantidadVencimientos]{};
+    _archivoVencimientos.leerTodos(vencimientos, cantidadVencimientos);
+
+    int cantidadPagos = _archivoPagos.getCantidadRegistros();
+    Pago* pagos = new Pago[cantidadPagos]{};
+    _archivoPagos.leerTodos(pagos, cantidadPagos);
+
+    for (int i = 0; i < cantidadVencimientos; i++) {
+        Vencimiento v = vencimientos[i];
+        if (!v.getEliminado() && v.getIdPoliza() == p.getId()) {
+            if (v.estaVencido()) {
+                bool tienePago = false;
+                for (int j = 0; j < cantidadPagos; j++) {
+                    Pago pago = pagos[j];
+                    if (pago.getIdVencimiento() == v.getId() && !pago.getEliminado()) {
+                        tienePago = true;
+                        break;
+                    }
+                }
+                if (!tienePago) {                    
+                    delete[] pagos;
+                    delete[] vencimientos;
+                    return false;
+                }
+            }
+        }
+    }
+
+    delete[] pagos;
+    delete[] vencimientos;
+    return true;
 }

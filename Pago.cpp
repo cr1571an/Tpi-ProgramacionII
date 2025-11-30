@@ -3,7 +3,7 @@
 
 Pago::Pago():
     _id(0),
-    _idPoliza(0),
+    _idVencimiento(0),
     _fechaPago(),
     _monto(0.0),
     _estado(false),
@@ -12,10 +12,10 @@ Pago::Pago():
     _metodoDePago[0] = '\0';
 }
 
-Pago::Pago(int id, int idPoliza, Fecha fechaPago, float monto, std::string metodoDePago, bool estado, bool eliminado)
+Pago::Pago(int id, int idVencimiento, Fecha fechaPago, float monto, std::string metodoDePago, bool estado, bool eliminado)
 {
     setId(id);
-    setIdPoliza(idPoliza);
+    setIdVencimiento(idVencimiento);
     setFechaPago(fechaPago);
     setMonto(monto);
     setMetodoDePago(metodoDePago);
@@ -27,9 +27,9 @@ int Pago::getId()
 {
     return _id;
 }
-int Pago::getIdPoliza()
+int Pago::getIdVencimiento()
 {
-    return _idPoliza;
+    return _idVencimiento;
 }
 Fecha Pago::getFechaPago()
 {
@@ -55,9 +55,9 @@ void Pago::setId(int id)
 {
     _id = id;
 }
-void Pago::setIdPoliza(int idPoliza)
+void Pago::setIdVencimiento(int idVencimiento)
 {
-    _idPoliza = idPoliza;
+    _idVencimiento = idVencimiento;
 }
 void Pago::setFechaPago(Fecha fechaPago)
 {

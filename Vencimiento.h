@@ -4,13 +4,12 @@
 class Vencimiento {
  public:
   Vencimiento();
-  Vencimiento(int id, int idPoliza, Fecha vencimiento,float monto, bool pagado, bool eliminado);
+  Vencimiento(int id, int idPoliza, Fecha vencimiento,float monto, bool eliminado);
 
   int getId();
   int getIdPoliza();
   Fecha getVencimiento();
   float getMonto();
-  bool getPagado();
   bool getEliminado();
   bool estaVencido();
 
@@ -18,7 +17,6 @@ class Vencimiento {
   void setIdPoliza(int idPoliza);
   void setVencimiento(Fecha vencimiento);
   void setMonto(float monto);
-  void setPagado(bool pagado);
   void setEliminado(bool eliminado);
 
  private:
@@ -26,6 +24,5 @@ class Vencimiento {
   int _idPoliza;
   Fecha _vencimiento;
   float _monto;
-  bool _pagado;  
   bool _eliminado;
 };

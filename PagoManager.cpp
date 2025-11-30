@@ -348,7 +348,7 @@ void PagoManager::mostrarLista(Pago p)
     if (p.getEliminado()) return;
     cout << "----------------------------" << endl;
     cout << "ID: " << p.getId() << endl;
-    cout << "ID Poliza: " << p.getIdPoliza() << endl;
+    // cout << "ID Poliza: " << p.getIdPoliza() << endl; //TODO :REPARAR
     Fecha f = p.getFechaPago();
     cout << "Fecha: " << f.getDia() << "/" << f.getMes() << "/" << f.getAnio() << endl;
     cout << "Monto: " << p.getMonto() << endl;
@@ -540,7 +540,7 @@ void PagoManager::mostrarPagosDePoliza(int idPolizaBuscado)
         Pago p = _pagoArchivo.leer(i);
         if (p.getId() == -1) continue;
         if (p.getEliminado()) continue;
-        if (p.getIdPoliza() != idPolizaBuscado) continue;
+        // if (p.getIdPoliza() != idPolizaBuscado) continue; //TODO :REPARAR
 
         mostrarLista(p);
         encontrado = true;
@@ -628,29 +628,29 @@ void PagoManager::reportePagosPendientes()
         Fecha f = p.getFechaPago();
         if (f > fechaCorte)       continue;
 
-        int idPol = p.getIdPoliza();
+        // int idPol = p.getIdPoliza(); TODO : REPARAR
 
-        int pos = -1;
-        for (int j = 0; j < validos; j++)
-        {
-            if (polizas[j] == idPol)
-            {
-                pos = j;
-                break;
-            }
-        }
+        // int pos = -1;
+        // for (int j = 0; j < validos; j++) TODO : REPARAR
+        // {
+        //     if (polizas[j] == idPol)
+        //     {
+        //         pos = j;
+        //         break;
+        //     }
+        // }
 
-        if (pos == -1)
-        {
-            pos = validos;
-            polizas[validos]  = idPol;
-            meses[validos]    = 0;
-            importes[validos] = 0.0;
-            validos++;
-        }
+        // if (pos == -1)
+        // {
+        //     pos = validos;
+        //     polizas[validos]  = idPol;
+        //     meses[validos]    = 0;
+        //     importes[validos] = 0.0;
+        //     validos++;
+        // }
 
-        meses[pos]++;
-        importes[pos] += p.getMonto();
+//        meses[pos]++;
+        //importes[pos] += p.getMonto();
     }
 
     if (validos == 0)

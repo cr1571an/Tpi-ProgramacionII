@@ -83,7 +83,7 @@ void imprimirArchivos() {
        << "-------------------------------------" << endl;
   cout << "----------------PAGOS-----------------" << endl;
   for (int i = 0; i < cantidadPagos; i++) {
-    cout << vPagos[i].getId() << " | " << vPagos[i].getIdPoliza() << " | "
+    cout << vPagos[i].getId() << " | " //<< vPagos[i].getIdPoliza() << " | " TODO: REPARAR
          << vPagos[i].getFechaPago().formatoFecha() << " | "
          << vPagos[i].getMonto() << " | " << vPagos[i].getMetodoDePago()
          << " | " << vPagos[i].getEstado() << " | " << vPagos[i].getEliminado()
@@ -133,10 +133,10 @@ void imprimirArchivos() {
   cout << "-------------------------------------" << endl
        << "-------------------------------------" << endl;
 
-  cout << "-------VENCIMIENTOS ------------------" << endl;
-  for (int i = 0; i < cantidadVencimientos; i++){
-     cout << vVencimientos[i].getId() << " | " << vVencimientos[i].getIdPoliza() << " | " << vVencimientos[i].getMonto() << " | " << vVencimientos[i].getPagado() << " | " << vVencimientos[i].getVencimiento().formatoFecha() << endl;
-  }
+//   cout << "-------VENCIMIENTOS ------------------" << endl;
+//   for (int i = 0; i < cantidadVencimientos; i++){
+//      cout << vVencimientos[i].getId() << " | " << vVencimientos[i].getIdPoliza() << " | " << vVencimientos[i].getMonto() << " | " << vVencimientos[i].getPagado() << " | " << vVencimientos[i].getVencimiento().formatoFecha() << endl;
+//   }
 
 
 
