@@ -12,9 +12,7 @@ private:
     void submenuActualizar();
     void submenuListados();
     void submenuConsultas();
-    void submenuReportes();
 
     PagoManager _pagoManager;
     int _cantidadOpciones;
 };
-

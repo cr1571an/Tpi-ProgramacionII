@@ -25,6 +25,25 @@ bool PagoArchivo::guardar(Pago registro)
     return result;
 }
 
+
+bool PagoArchivo::guardar(Pago registro, int pos)
+{
+    bool result;
+    FILE* pFile;
+
+    pFile = fopen(_nombreArchivo.c_str(), "rb+");
+    if (pFile == nullptr)
+    {
+        return false;
+    }
+
+    fseek(pFile, sizeof(Pago) * pos, SEEK_SET);
+    result = (fwrite(&registro, sizeof(Pago), 1, pFile) == 1);
+
+    fclose(pFile);
+    return result;
+}
+
 Pago PagoArchivo::leer(int pos)
 {
     Pago registro;
@@ -132,23 +151,5 @@ bool PagoArchivo::eliminar(int id)
     if (registro.getId() == -1) return false;
 
     registro.setEliminado(true);
-    return sobrescribir(registro, pos);
-}
-
-bool PagoArchivo::sobrescribir(Pago registro, int pos)
-{
-    bool result;
-    FILE* pFile;
-
-    pFile = fopen(_nombreArchivo.c_str(), "rb+");
-    if (pFile == nullptr)
-    {
-        return false;
-    }
-
-    fseek(pFile, sizeof(Pago) * pos, SEEK_SET);
-    result = (fwrite(&registro, sizeof(Pago), 1, pFile) == 1);
-
-    fclose(pFile);
-    return result;
+    return guardar(registro, pos);
 }
