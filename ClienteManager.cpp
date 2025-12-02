@@ -172,7 +172,7 @@ int ClienteManager::posClientePorDNI( string dni) {
 
   for (int i = 0; i < total; i++) {
     reg = _clientesArchivo.leer(i);
-    if (!reg.getEliminado() && reg.getDni() == dni) {
+    if (reg.getDni() == dni) {
       return i;
     }
   }
@@ -180,16 +180,15 @@ int ClienteManager::posClientePorDNI( string dni) {
 }
 
 bool ClienteManager::verificarRegistroPorDNI(string dni) {
-  int cant = _clientesArchivo.getCantidadRegistros();
-  Cliente *clientes = new Cliente[cant];
-  _clientesArchivo.leerTodos(clientes, cant);
-  for (int i = 0; i < cant; ++i) {
-    if (clientes[i].getTelefono() == dni) {
-      delete[] clientes;
+  int pos = posClientePorDNI(dni);
+  if (pos != -1 && pos != -2 ) {
+    Cliente cliente = _clientesArchivo.leer(pos);
+    if (!cliente.getEliminado()) {
+      return false;
+    } else {
       return false;
     }
   }
-  delete[] clientes;
   return true;
 }
 
