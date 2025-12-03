@@ -6,26 +6,23 @@ class Pago
 {
 public:
     Pago();
-    Pago(int id, int idPoliza, Fecha fechaPago, float monto, std::string metodoDePago, bool eliminado);
+    Pago(int id, int idVencimiento, Fecha fechaPago, std::string metodoDePago, bool eliminado);
 
     int getId();
-    int getIdPoliza();
+    int getIdVencimiento();
     Fecha getFechaPago();
-    float getMonto();
     std::string getMetodoDePago();
     bool getEliminado();
     void setId(int id);
-    void setIdPoliza(int idPoliza);
+    void setIdVencimiento(int idVencimiento);
     void setFechaPago(Fecha fechaPago);
-    void setMonto(float monto);
     void setMetodoDePago(std::string metodoDePago);
     void setEliminado(bool eliminado);
 
 private:
-    int   _id;
-    int   _idPoliza;
+    int _id;
+    int _idVencimiento;
     Fecha _fechaPago;
-    float _monto;
-    char  _metodoDePago[30];
-    bool  _eliminado;
+    char _metodoDePago[30];
+    bool _eliminado;
 };
