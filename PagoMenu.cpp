@@ -66,6 +66,7 @@ void PagoMenu::ejecutarOpcion(int opcion)
             int idPoliza;
             cout << "Ingrese ID de la poliza: ";
             cin >> idPoliza;
+            system("cls");
             _pagoManager.cargar(idPoliza);
             system("pause");
             break;

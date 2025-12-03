@@ -15,13 +15,10 @@ public:
     void cambiarFecha(int idPago);
     void cambiarMetodo(int idPago);
     void anularPago(int idPago);
-    void recuperar();
     void mostrarLista(Pago pago);
     void listarOrdenadosPorFecha();
     void listarOrdenadosPorMetodoPago();
     void mostrarPagosDePoliza(int idPolizaBuscada);
-    void mostrarPagosPorEstado(int estadoIngresado);
-    void reportePagosPendientes();
 
 private:
     PagoArchivo _pagoArchivo;
