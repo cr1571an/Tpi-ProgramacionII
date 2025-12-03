@@ -51,9 +51,8 @@ int Fecha::getMes(){
     return _mes;
 }
 
-void Fecha::sumarDias() {
-    int plazoPoliza = 90;
-
+void Fecha::sumarDias(int dias) {
+    
     std::tm fecha_tm = {};
     fecha_tm.tm_mday = _dia;
     fecha_tm.tm_mon  = _mes - 1;
@@ -61,7 +60,7 @@ void Fecha::sumarDias() {
 
     std::time_t tiempo = std::mktime(&fecha_tm);
 
-    tiempo += static_cast<time_t>(plazoPoliza) * 24 * 60 * 60;
+    tiempo += static_cast<time_t>(dias) * 24 * 60 * 60;
 
     std::tm* nueva_fecha = std::localtime(&tiempo);
 
@@ -87,7 +86,10 @@ bool Fecha::operator==(Fecha fecha) {
     if (_mes != fecha.getMes())
         return false;
 
-    return true;
+    if (_dia != fecha.getDia())
+        return false;
+
+    return true;    
 }
 
 bool Fecha::operator<(Fecha fecha) {
@@ -98,6 +100,14 @@ bool Fecha::operator<(Fecha fecha) {
         return _mes < fecha.getMes();
 
     return _dia < fecha.getDia();
+}
+
+bool Fecha::operator>=(Fecha fecha) {
+    return *this > fecha || *this == fecha;
+}
+
+bool Fecha::operator<=(Fecha fecha) {
+    return *this < fecha || *this == fecha;
 }
 
 string Fecha::formatoFecha() {

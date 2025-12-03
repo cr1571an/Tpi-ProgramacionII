@@ -15,6 +15,8 @@
 #include "../LocalidadArchivo.h"
 #include "../TiposSiniestrosArchivo.h"
 #include "../TipoSiniestro.h"
+#include "../VencimientosArchivo.h"
+#include "../Vencimiento.h"
 
 using namespace std;
 
@@ -26,6 +28,7 @@ void imprimirArchivos() {
   PolizaArchivo archivoPolizas;
   LocalidadArchivo archivoLocalidad;
   TiposSiniestrosArchivo archivoTiposSiniestros;
+  VencimientosArchivo archivoVencimientos;
   
 
   int cantidadClientes = archivoClientes.getCantidadRegistros();
@@ -35,6 +38,7 @@ void imprimirArchivos() {
   int cantidadPolizas = archivoPolizas.getCantidadRegistros();
   int cantidadLocalidades = archivoLocalidad.getCantidadRegistros();
   int cantidadTiposSiniestros = archivoTiposSiniestros.getCantidadRegistros();
+  int cantidadVencimientos = archivoVencimientos.getCantidadRegistros();
 
   Cliente* vClientes = new Cliente[cantidadClientes];
   Vehiculo* vVehiculos = new Vehiculo[cantidadVehiculos];
@@ -43,6 +47,7 @@ void imprimirArchivos() {
   Poliza* vPolizas = new Poliza[cantidadPolizas];
   Localidad*  vLocalidad = new Localidad[cantidadLocalidades];
   TipoSiniestro* vTiposSiniestros = new TipoSiniestro[cantidadTiposSiniestros];
+  Vencimiento* vVencimientos = new Vencimiento[cantidadVencimientos];
 
   archivoClientes.leerTodos(vClientes, cantidadClientes);
   archivoVehiculos.leerTodos(vVehiculos, cantidadVehiculos);
@@ -51,6 +56,7 @@ void imprimirArchivos() {
   archivoPolizas.leerTodos(vPolizas, cantidadPolizas);
   archivoLocalidad.leerTodos(vLocalidad,cantidadLocalidades);
   archivoTiposSiniestros.leerTodos(vTiposSiniestros,cantidadTiposSiniestros);
+  archivoVencimientos.leerTodos(vVencimientos,cantidadVencimientos);
 
   cout << "--------------CLIENTES-------------------" << endl;
   for (int i = 0; i < cantidadClientes; i++) {
@@ -104,7 +110,7 @@ void imprimirArchivos() {
          << vPolizas[i].getfechaInicio().formatoFecha() << " | "
          << vPolizas[i].getfechaFin().formatoFecha() << " | "
          << vPolizas[i].getPrimaMensual() << " | "
-         << vPolizas[i].getIdTipoSeguro() << " | " << vPolizas[i].getVigente()
+         << vPolizas[i].getIdTipoSeguro() << " | "
          << " | " << vPolizas[i].getEliminado() << endl;
   }
 
@@ -123,6 +129,16 @@ void imprimirArchivos() {
   for (int i = 0; i < cantidadTiposSiniestros; i++){
      cout << vTiposSiniestros[i].getId() << " | " << vTiposSiniestros[i].getDescripcion() << " | " << vTiposSiniestros[i].getEliminado() << endl;
   }
+
+  cout << "-------------------------------------" << endl
+       << "-------------------------------------" << endl;
+
+  cout << "-------VENCIMIENTOS ------------------" << endl;
+  for (int i = 0; i < cantidadVencimientos; i++){
+     cout << vVencimientos[i].getId() << " | " << vVencimientos[i].getIdPoliza() << " | " << vVencimientos[i].getMonto() << " | " << vVencimientos[i].getPagado() << " | " << vVencimientos[i].getVencimiento().formatoFecha() << endl;
+  }
+
+
 
   delete[] vClientes;
   delete[] vVehiculos;
