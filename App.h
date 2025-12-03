@@ -1,7 +1,7 @@
 #pragma once
 #include "ClienteMenu.h"
 #include "VehiculoMenu.h"
-
+#include "SeguroArchivo.h"
 #include "PolizaMenu.h"
 #include "SiniestroMenu.h"
 #include "PagoMenu.h"
@@ -22,7 +22,7 @@ protected:
 
     ClienteMenu _clienteMenu;
     VehiculoMenu _vehiculoMenu;
-
+    SeguroArchivo _segurosArchivo;
     PolizaMenu _polizaMenu;
     SiniestroMenu _siniestroMenu;
     PagoMenu _pagoMenu;

@@ -66,7 +66,9 @@ void VehiculoManager::mostrar() {
     int cantidad = _vehiculosArchivo.cantidadRegistros();
     for (int i = 0; i < cantidad; i++) {
         Vehiculo vehiculo = _vehiculosArchivo.leer(i);
-        mostrarLista(vehiculo);
+        if (!vehiculo.getEliminado()) {
+            mostrarLista(vehiculo);
+        }
     }
 }
 
@@ -103,7 +105,7 @@ void VehiculoManager::mostrarLista(Vehiculo vehiculo) {
         cout << "NUMERO DE CHASIS: " << vehiculo.getNumChasis() << endl;
         cout << "NUMERO DEL MOTOR: " << vehiculo.getNumMotor() << endl;
         cout << "ANIO: " << vehiculo.getAnio() << endl;
-        cout << "ESTADO: " << (vehiculo.getEliminado() ? "ELIMINADO" : "ACTIVO") << endl;
+        cout << "ESTADO: " << (vehiculo.getEliminado() ? "DADO DE BAJA" : "ACTIVO") << endl;
         cout << endl;
     }
 }
@@ -138,7 +140,7 @@ int VehiculoManager::buscarIdPorPatente(string patente) {
     Vehiculo v;
     for (int i = 0; i < cantidad; i++) {
         v = _vehiculosArchivo.leer(i);
-        if (!v.getEliminado() && v.getPatente() == patente) {
+        if (v.getPatente() == patente) {
             return v.getIdVehiculo();
         }
     }
@@ -280,7 +282,7 @@ void VehiculoManager::modificarAnio(int idVehiculo) {
         Vehiculo vehiculo = _vehiculosArchivo.leer(pos);
         cout << "INGRESE EL NUEVO ANIO: ";
         cin >> nuevoAnio;
-        if (nuevoAnio > 1990 && nuevoAnio < 2025) { cout << "ANIO INCORRECTO." << endl; return;}
+        if (nuevoAnio < 1990 || nuevoAnio > 2025) { cout << "ANIO INCORRECTO." << endl; return;}
         vehiculo.setAnio(nuevoAnio);
         if (_vehiculosArchivo.actualizarVehiculo(pos, vehiculo)) {
             cout << "ANIO MODIFICADO CORRECTAMENTE." << endl;

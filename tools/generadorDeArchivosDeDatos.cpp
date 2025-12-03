@@ -241,7 +241,7 @@ int generarPagos() {
     p.setMetodoDePago(campo);
 
     getline(ss, campo, ',');
-    p.setEstado(campo == "true" ? true : false);
+//    p.setEstado(campo == "true" ? true : false);
 
     getline(ss, campo, ',');
     p.setEliminado(campo == "true" ? true : false);

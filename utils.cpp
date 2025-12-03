@@ -66,3 +66,8 @@ bool cortarSiCero(string texto) {
   return texto == "0";
 }
 
+string alinearIzquierda(string texto, int ancho) {
+  int espacios = ancho - texto.size();
+  if (espacios < 0) espacios = 0;
+  return texto + string(espacios, ' ');
+}

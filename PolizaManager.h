@@ -1,11 +1,12 @@
 #pragma once
-#include "ClienteMenu.h"
 #include "PolizaArchivo.h"
 #include "VehiculoManager.h"
 #include "ClientesArchivo.h"
 #include "VehiculosArchivo.h"
 #include "TiposSegurosArchivo.h"
 #include "VencimientosArchivo.h"
+#include "SeguroArchivo.h"
+
 
 class PolizaManager {
     public:
@@ -31,6 +32,8 @@ class PolizaManager {
         ClienteManager _clienteManager;
         ClientesArchivo _archivoCliente;
         VehiculosArchivo _archivoVehiculos;
+        SeguroArchivo _archivoSeguro;
+        Seguro _seguro;
         TiposSegurosArchivo _archivoTipoSeguros;
         VencimientosArchivo _archivoVencimientos;
 

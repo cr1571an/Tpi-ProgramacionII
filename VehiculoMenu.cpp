@@ -1,5 +1,7 @@
 #include <iostream>
 #include "VehiculoMenu.h"
+
+#include "utils.h"
 using namespace std;
 
 VehiculoMenu::VehiculoMenu(){
@@ -140,6 +142,7 @@ void VehiculoMenu::cargar() {
 
 
 void VehiculoMenu::buscarVehiculoPorID() {
+    system("cls");
     cout << "INGRESE EL ID DEL VEHICULO: ";
     int id;
     cin >> id;
@@ -213,8 +216,6 @@ int VehiculoMenu::seleccionarVehiculo(bool modificar) {
                 system("pause");
                 return -1;
             }
-
-
             if (modificar && c > 0) {
                 cout << "INGRESE EL ID DEL VEHICULO QUE DESEA MODIFICAR: ";
                 cin >> idVehiculo;
@@ -234,13 +235,14 @@ int VehiculoMenu::seleccionarVehiculo(bool modificar) {
             break;
         }
         case 2: {
+            system("cls");
             cout << "INGRESE LA PATENTE DEL VEHICULO: ";
-            string patente;
-            cin >> patente;
+            string patente = cargarCadena();
             idVehiculo = _vehiculoManager.buscarIdPorPatente(patente);
             break;
         }
         case 3: {
+            system("cls");
             cout << "INGRESE EL ID DEL VEHICULO: ";
             cin >> idVehiculo;
             cin.ignore();
@@ -276,16 +278,16 @@ void VehiculoMenu::modificarVehiculo() {
     }
     if (!darAltaClientePorIdVehiculo(posVehiculo)) return;
 
-    cout << "||||||||||||||||||||||||||||||||||||||||||||" << endl;
-    cout << "||          DATOS DEL VEHICULO            ||" << endl;
-    cout << "||||||||||||||||||||||||||||||||||||||||||||" << endl;
-
-    _vehiculoManager.mostrarLista(vehiculo);
     if (vehiculo.getEliminado()) {
         cout << "EL VEHICULO ESTA ELIMINADO." << endl;
         darAltaVehiculo(idVehiculo);
         return;
     }
+    cout << "||||||||||||||||||||||||||||||||||||||||||||" << endl;
+    cout << "||          DATOS DEL VEHICULO            ||" << endl;
+    cout << "||||||||||||||||||||||||||||||||||||||||||||" << endl;
+
+    _vehiculoManager.mostrarLista(vehiculo);
 
     cout << "||||||||||||||||||||||||||||||||||||||||||||" << endl;
     cout << "||     1 - DAR DE BAJA                    ||" << endl;
@@ -302,7 +304,7 @@ void VehiculoMenu::modificarVehiculo() {
     int opcion;
     cin >> opcion;
     switch (opcion) {
-        case 1:system("cls");
+        case 1:
             _vehiculoManager.eliminar(idVehiculo);system("pause"); break;
         case 2:system("cls");
             _vehiculoManager.modificarPatente(idVehiculo); system("pause");break;
@@ -363,6 +365,7 @@ void VehiculoMenu::buscarVehiculo() {
     }
     Vehiculo vehiculo = _vehiculosArchivo.leer(posVehiculo);
     _vehiculoManager.mostrarLista(vehiculo);
+    system("pause");
 }
 
 bool VehiculoMenu::darAltaClientePorIdVehiculo(int posVehiculo) {

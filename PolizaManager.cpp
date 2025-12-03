@@ -6,7 +6,7 @@
 using namespace std;
 
 PolizaManager::PolizaManager()
-    : _archivo(), _vehiculoManager(), _archivoCliente(),_archivoVehiculos() {
+    : _archivo(), _vehiculoManager(), _archivoCliente(),_archivoVehiculos(), _archivoSeguro(), _seguro(){
 }
 
 void PolizaManager::mostrar() {
@@ -41,18 +41,14 @@ void PolizaManager::cargar() {
         inicio = leerFechaValida();
         fin = inicio;        
         fin.sumarDias();
-        float prima;
-        int tipo;
-        cout << "ID TIPO DE SEGURO: "; cin >> tipo;
-        int posTipoSeguro = _archivoTipoSeguros.buscarID(tipo);
-        if (posTipoSeguro == -1) {
-            cout << "TIPO DE SEGURO NO ENCONTRADO. OPERACION CANCELADA." << endl;
-            return;
-        }
+        Vehiculo vehiculo = _archivoVehiculos.leer(idVehiculo);
+        int idSeguro = _archivoSeguro.seleccionarSeguro();
+        float prima = _archivoSeguro.calcularValorPoliza(idSeguro,vehiculo);
+        int sumaAsegurada =  _archivoSeguro.calcularSumaAsegurada(idSeguro,vehiculo);
+        cout << "PRIMA MENSUAL: " <<prima<< endl;
+        cout << "PRIMA SUMA ASEGURADA: " <<sumaAsegurada<< endl;
 
-        cout << "PRIMA MENSUAL: "; cin >> prima;
-
-        Poliza p(id, idVehiculo, inicio, fin, prima, tipo, true, false);
+        Poliza p(id, idVehiculo, inicio, fin, prima, sumaAsegurada, true, false);
         cout << (_archivo.guardar(p) ? "POLIZA CREADA." : "NO SE PUDO CREAR LA POLIZA.") << endl;
         generarVencimientos(p,3);
     } else {
@@ -272,7 +268,6 @@ void PolizaManager::listarPorFechaVencimiento() {
     mostrarPoliza(polizas[i]);
     cout << "------------------------" << endl;
   }
-
     delete [] polizas;
 }
 
@@ -281,8 +276,8 @@ void PolizaManager::mostrarPoliza(Poliza poliza){
     Vehiculo vehiculo = _archivoVehiculos.leer(posVehiculo);
     int posCliente = _archivoCliente.buscarIdCliente(vehiculo.getIdCliente());
     Cliente cliente = _archivoCliente.leer(posCliente);
-    int posTipoSeguro = _archivoTipoSeguros.buscarID(poliza.getIdTipoSeguro());
-    TipoSeguro tipoSeguro = _archivoTipoSeguros.leer(posTipoSeguro);
+    int posIdSeguro = _archivoSeguro.buscarIdSeguro(poliza.getId());
+    Seguro seguro = _archivoSeguro.leer(_archivoSeguro.buscarIdSeguro(posIdSeguro));
     cout << "---------------------------------------------\n";
     cout << "              POLIZA N° " << poliza.getId() << "\n";
     cout << "---------------------------------------------\n";
@@ -291,14 +286,13 @@ void PolizaManager::mostrarPoliza(Poliza poliza){
     cout << "DNI           : " << cliente.getDni() << "\n";
     cout << "Vehículo ID    : " << poliza.getIdVehiculo() << "\n";
     cout << "Patente        : " << vehiculo.getPatente() << "\n";
-    cout << "Tipo Seguro    : " << tipoSeguro.getDescripcion() << "\n";
+    cout << "Tipo Seguro    : " << seguro.getNombre() << "\n";
     cout << "Fecha Inicio   : " << poliza.getfechaInicio().formatoFecha() << "\n";
     cout << "Fecha Fin      : " << poliza.getfechaFin().formatoFecha() << "\n";
     cout << "Prima Mensual  : " << poliza.getPrimaMensual() << "\n";
     cout << "Suma Asegurada : " << poliza.getSumaAsegurada() << "\n";
     cout << "Eliminado      : " << (poliza.getEliminado() ? "SI" : "NO") << "\n";
     cout << "---------------------------------------------\n";
-
 }
 
 void PolizaManager::buscarPorDniCliente(){

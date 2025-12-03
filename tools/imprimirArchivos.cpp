@@ -29,7 +29,7 @@ void imprimirArchivos() {
   LocalidadArchivo archivoLocalidad;
   TiposSiniestrosArchivo archivoTiposSiniestros;
   VencimientosArchivo archivoVencimientos;
-  
+
 
   int cantidadClientes = archivoClientes.getCantidadRegistros();
   int cantidadVehiculos = archivoVehiculos.cantidadRegistros();
@@ -86,7 +86,7 @@ void imprimirArchivos() {
     cout << vPagos[i].getId() << " | " << vPagos[i].getIdPoliza() << " | "
          << vPagos[i].getFechaPago().formatoFecha() << " | "
          << vPagos[i].getMonto() << " | " << vPagos[i].getMetodoDePago()
-         << " | " << vPagos[i].getEstado() << " | " << vPagos[i].getEliminado()
+//         << " | " << vPagos[i].getEstado() << " | " << vPagos[i].getEliminado()
          << endl;
   }
 
