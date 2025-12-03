@@ -66,63 +66,58 @@ void PagoManager::cargar(int idPoliza)
         return;
     }
 
+    int indiceVencimientoMasProximo = vectorIndicesVencimientosPendientes[0];
+    for (int i = 1; i < cantidadVencimientosPendientes; i++)
+    {
+        int indiceVencimientoEnEvaluacion = vectorIndicesVencimientosPendientes[i];
+
+        Fecha fechaVencimientoActual = vectorVencimientos[indiceVencimientoMasProximo].getVencimiento();
+        Fecha fechaVencimientoCandidato = vectorVencimientos[indiceVencimientoEnEvaluacion].getVencimiento();
+
+        if (fechaVencimientoCandidato < fechaVencimientoActual)
+        {
+            indiceVencimientoMasProximo = indiceVencimientoEnEvaluacion;
+        }
+    }
+
+    Vencimiento vencimientoSeleccionado = vectorVencimientos[indiceVencimientoMasProximo];
+
+    cout << endl;
     cout << "---------------------" << endl;
-    cout << "CUOTAS PENDIENTES DE LA POLIZA " << idPoliza << endl;
-    for (int i = 0; i < cantidadVencimientosPendientes; i++)
-    {
-        Vencimiento vencimiento = vectorVencimientos[vectorIndicesVencimientosPendientes[i]];
-        cout << i + 1 << ") Fecha de vencimiento: "
-             << vencimiento.getVencimiento().formatoFecha()
-             << "  Importe: " << vencimiento.getMonto() << endl;
-    }
-
-    int opcionVencimiento;
-    cout << "Seleccione el numero de vencimiento a pagar (0 para cancelar): ";
-    cin >> opcionVencimiento;
-
-    if (opcionVencimiento == 0)
-    {
-        cout << "Operacion cancelada." << endl;
-        delete[] vectorVencimientos;
-        delete[] vectorIndicesVencimientosPendientes;
-        return;
-    }
-    if (opcionVencimiento < 1 || opcionVencimiento > cantidadVencimientosPendientes)
-    {
-        cout << "Opcion invalida." << endl;
-        delete[] vectorVencimientos;
-        delete[] vectorIndicesVencimientosPendientes;
-        return;
-    }
-
-    int posicionVencimientoArchivo = vectorIndicesVencimientosPendientes[opcionVencimiento - 1];
-    Vencimiento vencimientoSeleccionado = vectorVencimientos[posicionVencimientoArchivo];
-
+    cout << endl;
+    cout << "CUOTA A PAGAR (proximo vencimiento pendiente)" << endl;
+    cout << "ID Vencimiento: " << vencimientoSeleccionado.getId() << endl;
+    cout << "Fecha de vencimiento: " << vencimientoSeleccionado.getVencimiento().formatoFecha() << endl;
+    cout << "Importe: " << vencimientoSeleccionado.getMonto() << endl;
+    cout << endl;
     cout << "---------------------" << endl;
-    cout << "Cargar nuevo pago" << endl;
+    cout << endl;
+    cout << "NUEVO PAGO" << endl;
     int idPagoNuevo = _pagoArchivo.getNuevoID();
-    cout << "ID: " << idPagoNuevo << endl;
-    cout << "ID Poliza: " << idPoliza << endl;
+    cout << "ID de pago: " << idPagoNuevo << endl;
+    cout << "ID de poliza: " << idPoliza << endl;
 
     Fecha fechaPago = leerFechaValida();
 
-    if (fechaPago.getAnio() == -1) {
+    if (fechaPago.getAnio() == -1)
+    {
         cout << "Carga cancelada." << endl;
         delete[] vectorVencimientos;
         delete[] vectorIndicesVencimientosPendientes;
         return;
     }
 
-    if (fechaPago < poliza.getfechaInicio()) {
+    if (fechaPago < poliza.getfechaInicio())
+    {
         cout << "La fecha de pago no puede ser anterior a la fecha de inicio de la poliza: " << poliza.getfechaInicio().formatoFecha() << endl;
         delete[] vectorVencimientos;
         delete[] vectorIndicesVencimientosPendientes;
         return;
     }
 
-    if (fechaPago > poliza.getfechaFin()) {
-        cout << "La fecha de pago no puede ser posterior a la fecha de fin de la poliza: "
-             << poliza.getfechaFin().formatoFecha() << endl;
+    if (fechaPago > poliza.getfechaFin())
+    {
+        cout << "La fecha de pago no puede ser posterior a la fecha de fin de la poliza: " << poliza.getfechaFin().formatoFecha() << endl;
         delete[] vectorVencimientos;
         delete[] vectorIndicesVencimientosPendientes;
         return;
@@ -147,6 +142,7 @@ void PagoManager::cargar(int idPoliza)
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
             continue;
         }
+
         if (opcionMetodoPago == 1) { metodoDePago = "Efectivo"; break; }
         if (opcionMetodoPago == 2) { metodoDePago = "Tarjeta de debito"; break; }
         if (opcionMetodoPago == 3) { metodoDePago = "Tarjeta de credito"; break; }
@@ -155,14 +151,14 @@ void PagoManager::cargar(int idPoliza)
         cout << "Opcion invalida." << endl;
     }
 
-    Pago pagoNuevo(idPagoNuevo, idPoliza, fechaPago, vencimientoSeleccionado.getMonto(), metodoDePago, false);
+    Pago pagoNuevo(idPagoNuevo, vencimientoSeleccionado.getId(), fechaPago, metodoDePago, false);
 
     if (_pagoArchivo.guardar(pagoNuevo))
     {
         cout << "Pago registrado correctamente." << endl;
 
         vencimientoSeleccionado.setPagado(true);
-        if (!_vencimientosArchivo.guardar(vencimientoSeleccionado, posicionVencimientoArchivo))
+        if (!_vencimientosArchivo.guardar(vencimientoSeleccionado, indiceVencimientoMasProximo))
         {
             cout << "No se pudo actualizar el vencimiento como pagado." << endl;
         }
@@ -214,14 +210,23 @@ void PagoManager::cambiarFecha(int idPago)
     cout << "Registro actual:" << endl;
     mostrarLista(pagoLeido);
 
-    int idPoliza = pagoLeido.getIdPoliza();
-    int posPoliza = _polizaArchivo.buscarID(idPoliza);
-    if (posPoliza == -1)
+    int idVencimiento = pagoLeido.getIdVencimiento();
+    int posicionVencimientoArchivo = _vencimientosArchivo.buscarID(idVencimiento);
+    if (posicionVencimientoArchivo == -1)
     {
-        cout << "No se encontro la poliza asociada al pago." << endl;
+        cout << "No se encontro el vencimiento asociado al pago." << endl;
         return;
     }
-    Poliza poliza = _polizaArchivo.leer(posPoliza);
+    Vencimiento vencimiento = _vencimientosArchivo.leer(posicionVencimientoArchivo);
+
+    int idPoliza = vencimiento.getIdPoliza();
+    int posicionPolizaArchivo = _polizaArchivo.buscarID(idPoliza);
+    if (posicionPolizaArchivo == -1)
+    {
+        cout << "No se encontro la poliza asociada al vencimiento." << endl;
+        return;
+    }
+    Poliza poliza = _polizaArchivo.leer(posicionPolizaArchivo);
 
     Fecha nuevaFechaPago = leerFechaValida();
 
@@ -325,45 +330,22 @@ void PagoManager::anularPago(int idPago)
         return;
     }
 
-    int idPoliza = pagoLeido.getIdPoliza();
-    float monto = pagoLeido.getMonto();
+    int idVencimiento = pagoLeido.getIdVencimiento();
+    int posicionVencimientoArchivo = _vencimientosArchivo.buscarID(idVencimiento);
 
-    int cantidadVencimientosEnArchivo = _vencimientosArchivo.getCantidadRegistros();
-    if (cantidadVencimientosEnArchivo <= 0)
+    if (posicionVencimientoArchivo == -1)
     {
-        cout << "Error: no hay vencimientos almacenados." << endl;
-        return;
-    }
-
-    Vencimiento* vectorVencimientos = new Vencimiento[cantidadVencimientosEnArchivo]{};
-    _vencimientosArchivo.leerTodos(vectorVencimientos, cantidadVencimientosEnArchivo);
-
-    int posicionVencimientoAsociado = -1;
-
-    for (int i = 0; i < cantidadVencimientosEnArchivo; i++)
-    {
-        Vencimiento vencimiento = vectorVencimientos[i];
-
-        if (vencimiento.getEliminado()) continue;
-        if (vencimiento.getIdPoliza() != idPoliza) continue;
-        if (!vencimiento.getPagado()) continue;
-        if (vencimiento.getMonto() != monto) continue;
-
-        posicionVencimientoAsociado = i;
-        break;
-    }
-
-    if (posicionVencimientoAsociado == -1)
-    {
-        cout << "Advertencia: no se encontro el vencimiento asociado al pago." << endl;
+        cout << "No se encontro el vencimiento asociado al pago." << endl;
     }
     else
     {
-        vectorVencimientos[posicionVencimientoAsociado].setPagado(false);
-        _vencimientosArchivo.guardar(vectorVencimientos[posicionVencimientoAsociado], posicionVencimientoAsociado);
+        Vencimiento vencimiento = _vencimientosArchivo.leer(posicionVencimientoArchivo);
+        if (vencimiento.getPagado())
+        {
+            vencimiento.setPagado(false);
+            _vencimientosArchivo.guardar(vencimiento, posicionVencimientoArchivo);
+        }
     }
-
-    delete[] vectorVencimientos;
 
     pagoLeido.setEliminado(true);
 
@@ -373,6 +355,7 @@ void PagoManager::anularPago(int idPago)
         cout << "Error al anular el pago." << endl;
 }
 
+
 /****** SALIDA DE UN PAGO ******/
 
 void PagoManager::mostrarLista(Pago pago)
@@ -380,17 +363,22 @@ void PagoManager::mostrarLista(Pago pago)
     if (pago.getEliminado()) return;
 
     cout << "----------------------------" << endl;
-    cout << "ID: " << pago.getId() << endl;
-    cout << "ID Poliza: " << pago.getIdPoliza() << endl;
+    cout << "ID de pago: " << pago.getId() << endl;
+    cout << "ID de vencimiento: " << pago.getIdVencimiento() << endl;
+
+    int idVencimiento = pago.getIdVencimiento();
+    int posicionVencimientoArchivo = _vencimientosArchivo.buscarID(idVencimiento);
+    if (posicionVencimientoArchivo != -1)
+    {
+        Vencimiento vencimiento = _vencimientosArchivo.leer(posicionVencimientoArchivo);
+        cout << "ID de poliza: " << vencimiento.getIdPoliza() << endl;
+        cout << "Fecha de vencimiento: " << vencimiento.getVencimiento().formatoFecha() << endl;
+        cout << "Importe de la cuota: " << vencimiento.getMonto() << endl;
+    }
 
     Fecha fechaPago = pago.getFechaPago();
-    cout << "Fecha: " << fechaPago.getDia()
-         << "/" << fechaPago.getMes()
-         << "/" << fechaPago.getAnio() << endl;
-
-    cout << "Monto: " << pago.getMonto() << endl;
-    cout << "Metodo: " << pago.getMetodoDePago() << endl;
-    cout << "----------------------------" << endl;
+    cout << "Fecha de pago: " << fechaPago.getDia() << "/" << fechaPago.getMes() << "/" << fechaPago.getAnio() << endl;
+    cout << "Metodo de pago: " << pago.getMetodoDePago() << endl;
 }
 
 
@@ -476,9 +464,9 @@ void PagoManager::listarOrdenadosPorFecha()
 
             if (intercambiar)
             {
-                Pago pagoAuxiliar   = vectorPagos[j];
-                vectorPagos[j]      = vectorPagos[j + 1];
-                vectorPagos[j + 1]  = pagoAuxiliar;
+                Pago pagoAuxiliar = vectorPagos[j];
+                vectorPagos[j] = vectorPagos[j + 1];
+                vectorPagos[j + 1] = pagoAuxiliar;
             }
         }
     }
@@ -575,7 +563,13 @@ void PagoManager::mostrarPagosDePoliza(int idPolizaBuscada)
         Pago pagoLeido = _pagoArchivo.leer(i);
         if (pagoLeido.getId() == -1) continue;
         if (pagoLeido.getEliminado()) continue;
-        if (pagoLeido.getIdPoliza() != idPolizaBuscada) continue;
+
+        int idVencimiento = pagoLeido.getIdVencimiento();
+        int posicionVencimientoArchivo = _vencimientosArchivo.buscarID(idVencimiento);
+        if (posicionVencimientoArchivo == -1) continue;
+
+        Vencimiento vencimiento = _vencimientosArchivo.leer(posicionVencimientoArchivo);
+        if (vencimiento.getIdPoliza() != idPolizaBuscada) continue;
 
         mostrarLista(pagoLeido);
         pagosEncontrados = true;
