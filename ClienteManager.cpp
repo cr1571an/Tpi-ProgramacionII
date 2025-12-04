@@ -172,7 +172,7 @@ int ClienteManager::posClientePorDNI( string dni) {
 
   for (int i = 0; i < total; i++) {
     reg = _clientesArchivo.leer(i);
-    if (!reg.getEliminado() && reg.getDni() == dni) {
+    if (reg.getDni() == dni) {
       return i;
     }
   }
