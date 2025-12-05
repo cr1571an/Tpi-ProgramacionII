@@ -1,14 +1,14 @@
 #include "Vencimiento.h"
 #include <cstring>
 
-Vencimiento::Vencimiento() : _id(0), _idPoliza(0), _vencimiento(), _monto(0), _eliminado(false) {
+Vencimiento::Vencimiento() : _id(0), _idPoliza(0), _vencimiento(), _monto(0), _pagado(false), _eliminado(false) {
 }
-Vencimiento::Vencimiento(int id, int idPoliza, Fecha vencimiento, float monto, bool eliminado) {
+Vencimiento::Vencimiento(int id, int idPoliza, Fecha vencimiento, float monto, bool pagado, bool eliminado) {
     setId(id);
     setIdPoliza(idPoliza);
     setVencimiento(vencimiento);
     setMonto(monto);
-    
+    setPagado(pagado);
     setEliminado(eliminado);
 }
 
@@ -26,6 +26,11 @@ Fecha Vencimiento::getVencimiento() {
 float Vencimiento::getMonto() {
     return _monto;
 }
+
+bool Vencimiento::getPagado() {
+    return _pagado;
+}
+
 bool Vencimiento::getEliminado() {
     return _eliminado;
 }
@@ -43,6 +48,10 @@ void Vencimiento::setVencimiento(Fecha vencimiento) {
 
 void Vencimiento::setMonto(float monto) {
     _monto = monto;
+}
+
+void Vencimiento::setPagado(bool pagado) {
+    _pagado = pagado;
 }
 
 void Vencimiento::setEliminado(bool eliminado) {
