@@ -13,7 +13,7 @@ public:
     void setDia(int dia);
     void setMes(int mes);
     void setAnio(int anio);
-    void sumarDias(int dias = 90);
+    void sumarMes(int cantidadMeses);
     int validarEdad(Fecha fechaActual);
     bool operator>(Fecha fecha);
     bool operator==(Fecha fecha);
@@ -24,4 +24,5 @@ public:
 
 private:
     int _dia, _mes, _anio;
+    int diasDelMes(int mes, int anio);
 };
