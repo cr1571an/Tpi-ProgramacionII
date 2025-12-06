@@ -46,11 +46,6 @@
 		<Unit filename="ClientesArchivo.h" />
 		<Unit filename="Fecha.cpp" />
 		<Unit filename="Fecha.h" />
-		<Unit filename="Localidad.cpp" />
-		<Unit filename="Localidad.h" />
-		<Unit filename="LocalidadArchivo.cpp" />
-		<Unit filename="LocalidadArchivo.h" />
-		<Unit filename="Localidades.dat" />
 		<Unit filename="Pago.cpp" />
 		<Unit filename="Pago.h" />
 		<Unit filename="PagoArchivo.cpp" />
@@ -68,6 +63,10 @@
 		<Unit filename="PolizaManager.h" />
 		<Unit filename="PolizaMenu.cpp" />
 		<Unit filename="PolizaMenu.h" />
+		<Unit filename="ReporteMenu.cpp" />
+		<Unit filename="ReporteMenu.h" />
+		<Unit filename="Reportes.cpp" />
+		<Unit filename="Reportes.h" />
 		<Unit filename="Siniestro.cpp" />
 		<Unit filename="Siniestro.h" />
 		<Unit filename="SiniestroArchivo.cpp" />
