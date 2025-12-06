@@ -3,7 +3,7 @@
 #include "Cliente.h"
 
 Cliente::Cliente()
- : _idCliente(0), _eliminado(false), _localidad(), _fechaNacimiento() {
+ : _idCliente(0), _eliminado(false), _fechaNacimiento() {
     _nombre[0] ='\0';
     _apellido[0] ='\0';
     _dni[0] ='\0';
