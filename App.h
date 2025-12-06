@@ -16,7 +16,7 @@ public:
     App();
     void run();
 
-protected:
+private:
     void mostrarOpciones();
     int seleccionOpcion();
     void ejecutarOpcion(int opcion);
@@ -27,9 +27,6 @@ protected:
     PolizaMenu _polizaMenu;
     SiniestroMenu _siniestroMenu;
     PagoMenu _pagoMenu;
-    ReporteMenu _reporteMenu;
-    
 
-private:
     int _cantidadOpciones;
 };

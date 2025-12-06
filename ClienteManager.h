@@ -1,6 +1,9 @@
 #pragma once
 #include "ClientesArchivo.h"
 #include "VehiculosArchivo.h"
+#include "PolizaArchivo.h"
+#include "SiniestroArchivo.h"
+#include "SiniestroManager.h"
 
 class ClienteManager {
 public:
@@ -26,7 +29,14 @@ public:
     bool eliminar(int idCliente);
     bool recuperar(int idCliente);
     void mostrarLista(Cliente cliente, bool eliminado);
+    void clientesConSiniestrosEntreFecha();
 
 private:
     ClientesArchivo _clientesArchivo;
+    VehiculosArchivo _vehiculosArchivo;
+    PolizaArchivo _polizasArchivo;
+    SiniestroArchivo _siniestroArchivo;
+    SiniestroManager _siniestroManager;
+    TiposSiniestrosArchivo _tiposSiniestrosArchivo;
+    
 };
