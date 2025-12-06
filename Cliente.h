@@ -1,5 +1,4 @@
 #pragma once
-#include "Localidad.h"
 #include "Fecha.h"
 
 class Cliente {
@@ -7,7 +6,7 @@ class Cliente {
         Cliente();
         Cliente(int idCliente, std::string nombre, std::string apellido,
                 std::string dni, std::string telefono, std::string email,
-                bool eliminado,Localidad localidad, Fecha fechaNacimiento);
+                std::string partido, std::string localidad, bool eliminado, Fecha fechaNacimiento);
 
         void setNombre(std::string nombre);
         void setApellido(std::string apellido);
@@ -16,31 +15,30 @@ class Cliente {
         void setEmail(std::string email);
         void setEliminado(bool eliminado);
         void setCodigoPostal(int codigoPostal);
+        void setPartido(std::string partido);
+        void setLocalidad(std::string localidad);
         void recuperar();
         void eliminar();
         void setIdCliente(int idCliente);
 
-        void setLocalidad(Localidad localidad);
-        Localidad getLocalidad();
         void setFechaNacimiento(Fecha fechaNacimiento);
         Fecha getFechaNacimiento();
 
-        int getCodigoPostal();
         std::string getNombre();
         std::string getApellido();
         std::string getDni();
         std::string getTelefono();
         std::string getEmail();
+        std::string getPartido();
+        std::string getLocalidad();
         int getIdCliente();
         bool getEliminado();
-        bool getRecuperar();
         bool operator==( Cliente otro);
 
     private:
         int _idCliente, _codigoPostal;
-        char _nombre[25], _apellido[20],  _dni[9], _telefono[20], _email[50];
+        char _nombre[25], _apellido[20],  _dni[9], _telefono[20], _email[50], _partido[50], _localidad[70];
         bool _eliminado;
-        Localidad _localidad;
         Fecha _fechaNacimiento;
 };
 

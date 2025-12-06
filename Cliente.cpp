@@ -3,24 +3,27 @@
 #include "Cliente.h"
 
 Cliente::Cliente()
- : _idCliente(0), _codigoPostal(0), _eliminado(false), _localidad(), _fechaNacimiento() {
-    _nombre[0] = '\0';
-    _apellido[0] = '\0';
-    _dni[0] = '\0';
-    _telefono[0] = '\0';
-    _email[0] = '\0';
+ : _idCliente(0), _eliminado(false), _localidad(), _fechaNacimiento() {
+    _nombre[0] ='\0';
+    _apellido[0] ='\0';
+    _dni[0] ='\0';
+    _telefono[0] ='\0';
+    _email[0] ='\0';
+    _partido[0] ='\0';
+    _localidad[0] ='\0';
 }
 
 Cliente::Cliente(int idCliente, std::string nombre, std::string apellido,std::string dni, std::string telefono,
-                std::string email, bool eliminado, Localidad localidad, Fecha fechaNacimiento){
+                std::string email, std::string partido, std::string localidad, bool eliminado, Fecha fechaNacimiento){
     _idCliente = idCliente;
     setNombre(nombre);
     setApellido(apellido);
     setDni(dni);
     setTelefono(telefono);
     setEmail(email);
+    setPartido(partido);
+    setLocalidad(localidad);
     _eliminado = eliminado;
-    _localidad = localidad;
     _fechaNacimiento = fechaNacimiento;
 }
 
@@ -49,6 +52,16 @@ void Cliente::setEmail(std::string email) {
     _email[sizeof(_email) - 1] = '\0';
 }
 
+void Cliente::setPartido(std::string partido) {
+    strncpy(_partido, partido.c_str(), sizeof(_partido) - 1);
+    _partido[sizeof(_partido) - 1] = '\0';
+}
+
+void Cliente::setLocalidad(std::string localidad) {
+    strncpy(_localidad, localidad.c_str(), sizeof(_localidad) - 1);
+    _localidad[sizeof(_localidad) - 1] = '\0';
+}
+
 void Cliente::setEliminado(bool eliminado) {
     _eliminado = eliminado;
 }
@@ -69,33 +82,30 @@ void Cliente::setCodigoPostal(int codigoPostal) {
     _codigoPostal = codigoPostal;
 }
 
-void Cliente::setLocalidad(Localidad localidad) {
-    _localidad = localidad;
-}
-
 void Cliente::setFechaNacimiento(Fecha fechaNacimiento) {
     _fechaNacimiento = fechaNacimiento;
 }
 
-int Cliente::getIdCliente() { return _idCliente; }
+int Cliente::getIdCliente() {return _idCliente;}
 
-std::string Cliente::getNombre() { return _nombre; }
+std::string Cliente::getNombre() {return _nombre;}
 
-std::string Cliente::getApellido() { return _apellido; }
+std::string Cliente::getApellido() {return _apellido;}
 
-std::string Cliente::getDni() { return _dni; }
+std::string Cliente::getDni() {return _dni;}
 
-std::string Cliente::getTelefono() { return _telefono; }
+std::string Cliente::getTelefono() {return _telefono;}
 
-std::string Cliente::getEmail() { return _email; }
+std::string Cliente::getEmail() {return _email;}
 
-bool Cliente::getEliminado() { return _eliminado; }
+std::string Cliente::getPartido() {return _partido;}
 
-Localidad Cliente::getLocalidad() { return _localidad; }
+std::string Cliente::getLocalidad() {return _localidad;}
 
-Fecha Cliente::getFechaNacimiento() { return _fechaNacimiento; }
+bool Cliente::getEliminado() {return _eliminado;}
+
+Fecha Cliente::getFechaNacimiento() {return _fechaNacimiento;}
 
 bool Cliente::operator==(Cliente otro) {
-    return getDni() == otro.getDni();
-}
+    return getDni() == otro.getDni();}
 
