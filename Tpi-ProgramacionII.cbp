@@ -65,8 +65,6 @@
 		<Unit filename="PolizaMenu.h" />
 		<Unit filename="ReporteMenu.cpp" />
 		<Unit filename="ReporteMenu.h" />
-		<Unit filename="Reportes.cpp" />
-		<Unit filename="Reportes.h" />
 		<Unit filename="Siniestro.cpp" />
 		<Unit filename="Siniestro.h" />
 		<Unit filename="SiniestroArchivo.cpp" />
