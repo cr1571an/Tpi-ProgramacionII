@@ -1,26 +1,26 @@
-idCliente,anio,marca,modelo,patente,categoria,eliminado
-1,2015,Toyota,Corolla,ABC123,Auto,false
-2,2018,Ford,Focus,DEF456,Auto,false
-3,2020,Chevrolet,Cruze,GHI789,Auto,false
-4,2017,Honda,Civic,JKL012,Auto,false
-5,2016,Nissan,Sentra,MNO345,Auto,false
-6,2019,Volkswagen,Golf,PQR678,Auto,false
-7,2014,Hyundai,Elantra,STU901,Auto,false
-8,2021,Kia,Rio,VWX234,Auto,false
-9,2013,Renault,Clio,YZA567,Auto,false
-10,2022,Peugeot,208,BCD890,Auto,false
-11,2015,Toyota,Yaris,EFG123,Auto,false
-12,2017,Ford,Fiesta,HIJ456,Auto,false
-13,2018,Chevrolet,Onix,KLM789,Auto,false
-14,2016,Honda,Fit,NOP012,Auto,false
-15,2019,Nissan,Versa,QRS345,Auto,false
-16,2014,Volkswagen,Polo,TUV678,Auto,false
-17,2020,Hyundai,Accent,WXY901,Auto,false
-18,2015,Kia,Cerato,ZAB234,Auto,false
-19,2017,Renault,Logan,CDE567,Auto,false
-20,2021,Peugeot,308,FGH890,Auto,false
-1,2018,Toyota,Corolla,HIJ123,Auto,false
-2,2020,Ford,Focus,KLM456,Auto,false
-3,2019,Chevrolet,Cruze,NOP789,Auto,false
-4,2016,Honda,Civic,QRS012,Auto,false
-5,2022,Nissan,Sentra,TUV345,Auto,false
+idCliente,anio,marca,modelo,patente,categoria,numMotor,numChasis,uso,eliminado
+1,2015,Toyota,Corolla,ABC123,Auto,MOT001,CHA001,Remis,false
+2,2018,Ford,Focus,DEF456,Auto,MOT002,CHA002,Transporte Empresa,false
+3,2020,Chevrolet,Cruze,GHI789,Auto,MOT003,CHA003,Remis,false
+4,2017,Honda,Civic,JKL012,Auto,MOT004,CHA004,Transporte Empresa,false
+5,2016,Nissan,Sentra,MNO345,Auto,MOT005,CHA005,Remis,false
+6,2019,Volkswagen,Golf,PQR678,Auto,MOT006,CHA006,Transporte Empresa,false
+7,2014,Hyundai,Elantra,STU901,Auto,MOT007,CHA007,Remis,false
+8,2021,Kia,Rio,VWX234,Auto,MOT008,CHA008,Transporte Empresa,false
+9,2013,Renault,Clio,YZA567,Auto,MOT009,CHA009,Remis,false
+10,2022,Peugeot,208,BCD890,Auto,MOT010,CHA010,Transporte Empresa,false
+11,2015,Toyota,Yaris,EFG123,Auto,MOT011,CHA011,Remis,false
+12,2017,Ford,Fiesta,HIJ456,Auto,MOT012,CHA012,Transporte Empresa,false
+13,2018,Chevrolet,Onix,KLM789,Auto,MOT013,CHA013,Remis,false
+14,2016,Honda,Fit,NOP012,Auto,MOT014,CHA014,Transporte Empresa,false
+15,2019,Nissan,Versa,QRS345,Auto,MOT015,CHA015,Remis,false
+16,2014,Volkswagen,Polo,TUV678,Auto,MOT016,CHA016,Transporte Empresa,false
+17,2020,Hyundai,Accent,WXY901,Auto,MOT017,CHA017,Remis,false
+18,2015,Kia,Cerato,ZAB234,Auto,MOT018,CHA018,Transporte Empresa,false
+19,2017,Renault,Logan,CDE567,Auto,MOT019,CHA019,Remis,false
+20,2021,Peugeot,308,FGH890,Auto,MOT020,CHA020,Transporte Empresa,false
+1,2018,Toyota,Corolla,HIJ123,Auto,MOT021,CHA021,Remis,false
+2,2020,Ford,Focus,KLM456,Auto,MOT022,CHA022,Transporte Empresa,false
+3,2019,Chevrolet,Cruze,NOP789,Auto,MOT023,CHA023,Remis,false
+4,2016,Honda,Civic,QRS012,Auto,MOT024,CHA024,Transporte Empresa,false
+5,2022,Nissan,Sentra,TUV345,Auto,MOT025,CHA025,Remis,false

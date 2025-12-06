@@ -23,6 +23,7 @@ using namespace std;
 #include "../TiposSegurosArchivo.h"
 #include "../TiposSiniestrosArchivo.h"
 #include "../TipoSiniestro.h"
+#include "../PolizaManager.h"
 
 int generarClientes() {
   std::ifstream archivo("inputData/clientes.csv");
@@ -63,7 +64,17 @@ int generarClientes() {
     c.setEmail(campo);
 
     getline(ss, campo, ',');
-    c.setEliminado(campo == "true" ? true : false);
+    c.setPartido(campo);
+
+    getline(ss, campo, ',');
+    c.setLocalidad(campo);
+
+    getline(ss, campo, ',');
+    (campo == "true") ? c.eliminar() : c.recuperar();
+
+    getline(ss, campo, ',');
+    Fecha fechaNacimiento = procesarFecha(campo);
+    c.setFechaNacimiento(fechaNacimiento);
 
     if (repositorioClientes.guardar(c)) {
       cout << "Cliente agregado: " << c.getNombre() << " " << c.getApellido()
@@ -94,13 +105,13 @@ int generarVehiculos() {
   getline(archivo, linea);  // salteamos encabezado
 
   while (getline(archivo, linea)) {
-   // int id = repositorioVehiculos.getIdVehiculo();
+    int id = repositorioVehiculos.getIdVehiculoUltimo();
     stringstream ss(linea);
     string campo;
 
     Vehiculo v{};
 
-   // v.setId(id);
+    v.setIdVehiculo(id);
 
     getline(ss, campo, ',');
     int idCliente = atoi(campo.c_str());
@@ -121,6 +132,15 @@ int generarVehiculos() {
 
     getline(ss, campo, ',');
     v.setCategoria(campo);
+
+    getline(ss, campo, ',');
+    v.setNumMotor(campo);
+
+    getline(ss, campo, ',');
+    v.setNumChasis(campo);
+
+    getline(ss, campo, ',');
+    v.setUso(campo);
 
     getline(ss, campo, ',');
     v.setEliminado(campo == "true" ? true : false);
@@ -202,62 +222,7 @@ int generarPolizas() {
   return 0;
 }
 
-int generarPagos() {
-  std::ifstream archivo("inputData/pagos.csv");
-  if (!archivo.is_open()) {
-    cerr << "Error al abrir el archivo pagos.csv." << endl;
-    return 1;
-  } else {
-    cout << "Archivo pagos.csv abierto correctamente!" << endl;
-  }
-
-  PagoArchivo repositorioPagos;
-  string linea;
-  getline(archivo, linea);  // salteamos encabezado
-
-  while (getline(archivo, linea)) {
-    stringstream ss(linea);
-    string campo;
-
-    Pago p{};
-
-    getline(ss, campo, ',');
-    int id = atoi(campo.c_str());
-    p.setId(id);
-
-    getline(ss, campo, ',');
-    int idPoliza = atoi(campo.c_str());
-    //p.setIdPoliza(idPoliza);
-
-    getline(ss, campo, ',');
-    Fecha fechaPago = procesarFecha(campo);
-    p.setFechaPago(fechaPago);
-
-    getline(ss, campo, ',');
-    float campoFloat = atof(campo.c_str());
-    p.setMonto(campoFloat);
-
-    getline(ss, campo, ',');
-    p.setMetodoDePago(campo);
-
-    getline(ss, campo, ',');
-    p.setEstado(campo == "true" ? true : false);
-
-    getline(ss, campo, ',');
-    p.setEliminado(campo == "true" ? true : false);
-
-    if (repositorioPagos.guardar(p)) {
-      cout << "Pago agregado: " << p.getId() << endl;
-    } else {
-      cout << "Error al agregar pago: " << p.getId() << endl;
-    }
-  }
-
-  archivo.close();
-  return 0;
-}
-
-int generarSiniestros() {
+/* int generarSiniestros() {
   std::ifstream archivo("inputData/siniestros.csv");
   if (!archivo.is_open()) {
     cerr << "Error al abrir el archivo siniestros.csv." << endl;
@@ -313,7 +278,7 @@ int generarSiniestros() {
   archivo.close();
 
   return 0;
-}
+} */
 
 bool generarTiposSeguros(){
     std::ifstream archivo("inputData/tiposSeguros.csv");
@@ -396,9 +361,25 @@ bool generarTiposSiniestros(){
         else {
             cout << "Error al agregar tipo de siniestro: " << ts.getDescripcion() << endl;
         }
-    }
+    }    
 
     archivo.close();
 
     return true;
+}
+
+void generarVencimientos(){
+  PolizaArchivo repositorioPolizas;
+  int cantidadPolizas = repositorioPolizas.getCantidadRegistros();
+
+  PolizaManager polizaManager;
+
+  Poliza* polizas= new Poliza[cantidadPolizas]{};
+  repositorioPolizas.leerTodos(polizas, cantidadPolizas);
+
+  for (int i=0; i< cantidadPolizas; i++){
+    polizaManager.generarVencimientos(polizas[i],3);    
+  }
+
+  delete[] polizas;
 }
