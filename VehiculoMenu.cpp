@@ -208,13 +208,13 @@ int VehiculoMenu::seleccionarVehiculo(bool modificar) {
                 return -1;
             }
             int c = _vehiculoManager.mostrarYContarVehiculosDeCliente(idCliente);
-            if (!modificar) {
-                system("pause");
-            }
             if (c == 0) {
                 cout << "EL CLIENTE NO TIENE VEHICULOS ASOCIADOS." << endl;
                 system("pause");
                 return -1;
+            }
+            if (!modificar) {
+                system("pause");
             }
             if (modificar && c > 0) {
                 cout << "INGRESE EL ID DEL VEHICULO QUE DESEA MODIFICAR: ";
