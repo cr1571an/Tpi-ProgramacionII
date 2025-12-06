@@ -32,6 +32,7 @@
 *.app
 *.o
 build/
+bin/
 
 # VSCode
 .vscode/

@@ -6,6 +6,7 @@
 #include "VehiculosArchivo.h"
 #include "TiposSegurosArchivo.h"
 #include "VencimientosArchivo.h"
+#include "PagoArchivo.h"
 
 class PolizaManager {
     public:
@@ -24,6 +25,7 @@ class PolizaManager {
         void buscarPorDniCliente();
         void reportePolizasSinCobertura();
         void reportePolizasVigentesYVencidas();
+        void mostrarVencimientosDePoliza();
 
     private:
         PolizaArchivo _archivo;
@@ -33,6 +35,7 @@ class PolizaManager {
         VehiculosArchivo _archivoVehiculos;
         TiposSegurosArchivo _archivoTipoSeguros;
         VencimientosArchivo _archivoVencimientos;
+        PagoArchivo _archivoPagos;
 
         int buscarPorId();
         void mostrarPoliza(Poliza poliza);
@@ -40,6 +43,6 @@ class PolizaManager {
         void filtrarPolizasPorFecha(Poliza polizas[], Poliza* polizasFiltradas[], int cantidadPolizas,Fecha FechaConsulta);
         void generarVencimientos(Poliza poliza, int cantidadVencimientos);
         float calcularMontoVencimiento(int primaMensual);
-        bool estaVigente(Poliza poliza);
+        bool tieneCobertura(Poliza poliza);
         bool tienePolizasVigentes(int idVehiculo);
 };

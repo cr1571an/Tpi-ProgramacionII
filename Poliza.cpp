@@ -47,3 +47,8 @@ void Poliza::setIdTipoSeguro(int idTipoSeguro) {
   _idTipoSeguro = idTipoSeguro;
 }
 void Poliza::setEliminado(bool eliminado) { _eliminado = eliminado; }
+
+bool Poliza::estaVigente() {
+    Fecha fechaActual;
+    return (_fechaInicio <= fechaActual && fechaActual <= _fechaFin);
+}

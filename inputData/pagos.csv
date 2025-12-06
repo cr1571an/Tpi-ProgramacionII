@@ -1,4 +1,4 @@
-id,idPoliza,fechaPago,monto,metodoDePago,estado,eliminado
+id,idVencimiento,fechaPago,monto,metodoDePago,estado,eliminado
 1,1,2023-05-20,15000,Tarjeta de Crédito,true,false
 2,2,2023-06-15,18000,Transferencia Bancaria,true,false
 3,3,2023-07-10,20000,Efectivo,false,false

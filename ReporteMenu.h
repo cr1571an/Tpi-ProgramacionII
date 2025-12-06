@@ -1,15 +1,19 @@
 #pragma once
-#include "Reportes.h"
+#include "PolizaManager.h"
+#include "ClienteManager.h"
 
-class ReporteMenu {
+class ReporteMenu{
     public:
         ReporteMenu();
         void mostrar();
+
+    private:
+        int _cantidadOpciones;
         void mostrarOpciones();
         int seleccionOpcion();
         void ejecutarOpcion(int opcion);
 
-    private:
-        int _cantidadOpciones;
-        Reportes _reportes;
+        PolizaManager _polizaManager;
+        ClienteManager _clienteManager;
+    
 };

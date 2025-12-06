@@ -51,22 +51,34 @@ int Fecha::getMes(){
     return _mes;
 }
 
-void Fecha::sumarDias(int dias) {
+int Fecha::diasDelMes(int mes, int anio) {
+    static int diasMes[] = { 31,28,31,30,31,30,31,31,30,31,30,31 };
+
+    if (mes == 2) {
+        bool esBisiesto = (anio % 4 == 0 && anio % 100 != 0) || (anio % 400 == 0);
+        return esBisiesto ? 29 : 28;
+    }
+    return diasMes[mes - 1];
+}
+
+
+void Fecha::sumarMes(int cantidadMeses) {
+
+    int totalMeses = _anio * 12 + (_mes - 1);
+    totalMeses += cantidadMeses;
+
+    int nuevoAnio = totalMeses / 12;
+    int nuevoMes = (totalMeses % 12) + 1;
+
+    int diasEnNuevoMes = diasDelMes(nuevoMes, nuevoAnio);
+
     
-    std::tm fecha_tm = {};
-    fecha_tm.tm_mday = _dia;
-    fecha_tm.tm_mon  = _mes - 1;
-    fecha_tm.tm_year = _anio - 1900;
+    if (_dia > diasEnNuevoMes) {
+        _dia = diasEnNuevoMes;
+    }
 
-    std::time_t tiempo = std::mktime(&fecha_tm);
-
-    tiempo += static_cast<time_t>(dias) * 24 * 60 * 60;
-
-    std::tm* nueva_fecha = std::localtime(&tiempo);
-
-    _dia  = nueva_fecha->tm_mday;
-    _mes  = nueva_fecha->tm_mon + 1;
-    _anio = nueva_fecha->tm_year + 1900;
+    _anio = nuevoAnio;
+    _mes = nuevoMes;
 }
 
 bool Fecha::operator>(Fecha fecha) {

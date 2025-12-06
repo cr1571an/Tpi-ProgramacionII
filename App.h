@@ -5,6 +5,7 @@
 #include "PolizaMenu.h"
 #include "SiniestroMenu.h"
 #include "PagoMenu.h"
+#include "ReporteMenu.h"
 
 
 
@@ -26,6 +27,7 @@ protected:
     PolizaMenu _polizaMenu;
     SiniestroMenu _siniestroMenu;
     PagoMenu _pagoMenu;
+    ReporteMenu _reporteMenu;
     
 
 private:

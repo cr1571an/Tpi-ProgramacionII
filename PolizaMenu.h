@@ -7,7 +7,10 @@ class PolizaMenu {
       PolizaMenu();
       void mostrar();
 
-    protected:
+    private:
+      int _cantidadOpciones;
+      int _cantidadOpcionesSubMenuModificar;
+
       void mostrarOpciones();
       int seleccionOpcion();
       void ejecutarOpcion(int opcion);
@@ -16,8 +19,4 @@ class PolizaMenu {
       int seleccionOpcionSubMenuModificar();
       void ejecutarOpcionSubMenuModificar(int opcion);
       PolizaManager _polizaManager;
-
-    private:
-      int _cantidadOpciones;
-      int _cantidadOpcionesSubMenuModificar;
 };

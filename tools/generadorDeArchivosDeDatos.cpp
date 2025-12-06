@@ -227,7 +227,7 @@ int generarPagos() {
 
     getline(ss, campo, ',');
     int idPoliza = atoi(campo.c_str());
-    p.setIdPoliza(idPoliza);
+    //p.setIdPoliza(idPoliza);
 
     getline(ss, campo, ',');
     Fecha fechaPago = procesarFecha(campo);

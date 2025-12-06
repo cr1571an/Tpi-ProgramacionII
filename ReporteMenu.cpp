@@ -1,13 +1,13 @@
 #include <iostream>
 #include "ReporteMenu.h"
-
 using namespace std;
-
-ReporteMenu::ReporteMenu(){
-    _cantidadOpciones = 1;
+ReporteMenu::ReporteMenu(): _polizaManager(), _clienteManager() {
+    _cantidadOpciones = 2;
 }
 void ReporteMenu::mostrar(){
+    
     int opcion;
+
     do{
         system("cls");
         opcion = seleccionOpcion();
@@ -18,13 +18,14 @@ void ReporteMenu::mostrar(){
 
 void ReporteMenu::mostrarOpciones() {
     cout << endl;
-    cout << "|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||" << endl;
-    cout << "||                      MENU REPORTES                    ||" << endl;
-    cout << "|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||" << endl;
-    cout << "||    1 - CLIENTES CON SINIESTROS EN DE TERMINADA FECHA  ||" << endl;
-    cout << "||-------------------------------------------------------||" << endl;
-    cout << "||    0 - VOLVER                                         ||" << endl;
-    cout << "|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||" << endl<<endl;
+    cout << "||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||" << endl;
+    cout << "||                      MENU REPORTES                       ||" << endl;
+    cout << "||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||" << endl;
+    cout << "||    1 - CLIENTES CON SINIESTROS EN DE TERMINADA FECHA     ||" << endl;
+    cout << "||    2 - REPORTE DE POLIZAS VIGENTES Y VENCIDAS POR FECHA  ||" << endl;
+    cout << "||----------------------------------------------------------||" << endl;
+    cout << "||    0 - VOLVER                                            ||" << endl;
+    cout << "||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||" << endl<<endl;
     cout << "SELECCIONE UNA OPCION: ";
 }
 
@@ -43,7 +44,11 @@ int ReporteMenu::seleccionOpcion(){
 void ReporteMenu::ejecutarOpcion(int opcion) {
     switch(opcion) {
         case 1:
-            _reportes.clientesConSiniestrosEntreFecha();
+            _clienteManager.clientesConSiniestrosEntreFecha();
+            system("pause");
+            break;
+        case 2:
+            _polizaManager.reportePolizasVigentesYVencidas();
             system("pause");
             break;
         case 0:

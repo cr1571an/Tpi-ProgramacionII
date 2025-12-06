@@ -655,3 +655,304 @@
 	"VencimientosArchivo.h"
 	<iostream>
 
+1764879517 source:c:\users\cristian\git_environments\tpi-programacionii\app.cpp
+	<iostream>
+	"App.h"
+
+1764879517 c:\users\cristian\git_environments\tpi-programacionii\app.h
+	"ClienteMenu.h"
+	"VehiculoMenu.h"
+	"PolizaMenu.h"
+	"SiniestroMenu.h"
+	"PagoMenu.h"
+	"ReporteMenu.h"
+
+1764713605 c:\users\cristian\git_environments\tpi-programacionii\clientemenu.h
+	"ClienteManager.h"
+
+1764713605 c:\users\cristian\git_environments\tpi-programacionii\clientemanager.h
+	"ClientesArchivo.h"
+	"VehiculosArchivo.h"
+
+1764713605 c:\users\cristian\git_environments\tpi-programacionii\clientesarchivo.h
+	<string>
+	"ClientesArchivo.h"
+	"Cliente.h"
+
+1764713605 c:\users\cristian\git_environments\tpi-programacionii\cliente.h
+	"Localidad.h"
+	"Fecha.h"
+
+1764713605 c:\users\cristian\git_environments\tpi-programacionii\localidad.h
+	<string>
+
+1764934430 c:\users\cristian\git_environments\tpi-programacionii\fecha.h
+	<string>
+
+1764713605 c:\users\cristian\git_environments\tpi-programacionii\vehiculosarchivo.h
+	<string>
+	"Vehiculo.h"
+	"VehiculosArchivo.h"
+
+1764713605 c:\users\cristian\git_environments\tpi-programacionii\vehiculo.h
+	<string>
+
+1764713605 c:\users\cristian\git_environments\tpi-programacionii\vehiculomenu.h
+	"VehiculoManager.h"
+	"ClienteManager.h"
+	"ClienteMenu.h"
+	"ClientesArchivo.h"
+
+1764713605 c:\users\cristian\git_environments\tpi-programacionii\vehiculomanager.h
+	"Vehiculo.h"
+	"VehiculosArchivo.h"
+	"ClienteManager.h"
+	<string>
+
+1764879517 c:\users\cristian\git_environments\tpi-programacionii\polizamenu.h
+	"PolizaManager.h"
+
+1764894046 c:\users\cristian\git_environments\tpi-programacionii\polizamanager.h
+	"ClienteMenu.h"
+	"PolizaArchivo.h"
+	"VehiculoManager.h"
+	"ClientesArchivo.h"
+	"VehiculosArchivo.h"
+	"TiposSegurosArchivo.h"
+	"VencimientosArchivo.h"
+	"PagoArchivo.h"
+
+1764713605 c:\users\cristian\git_environments\tpi-programacionii\polizaarchivo.h
+	<string>
+	"Poliza.h"
+
+1764879517 c:\users\cristian\git_environments\tpi-programacionii\poliza.h
+	<string>
+	"Fecha.h"
+
+1764713605 c:\users\cristian\git_environments\tpi-programacionii\tipossegurosarchivo.h
+	<string>
+	"TipoSeguro.h"
+
+1764713605 c:\users\cristian\git_environments\tpi-programacionii\tiposeguro.h
+	<string>
+
+1764722540 c:\users\cristian\git_environments\tpi-programacionii\vencimientosarchivo.h
+	<string>
+	"Vencimiento.h"
+
+1764883936 c:\users\cristian\git_environments\tpi-programacionii\vencimiento.h
+	<string>
+	"Fecha.h"
+
+1764879536 c:\users\cristian\git_environments\tpi-programacionii\pagoarchivo.h
+	<string>
+	"Pago.h"
+
+1764879591 c:\users\cristian\git_environments\tpi-programacionii\pago.h
+	<string>
+	"Fecha.h"
+
+1764713605 c:\users\cristian\git_environments\tpi-programacionii\siniestromenu.h
+	"SiniestroManager.h"
+
+1764713605 c:\users\cristian\git_environments\tpi-programacionii\siniestromanager.h
+	"SiniestroArchivo.h"
+	"PolizaArchivo.h"
+	"TiposSiniestrosArchivo.h"
+	"VehiculosArchivo.h"
+	"ClientesArchivo.h"
+
+1764713605 c:\users\cristian\git_environments\tpi-programacionii\siniestroarchivo.h
+	<string>
+	"Siniestro.h"
+
+1764713605 c:\users\cristian\git_environments\tpi-programacionii\siniestro.h
+	<string>
+	"Fecha.h"
+
+1764713605 c:\users\cristian\git_environments\tpi-programacionii\tipossiniestrosarchivo.h
+	<string>
+	"TipoSiniestro.h"
+
+1764713605 c:\users\cristian\git_environments\tpi-programacionii\tiposiniestro.h
+	<string>
+
+1764879536 c:\users\cristian\git_environments\tpi-programacionii\pagomenu.h
+	"PagoManager.h"
+
+1764879536 c:\users\cristian\git_environments\tpi-programacionii\pagomanager.h
+	"PagoArchivo.h"
+	"PolizaArchivo.h"
+	"ClientesArchivo.h"
+	"VehiculosArchivo.h"
+	"VencimientosArchivo.h"
+	"Pago.h"
+
+1764879517 c:\users\cristian\git_environments\tpi-programacionii\reportemenu.h
+	"PolizaManager.h"
+
+1764713605 source:c:\users\cristian\git_environments\tpi-programacionii\cliente.cpp
+	<string>
+	<cstring>
+	"Cliente.h"
+
+1764879536 source:c:\users\cristian\git_environments\tpi-programacionii\clientemanager.cpp
+	<string>
+	"ClientesArchivo.h"
+	"ClienteManager.h"
+	"LocalidadArchivo.h"
+	<iostream>
+	<bits/ostream.tcc>
+	"utils.h"
+
+1764713605 c:\users\cristian\git_environments\tpi-programacionii\localidadarchivo.h
+	"Localidad.h"
+	<string>
+
+1764713605 c:\users\cristian\git_environments\tpi-programacionii\utils.h
+	<string>
+	"Fecha.h"
+
+1764713605 source:c:\users\cristian\git_environments\tpi-programacionii\clientemenu.cpp
+	<iostream>
+	"ClienteMenu.h"
+	"utils.h"
+
+1764713605 source:c:\users\cristian\git_environments\tpi-programacionii\clientesarchivo.cpp
+	"ClientesArchivo.h"
+	<iostream>
+
+1764934505 source:c:\users\cristian\git_environments\tpi-programacionii\fecha.cpp
+	<iostream>
+	<ctime>
+	"Fecha.h"
+
+1764713605 source:c:\users\cristian\git_environments\tpi-programacionii\localidad.cpp
+	"Localidad.h"
+	<cstring>
+
+1764713605 source:c:\users\cristian\git_environments\tpi-programacionii\localidadarchivo.cpp
+	"LocalidadArchivo.h"
+	<iostream>
+	"utils.h"
+
+1764713605 source:c:\users\cristian\git_environments\tpi-programacionii\main.cpp
+	<windows.h>
+	"App.h"
+
+1764879564 source:c:\users\cristian\git_environments\tpi-programacionii\pago.cpp
+	"Pago.h"
+	<cstring>
+
+1764879536 source:c:\users\cristian\git_environments\tpi-programacionii\pagoarchivo.cpp
+	"PagoArchivo.h"
+	<iostream>
+	<cstdio>
+
+1764893082 source:c:\users\cristian\git_environments\tpi-programacionii\pagomanager.cpp
+	<iostream>
+	<string>
+	<limits>
+	<iomanip>
+	"utils.h"
+	"PagoManager.h"
+
+1764879536 source:c:\users\cristian\git_environments\tpi-programacionii\pagomenu.cpp
+	<iostream>
+	<limits>
+	"PagoMenu.h"
+
+1764879517 source:c:\users\cristian\git_environments\tpi-programacionii\poliza.cpp
+	"Poliza.h"
+	<cstring>
+
+1764713605 source:c:\users\cristian\git_environments\tpi-programacionii\polizaarchivo.cpp
+	"PolizaArchivo.h"
+	<iostream>
+
+1764936491 source:c:\users\cristian\git_environments\tpi-programacionii\polizamanager.cpp
+	"PolizaManager.h"
+	"utils.h"
+	"Cliente.h"
+	"TipoSeguro.h"
+	<iostream>
+
+1764895852 source:c:\users\cristian\git_environments\tpi-programacionii\polizamenu.cpp
+	<iostream>
+	"PolizaMenu.h"
+
+1764879517 source:c:\users\cristian\git_environments\tpi-programacionii\reportemenu.cpp
+	<iostream>
+	"ReporteMenu.h"
+
+1764713605 source:c:\users\cristian\git_environments\tpi-programacionii\siniestro.cpp
+	"Siniestro.h"
+	<cstring>
+
+1764713605 source:c:\users\cristian\git_environments\tpi-programacionii\siniestroarchivo.cpp
+	"SiniestroArchivo.h"
+	<iostream>
+
+1764713605 source:c:\users\cristian\git_environments\tpi-programacionii\siniestromanager.cpp
+	"SiniestroManager.h"
+	<iostream>
+	"utils.h"
+
+1764713605 source:c:\users\cristian\git_environments\tpi-programacionii\siniestromenu.cpp
+	<iostream>
+	"SiniestroMenu.h"
+
+1764713605 source:c:\users\cristian\git_environments\tpi-programacionii\tiposeguro.cpp
+	"TipoSeguro.h"
+	<cstring>
+
+1764713605 source:c:\users\cristian\git_environments\tpi-programacionii\tiposiniestro.cpp
+	"TipoSiniestro.h"
+	<cstring>
+
+1764713605 source:c:\users\cristian\git_environments\tpi-programacionii\tipossegurosarchivo.cpp
+	"TiposSegurosArchivo.h"
+	<iostream>
+
+1764713605 source:c:\users\cristian\git_environments\tpi-programacionii\tipossiniestrosarchivo.cpp
+	"TiposSiniestrosArchivo.h"
+	<iostream>
+
+1764713605 source:c:\users\cristian\git_environments\tpi-programacionii\utils.cpp
+	"utils.h"
+	<cctype>
+	<iostream>
+	<string>
+	<limits>
+
+1764713605 source:c:\users\cristian\git_environments\tpi-programacionii\vehiculo.cpp
+	<string>
+	<cstring>
+	<iostream>
+	"Vehiculo.h"
+
+1764879536 source:c:\users\cristian\git_environments\tpi-programacionii\vehiculomanager.cpp
+	<iostream>
+	<string>
+	"VehiculoManager.h"
+	"utils.h"
+	"VehiculoMenu.h"
+
+1764879536 source:c:\users\cristian\git_environments\tpi-programacionii\vehiculomenu.cpp
+	<iostream>
+	"VehiculoMenu.h"
+	"utils.h"
+
+1764713605 source:c:\users\cristian\git_environments\tpi-programacionii\vehiculosarchivo.cpp
+	"VehiculosArchivo.h"
+	<iostream>
+
+1764883949 source:c:\users\cristian\git_environments\tpi-programacionii\vencimiento.cpp
+	"Vencimiento.h"
+	<cstring>
+
+1764722540 source:c:\users\cristian\git_environments\tpi-programacionii\vencimientosarchivo.cpp
+	"VencimientosArchivo.h"
+	<iostream>
+

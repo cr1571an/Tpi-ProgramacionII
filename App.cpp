@@ -3,7 +3,7 @@
 using namespace std;
 
 App::App(){
-    _cantidadOpciones =6;
+    _cantidadOpciones = 6;
 }
 void App::run(){
     int opcion;
