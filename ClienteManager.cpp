@@ -1,8 +1,6 @@
 #include <string>
 #include "ClientesArchivo.h"
 #include "ClienteManager.h"
-#include "LocalidadArchivo.h"
-
 #include <iostream>
 #include <bits/ostream.tcc>
 
@@ -24,11 +22,11 @@ void ClienteManager::cargar() {
   cout <<"|||||||||||||||||||||||||||||||||||||" << endl;
   system("pause");
   system("cls");
-  int idVehiculo = _clientesArchivo.getIdClienteUltimo();
+  int idCliente = _clientesArchivo.getIdClienteUltimo();
   cout <<"|||||||||||||||||||||||||||||||||||||"<<endl;
   cout <<"||       CARGAR NUEVO CLIENTE      ||"<<endl;
   cout <<"|||||||||||||||||||||||||||||||||||||"<<endl;
-  cout << "NUMERO DEL CLIENTE: " << idVehiculo<<endl;
+  cout << "NUMERO DEL CLIENTE: " << idCliente<<endl;
   cout << "INGRESA EL NOMBRE: ";
   string nombre = cargarCadena(); if (cortarSiCero(nombre)) return;
   cout << "INGRESA APELLLIDO: ";
@@ -45,12 +43,12 @@ void ClienteManager::cargar() {
   cout << "INGRESAR FECHA DE NACIMIENTO."<<endl;
   Fecha fechaNacimiento = leerFechaValida();
   if (!validarEdad(fechaNacimiento)) return;
+  cout << "INGRESAR PARTIDO: ";
+  string partido = cargarCadena(); if (cortarSiCero(correo)) return;
+  cout << "INGRESAR LOCALIDAD: ";
+  string localidad = cargarCadena(); if (cortarSiCero(correo)) return;
 
-  LocalidadArchivo archivo;
-  Localidad localidad = archivo.pedirLocalidadPorCodigoPostalInteractivo();
-  if (localidad.getCodigoPostal() == 0) {return;}
-
-  Cliente nuevoCliente(idVehiculo, nombre, apellido, dni, telefono, correo, false,localidad, fechaNacimiento);
+  Cliente nuevoCliente(idCliente, nombre, apellido, dni, telefono, correo, partido, localidad, false, fechaNacimiento);
 
   if (_clientesArchivo.guardar(nuevoCliente)) {
     cout << "SE AGREGO CORRECTAMENTE." <<endl;
@@ -103,10 +101,8 @@ void ClienteManager::mostrarLista(Cliente cliente, bool mostrarDatosDeCliente) {
     cout << "TELEFONO: " << cliente.getTelefono()<<endl;
     cout << "CORREO: " << cliente.getEmail()<<endl;
     cout << "FECHA DE NACIMIENTO: " << cliente.getFechaNacimiento().formatoFecha()<<endl;
-    cout << "PARTIDO: " << cliente.getLocalidad().getPartido()<<endl;
-    cout << "LOCALIDAD: " << cliente.getLocalidad().getLocalidad()<<endl;
-    cout << "CODIGO POSTAL: " << cliente.getLocalidad().getCodigoPostal()<<endl<<endl;
-    cout << "|||||||||||||||||||||||||||||||||||||||||||" <<endl;
+    cout << "PARTIDO: " << cliente.getPartido()<<endl;
+    cout << "LOCALIDAD: " << cliente.getLocalidad()<<endl;
   }
 }
 
@@ -225,7 +221,7 @@ void ClienteManager::mostrarDatosDeClienteID(int idCliente) {
   if (pos != -1) {
     Cliente registro = _clientesArchivo.leer(pos);
     if (registro.getEliminado()) {
-      cout << "EL CLIENTE CON ESE ID YA FUE ELIMINADO."<<endl;
+      cout << "EL CLIENTE ESTA ELIMINADO."<<endl;
       return;
     }
     mostrarLista(registro, false);
@@ -298,22 +294,35 @@ void ClienteManager::modificarFechaNacimiento(int idCliente) {
 
 void ClienteManager::modificarLocalidad(int idCliente) {
   int pos = _clientesArchivo.buscarIdCliente(idCliente);
-  if (pos!=-1){
+  if (pos!=-1) {
     Cliente cliente = _clientesArchivo.leer(pos);
-    LocalidadArchivo archivoLocalidad;
-    Localidad nuevaLocalidad = archivoLocalidad.pedirLocalidadPorCodigoPostalInteractivo();
-    if (nuevaLocalidad.getCodigoPostal() == 0){
-      cout << "NO SE SELECCIONO UNA LOCALIDAD VALIDA."<<endl;
-      return;
-    }
-    cliente.setLocalidad(nuevaLocalidad);
-    if (_clientesArchivo.actualizarRegistro(pos, cliente)) {
+    cout << "INGRESAR LOCALIDAD: ";
+    string localidad = cargarCadena();
+    cliente.setLocalidad(localidad);
+    if (_clientesArchivo.actualizarRegistro(pos, cliente)){
       cout << "LOCALIDAD MODIFICADA CORRECTAMENTE."<<endl;
     } else {
       cout << "NO SE PUDO MODIFICAR LA LOCALIDAD."<<endl;
     }
   } else {
-    cout << "CLIENTE NO ENCONTRADO." <<endl;
+    cout << "CLIENTE NO ENCONTRADO."<< endl;
+  }
+}
+
+void ClienteManager::modificarPartido(int idCliente) {
+  int pos = _clientesArchivo.buscarIdCliente(idCliente);
+  if (pos!=-1) {
+    Cliente cliente = _clientesArchivo.leer(pos);
+    cout << "INGRESAR EL NUEVO PARTIDO: ";
+    string partido = cargarCadena();
+    cliente.setLocalidad(partido);
+    if (_clientesArchivo.actualizarRegistro(pos, cliente)){
+      cout << "PARTIDO MODIFICADO CORRECTAMENTE."<<endl;
+    } else {
+      cout << "NO SE PUDO MODIFICAR EL PARTIDO."<<endl;
+    }
+  } else {
+    cout << "CLIENTE NO ENCONTRADO."<< endl;
   }
 }
 

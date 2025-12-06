@@ -13,6 +13,7 @@ public:
     void modificarCorreo(int idCliente);
     void modificarFechaNacimiento(int idCliente);
     void modificarLocalidad(int idCliente);
+    void modificarPartido(int idCliente);
 
     int posClientePorDNI(std::string dni);
 

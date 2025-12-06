@@ -152,19 +152,20 @@ void ClienteMenu::modificarCliente() {
 
     Cliente cliente = _clientesArchivo.leer(pos);
     if (cliente.getEliminado()) {
-        cout << "EL CLIENTE CON ESE ID YA FUE ELIMINADO." << endl;
+        cout << "EL CLIENTE ESTA ELIMINADO." << endl;
         darAltaCliente(id);
         return;
     }
     _clienteManager.mostrarDatosDeClienteID(id);
-
+    cout<<endl<< "|||||||||||||||||||||||||||||||||||||||||||"<<endl;
     cout << "||            MODIFICAR CLIENTE          ||"<<endl;
     cout << "|||||||||||||||||||||||||||||||||||||||||||"<<endl;
     cout << "||     1 - DAR DE BAJA                   ||"<<endl;
     cout << "||     2 - MODIFICAR TELEFONO            ||"<<endl;
     cout << "||     3 - MODIFICAR CORREO              ||"<<endl;
     cout << "||     4 - MODIFICAR FECHA DE NACIMIENTO ||"<<endl;
-    cout << "||     5 - MODIFICAR PARTIDO/LOCALIDAD   ||"<<endl;
+    cout << "||     5 - MODIFICAR PARTIDO             ||"<<endl;
+    cout << "||     6 - MODIFICAR LOCALIDAD           ||"<<endl;
     cout << "||---------------------------------------||" << endl;
     cout << "||     0 - VOLVER                        ||"<<endl;
     cout << "|||||||||||||||||||||||||||||||||||||||||||"<<endl<<endl;
@@ -182,6 +183,8 @@ void ClienteMenu::modificarCliente() {
         case 4:system("cls");
             _clienteManager.modificarFechaNacimiento(id);system("pause");break;
         case 5:system("cls");
+            _clienteManager.modificarPartido(id);system("pause");break;
+        case 6:system("cls");
             _clienteManager.modificarLocalidad(id);system("pause");break;
         case 0: system("cls");break;
         default: cout << "OPCION INVALIDA." << endl; break;
