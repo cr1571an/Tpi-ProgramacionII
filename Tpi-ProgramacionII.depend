@@ -655,13 +655,14 @@
 	"VencimientosArchivo.h"
 	<iostream>
 
-1764879517 source:c:\users\cristian\git_environments\tpi-programacionii\app.cpp
+1765045655 source:c:\users\cristian\git_environments\tpi-programacionii\app.cpp
 	<iostream>
 	"App.h"
 
-1764879517 c:\users\cristian\git_environments\tpi-programacionii\app.h
+1765048627 c:\users\cristian\git_environments\tpi-programacionii\app.h
 	"ClienteMenu.h"
 	"VehiculoMenu.h"
+	"ReporteMenu.h"
 	"PolizaMenu.h"
 	"SiniestroMenu.h"
 	"PagoMenu.h"
@@ -670,23 +671,25 @@
 1764713605 c:\users\cristian\git_environments\tpi-programacionii\clientemenu.h
 	"ClienteManager.h"
 
-1764713605 c:\users\cristian\git_environments\tpi-programacionii\clientemanager.h
+1765048627 c:\users\cristian\git_environments\tpi-programacionii\clientemanager.h
 	"ClientesArchivo.h"
 	"VehiculosArchivo.h"
+	"PolizaArchivo.h"
+	"SiniestroArchivo.h"
+	"SiniestroManager.h"
 
 1764713605 c:\users\cristian\git_environments\tpi-programacionii\clientesarchivo.h
 	<string>
 	"ClientesArchivo.h"
 	"Cliente.h"
 
-1764713605 c:\users\cristian\git_environments\tpi-programacionii\cliente.h
-	"Localidad.h"
+1765050259 c:\users\cristian\git_environments\tpi-programacionii\cliente.h
 	"Fecha.h"
 
 1764713605 c:\users\cristian\git_environments\tpi-programacionii\localidad.h
 	<string>
 
-1764934430 c:\users\cristian\git_environments\tpi-programacionii\fecha.h
+1765045625 c:\users\cristian\git_environments\tpi-programacionii\fecha.h
 	<string>
 
 1764713605 c:\users\cristian\git_environments\tpi-programacionii\vehiculosarchivo.h
@@ -709,10 +712,10 @@
 	"ClienteManager.h"
 	<string>
 
-1764879517 c:\users\cristian\git_environments\tpi-programacionii\polizamenu.h
+1765045625 c:\users\cristian\git_environments\tpi-programacionii\polizamenu.h
 	"PolizaManager.h"
 
-1764894046 c:\users\cristian\git_environments\tpi-programacionii\polizamanager.h
+1765057362 c:\users\cristian\git_environments\tpi-programacionii\polizamanager.h
 	"ClienteMenu.h"
 	"PolizaArchivo.h"
 	"VehiculoManager.h"
@@ -726,7 +729,7 @@
 	<string>
 	"Poliza.h"
 
-1764879517 c:\users\cristian\git_environments\tpi-programacionii\poliza.h
+1765045625 c:\users\cristian\git_environments\tpi-programacionii\poliza.h
 	<string>
 	"Fecha.h"
 
@@ -741,7 +744,7 @@
 	<string>
 	"Vencimiento.h"
 
-1764883936 c:\users\cristian\git_environments\tpi-programacionii\vencimiento.h
+1765045625 c:\users\cristian\git_environments\tpi-programacionii\vencimiento.h
 	<string>
 	"Fecha.h"
 
@@ -749,7 +752,7 @@
 	<string>
 	"Pago.h"
 
-1764879591 c:\users\cristian\git_environments\tpi-programacionii\pago.h
+1765045625 c:\users\cristian\git_environments\tpi-programacionii\pago.h
 	<string>
 	"Fecha.h"
 
@@ -789,19 +792,19 @@
 	"VencimientosArchivo.h"
 	"Pago.h"
 
-1764879517 c:\users\cristian\git_environments\tpi-programacionii\reportemenu.h
+1765048627 c:\users\cristian\git_environments\tpi-programacionii\reportemenu.h
 	"PolizaManager.h"
+	"ClienteManager.h"
 
-1764713605 source:c:\users\cristian\git_environments\tpi-programacionii\cliente.cpp
+1765050216 source:c:\users\cristian\git_environments\tpi-programacionii\cliente.cpp
 	<string>
 	<cstring>
 	"Cliente.h"
 
-1764879536 source:c:\users\cristian\git_environments\tpi-programacionii\clientemanager.cpp
+1765048627 source:c:\users\cristian\git_environments\tpi-programacionii\clientemanager.cpp
 	<string>
 	"ClientesArchivo.h"
 	"ClienteManager.h"
-	"LocalidadArchivo.h"
 	<iostream>
 	<bits/ostream.tcc>
 	"utils.h"
@@ -810,11 +813,11 @@
 	"Localidad.h"
 	<string>
 
-1764713605 c:\users\cristian\git_environments\tpi-programacionii\utils.h
+1765044246 c:\users\cristian\git_environments\tpi-programacionii\utils.h
 	<string>
 	"Fecha.h"
 
-1764713605 source:c:\users\cristian\git_environments\tpi-programacionii\clientemenu.cpp
+1765048627 source:c:\users\cristian\git_environments\tpi-programacionii\clientemenu.cpp
 	<iostream>
 	"ClienteMenu.h"
 	"utils.h"
@@ -823,7 +826,7 @@
 	"ClientesArchivo.h"
 	<iostream>
 
-1764934505 source:c:\users\cristian\git_environments\tpi-programacionii\fecha.cpp
+1765045625 source:c:\users\cristian\git_environments\tpi-programacionii\fecha.cpp
 	<iostream>
 	<ctime>
 	"Fecha.h"
@@ -837,11 +840,13 @@
 	<iostream>
 	"utils.h"
 
-1764713605 source:c:\users\cristian\git_environments\tpi-programacionii\main.cpp
+1765057277 source:c:\users\cristian\git_environments\tpi-programacionii\main.cpp
 	<windows.h>
 	"App.h"
+	"tools/generadorDeArchivosDeDatos.h"
+	"tools/imprimirArchivos.h"
 
-1764879564 source:c:\users\cristian\git_environments\tpi-programacionii\pago.cpp
+1765045625 source:c:\users\cristian\git_environments\tpi-programacionii\pago.cpp
 	"Pago.h"
 	<cstring>
 
@@ -863,7 +868,7 @@
 	<limits>
 	"PagoMenu.h"
 
-1764879517 source:c:\users\cristian\git_environments\tpi-programacionii\poliza.cpp
+1765045625 source:c:\users\cristian\git_environments\tpi-programacionii\poliza.cpp
 	"Poliza.h"
 	<cstring>
 
@@ -871,18 +876,18 @@
 	"PolizaArchivo.h"
 	<iostream>
 
-1764936491 source:c:\users\cristian\git_environments\tpi-programacionii\polizamanager.cpp
+1765045625 source:c:\users\cristian\git_environments\tpi-programacionii\polizamanager.cpp
 	"PolizaManager.h"
 	"utils.h"
 	"Cliente.h"
 	"TipoSeguro.h"
 	<iostream>
 
-1764895852 source:c:\users\cristian\git_environments\tpi-programacionii\polizamenu.cpp
+1765045625 source:c:\users\cristian\git_environments\tpi-programacionii\polizamenu.cpp
 	<iostream>
 	"PolizaMenu.h"
 
-1764879517 source:c:\users\cristian\git_environments\tpi-programacionii\reportemenu.cpp
+1765048627 source:c:\users\cristian\git_environments\tpi-programacionii\reportemenu.cpp
 	<iostream>
 	"ReporteMenu.h"
 
@@ -919,7 +924,7 @@
 	"TiposSiniestrosArchivo.h"
 	<iostream>
 
-1764713605 source:c:\users\cristian\git_environments\tpi-programacionii\utils.cpp
+1765044250 source:c:\users\cristian\git_environments\tpi-programacionii\utils.cpp
 	"utils.h"
 	<cctype>
 	<iostream>
@@ -939,7 +944,7 @@
 	"utils.h"
 	"VehiculoMenu.h"
 
-1764879536 source:c:\users\cristian\git_environments\tpi-programacionii\vehiculomenu.cpp
+1765048627 source:c:\users\cristian\git_environments\tpi-programacionii\vehiculomenu.cpp
 	<iostream>
 	"VehiculoMenu.h"
 	"utils.h"
@@ -948,11 +953,15 @@
 	"VehiculosArchivo.h"
 	<iostream>
 
-1764883949 source:c:\users\cristian\git_environments\tpi-programacionii\vencimiento.cpp
+1765045625 source:c:\users\cristian\git_environments\tpi-programacionii\vencimiento.cpp
 	"Vencimiento.h"
 	<cstring>
 
 1764722540 source:c:\users\cristian\git_environments\tpi-programacionii\vencimientosarchivo.cpp
 	"VencimientosArchivo.h"
 	<iostream>
+
+1765055266 c:\users\cristian\git_environments\tpi-programacionii\tools\generadordearchivosdedatos.h
+
+1765056428 c:\users\cristian\git_environments\tpi-programacionii\tools\imprimirarchivos.h
 
