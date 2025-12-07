@@ -368,18 +368,19 @@ bool generarTiposSiniestros(){
     return true;
 }
 
-void generarVencimientos(){
-  PolizaArchivo repositorioPolizas;
-  int cantidadPolizas = repositorioPolizas.getCantidadRegistros();
+// generar Vencimientos es un metodo privado de PolizaManager.
+// void generarVencimientos(){
+//   PolizaArchivo repositorioPolizas;
+//   int cantidadPolizas = repositorioPolizas.getCantidadRegistros();
 
-  PolizaManager polizaManager;
+//   PolizaManager polizaManager;
 
-  Poliza* polizas= new Poliza[cantidadPolizas]{};
-  repositorioPolizas.leerTodos(polizas, cantidadPolizas);
+//   Poliza* polizas= new Poliza[cantidadPolizas]{};
+//   repositorioPolizas.leerTodos(polizas, cantidadPolizas);
 
-  for (int i=0; i< cantidadPolizas; i++){
-    polizaManager.generarVencimientos(polizas[i],3);    
-  }
+//   for (int i=0; i< cantidadPolizas; i++){
+//     polizaManager.generarVencimientos(polizas[i],3);    
+//   }
 
-  delete[] polizas;
-}
+//   delete[] polizas;
+// }
