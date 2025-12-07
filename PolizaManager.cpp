@@ -539,8 +539,10 @@ bool PolizaManager::tieneCobertura(Poliza p) {
 
 void PolizaManager::mostrarVencimientosDePoliza(){
     int pos = buscarPorId();
-    if (pos == -1 )
+    if (pos == -1 ){
         cout <<"EL ID DE LA POLIZA NO EXISTE.";
+        return;
+    }        
 
     Poliza poliza = _archivo.leer(pos);
 
