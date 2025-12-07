@@ -58,7 +58,7 @@ void PolizaMenu::mostrarOpcionesSubMenuModificar(){
 ||     3 - TIPO DE SEGURO                ||
 ||     4 - ACTIVA O INACTIVA             ||
 |||||||||||||||||||||||||||||||||||||||||||
-||     0 - SALIR                         ||
+||     0 - VOLVER AL MENU ANTERIOR       ||
 |||||||||||||||||||||||||||||||||||||||||||
 
 )";
@@ -83,7 +83,7 @@ void PolizaMenu::mostrarOpciones(){
 ||     11 - LISTAR POR FECHA DE VENCIMIENTO          ||
 ||     12 - LISTAR VENCIMIENTOS POR ID POLIZA        ||
 |||||||||||||||||||||||||||||||||||||||||||||||||||||||
-||     0 - VOLVER                                    ||
+||     0 - VOLVER AL MENU ANTERIOR                   ||
 |||||||||||||||||||||||||||||||||||||||||||||||||||||||
 
 )";

@@ -36,7 +36,7 @@ void PagoMenu::mostrarOpciones()
 ||     5 - LISTADOS                      ||
 ||     6 - CONSULTAS                     ||
 |||||||||||||||||||||||||||||||||||||||||||
-||     0 - SALIR                         ||
+||     0 - VOLVER AL MENU ANTERIOR       ||
 |||||||||||||||||||||||||||||||||||||||||||
 
 )";
