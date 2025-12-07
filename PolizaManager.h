@@ -21,9 +21,9 @@ class PolizaManager {
         void modificarTipoSeguro();
         void listarPolizasVigentes();
         void listarPolizasNoVigentes();
-        void listarPorFechaVencimiento();
+        void listarPorFechaVigencia();
         void buscarPorDniCliente();
-        void reportePolizasSinCobertura();
+        void listarPolizasSinCobertura();
         void reportePolizasVigentesYVencidas();
         void mostrarVencimientosDePoliza();
 

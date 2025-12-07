@@ -3,6 +3,7 @@
 #include "Cliente.h"
 #include "TipoSeguro.h"
 #include <iostream>
+#include <iomanip> 
 using namespace std;
 
 PolizaManager::PolizaManager()
@@ -10,7 +11,9 @@ PolizaManager::PolizaManager()
 }
 
 void PolizaManager::mostrar() {
-    cout << "-- LISTADO DE POLIZAS --" << endl;
+    cout << "============================================" << endl;
+    cout << "            LISTADO DE POLIZAS              " << endl;
+    cout << "============================================" << endl;
     int cantidad = _archivo.getCantidadRegistros();
     if (cantidad == 0) {
         cout << "NO HAY POLIZAS PARA MOSTRAR." << endl;
@@ -27,7 +30,9 @@ void PolizaManager::mostrar() {
 void PolizaManager::cargar() {
     const int plazoPoliza = 3;
     string patente;
-    cout << "-- FORMULARIO DE ALTA DE POLIZA --" << endl;
+    cout << "============================================" << endl;
+    cout << "       FORMULARIO DE ALTA DE POLIZA         " << endl;
+    cout << "============================================" << endl;
     cout << "INGRESE LA PATENTE DEL VEHICULO: ";
     patente = cargarCadena();
     int idVehiculo = _vehiculoManager.buscarIdPorPatente(patente);
@@ -63,6 +68,10 @@ void PolizaManager::cargar() {
 
 
 void PolizaManager::eliminar() {
+    cout << "============================================" << endl;
+    cout << "           ELIMINAR POLIZA POR ID           " << endl;
+    cout << "============================================" << endl;
+
     int idPoliza;
     cout << "INGRESE UN NUMERO DE POLIZA: ";
     cin >> idPoliza;
@@ -78,6 +87,10 @@ void PolizaManager::eliminar() {
     }
 }
 void PolizaManager::recuperar() {
+    cout << "============================================" << endl;
+    cout << "         RECUPERAR POLIZA POR ID            " << endl;
+    cout << "============================================" << endl;
+
     int idPoliza;
     cout << "INGRESE UN NUMERO DE POLIZA: ";
     cin >> idPoliza;
@@ -97,6 +110,10 @@ void PolizaManager::recuperar() {
 }
 
 void PolizaManager::buscarPorPatente(){
+    cout << "============================================" << endl;
+    cout << "   BUSCAR POLIZAS POR PATENTE DE VEHICULO   " << endl;
+    cout << "============================================" << endl;
+
     bool encontrado = false;
     string patente;
     cout << "INGRESE PATENTE DEL VEHICULO: ";
@@ -123,8 +140,11 @@ void PolizaManager::buscarPorPatente(){
 }
 
 int PolizaManager::buscarPorId(){
-    int idPoliza;
+    cout << "============================================" << endl;
+    cout << "            BUSCAR POLIZA POR ID            " << endl;
+    cout << "============================================" << endl;
 
+    int idPoliza;
     cout << "INGRESE UN NUMERO DE POLIZA: ";
     cin >> idPoliza;
     if (idPoliza>= 0){
@@ -138,6 +158,10 @@ int PolizaManager::buscarPorId(){
     return -1;
 }
 void PolizaManager::modificarFechaInicio(){
+    cout << "============================================" << endl;
+    cout << "     MODIFICAR FECHA DE INICIO DE POLIZA    " << endl;
+    cout << "============================================" << endl;
+
     int pos = buscarPorId();
     if (pos != -1){
         Poliza poliza = _archivo.leer(pos);
@@ -155,6 +179,10 @@ void PolizaManager::modificarFechaInicio(){
         cout<<"EL ID INGRESADO NO SE ENCONTRO.";
 }
 void PolizaManager::modificarPrima(){
+    cout << "============================================" << endl;
+    cout << "      MODIFICAR PRIMA MENSUAL DE POLIZA     " << endl;
+    cout << "============================================" << endl;
+
     float nuevaPrima;
     int pos = buscarPorId();
     if (pos != -1){
@@ -173,6 +201,10 @@ void PolizaManager::modificarPrima(){
 
 }
 void PolizaManager::modificarTipoSeguro(){
+    cout << "============================================" << endl;
+    cout << "     MODIFICAR TIPO DE SEGURO DE POLIZA     " << endl;
+    cout << "============================================" << endl;
+
     int nuevoTipo;
     int pos = buscarPorId();
     if (pos != -1){
@@ -241,7 +273,13 @@ void PolizaManager::listarPolizasNoVigentes() {
     delete[] polizas;
 }
 
-void PolizaManager::listarPorFechaVencimiento() {
+void PolizaManager::listarPorFechaVigencia() {
+    cout << R"(
+    ||||||||||||||||||||||||||||||||||||||||||||||||||||
+    ||  LISTADO DE POLIZAS POR FECHA DE FINALIZACION  ||
+    ||||||||||||||||||||||||||||||||||||||||||||||||||||
+    )";
+
     int cantidad = _archivo.getCantidadRegistros();
     if (cantidad == 0) {
         cout << "NO HAY POLIZAS PARA MOSTRAR." << endl;
@@ -285,9 +323,9 @@ void PolizaManager::mostrarPoliza(Poliza poliza){
     Cliente cliente = _archivoCliente.leer(posCliente);
     int posTipoSeguro = _archivoTipoSeguros.buscarID(poliza.getIdTipoSeguro());
     TipoSeguro tipoSeguro = _archivoTipoSeguros.leer(posTipoSeguro);
-    cout << "---------------------------------------------\n";
-    cout << "              POLIZA N° " << poliza.getId() << "\n";
-    cout << "---------------------------------------------\n";
+    cout << "=============================================\n";
+    cout << "                POLIZA N° " << poliza.getId() << "\n";
+    cout << "=============================================\n";
     cout << "Cliente ID    : " << cliente.getIdCliente() << "\n";
     cout << "Cliente        : " << cliente.getApellido() << " " << cliente.getNombre() << "\n";
     cout << "DNI           : " << cliente.getDni() << "\n";
@@ -335,7 +373,11 @@ void PolizaManager::buscarPorDniCliente(){
     }
 }
 void PolizaManager::reportePolizasVigentesYVencidas(){
-
+    cout << R"(
+    ||||||||||||||||||||||||||||||||||||||||||||||||||||
+    ||  REPORTE DE POLIZAS POR TIPO DE SEGURO         ||
+    ||||||||||||||||||||||||||||||||||||||||||||||||||||
+    )";
     int cantidad = _archivo.getCantidadRegistros();
     if (cantidad == 0) {
         cout << "NO HAY POLIZAS PARA PODER GENERAR EL REPORTE." << endl;
@@ -367,13 +409,16 @@ void PolizaManager::reportePolizasVigentesYVencidas(){
     Poliza** polizasFiltradas = new Poliza*[cantidadFiltradas]{};
     filtrarPolizasPorFecha(polizas, polizasFiltradas, cantidad, fechaConsulta);
 
+    cout << left << setw(30) << "TIPO DE SEGURO"
+     << right << setw(10) << "VIGENTES"
+     << setw(10) << "VENCIDAS" << endl;
+    cout << "==================================================" << endl;
+
     for (int i=0; i < cantidadSeguros; i++) {
         TipoSeguro tipoSeguro = tiposSeguros[i];
         if (tipoSeguro.getEliminado()) {
             continue;
         }
-
-        cout << "TIPO DE SEGURO: " << tipoSeguro.getDescripcion() << endl;
         int contadorVigentes = 0;
         int contadorVencidas = 0;
 
@@ -388,8 +433,9 @@ void PolizaManager::reportePolizasVigentesYVencidas(){
             }
         }
 
-        cout << "  POLIZAS VIGENTES: " << contadorVigentes << endl;
-        cout << "  POLIZAS VENCIDAS: " << contadorVencidas << endl;
+        cout << left  << setw(30) << tipoSeguro.getDescripcion()
+         << right << setw(10) << contadorVigentes
+         << setw(10) << contadorVencidas << endl;
     }
 
     delete [] polizas;
@@ -457,8 +503,10 @@ bool PolizaManager::tienePolizasVigentes(int idVehiculo) {
     return false;
 }
 
-void PolizaManager::reportePolizasSinCobertura() {
-    cout << "-- REPORTE DE POLIZAS SIN COBERTURA --" << endl;
+void PolizaManager::listarPolizasSinCobertura() {
+    cout << "============================================" << endl;
+    cout << "     LISTADO DE POLIZAS SIN COBERTURA       " << endl;
+    cout << "============================================" << endl;
     int cantidad = _archivo.getCantidadRegistros();
     if (cantidad == 0) {
         cout << "NO HAY POLIZAS PARA MOSTRAR." << endl;
@@ -538,6 +586,9 @@ bool PolizaManager::tieneCobertura(Poliza p) {
 }
 
 void PolizaManager::mostrarVencimientosDePoliza(){
+    cout << "============================================" << endl;
+    cout << "        VENCIMIENTOS DE POLIZA POR ID       " << endl;
+    cout << "============================================" << endl;
     int pos = buscarPorId();
     if (pos == -1 ){
         cout <<"EL ID DE LA POLIZA NO EXISTE.";

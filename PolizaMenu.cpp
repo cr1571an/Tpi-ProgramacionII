@@ -143,11 +143,11 @@ void PolizaMenu::ejecutarOpcion(int opcion) {
             break;
         }
         case 10:{
-            _polizaManager.reportePolizasSinCobertura();
+            _polizaManager.listarPolizasSinCobertura();
             break;
         }
         case 11:{
-            _polizaManager.listarPorFechaVencimiento();
+            _polizaManager.listarPorFechaVigencia();
             break;
         }
         case 12:{
