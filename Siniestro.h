@@ -7,7 +7,7 @@ class Siniestro {
  public:
   Siniestro();
   Siniestro(int id, int idPoliza, Fecha fechaSiniestro,
-            int idTipoSiniestro, float costoEstimado, bool estado,
+            int idTipoSiniestro, float costoEstimado,
             bool eliminado);
 
   int getId();
@@ -15,14 +15,12 @@ class Siniestro {
   Fecha getFechaSiniestro();
   int getIdTipoSiniestro();
   float getCostoEstimado();
-  bool getEstado();
   bool getEliminado();
   void setId(int id);
   void setIdPoliza(int idPoliza);
   void setFechaSiniestro(Fecha fechaSiniestro);
   void setCostoEstimado(float costoEstimado);
   void setIdTipoSiniestro(int idTipoSiniestro);
-  void setEstado(bool estado);
   void setEliminado(bool eliminado);
 
  private:
@@ -31,6 +29,5 @@ class Siniestro {
   Fecha _fechaSiniestro;
   int _idTipoSiniestro;
   float _costoEstimado;
-  bool _estado;
   bool _eliminado;
 };
