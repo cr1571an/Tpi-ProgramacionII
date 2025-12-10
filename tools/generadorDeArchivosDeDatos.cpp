@@ -222,7 +222,7 @@ int generarPolizas() {
   return 0;
 }
 
-/* int generarSiniestros() {
+int generarSiniestros() {
   std::ifstream archivo("inputData/siniestros.csv");
   if (!archivo.is_open()) {
     cerr << "Error al abrir el archivo siniestros.csv." << endl;
@@ -263,9 +263,6 @@ int generarPolizas() {
     s.setCostoEstimado(campoFloat);
 
     getline(ss, campo, ',');
-    s.setEstado(campo == "true" ? true : false);
-
-    getline(ss, campo, ',');
     s.setEliminado(campo == "true" ? true : false);
 
     if (repositorioSiniestros.guardar(s)) {
@@ -278,7 +275,7 @@ int generarPolizas() {
   archivo.close();
 
   return 0;
-} */
+}
 
 bool generarTiposSeguros(){
     std::ifstream archivo("inputData/tiposSeguros.csv");

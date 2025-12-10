@@ -4,7 +4,7 @@ int generarClientes();
 int generarVehiculos();
 int generarPagos();
 int generarPolizas();
-/* int generarSiniestros(); */
+int generarSiniestros();
 bool generarTiposSeguros();
 bool generarTiposSiniestros();
 void generarVencimientos();

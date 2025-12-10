@@ -134,7 +134,6 @@ void imprimirSiniestros() {
              << v[i].getFechaSiniestro().formatoFecha()<< " | "
              << v[i].getIdTipoSiniestro() << " | "
              << v[i].getCostoEstimado()   << " | "
-             << v[i].getEstado()          << " | "
              << v[i].getEliminado()
              << endl;
     }
