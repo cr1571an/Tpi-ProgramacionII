@@ -4,7 +4,7 @@ using namespace std;
 
 SiniestroMenu::SiniestroMenu(){
     _cantidadOpciones = 10;
-    _cantidadOpcionesSubMenuModificar = 4;
+    _cantidadOpcionesSubMenuModificar = 3;
 }
 void SiniestroMenu::mostrar(){
     int opcion;
@@ -51,9 +51,8 @@ void SiniestroMenu::mostrarOpcionesSubMenuModificar(){
 ||     1 - FECHA SINIESTRO               ||
 ||     2 - TIPO SINIESTRO                ||
 ||     3 - COSTO ESTIMADO                ||
-||     4 - ESTADO SINIESTRO              ||
 |||||||||||||||||||||||||||||||||||||||||||
-||     0 - SALIR                         ||
+||     0 - VOLVER AL MENU ANTERIOR       ||
 |||||||||||||||||||||||||||||||||||||||||||
 
 )";
@@ -124,19 +123,19 @@ void SiniestroMenu::ejecutarOpcion(int opcion) {
             break;
         }
         case 7:{
-            _siniestroManager.listadoSiniestrosPorPoliza();
+          //  _siniestroManager.listadoSiniestrosPorPoliza();
             break;
         }
         case 8:{
-            _siniestroManager.listadoSiniestrosAprobados();
+         //   _siniestroManager.listadoSiniestrosAprobados();
             break;
         }
         case 9:{
-            _siniestroManager.listadoSiniestrosNoAprobados();
+         //   _siniestroManager.listadoSiniestrosNoAprobados();
             break;
         }
         case 10:{
-            _siniestroManager.reporteSiniestrosPorTipo();
+        //    _siniestroManager.reporteSiniestrosPorTipo();
             break;
         }
     }
@@ -154,10 +153,6 @@ void SiniestroMenu::ejecutarOpcionSubMenuModificar(int opcion) {
         }
         case 3:{
           _siniestroManager.modificarCostoEstimado();
-            break;
-        }
-        case 4:{
-          _siniestroManager.modificarEstadoSiniestro();
             break;
         }
     }
