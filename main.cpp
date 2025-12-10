@@ -12,10 +12,11 @@ int main() {
 
     App app;
     app.run();
-
+    
     /* generarClientes();
     generarVehiculos();
     generarPolizas();
+    generarSiniestros();
     generarTiposSeguros();
     generarTiposSiniestros();
     generarVencimientos();
