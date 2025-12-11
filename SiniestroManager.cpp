@@ -434,7 +434,7 @@ void SiniestroManager::reporteCoberturaSiniestros(){
         }
 
         if (!conCobertura) {
-            cout << "Motivo: EL PAGO DEL PERIODO NO ESTABA REALIZADO ANTES DEL SINIESTRO." << endl;
+            cout << "Motivo: EL PAGO DEL PERIODO NO ESTABA REALIZADO ANTES DEL SINIESTRO O DIRECTAMENTE NO REGISTRA PAGOS." << endl;
         }
             cantidadNoAprobados++;
             cout << "============================================================" << endl;            
@@ -472,23 +472,26 @@ void SiniestroManager::filtrarPorPeriodo(Fecha fechaDesde, Fecha fechaHasta, Sin
 
 bool SiniestroManager::validarCobertura(Fecha fechaSiniestro, int idPoliza){
     int cantidadPagos = _pagoManager.cantidadPagosPorPoliza(idPoliza);
-    Pago* pagos = new Pago[cantidadPagos]{};
-    _pagoManager.pagosPorPolizaId(idPoliza, pagos, cantidadPagos);
+    if (cantidadPagos == 0) {
+        return false;
+    }
+    Pago* pagosRealizados = new Pago[cantidadPagos]{};
+    _pagoManager.pagosPorPolizaId(idPoliza, pagosRealizados, cantidadPagos);
 
     for(int i=0; i<cantidadPagos; i++){
-        int posVencimiento = _vencimientosArchivo.buscarID(pagos[i].getIdVencimiento());
+        int posVencimiento = _vencimientosArchivo.buscarID(pagosRealizados[i].getIdVencimiento());
         Vencimiento vencimiento = _vencimientosArchivo.leer(posVencimiento);
-        Fecha fechaVencimientoInicio = vencimiento.getVencimiento();      
-        Fecha fechaVencimientoFinal = fechaVencimientoInicio;
-        fechaVencimientoFinal.sumarMes(1);
-        if (fechaSiniestro >= fechaVencimientoInicio && fechaSiniestro <= fechaVencimientoFinal){
-            if (fechaSiniestro >= pagos[i].getFechaPago()){
-                return true;
-            }
-            else{
-                return false;
-            }
+
+        Fecha inicio = vencimiento.getVencimiento();      
+        Fecha fin = inicio;
+        fin.sumarMes(1);
+            
+        if (fechaSiniestro >= inicio && fechaSiniestro <= fin){
+            bool cubre = fechaSiniestro >= pagosRealizados[i].getFechaPago();
+            delete[] pagosRealizados;
+            return cubre;
         }
     }        
+    delete [] pagosRealizados;
     return false;
 }
