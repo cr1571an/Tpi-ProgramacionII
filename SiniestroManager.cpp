@@ -5,7 +5,7 @@ using namespace std;
 #include "TipoSiniestro.h"
 
 SiniestroManager::SiniestroManager()
-    : _archivo(), _polizaArchivo() {
+    : _archivo(), _polizaArchivo(), _tiposSiniestrosArchivo(), _vehiculoArchivo(), _clienteArchivo(), _pagoManager(), _vencimientosArchivo() {
 }
 
 void SiniestroManager::mostrar() {
@@ -387,7 +387,7 @@ void SiniestroManager::reporteCoberturaSiniestros(){
     }
 
     Siniestro** siniestrosFiltrados = new Siniestro*[cantidadSiniestrosFiltrados]{};
-    filtrarPorPeriodo(fechaDesde, fechaHasta, siniestros, siniestrosFiltrados, cantidadSiniestrosFiltrados);
+    filtrarPorPeriodo(fechaDesde, fechaHasta, siniestros, siniestrosFiltrados, cantidadSiniestros);
 
     if (cantidadSiniestrosFiltrados == 0) {
         cout << "NO SE ENCONTRARON SINIESTROS EN EL PERIODO INDICADO." << endl;
@@ -399,22 +399,45 @@ void SiniestroManager::reporteCoberturaSiniestros(){
     cout << "============================================================" << endl;
     cout << "   REPORTE COBERTURA DE SINIESTROS POR PERIODO DE FECHAS    " << endl;
     cout << "============================================================" << endl;
-    cout << "FECHA INICIAL: " << fechaDesde.getAnio() << "/" << fechaDesde.getMes() << "/" << fechaDesde.getDia() << endl;
-    cout << "FECHA FINAL: " << fechaHasta.getAnio() << "/" << fechaHasta.getMes() << "/" << fechaHasta.getDia() << endl;
+    cout << "FECHA INICIAL: " << fechaDesde.formatoFecha() << endl << "FECHA FINAL: " << fechaHasta.formatoFecha() << endl;
     cout << "============================================================" << endl;
     cout << "NUMERO DE SINIESTROS: " << cantidadSiniestrosFiltrados << endl;
     cout << "============================================================" << endl;
     cout << "============================================================" << endl;
 
-    int cantidadAprobados, cantidadNoAprobados = 0;
+    int cantidadAprobados = 0;
+    int cantidadNoAprobados = 0;
+
 
     for (int i = 0; i < cantidadSiniestrosFiltrados; i++) {
         int idPoliza = (*siniestrosFiltrados[i]).getIdPoliza();
         Poliza poliza = _polizaArchivo.leer(idPoliza);
         Fecha fechaSiniestro = (*siniestrosFiltrados[i]).getFechaSiniestro();
-        if ((fechaSiniestro >= poliza.getfechaInicio() && fechaSiniestro <= poliza.getfechaFin()) && _pagoManager.polizaPagosAlDia(idPoliza) && (validarCobertura(fechaSiniestro, idPoliza))){
-            
-            
+        bool vigente = (fechaSiniestro >= poliza.getfechaInicio() && fechaSiniestro <= poliza.getfechaFin());
+        bool alDia = _pagoManager.polizaPagosAlDia(idPoliza);
+        bool conCobertura = (validarCobertura(fechaSiniestro, idPoliza));
+        if (vigente && alDia && conCobertura) {
+            mostrarSiniestro(*siniestrosFiltrados[i]);
+            cout << "SINIESTRO APROBADO" << endl;
+            cantidadAprobados++;
+            cout << "============================================================" << endl;
+        }
+        else{
+            mostrarSiniestro(*siniestrosFiltrados[i]);
+            cout << "SINIESTRO NO APROBADO" << endl;
+                if (!vigente) {
+        cout << "Motivo: SINIESTRO FUERA DE LA FECHA DE VIGENCIA DE LA POLIZA." << endl;
+        }
+
+        if (!alDia) {
+            cout << "Motivo: EXISTEN VENCIMIENTOS IMPAGOS (POLIZA NO AL DIA)." << endl;
+        }
+
+        if (!conCobertura) {
+            cout << "Motivo: EL PAGO DEL PERIODO NO ESTABA REALIZADO ANTES DEL SINIESTRO." << endl;
+        }
+            cantidadNoAprobados++;
+            cout << "============================================================" << endl;            
         }
     }
     
@@ -423,13 +446,28 @@ void SiniestroManager::reporteCoberturaSiniestros(){
 }   
 
 int SiniestroManager::cantidadSiniestrosPeriodo(Fecha fechaDesde, Fecha fechaHasta, Siniestro siniestros[], int cantidad){
+    int cantidadSiniestrosFiltrados = 0;
 
-    return 9;
+    for (int i = 0; i < cantidad; i++) {
+        Fecha fechaSiniestro = siniestros[i].getFechaSiniestro();
+        if (fechaSiniestro >= fechaDesde && fechaSiniestro <= fechaHasta) {
+            cantidadSiniestrosFiltrados++;
+        }
+    }
+    return cantidadSiniestrosFiltrados;
 
 }
 
-void SiniestroManager::filtrarPorPeriodo(Fecha fechaDesde, Fecha fechaHasta, Siniestro siniestros[],Siniestro* siniestrosFiltrados[], int cantidad){
-    
+void SiniestroManager::filtrarPorPeriodo(Fecha fechaDesde, Fecha fechaHasta, Siniestro siniestros[],Siniestro* siniestrosFiltrados[], int cantidadSiniestros){
+    int cantidadSiniestrosFiltrados= 0;
+
+    for (int i = 0; i < cantidadSiniestros; i++) {
+        Fecha fechaSiniestro = siniestros[i].getFechaSiniestro();
+        if (fechaSiniestro >= fechaDesde && fechaSiniestro <= fechaHasta && !siniestros[i].getEliminado()) {
+            siniestrosFiltrados[cantidadSiniestrosFiltrados] = &siniestros[i];
+            cantidadSiniestrosFiltrados++;
+        }
+    }    
 }
 
 bool SiniestroManager::validarCobertura(Fecha fechaSiniestro, int idPoliza){

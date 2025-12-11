@@ -2,7 +2,7 @@
 #include "ReporteMenu.h"
 using namespace std;
 ReporteMenu::ReporteMenu(): _polizaManager(), _clienteManager() {
-    _cantidadOpciones = 2;
+    _cantidadOpciones = 3;
 }
 void ReporteMenu::mostrar(){
     
@@ -23,6 +23,7 @@ void ReporteMenu::mostrarOpciones() {
     cout << "||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||" << endl;
     cout << "||    1 - CLIENTES CON SINIESTROS EN DE TERMINADA FECHA     ||" << endl;
     cout << "||    2 - REPORTE DE POLIZAS VIGENTES Y VENCIDAS POR FECHA  ||" << endl;
+    cout << "||    3 - REPORTE DE COBERTURA DE SINIESTROS POR FECHA      ||" << endl;
     cout << "||----------------------------------------------------------||" << endl;
     cout << "||    0 - VOLVER                                            ||" << endl;
     cout << "||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||" << endl<<endl;
@@ -49,6 +50,10 @@ void ReporteMenu::ejecutarOpcion(int opcion) {
             break;
         case 2:
             _polizaManager.reportePolizasVigentesYVencidas();
+            system("pause");
+            break;
+        case 3:
+            _siniestroManager.reporteCoberturaSiniestros();
             system("pause");
             break;
         case 0:

@@ -1,6 +1,7 @@
 #pragma once
 #include "PolizaManager.h"
 #include "ClienteManager.h"
+#include "SiniestroManager.h"
 
 class ReporteMenu{
     public:
@@ -15,5 +16,6 @@ class ReporteMenu{
 
         PolizaManager _polizaManager;
         ClienteManager _clienteManager;
+        SiniestroManager _siniestroManager;
     
 };

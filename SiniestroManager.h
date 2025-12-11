@@ -20,9 +20,6 @@ class SiniestroManager {
         void modificarTipoSiniestro();
         void modificarCostoEstimado();
         void listadoSiniestrosPorPoliza();
-        void listadoSiniestrosAprobados();
-        void listadoSiniestrosNoAprobados();
-        void reporteSiniestrosPorTipo();
         void reporteCoberturaSiniestros();
 
     private:
@@ -37,7 +34,7 @@ class SiniestroManager {
         void mostrarSiniestro(Siniestro siniestro);
         void ordenarPorFechaSiniestro(Siniestro vect[], int cantidad);
         int cantidadSiniestrosPeriodo(Fecha fechaDesde, Fecha fechaHasta, Siniestro siniestros[], int cantidad);
-        void filtrarPorPeriodo(Fecha fechaDesde, Fecha fechaHasta, Siniestro siniestros[],Siniestro* siniestrosFiltrados[], int cantidad);
+        void filtrarPorPeriodo(Fecha fechaDesde, Fecha fechaHasta, Siniestro siniestros[],Siniestro* siniestrosFiltrados[], int cantidadSiniestros);
         bool validarCobertura(Fecha fechaSiniestro, int idPoliza);
         
 };
