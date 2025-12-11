@@ -580,3 +580,57 @@ void PagoManager::mostrarPagosDePoliza(int idPolizaBuscada)
         cout << "No existen pagos para esa poliza." << endl;
     }
 }
+
+bool PagoManager::polizaPagosAlDia(int idPoliza){
+    int posicionPolizaArchivo = _vencimientosArchivo.buscarID(idPoliza);
+    if (posicionPolizaArchivo == -1){
+        cout << "LA POLIZA " << idPoliza << " NO TIENE VENCIMIENTOS ASOCIADOS." << endl;
+        return false;
+    }
+
+    int cantidadVencimientosEnArchivo = _vencimientosArchivo.getCantidadRegistros();
+    for (int i = 0; i < cantidadVencimientosEnArchivo; i++){
+        Vencimiento vencimiento = _vencimientosArchivo.leer(i);
+        if (vencimiento.getIdPoliza() == idPoliza && !vencimiento.getEliminado()){
+            if (!vencimiento.getPagado() && vencimiento.estaVencido())
+                return false;
+        }
+    }
+    return true;
+}
+
+void PagoManager::pagosPorPolizaId(int idPoliza, Pago pagosPoliza[], int cantidadPagosPoliza){
+    int cantidadPagosArchivo = _pagoArchivo.getCantidadRegistros();
+    Pago* pagos = new Pago[cantidadPagosArchivo]{};
+    _pagoArchivo.leerTodos(pagos, cantidadPagosArchivo);
+
+    for(int i=0; i< cantidadPagosArchivo; i++){
+
+        //YO NECESITO OBTENER LOS PAGOS ASOCIADOS A UNA POLIZA.
+        
+    }
+
+}
+
+int PagoManager::cantidadPagosPorPoliza(int idPoliza){
+    int cantidadPagos=0;
+    int posicionPolizaArchivo = _vencimientosArchivo.buscarID(idPoliza);
+    if (posicionPolizaArchivo == -1){
+        cout << "LA POLIZA " << idPoliza << " NO TIENE VENCIMIENTOS ASOCIADOS." << endl;
+        return 0;
+    }
+
+    int cantidadVencimientosEnArchivo = _vencimientosArchivo.getCantidadRegistros();
+    for (int i = 0; i < cantidadVencimientosEnArchivo; i++){
+        Vencimiento vencimiento = _vencimientosArchivo.leer(i);
+        if (vencimiento.getIdPoliza() == idPoliza && !vencimiento.getEliminado()){
+            if (vencimiento.getPagado())
+                cantidadPagos++;
+        }
+    }
+    return cantidadPagos;
+}
+
+
+
+

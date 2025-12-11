@@ -5,6 +5,8 @@
 #include "TiposSiniestrosArchivo.h"
 #include "VehiculosArchivo.h"
 #include "ClientesArchivo.h"
+#include "PagoManager.h"
+#include "VencimientosArchivo.h"
 
 class SiniestroManager {
     public:
@@ -21,6 +23,7 @@ class SiniestroManager {
         void listadoSiniestrosAprobados();
         void listadoSiniestrosNoAprobados();
         void reporteSiniestrosPorTipo();
+        void reporteCoberturaSiniestros();
 
     private:
         SiniestroArchivo _archivo;
@@ -28,7 +31,13 @@ class SiniestroManager {
         TiposSiniestrosArchivo _tiposSiniestrosArchivo;
         VehiculosArchivo _vehiculoArchivo;
         ClientesArchivo _clienteArchivo;
+        PagoManager _pagoManager;
+        VencimientosArchivo _vencimientosArchivo;
 
         void mostrarSiniestro(Siniestro siniestro);
         void ordenarPorFechaSiniestro(Siniestro vect[], int cantidad);
+        int cantidadSiniestrosPeriodo(Fecha fechaDesde, Fecha fechaHasta, Siniestro siniestros[], int cantidad);
+        void filtrarPorPeriodo(Fecha fechaDesde, Fecha fechaHasta, Siniestro siniestros[],Siniestro* siniestrosFiltrados[], int cantidad);
+        bool validarCobertura(Fecha fechaSiniestro, int idPoliza);
+        
 };

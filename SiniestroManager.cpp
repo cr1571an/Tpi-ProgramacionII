@@ -292,29 +292,31 @@ void SiniestroManager::mostrarSiniestro(Siniestro siniestro) {
 
 // }
 
-// void SiniestroManager::listadoSiniestrosPorPoliza(){
-//     int idPoliza;
-//     cout << "ID DE LA POLIZA: "; cin >> idPoliza;
-//     int cantidadPolizas = _polizaArchivo.getCantidadRegistros();
-//     if (idPoliza >= 1 && idPoliza <= cantidadPolizas){      
-//         int cantidadSiniestros = _archivo.getCantidadRegistros();
-//         bool encontrado = false;
-//         for (int i = 0; i < cantidadSiniestros; i++) {
-//             Siniestro s = _archivo.leer(i);
-//             if (s.getIdPoliza() == idPoliza && !s.getEliminado()) {
-//                 mostrarSiniestro(s);
-//                 encontrado = true;
-//             }
-//         }
-//         if (!encontrado) {
-//             cout << "NO SE ENCONTRARON SINIESTROS PARA LA POLIZA INDICADA." << endl;
-//         }
-//     }
-//     else{
-//         cout<<"EL ID DE LA POLIZA ES INVALIDO." << endl;
-//     }
-    
-// }
+void SiniestroManager::listadoSiniestrosPorPoliza(){
+    cout << "============================================" << endl;
+    cout << "      LISTAR SINIESTROS POR POLIZA ID       " << endl;
+    cout << "============================================" << endl;
+    int idPoliza;
+    cout << "ID DE LA POLIZA: "; cin >> idPoliza;
+    int cantidadPolizas = _polizaArchivo.getCantidadRegistros();
+    if (idPoliza >= 1 && idPoliza <= cantidadPolizas){      
+        int cantidadSiniestros = _archivo.getCantidadRegistros();
+        bool encontrado = false;
+        for (int i = 0; i < cantidadSiniestros; i++) {
+            Siniestro s = _archivo.leer(i);
+            if (s.getIdPoliza() == idPoliza && !s.getEliminado()) {
+                mostrarSiniestro(s);
+                encontrado = true;
+            }
+        }
+        if (!encontrado) {
+            cout << "NO SE ENCONTRARON SINIESTROS PARA LA POLIZA INDICADA." << endl;
+        }
+    }
+    else{
+        cout<<"EL ID DE LA POLIZA ES INVALIDO." << endl;
+    }
+}
 // void SiniestroManager::listadoSiniestrosAprobados(){
 //     int cantidadSiniestros = _archivo.getCantidadRegistros();
 //     bool encontrado = false;
@@ -343,3 +345,112 @@ void SiniestroManager::mostrarSiniestro(Siniestro siniestro) {
 //         cout << "NO SE ENCONTRARON SINIESTROS NO APROBADOS." << endl;
 //     }
 // }
+
+void SiniestroManager::reporteCoberturaSiniestros(){
+    int cantidadSiniestros = _archivo.getCantidadRegistros();
+    if (cantidadSiniestros == 0) {
+        cout << "NO SE ENCONTRARON SINIESTROS. NO ES POSIBLE REALIZAR EL REPORTE." << endl;
+        return;
+    }
+
+    cout << "============================================================" << endl;
+    cout << "   REPORTE COBERTURA DE SINIESTROS POR PERIODO DE FECHAS    " << endl;
+    cout << "============================================================" << endl;
+    cout << "INGRESE LA FECHA INICIAL: "; 
+    Fecha fechaDesde = leerFechaValida();
+    cout << "INGRESE LA FECHA FINAL: "; 
+    Fecha fechaHasta = leerFechaValida();
+
+    if (fechaDesde.getAnio() == -1 || fechaHasta.getAnio() == -1) {
+        cout << "FECHAS INVALIDAS." << endl;
+        return;
+    }
+
+    if (fechaHasta < fechaDesde) {
+        cout << "LA FECHA FINAL NO PUEDE SER MENOR A LA FECHA INICIAL." << endl;
+        return;
+    }
+
+    if (fechaDesde.getAnio() < 2023 || fechaHasta.getAnio() > 2027) {
+        cout << "EL PERIODO DE FECHAS DEBE ESTAR ENTRE 2023 Y 2027." << endl;
+        return;
+    }
+
+    Siniestro* siniestros = new Siniestro[cantidadSiniestros]{};
+    _archivo.leerTodos(siniestros,cantidadSiniestros);
+
+    int cantidadSiniestrosFiltrados = cantidadSiniestrosPeriodo(fechaDesde, fechaHasta, siniestros, cantidadSiniestros);
+    if (cantidadSiniestrosFiltrados == 0) {
+        cout << "NO SE ENCONTRARON SINIESTROS EN EL PERIODO INDICADO." << endl;
+        delete[] siniestros;
+        return;
+    }
+
+    Siniestro** siniestrosFiltrados = new Siniestro*[cantidadSiniestrosFiltrados]{};
+    filtrarPorPeriodo(fechaDesde, fechaHasta, siniestros, siniestrosFiltrados, cantidadSiniestrosFiltrados);
+
+    if (cantidadSiniestrosFiltrados == 0) {
+        cout << "NO SE ENCONTRARON SINIESTROS EN EL PERIODO INDICADO." << endl;
+        delete[] siniestros;
+        delete[] siniestrosFiltrados;
+        return;
+    }
+
+    cout << "============================================================" << endl;
+    cout << "   REPORTE COBERTURA DE SINIESTROS POR PERIODO DE FECHAS    " << endl;
+    cout << "============================================================" << endl;
+    cout << "FECHA INICIAL: " << fechaDesde.getAnio() << "/" << fechaDesde.getMes() << "/" << fechaDesde.getDia() << endl;
+    cout << "FECHA FINAL: " << fechaHasta.getAnio() << "/" << fechaHasta.getMes() << "/" << fechaHasta.getDia() << endl;
+    cout << "============================================================" << endl;
+    cout << "NUMERO DE SINIESTROS: " << cantidadSiniestrosFiltrados << endl;
+    cout << "============================================================" << endl;
+    cout << "============================================================" << endl;
+
+    int cantidadAprobados, cantidadNoAprobados = 0;
+
+    for (int i = 0; i < cantidadSiniestrosFiltrados; i++) {
+        int idPoliza = (*siniestrosFiltrados[i]).getIdPoliza();
+        Poliza poliza = _polizaArchivo.leer(idPoliza);
+        Fecha fechaSiniestro = (*siniestrosFiltrados[i]).getFechaSiniestro();
+        if ((fechaSiniestro >= poliza.getfechaInicio() && fechaSiniestro <= poliza.getfechaFin()) && _pagoManager.polizaPagosAlDia(idPoliza) && (validarCobertura(fechaSiniestro, idPoliza))){
+            
+            
+        }
+    }
+    
+    delete[] siniestros;
+    delete[] siniestrosFiltrados;
+}   
+
+int SiniestroManager::cantidadSiniestrosPeriodo(Fecha fechaDesde, Fecha fechaHasta, Siniestro siniestros[], int cantidad){
+
+    return 9;
+
+}
+
+void SiniestroManager::filtrarPorPeriodo(Fecha fechaDesde, Fecha fechaHasta, Siniestro siniestros[],Siniestro* siniestrosFiltrados[], int cantidad){
+    
+}
+
+bool SiniestroManager::validarCobertura(Fecha fechaSiniestro, int idPoliza){
+    int cantidadPagos = _pagoManager.cantidadPagosPorPoliza(idPoliza);
+    Pago* pagos = new Pago[cantidadPagos]{};
+    _pagoManager.pagosPorPolizaId(idPoliza, pagos, cantidadPagos);
+
+    for(int i=0; i<cantidadPagos; i++){
+        int posVencimiento = _vencimientosArchivo.buscarID(pagos[i].getIdVencimiento());
+        Vencimiento vencimiento = _vencimientosArchivo.leer(posVencimiento);
+        Fecha fechaVencimientoInicio = vencimiento.getVencimiento();      
+        Fecha fechaVencimientoFinal = fechaVencimientoInicio;
+        fechaVencimientoFinal.sumarMes(1);
+        if (fechaSiniestro >= fechaVencimientoInicio && fechaSiniestro <= fechaVencimientoFinal){
+            if (fechaSiniestro >= pagos[i].getFechaPago()){
+                return true;
+            }
+            else{
+                return false;
+            }
+        }
+    }        
+    return false;
+}
