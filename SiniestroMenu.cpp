@@ -3,7 +3,7 @@
 using namespace std;
 
 SiniestroMenu::SiniestroMenu(){
-    _cantidadOpciones = 10;
+    _cantidadOpciones = 7;
     _cantidadOpcionesSubMenuModificar = 3;
 }
 void SiniestroMenu::mostrar(){
@@ -71,11 +71,8 @@ void SiniestroMenu::mostrarOpciones(){
 ||     5 - RECUPERAR SINIESTRO            ||
 ||     6 - MODIFICAR SINIESTRO            ||
 ||     7 - SINIESTROS POR ID POLIZA       ||
-||     8 - LISTADO SINIESTROS APROBADOS   ||
-||     9 - LISTADO SINIESTROS DESAPROBADOS||
-||     10 - REPORTE SINIESTROS POR TIPO   ||
 ||||||||||||||||||||||||||||||||||||||||| ||
-||     0 - SALIR                          ||
+||     0 - VOLVER AL MENU ANTERIOR        ||
 ||||||||||||||||||||||||||||||||||||||||||||
 
 )";
@@ -123,19 +120,7 @@ void SiniestroMenu::ejecutarOpcion(int opcion) {
             break;
         }
         case 7:{
-          //  _siniestroManager.listadoSiniestrosPorPoliza();
-            break;
-        }
-        case 8:{
-         //   _siniestroManager.listadoSiniestrosAprobados();
-            break;
-        }
-        case 9:{
-         //   _siniestroManager.listadoSiniestrosNoAprobados();
-            break;
-        }
-        case 10:{
-        //    _siniestroManager.reporteSiniestrosPorTipo();
+            _siniestroManager.listadoSiniestrosPorPoliza();
             break;
         }
     }
