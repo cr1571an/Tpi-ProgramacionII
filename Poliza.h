@@ -27,6 +27,7 @@ class Poliza {
   void setIdTipoSeguro(int idTipoSeguro);
   void setEliminado(bool eliminado);
   bool estaVigente();
+  bool estaVigente(Fecha fecha);
 
  private:
   int _id;

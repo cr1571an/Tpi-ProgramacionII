@@ -50,5 +50,10 @@ void Poliza::setEliminado(bool eliminado) { _eliminado = eliminado; }
 
 bool Poliza::estaVigente() {
     Fecha fechaActual;
-    return (_fechaInicio <= fechaActual && fechaActual <= _fechaFin);
+    return estaVigente(fechaActual);
 }
+
+bool Poliza::estaVigente(Fecha fecha) {
+    return (_fechaInicio <= fecha && fecha <= _fechaFin);
+}
+
