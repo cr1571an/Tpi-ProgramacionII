@@ -7,6 +7,7 @@
 #include "TiposSegurosArchivo.h"
 #include "VencimientosArchivo.h"
 #include "PagoArchivo.h"
+#include "PagoManager.h"
 
 class PolizaManager {
     public:
@@ -36,6 +37,7 @@ class PolizaManager {
         TiposSegurosArchivo _archivoTipoSeguros;
         VencimientosArchivo _archivoVencimientos;
         PagoArchivo _archivoPagos;
+        PagoManager _pagoManager;
 
         int buscarPorId();
         void mostrarPoliza(Poliza poliza);

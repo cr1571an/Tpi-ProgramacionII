@@ -832,3 +832,22 @@ int PagoManager::cantidadPagosPorPoliza(int idPoliza){
     }
     return cantidadPagos;
 }
+
+bool PagoManager::cambiarEstadoVencimientosDePoliza(int idPoliza, bool estado){
+    int cantidad = _vencimientosArchivo.getCantidadRegistros();
+    bool realizado = false;
+
+    for (int i = 0; i < cantidad; i++){
+        Vencimiento v = _vencimientosArchivo.leer(i);
+
+        if (v.getIdPoliza() == idPoliza && v.getEliminado() != estado){
+            v.setEliminado(estado);
+
+            if (_vencimientosArchivo.guardar(v, i)) {
+                realizado = true;
+            }
+        }
+    }
+
+    return realizado;
+}
