@@ -261,7 +261,7 @@ void VehiculoMenu::modificarVehiculo() {
     cout << "||||||||||||||||||||||||||||||||||||||||||||" << endl;
     cout << "||      BUSCAR VEHICULO A MODIFICAR       ||" << endl;
     int idVehiculo = seleccionarVehiculo(true);
-    if (idVehiculo < 0) return;
+    if (idVehiculo < 0) { return;};
 
     int posVehiculo = _vehiculosArchivo.buscarVehiculo(idVehiculo);
     if (posVehiculo < 0) {
@@ -326,7 +326,6 @@ void VehiculoMenu::modificarVehiculo() {
 }
 
 
-
 void VehiculoMenu::darAltaVehiculo(int idVehiculo) {
     cout << "||||||||||||||||||||||||||||||||||||||||||||" << endl;
     cout << "||     1 - DAR DE ALTA VEHICULO           ||" << endl;
@@ -357,6 +356,7 @@ void VehiculoMenu::buscarVehiculo() {
     cout << "||            BUSCAR VEHICULO             ||" << endl;
     int idVehiculo = seleccionarVehiculo(false);
     if (idVehiculo < 0) return;
+
     int posVehiculo = _vehiculosArchivo.buscarVehiculo(idVehiculo);
     if (posVehiculo < 0) {
         cout << "ERROR!. EL VEHICULO NO EXISTE." << endl;

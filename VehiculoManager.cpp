@@ -29,16 +29,17 @@ void VehiculoManager::cargar(int iDCliente) {
     cout << "ID: " << id << endl;
     cout << "CLIENTE: " << cliente.getNombre() << " " << cliente.getApellido() << endl;
     cout << "DNI: " << cliente.getDni() << endl;
-    cout << "INGRESE MARCA: ";   marca = cargarCadena();if (cortarSiCero(marca)) return;
-    cout << "INGRESE MODELO: ";  modelo = cargarCadena();if (cortarSiCero(modelo)) return;
-    cout << "INGRESE PATENTE: "; patente = cargarCadena();if (cortarSiCero(patente)) return;
-    if (buscarIdPorPatente(patente)!=-1) {cout << "YA EXISTE UN VEHICULO CON ESA PATENTE." << endl; return; }
-    cout << "INGRESE ANIO: "; cin >> anio; cin.ignore(); if (anio == 0) return;
-    if (anio < 1990 || anio > 2025) {cout << "SOLO SE ACEPTAN VEHICULOS DEL ANIO ENTRE 1990 Y 2025." << endl; return; }
-    cout << "INGRESE CHASIS: "; chasis = cargarCadena();if (cortarSiCero(chasis)) return;
-    if (!buscarNumChasis(chasis)) {cout << "YA EXISTE UN VEHICULO CON ESE NUMERO DE CHASIS." << endl; return; }
-    cout << "INGRESE MOTOR: "; numeroMotor = cargarCadena();if (cortarSiCero(numeroMotor)) return;
-    if (!buscarNumMotor(numeroMotor)) {cout << "YA EXISTE UN VEHICULO CON ESE NUMERO DE MOTOR." << endl; return; }
+    cout << "INGRESE MARCA: ";   marca = cargarCadena();if (cortarSiCero(marca)) {mensajeCargaCancelada();return;};
+    cout << "INGRESE MODELO: ";  modelo = cargarCadena();if (cortarSiCero(modelo)) {mensajeCargaCancelada();return;};
+    cout << "INGRESE PATENTE: "; patente = cargarCadena();if (cortarSiCero(patente)) {mensajeCargaCancelada();return;};
+    if (buscarIdPorPatente(patente)!=-1) {cout << "ESTA PATENTE YA ESTA REGISTRADA. NO SE PUEDE VOLVER A REGISTRAR."<<endl;mensajeCargaCancelada();return;};
+    cout << "INGRESE ANIO: "; cin >> anio; cin.ignore(); if (anio == 0) {mensajeCargaCancelada();return;};
+    if (anio < 1990 || anio > 2025) {cout << "SOLO SE ACEPTAN VEHICULOS DEL ANIO ENTRE 1990 Y 2025." << endl;mensajeCargaCancelada();return;};
+    cout << "INGRESE NUMERO DEL CHASIS: "; chasis = cargarCadena();if (cortarSiCero(chasis)){mensajeCargaCancelada();return;};
+    if (!buscarNumChasis(chasis)) {cout << "ESTE NUMERO DE CHASIS YA ESTA REGISTRADO. NO SE PUEDE VOLVER A REGISTRAR."<<endl;mensajeCargaCancelada();return;};
+    cout << "INGRESE NUMERO DEL MOTOR: "; numeroMotor = cargarCadena();if (cortarSiCero(numeroMotor)) return;
+    if (!buscarNumMotor(numeroMotor)) {cout << "ESTE NUMERO DE MOTOR YA ESTA REGISTRADO. NO SE PUEDE VOLVER A REGISTRAR."<<endl;mensajeCargaCancelada();return;};
+
     mostrarPantalla(cliente, id, marca, modelo, patente, anio, chasis, numeroMotor);
     string uso = menu.mostrarUso();
     if (uso == "") return;
@@ -63,7 +64,12 @@ void VehiculoManager::cargar(int iDCliente) {
 
 
 void VehiculoManager::mostrar() {
+    cout << "============================================" << endl;
+    cout << "          LISTADO DE LOS VEHICULOS           " << endl;
+    cout << "============================================" << endl;
     int cantidad = _vehiculosArchivo.cantidadRegistros();
+    if (cantidad == 0) {cout << "NO HAY VEHICULOS REGISTRADOS."<<endl;return;}
+
     for (int i = 0; i < cantidad; i++) {
         Vehiculo vehiculo = _vehiculosArchivo.leer(i);
         if (!vehiculo.getEliminado()) {
@@ -306,8 +312,8 @@ void VehiculoManager::mostrarPantalla(Cliente cli, int id, string marca, string 
     cout << "INGRESE MODELO: " << modelo << endl;
     cout << "INGRESE PATENTE: " << patente << endl;
     cout << "INGRESE ANIO: " << anio << endl;
-    cout << "INGRESE NUMERO DE CHASIS: " << chasis << endl;
-    cout << "INGRESE NUMERO DE MOTOR: " << motor << endl;
+    cout << "INGRESE NUMERO DEL CHASIS: " << chasis << endl;
+    cout << "INGRESE NUMERO DEL MOTOR: " << motor << endl;
     if (uso != "") cout << "USO: " << uso << endl;
     if (categoria != "") cout << "CATEGORIA: " << categoria << endl;
 }
