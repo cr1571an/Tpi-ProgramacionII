@@ -21,7 +21,7 @@ void ReporteMenu::mostrarOpciones() {
     cout << "||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||" << endl;
     cout << "||                      MENU REPORTES                       ||" << endl;
     cout << "||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||" << endl;
-    cout << "||    1 - CLIENTES CON SINIESTROS EN DE TERMINADA FECHA     ||" << endl;
+    cout << "||    1 - HISTORIAL DE PAGOS POR CLIENTE                    ||" << endl;
     cout << "||    2 - REPORTE DE POLIZAS VIGENTES Y VENCIDAS POR FECHA  ||" << endl;
     cout << "||    3 - REPORTE DE COBERTURA DE SINIESTROS POR FECHA      ||" << endl;
     cout << "||----------------------------------------------------------||" << endl;
@@ -45,7 +45,7 @@ int ReporteMenu::seleccionOpcion(){
 void ReporteMenu::ejecutarOpcion(int opcion) {
     switch(opcion) {
         case 1:
-            _clienteManager.clientesConSiniestrosEntreFecha();
+            _clienteManager.historialPagosPorCliente();
             system("pause");
             break;
         case 2:
