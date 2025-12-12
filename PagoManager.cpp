@@ -612,7 +612,7 @@ void PagoManager::pagosPorPolizaId(int idPoliza, Pago pagosPoliza[], int cantida
         if (vencimiento.getIdPoliza() == idPoliza && !vencimiento.getEliminado()){
             if (vencimiento.getPagado()){
                 for (int j = 0; j < cantidadPagosEnArchivo; j++){
-                    if (vectorPagos[j].getIdVencimiento() == vencimiento.getId()){
+                    if (vectorPagos[j].getIdVencimiento() == vencimiento.getId() && !vectorPagos[j].getEliminado()){
                         pagosPoliza[indicePagosPoliza] = vectorPagos[j];
                         indicePagosPoliza++;
                         break;                
@@ -628,7 +628,7 @@ void PagoManager::pagosPorPolizaId(int idPoliza, Pago pagosPoliza[], int cantida
 int PagoManager::cantidadPagosPorPoliza(int idPoliza){
     int cantidadPagos=0;    
     int cantidadVencimientosEnArchivo = _vencimientosArchivo.getCantidadRegistros();
-    
+
     for (int i = 0; i < cantidadVencimientosEnArchivo; i++){
         Vencimiento vencimiento = _vencimientosArchivo.leer(i);
         if (vencimiento.getIdPoliza() == idPoliza && !vencimiento.getEliminado()){
