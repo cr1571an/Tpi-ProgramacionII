@@ -19,6 +19,7 @@ public:
     void listarOrdenadosPorFecha();
     void listarOrdenadosPorMetodoPago();
     void mostrarPagosDePoliza(int idPolizaBuscada);
+    void reporteDeudaPorCliente();
     bool polizaPagosAlDia(int idPoliza);
     void pagosPorPolizaId(int idPoliza, Pago pagosPoliza[], int cantidadPagosPoliza);
     int cantidadPagosPorPoliza(int idPoliza);

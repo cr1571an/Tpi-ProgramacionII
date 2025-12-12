@@ -2,6 +2,7 @@
 #include "PolizaManager.h"
 #include "ClienteManager.h"
 #include "SiniestroManager.h"
+#include "PagoManager.h"
 
 class ReporteMenu{
     public:
@@ -16,6 +17,7 @@ class ReporteMenu{
 
         PolizaManager _polizaManager;
         ClienteManager _clienteManager;
+        PagoManager _pagoManager;
         SiniestroManager _siniestroManager;
-    
+
 };

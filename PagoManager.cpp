@@ -107,6 +107,8 @@ void PagoManager::cargar(int idPoliza)
         return;
     }
 
+    Fecha hoy;
+
     if (fechaPago < poliza.getfechaInicio())
     {
         cout << "La fecha de pago no puede ser anterior a la fecha de inicio de la poliza: " << poliza.getfechaInicio().formatoFecha() << endl;
@@ -115,9 +117,9 @@ void PagoManager::cargar(int idPoliza)
         return;
     }
 
-    if (fechaPago > poliza.getfechaFin())
+    if (fechaPago > hoy)
     {
-        cout << "La fecha de pago no puede ser posterior a la fecha de fin de la poliza: " << poliza.getfechaFin().formatoFecha() << endl;
+        cout << "La fecha ingresada no puede ser posterior a la fecha actual. Hoy es " << hoy.formatoFecha() << endl;
         delete[] vectorVencimientos;
         delete[] vectorIndicesVencimientosPendientes;
         return;
@@ -133,7 +135,8 @@ void PagoManager::cargar(int idPoliza)
              << "  2) Tarjeta de debito" << endl
              << "  3) Tarjeta de credito" << endl
              << "  4) Transferencia bancaria" << endl
-             << "Seleccione (1-4): ";
+             << "  0) Cancelar" << endl
+             << "Seleccione (0-4): ";
 
         if (!(cin >> opcionMetodoPago))
         {
@@ -141,6 +144,12 @@ void PagoManager::cargar(int idPoliza)
             cin.clear();
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
             continue;
+        }
+
+        if (opcionMetodoPago == 0)
+        {
+            cout << "Carga cancelada." << endl;
+            return;
         }
 
         if (opcionMetodoPago == 1) { metodoDePago = "Efectivo"; break; }
@@ -228,6 +237,7 @@ void PagoManager::cambiarFecha(int idPago)
     }
     Poliza poliza = _polizaArchivo.leer(posicionPolizaArchivo);
 
+    cout << endl;
     Fecha nuevaFechaPago = leerFechaValida();
 
     if (nuevaFechaPago.getAnio() == -1)
@@ -280,12 +290,14 @@ void PagoManager::cambiarMetodo(int idPago)
 
     while (true)
     {
-        cout << "Metodo de pago:" << endl
+        cout << endl;
+        cout << "NUEVO metodo de pago:" << endl
              << "  1) Efectivo" << endl
              << "  2) Tarjeta de debito" << endl
              << "  3) Tarjeta de credito" << endl
              << "  4) Transferencia bancaria" << endl
-             << "Seleccione (1-4): ";
+             << "  0) Cancelar" << endl
+             << "Seleccione (0-4): ";
 
         if (!(cin >> opcionMetodoPago))
         {
@@ -293,6 +305,12 @@ void PagoManager::cambiarMetodo(int idPago)
             cin.clear();
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
             continue;
+        }
+
+        if (opcionMetodoPago == 0)
+        {
+            cout << "Operacion cancelada." << endl;
+            return;
         }
 
         if (opcionMetodoPago == 1) { metodoDePago = "Efectivo"; break; }
@@ -336,6 +354,7 @@ void PagoManager::anularPago(int idPago)
     if (posicionVencimientoArchivo == -1)
     {
         cout << "No se encontro el vencimiento asociado al pago." << endl;
+        return;
     }
     else
     {
@@ -581,6 +600,181 @@ void PagoManager::mostrarPagosDePoliza(int idPolizaBuscada)
     }
 }
 
+
+/****** REPORTES ******/
+
+void PagoManager::reporteDeudaPorCliente()
+{
+    int cantidadClientes = _clientesArchivo.getCantidadRegistros();
+    int cantidadPolizas = _polizaArchivo.getCantidadRegistros();
+    int cantidadVehiculos = _vehiculosArchivo.cantidadRegistros();
+    int cantidadVencimientos = _vencimientosArchivo.getCantidadRegistros();
+
+    if (cantidadClientes == 0)
+    {
+        cout << "No hay clientes registrados." << endl;
+        return;
+    }
+    if (cantidadVehiculos == 0)
+    {
+        cout << "No hay vehiculos registrados." << endl;
+        return;
+    }
+    if (cantidadPolizas == 0)
+    {
+        cout << "No hay polizas registradas." << endl;
+        return;
+    }
+    if (cantidadVencimientos == 0)
+    {
+        cout << "No hay vencimientos registrados." << endl;
+        return;
+    }
+
+    Cliente* vectorClientes = new Cliente[cantidadClientes];
+    _clientesArchivo.leerTodos(vectorClientes, cantidadClientes);
+
+    int*   vectorIdClientePorPoliza = new int[cantidadVencimientos];
+    int*   vectorIdPolizaPorCliente = new int[cantidadVencimientos];
+    float* vectorDeudaPorClienteYPoliza = new float[cantidadVencimientos];
+
+    int cantidadCombinacionesClientePoliza = 0;
+
+    for (int indice = 0; indice < cantidadVencimientos; indice++)
+    {
+        vectorDeudaPorClienteYPoliza[indice] = 0.0;
+    }
+
+    for (int indiceVencimiento = 0; indiceVencimiento < cantidadVencimientos; indiceVencimiento++)
+    {
+        Vencimiento vencimientoActual = _vencimientosArchivo.leer(indiceVencimiento);
+
+        if (vencimientoActual.getEliminado()) continue;
+        if (vencimientoActual.getPagado()) continue;
+        if (!vencimientoActual.estaVencido()) continue;
+
+        int idPolizaDelVencimiento = vencimientoActual.getIdPoliza();
+        Poliza polizaAsociada;
+        bool polizaEncontrada = false;
+
+        for (int indicePoliza = 0; indicePoliza < cantidadPolizas; indicePoliza++)
+        {
+            Poliza polizaLeida = _polizaArchivo.leer(indicePoliza);
+            if (polizaLeida.getEliminado()) continue;
+            if (polizaLeida.getId() == idPolizaDelVencimiento)
+            {
+                polizaAsociada = polizaLeida;
+                polizaEncontrada = true;
+                break;
+            }
+        }
+        if (!polizaEncontrada) continue;
+
+        int idVehiculoDeLaPoliza = polizaAsociada.getIdVehiculo();
+        Vehiculo vehiculoAsociado;
+        bool vehiculoEncontrado = false;
+
+        for (int indiceVehiculo = 0; indiceVehiculo < cantidadVehiculos; indiceVehiculo++)
+        {
+            Vehiculo vehiculoLeido = _vehiculosArchivo.leer(indiceVehiculo);
+            if (vehiculoLeido.getEliminado()) continue;
+            if (vehiculoLeido.getIdVehiculo() == idVehiculoDeLaPoliza)
+            {
+                vehiculoAsociado = vehiculoLeido;
+                vehiculoEncontrado = true;
+                break;
+            }
+        }
+        if (!vehiculoEncontrado) continue;
+
+        int idClienteDelVehiculo = vehiculoAsociado.getIdCliente();
+        int posicionCombinacion = -1;
+
+        for (int indiceCombinacion = 0; indiceCombinacion < cantidadCombinacionesClientePoliza; indiceCombinacion++)
+        {
+            if (vectorIdClientePorPoliza[indiceCombinacion] == idClienteDelVehiculo && vectorIdPolizaPorCliente[indiceCombinacion] == polizaAsociada.getId())
+            {
+                posicionCombinacion = indiceCombinacion;
+                break;
+            }
+        }
+
+        if (posicionCombinacion == -1)
+        {
+            posicionCombinacion = cantidadCombinacionesClientePoliza;
+            vectorIdClientePorPoliza[posicionCombinacion] = idClienteDelVehiculo;
+            vectorIdPolizaPorCliente[posicionCombinacion] = polizaAsociada.getId();
+            vectorDeudaPorClienteYPoliza[posicionCombinacion] = 0.0;
+            cantidadCombinacionesClientePoliza++;
+        }
+
+        vectorDeudaPorClienteYPoliza[posicionCombinacion] += vencimientoActual.getMonto();
+    }
+
+    cout << "||||||||||||||||||||||||||||||||||||||||||||||||||||||||" << endl;
+    cout << "||      DEUDA DE VENCIMIENTOS POR CLIENTE Y POLIZA    ||" << endl;
+    cout << "||||||||||||||||||||||||||||||||||||||||||||||||||||||||" << endl << endl;
+
+    cout << fixed << setprecision(2);
+
+    bool clienteConDeudaEncontrado = false;
+
+    for (int indiceCliente = 0; indiceCliente < cantidadClientes; indiceCliente++)
+    {
+        Cliente clienteActual = vectorClientes[indiceCliente];
+        if (clienteActual.getEliminado()) continue;
+
+        float deudaTotalDelCliente = 0.0;
+        bool clienteConDeuda = false;
+
+        for (int indiceCombinacion = 0; indiceCombinacion < cantidadCombinacionesClientePoliza; indiceCombinacion++)
+        {
+            if (vectorIdClientePorPoliza[indiceCombinacion] != clienteActual.getIdCliente())
+            {
+                continue;
+            }
+
+            float deudaPoliza = vectorDeudaPorClienteYPoliza[indiceCombinacion];
+            if (deudaPoliza <= 0.0)
+            {
+                continue;
+            }
+
+            if (!clienteConDeuda)
+            {
+                cout << "CLIENTE: " << clienteActual.getNombre() << " " << clienteActual.getApellido() << endl;
+                cout << "ID CLIENTE: " << clienteActual.getIdCliente() << endl;
+                cout << "DNI: " << clienteActual.getDni() << endl;
+                cout << endl;
+                clienteConDeuda = true;
+                clienteConDeudaEncontrado = true;
+            }
+
+            cout << "  POLIZA " << vectorIdPolizaPorCliente[indiceCombinacion] << endl;
+            cout << "  DEUDA: $ " << deudaPoliza << endl;
+            cout << "  -----------------------------" << endl;
+
+            deudaTotalDelCliente += deudaPoliza;
+        }
+
+        if (clienteConDeuda)
+        {
+            cout << "  DEUDA TOTAL: $ " << deudaTotalDelCliente << endl << endl;
+            cout << "=============================================" << endl << endl;
+        }
+    }
+
+    if (!clienteConDeudaEncontrado)
+    {
+        cout << "No se registran clientes con deuda de vencimientos vencidos." << endl;
+    }
+
+    delete[] vectorClientes;
+    delete[] vectorIdClientePorPoliza;
+    delete[] vectorIdPolizaPorCliente;
+    delete[] vectorDeudaPorClienteYPoliza;
+}
+
 bool PagoManager::polizaPagosAlDia(int idPoliza){
     int posicionPolizaArchivo = _vencimientosArchivo.buscarID(idPoliza);
     if (posicionPolizaArchivo == -1){
@@ -638,7 +832,3 @@ int PagoManager::cantidadPagosPorPoliza(int idPoliza){
     }
     return cantidadPagos;
 }
-
-
-
-
