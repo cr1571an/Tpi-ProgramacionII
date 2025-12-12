@@ -56,7 +56,6 @@ void PolizaMenu::mostrarOpcionesSubMenuModificar(){
 ||     1 - FECHA INICIO                  ||
 ||     2 - PRIMA MENSUAL                 ||
 ||     3 - TIPO DE SEGURO                ||
-||     4 - ACTIVA O INACTIVA             ||
 |||||||||||||||||||||||||||||||||||||||||||
 ||     0 - VOLVER AL MENU ANTERIOR       ||
 |||||||||||||||||||||||||||||||||||||||||||
