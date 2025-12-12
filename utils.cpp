@@ -66,3 +66,6 @@ bool cortarSiCero(string texto) {
   return texto == "0";
 }
 
+void mensajeCargaCancelada() {
+  cout << "CARGA CANCELADA." << endl;
+}
