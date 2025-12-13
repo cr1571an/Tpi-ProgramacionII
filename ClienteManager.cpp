@@ -3,7 +3,7 @@
 #include "ClienteManager.h"
 #include <iostream>
 #include <bits/ostream.tcc>
-
+#include "ClienteMenu.h"
 #include "utils.h"
 using namespace std;
 
@@ -33,20 +33,21 @@ void ClienteManager::cargar() {
   string apellido = cargarCadena(); if (cortarSiCero(apellido)) return;
   cout << "INGRESA D.N.I: ";
   string dni = cargarCadena(); if (cortarSiCero(dni)) return;
-  if (!verificarRegistroPorDNI(dni)){cout << "EL D.N.I YA ESTA REGISTRADO. NO SE PUEDE VOLVER A REGISTRAR."<<endl;return;}
+  if (!verificarRegistroPorDNI(dni)){cout << "EL D.N.I YA ESTA REGISTRADO. NO SE PUEDE VOLVER A REGISTRAR."<<endl;mensajeCargaCancelada();return;};
   cout << "INGRESA TELEFONO: ";
-  string telefono = cargarCadena(); if (cortarSiCero(telefono)) return;
-  if (!telefonoDisponible(telefono)) {cout <<"EL TELEFONO YA ESTA REGISTRADO. NO SE PUEDE VOLVER A REGISTRAR."<< endl;return;}
+  string telefono = cargarCadena(); if (cortarSiCero(telefono)) {mensajeCargaCancelada();return;};
+  if (!telefonoDisponible(telefono)) {cout <<"EL NUMERO DE TELEFONO YA ESTA REGISTRADO. NO SE PUEDE VOLVER A REGISTRAR."<< endl;mensajeCargaCancelada();return;};
   cout << "INGRESAR CORREO: ";
-  string correo = cargarCadena(); if (cortarSiCero(correo)) return;
-  if (!correoDisponible(correo)) {cout <<"EL CORREO YA ESTA REGISTRADO. NO SE PUEDE VOLVER A REGISTRAR."<< endl;return;}
+  string correo = cargarCadena(); if (cortarSiCero(correo)) {mensajeCargaCancelada();return;};
+  if (!correoDisponible(correo)) {cout <<"EL CORREO YA ESTA REGISTRADO. NO SE PUEDE VOLVER A REGISTRAR."<< endl;mensajeCargaCancelada();return;};
   cout << "INGRESAR FECHA DE NACIMIENTO."<<endl;
   Fecha fechaNacimiento = leerFechaValida();
+  if (fechaNacimiento.getAnio() == -1) {mensajeCargaCancelada();return;};
   if (!validarEdad(fechaNacimiento)) return;
   cout << "INGRESAR PARTIDO: ";
-  string partido = cargarCadena(); if (cortarSiCero(correo)) return;
+  string partido = cargarCadena(); if (cortarSiCero(correo)){mensajeCargaCancelada();return;};
   cout << "INGRESAR LOCALIDAD: ";
-  string localidad = cargarCadena(); if (cortarSiCero(correo)) return;
+  string localidad = cargarCadena(); if (cortarSiCero(correo)) {mensajeCargaCancelada();return;};
 
   Cliente nuevoCliente(idCliente, nombre, apellido, dni, telefono, correo, partido, localidad, false, fechaNacimiento);
 
@@ -58,7 +59,12 @@ void ClienteManager::cargar() {
 }
 
 void ClienteManager::mostrar() {
+  cout << "============================================" << endl;
+  cout << "          LISTADO DE LOS CLIENTES           " << endl;
+  cout << "============================================" << endl;
   int cantidad = _clientesArchivo.getCantidadRegistros();
+  if (cantidad == 0) {cout << "NO HAY CLIENTES REGISTRADOS."<<endl;return;}
+
   Cliente *vCliente = new Cliente[cantidad];
   if(vCliente == nullptr){
     cout << "No se pudo asignar memoria..." << endl;
@@ -93,8 +99,9 @@ bool ClienteManager::recuperar(int idCliente) {
 
 void ClienteManager::mostrarLista(Cliente cliente, bool mostrarDatosDeCliente) {
   if (cliente.getEliminado() == mostrarDatosDeCliente) {
-    cout <<endl;
-    cout << "NUMERO DEL CLIENTE: " << cliente.getIdCliente()<<endl;
+    cout << "=============================================" <<endl;
+    cout <<centrar("NUMERO DEL CLIENTE: " + to_string(cliente.getIdCliente()),45)<<endl;
+    cout << "============================================="<<endl;
     cout << "NOMBRE: " << cliente.getNombre()<<endl;
     cout << "APELLIDO: " << cliente.getApellido()<<endl;
     cout << "D.N.I: " << cliente.getDni()<<endl;
@@ -102,7 +109,7 @@ void ClienteManager::mostrarLista(Cliente cliente, bool mostrarDatosDeCliente) {
     cout << "CORREO: " << cliente.getEmail()<<endl;
     cout << "FECHA DE NACIMIENTO: " << cliente.getFechaNacimiento().formatoFecha()<<endl;
     cout << "PARTIDO: " << cliente.getPartido()<<endl;
-    cout << "LOCALIDAD: " << cliente.getLocalidad()<<endl;
+    cout << "LOCALIDAD: " << cliente.getLocalidad()<<endl<<endl;
   }
 }
 
@@ -315,7 +322,7 @@ void ClienteManager::modificarPartido(int idCliente) {
     Cliente cliente = _clientesArchivo.leer(pos);
     cout << "INGRESAR EL NUEVO PARTIDO: ";
     string partido = cargarCadena();
-    cliente.setLocalidad(partido);
+    cliente.setPartido(partido);
     if (_clientesArchivo.actualizarRegistro(pos, cliente)){
       cout << "PARTIDO MODIFICADO CORRECTAMENTE."<<endl;
     } else {
@@ -330,102 +337,225 @@ bool ClienteManager::validarEdad(Fecha fechaNacimiento) {
   Fecha fechaActual;
   int resultado = fechaNacimiento.validarEdad(fechaActual);
   if (resultado ==-2) {
-    cout << "ERROR! DEBE SER MAYOR DE EDAD."<<endl;
+    cout << "FECHA DE NACIMIENTO INVALIDAD!.."<<endl;
+    mensajeCargaCancelada();
     return false;
   }
   if (resultado==-1) {
-    cout << "ERROR! NO PUEDE TENER MAS DE 105 ANIOS."<<endl;
+    cout << "FECHA DE NACIMIENTO INVALIDAD!.."<<endl;
+    mensajeCargaCancelada();
     return false;
   }
   return true;
 }
 
-void ClienteManager::clientesConSiniestrosEntreFecha() {
+int ClienteManager::hayClientesReg(){
   int cantClientes = _clientesArchivo.getCantidadRegistros();
-  if ( cantClientes== 0) {cout << "NO HAY CLIENTES REGISTRADOS."<< endl;return;}
-  int cantVehiculos = _vehiculosArchivo.cantidadRegistros();
-  if (cantVehiculos == 0) {cout << "NO HAY VEHICULOS REGISTRADOS." <<endl;return;}
-  int cantSiniestros = _siniestroArchivo.getCantidadRegistros();
-  if (cantSiniestros == 0) {cout << "NO HAY SINIESTROS REGISTRADOS." <<endl;return;}
+  if (cantClientes == 0) {
+    cout << "NO HAY CLIENTES REGISTRADOS." << endl;
+    return 0;
+  }
+  return cantClientes;
+}
+
+int ClienteManager::hayPolizasReg(){
   int cantPolizas = _polizasArchivo.getCantidadRegistros();
-  if (cantPolizas == 0) {cout << "NO HAY POLIZAS REGISTRADOS." << endl;return;}
-  cout << "||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||"<<endl;
-  cout << "| CONSULTA DE CLIENTES CON SINIESTROS EN DETERMINADA FECHAS  |"<<endl;
-  cout << "--------------------------------------------------------------"<<endl<< endl;
-  cout << "INGRESE LA FECHA DE INICIO DEL PERIODO"<<endl;
-  Fecha fechaInicio = leerFechaValida();
-  if (fechaInicio.getAnio() == -1){return;}
-  Fecha hoy;
-  cout << "INGRESE LA FECHA DE FIN DEL PERIODO"<< endl;
-  Fecha fechaFin = leerFechaValida();
-  if ( fechaFin > hoy){cout << "ERROR! LA FECHA DE FIN NO PUEDE MAYOR A LA FECHA DE HOY." <<endl;return;}
-  if (fechaInicio.getAnio() == -1){return;}
-  if (fechaFin < fechaInicio){cout << "ERROR! LA FECHA DE FIN NO PUEDE SER MENOR A LA FECHA DE INICIO." <<endl;
-      return;
+  if (cantPolizas == 0) {
+    cout << "NO HAY POLIZAS REGISTRADAS." << endl;
+    return 0;
   }
-  bool seEncontroAlMenosUno = false;
-  bool titilo = true;
-  system("cls");
-  // RECORRE TODOS LOS SINIESTROS
-  for (int i = 0; i < cantSiniestros; ++i){
-      Siniestro s = _siniestroArchivo.leer(i);
-      if (s.getEliminado())continue;
-      Fecha f = s.getFechaSiniestro();
-      if (f >= fechaInicio && f <= fechaFin){
-          // BUSCA LA POLIZA RELACIONADA AL SINIESTRO EN CUESTION
-          int idPoliza = s.getIdPoliza();
-          Poliza poliza;
-          bool polizaEncontrada= false;
-          for (int j = 0; j < cantPolizas; ++j) {
-              Poliza p = _polizasArchivo.leer(j);
-              if (!p.getEliminado() && p.getId() == idPoliza){
-                  poliza = p;
-                  polizaEncontrada = true;
-                  break;
-              }
-          }
-          if (!polizaEncontrada)continue;
-          // BUSCA EL VEHICULO DE LA POLIZA
-          int idVehiculo = poliza.getIdVehiculo();
-          Vehiculo vehiculo;
-          bool vehiculoEncontrado=false;
-          for (int k = 0; k < cantVehiculos; ++k){
-              Vehiculo v = _vehiculosArchivo.leer(k);
-              if (!v.getEliminado() && v.getIdVehiculo() == idVehiculo){
-                  vehiculo = v;
-                  vehiculoEncontrado =true;
-                  break;
-              }
-          }
-          if (!vehiculoEncontrado)continue;
-          // BUSCA EL CLIENTE QUE ESTA ASOCIADO EL VEHICULO
-          int idCliente = vehiculo.getIdCliente();
-          Cliente cliente;
-          bool clienteEncontrado= false;
-          for(int l = 0; l < cantClientes; ++l){
-              Cliente c = _clientesArchivo.leer(l);
-              if (!c.getEliminado() && c.getIdCliente() == idCliente){
-                  cliente = c;
-                  clienteEncontrado =true;
-                  break;
-              }
-          }
-          // SI NO SE ENCONTRO EL CLIENTE (SIGUE)
-          if(!clienteEncontrado)continue;
-          seEncontroAlMenosUno = true;
-          if (seEncontroAlMenosUno && titilo) {
-              titilo = false;
-              cout << "||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||"<<endl;
-              cout << "  CLIENTES QUE REGISTRARON SINIESTROS ENTRE LAS FECHAS "<<fechaInicio.formatoFecha()<< " Y " <<fechaFin.formatoFecha()<<endl;
-              cout << "||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||"<<endl<< endl;
-          }
-          cout <<"CLIENTE: " <<cliente.getNombre()<< " " << cliente.getApellido()<< " | DNI: " <<cliente.getDni()<<endl;
-          cout <<"TIPO DE SINIESTRO : " <<_tiposSiniestrosArchivo.leer(_tiposSiniestrosArchivo.buscarID(s.getId())).getDescripcion()<<endl;
-          cout <<"FECHA: " <<f.formatoFecha()<< " | PRESUPUESTO: $" <<s.getCostoEstimado()<<endl;
-          cout << "---------------------------------------------" << endl;
+  return cantPolizas;
+}
+
+int ClienteManager::hayPagosVencReg(){
+  int cantVencimientos = _vencimientosArchivo.getCantidadRegistros();
+  if (cantVencimientos == 0) {
+    cout << "NO HAY PAGOS REGISTRADOS." << endl;
+    return 0;
+  }
+  return cantVencimientos;
+}
+
+int ClienteManager::hayPagosReg(){
+  int cantPagos = _pagoArchivo.getCantidadRegistros();
+  if (cantPagos == 0){
+    cout << "NO HAY PAGOS REGISTRADOS." << endl;
+    return cantPagos;
+  }
+  return cantPagos;
+}
+
+void ClienteManager::clientesConAtrasoEnLosPagos() {
+  int cantClientes = hayClientesReg();
+  int cantPolizas = hayPolizasReg();
+  int cantPagos = hayPagosVencReg();
+  if (cantClientes==0 || cantPolizas==0 || cantPagos==0) return;
+  bool titulo = true;
+  bool hayImpagos = false;
+
+  for (int i=0; i<cantClientes; i++){
+    Cliente cliente = _clientesArchivo.leer(i);
+    if (cliente.getEliminado()) continue;
+
+    for (int j=0; j<cantPolizas; j++){
+      Poliza poliza = _polizasArchivo.leer(j);
+      if (poliza.getEliminado()) continue;
+
+      int idVehiculo = poliza.getIdVehiculo();
+      Vehiculo vehiculo = _vehiculosArchivo.leer(_vehiculosArchivo.buscarVehiculo(idVehiculo));
+      if (vehiculo.getIdCliente() != cliente.getIdCliente()) continue;
+
+      for (int k=0; k<cantPagos; k++){
+        Vencimiento vencimiento = _vencimientosArchivo.leer(k);
+        if (!vencimiento.getEliminado() && vencimiento.getIdPoliza() == poliza.getId() && vencimiento.estaVencido() &&
+         !vencimiento.getPagado()) continue;
+        if (titulo){
+          cout << "||||||||||||||||||||||||||||||||||||||||||||" << endl;
+          cout << "|       CLIENTES CON PAGOS ATRASADAS       |" << endl;
+          cout << "||||||||||||||||||||||||||||||||||||||||||||" << endl;
+          titulo = false;
+        }
+        hayImpagos = true;
+        cout << "CLIENTE: " <<cliente.getApellido()<< ", " <<cliente.getNombre()<< endl;
+        cout << "DNI: " <<cliente.getDni()<<endl;
+        cout << "NUMERO DE POLIZA: " <<poliza.getId()<<endl;
+        cout << "FECHA DE VENCIMIENTO: " <<vencimiento.getVencimiento().formatoFecha()<<endl;
+        cout << "MONTO: $" << vencimiento.getMonto()<<endl;
+        cout << "--------------------------------------------" <<endl;
       }
+    }
   }
-  if (!seEncontroAlMenosUno) {
-      cout << "NO SE REGISTRARON SINIESTROS EN ESE PERIODO."<<endl;
+  if (!hayImpagos) {
+    cout << "NO HAY CLIENTES CON PAGOS ATRASADAS."<<endl;
   }
 }
+
+int ClienteManager::buscarClienteParaHistorial() {
+    ClienteMenu _clienteMenu;
+    int idCliente = _clienteMenu.buscarCliente();
+    if (idCliente == -3) return -3;
+    if (idCliente == -1) {
+        cout << "ERROR!. EL CLIENTE NO EXISTE."<<endl;
+        return -1;
+    }
+    return idCliente;
+}
+
+bool ClienteManager::esPagoDeCliente(int idxPago, int idCliente) {
+  Pago pago = _pagoArchivo.leer(idxPago);
+  if (pago.getEliminado()) return false;
+  int idVencimiento = pago.getIdVencimiento();
+  int posVencimiento = _vencimientosArchivo.buscarID(idVencimiento);
+  if (posVencimiento == -1) return false;
+
+  Vencimiento vencimiento = _vencimientosArchivo.leer(posVencimiento);
+  int idPoliza = vencimiento.getIdPoliza();
+  int posPoliza = _polizasArchivo.buscarID(idPoliza);
+  if (posPoliza == -1) return false;
+
+  Poliza poliza = _polizasArchivo.leer(posPoliza);
+  int idVehiculo = poliza.getIdVehiculo();
+  int posVehiculo = _vehiculosArchivo.buscarVehiculo(idVehiculo);
+  if (posVehiculo == -1) return false;
+
+  Vehiculo vehiculo = _vehiculosArchivo.leer(posVehiculo);
+  return vehiculo.getIdCliente() == idCliente;
+}
+
+int ClienteManager::contarPagosDeCliente(int idCliente){
+    int cantPagos = hayPagosVencReg();
+    int contador=0;
+    for (int i=0; i<cantPagos; i++){
+        if (esPagoDeCliente(i, idCliente)) contador++;
+    }
+    return contador;
+}
+
+
+void ClienteManager::historialPagosPorCliente(){
+  int cantClientes = hayClientesReg();
+  int cantPagos = hayPagosReg();
+  if (cantClientes==0 || cantPagos==0) return;
+    system("cls");
+    cout << "||||||||||||||||||||||||||||||||||||||||||||||||||||||||||" << endl;
+    cout << "||    BUSCAR CLIENTE PARA VER SU HISTORIAL DE PAGOS     ||" << endl;
+    cout << "||------------------------------------------------------||" << endl;
+
+    int idCliente = buscarClienteParaHistorial();
+    if (idCliente<0) return;
+
+    Cliente cliente = _clientesArchivo.leer(_clientesArchivo.buscarIdCliente(idCliente));
+    int contador = contarPagosDeCliente(idCliente);
+    if (contador ==0){cout <<"NO SE REGISTRARON PAGOS PARA ESTE CLIENTE."<<endl;return;}
+
+    int *idsPago = new int[ contador];
+    string *fechasPago = new string[contador];
+    int *idsPoliza = new int[contador];
+    int *idsVencimiento = new int[contador];
+    int *idsVehiculo = new int[contador];
+
+    int idx=0;
+    for (int i=0; i<cantPagos && idx<contador; i++){
+      if (!esPagoDeCliente(i, idCliente)) continue;
+
+      Pago pago = _pagoArchivo.leer(i);
+      int idVencimiento = pago.getIdVencimiento();
+      int posVencimiento = _vencimientosArchivo.buscarID(idVencimiento);
+      if (posVencimiento == -1) continue;
+
+      Vencimiento vencimiento = _vencimientosArchivo.leer(posVencimiento);
+      int idPoliza = vencimiento.getIdPoliza();
+      int posPoliza = _polizasArchivo.buscarID(idPoliza);
+      if (posPoliza == -1) continue;
+      int idVehiculo = _polizasArchivo.leer(posPoliza).getIdVehiculo();
+      idsPago[idx] = pago.getId();
+      fechasPago[idx] = pago.getFechaPago().formatoFecha();
+      idsPoliza[idx] = idPoliza;
+      idsVencimiento[idx] = idVencimiento;
+      idsVehiculo[idx] = idVehiculo;
+      idx++;
+    }
+    system("cls");
+    cout << "||||||||||||||||||||||||||||||||||||||||||||||" << endl;
+    cout << "||      HISTORIAL DE PAGOS DEL CLIENTE      ||" << endl;
+    cout << "||------------------------------------------||" << endl;
+    cout << "CLIENTE: "<<cliente.getApellido()<<", "<<cliente.getNombre()<<endl;
+    cout << "DNI: " <<cliente.getDni()<<endl;
+    cout << "----------------------------------------------" << endl;
+    for (int i=0; i<contador; i++){
+      cout <<i+1<< ") FECHA: " <<fechasPago[i]<< " | POLIZA: " <<idsPoliza[i] <<endl;
+    }
+    int opcion;
+    cout << "INGRESE EL NUMERO DEL HISTORIAL PARA VER FACTURA (0 PARA SALIR): " ;
+    cin >> opcion;
+
+    if (opcion<=0 || opcion>contador){cout <<"OPERACION CANCELADA."<<endl;
+    } else {
+        int sel = opcion-1;
+        Poliza poliza = _polizasArchivo.leer(_polizasArchivo.buscarID(idsPoliza[sel]));
+        Vehiculo vehiculo = _vehiculosArchivo.leer(_vehiculosArchivo.buscarVehiculo(idsVehiculo[sel]));
+        system("cls");
+        cout << "|||||||||||||||||||||||||||||||||||||||||||||" <<endl;
+        cout << "||             FACTURA DE SEGURO           ||  " <<endl;
+        cout << "||-----------------------------------------||" <<endl;
+        cout << "FECHA DE EMISION: "<<Fecha().formatoFecha()<<endl;
+        cout << "--------------------------------------------" <<endl;
+        cout << "CLIENTE: " <<cliente.getApellido()<< ", " <<cliente.getNombre()<<endl;
+        cout << "DNI: " << cliente.getDni()<<endl;
+        cout << "VEHICULO: " <<vehiculo.getPatente()<<endl;
+        cout << "--------------------------------------------" << endl;
+        cout << "NUMERO DE POLIZA: " <<poliza.getId()<<endl;
+        cout << "TIPO SEGURO: " <<_tiposSegurosArchivo.leer(_tiposSegurosArchivo.buscarID(poliza.getIdTipoSeguro())).getDescripcion()<<endl;
+        cout << "FECHA INICIO: " <<poliza.getfechaInicio().formatoFecha()<<endl;
+        cout << "VENCIMIENTO: " <<poliza.getfechaFin().formatoFecha()<<endl;
+        cout << "PRIMA MENSUAL: $" << poliza.getPrimaMensual()<<endl;
+        cout << "SUMA ASEGURADA: " <<poliza.getSumaAsegurada()<<endl;
+        cout << "--------------------------------------------"<<endl;
+    }
+    delete[] idsPago;
+    delete[] fechasPago;
+    delete[] idsPoliza;
+    delete[] idsVencimiento;
+    delete[] idsVehiculo;
+}
+

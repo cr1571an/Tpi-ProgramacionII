@@ -31,5 +31,4 @@ class VehiculoManager {
     private:
         VehiculosArchivo _vehiculosArchivo;
         ClientesArchivo _clientesArchivo;
-
 };

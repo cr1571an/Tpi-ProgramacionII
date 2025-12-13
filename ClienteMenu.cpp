@@ -108,9 +108,6 @@ int ClienteMenu::buscarCliente() {
             cout << "INGRESE EL NUMERO DEL CLIENTE: ";
             cin >> id;
             cin.ignore();
-            int pos = _clientesArchivo.buscarIdCliente(id);
-            if (pos == -1) return -1;
-            if (pos == -2)return -2;
             return id;
         } else if (tipoBusqueda == 2) {
             system("cls");

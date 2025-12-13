@@ -1,6 +1,8 @@
 #include "VehiculosArchivo.h"
-using namespace std;
+#include "PolizaArchivo.h"
 #include <iostream>
+
+using namespace std;
 
 
 VehiculosArchivo::VehiculosArchivo(string nombreArchivo)
@@ -83,7 +85,6 @@ bool VehiculosArchivo::recuperarVehiculo(int id) {
     return actualizarVehiculo(pos, registro);
 }
 
-
 bool VehiculosArchivo::actualizarVehiculo(int pos, Vehiculo registro) {
     FILE *archivo_vehiculo = fopen(_nombreArchivo.c_str(), "rb+");
     if (archivo_vehiculo == nullptr) {
@@ -97,13 +98,21 @@ bool VehiculosArchivo::actualizarVehiculo(int pos, Vehiculo registro) {
 
 void VehiculosArchivo::eliminarVehiculosDeCliente(int idCliente) {
     int cantidad = cantidadRegistros();
-    Vehiculo* v = new Vehiculo[cantidad];
+    Vehiculo *v = new Vehiculo[cantidad];
     leerTodos(v, cantidad);
-    for (int i = 0; i < cantidad; ++i) {
-        if (v[i].getIdCliente() == idCliente && !v[i].getEliminado()) {
-            eliminarVehiculo(v[i].getIdVehiculo());
-        }
-    }
+    PolizaArchivo polizaArchivo;
+    for (int i=0; i<cantidad; ++i){
+        if (v[i].getIdCliente() == idCliente && !v[i].getEliminado()){
+            int idVehiculo = v[i].getIdVehiculo();
+            eliminarVehiculo(idVehiculo);
+            int cantidadPolizas = polizaArchivo.getCantidadRegistros();
+            for (int j = 0; j < cantidadPolizas; ++j){
+                Poliza poliza = polizaArchivo.leer(j);
+                if (!poliza.getEliminado() && poliza.getIdVehiculo() == idVehiculo){
+                    polizaArchivo.eliminar(j);}
+             }
+         }
+     }
     delete[] v;
 }
 

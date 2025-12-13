@@ -66,3 +66,13 @@ bool cortarSiCero(string texto) {
   return texto == "0";
 }
 
+void mensajeCargaCancelada() {
+  cout << "CARGA CANCELADA." << endl;
+}
+
+string centrar(string texto, int ancho) {
+  int espacios = ancho - texto.size();
+  int izquierda = espacios / 2;
+  int derecha = espacios - izquierda;
+  return string(izquierda, ' ') + texto + string(derecha, ' ');
+}

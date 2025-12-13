@@ -2,6 +2,7 @@
 #include "utils.h"
 #include "Cliente.h"
 #include "TipoSeguro.h"
+#include "PolizaMenu.h"
 #include <iostream>
 #include <iomanip> 
 using namespace std;
@@ -30,36 +31,31 @@ void PolizaManager::mostrar() {
 void PolizaManager::cargar() {
     const int plazoPoliza = 3;
     string patente;
-    cout << "============================================" << endl;
-    cout << "       FORMULARIO DE ALTA DE POLIZA         " << endl;
+    int idSeguro, sumaAsegurada, id = _archivo.getNuevoID();
+    Fecha inicio, fin;
+    float prima;
+    PolizaMenu polizaMenu;
+    idSeguro = polizaMenu.mostrarSeguro();
+    if (idSeguro == 0) return;
+    system("cls");
+    cout << "=============================================" << endl;
+    cout << centrar("SEGURO " + _archivoTipoSeguros.leer(idSeguro - 1).getDescripcion(),45)<<endl;
+    cout << centrar("NUMERO DE POLIZA " + to_string(id),45)<<endl;
     cout << "============================================" << endl;
     cout << "INGRESE LA PATENTE DEL VEHICULO: ";
     patente = cargarCadena();
+
     int idVehiculo = _vehiculoManager.buscarIdPorPatente(patente);
     if (idVehiculo != -1) {
         if (tienePolizasVigentes(idVehiculo)) {
             cout << "EL VEHICULO YA TIENE UNA POLIZA VIGENTE. NO SE PUEDE CREAR UNA NUEVA POLIZA." << endl;
             return;
         }
-        int id = _archivo.getNuevoID();
-        Fecha inicio, fin;
-        cout << "FECHA DE INICIO DE LA POLIZA:" << endl;
-        inicio = leerFechaValida();
-        fin = inicio;
-        fin.sumarMes(plazoPoliza);
-        float prima;
-        int tipo;
-        cout << "ID TIPO DE SEGURO: "; cin >> tipo;
-        int posTipoSeguro = _archivoTipoSeguros.buscarID(tipo);
-        if (posTipoSeguro == -1) {
-            cout << "TIPO DE SEGURO NO ENCONTRADO. OPERACION CANCELADA." << endl;
-            return;
-        }
-
-        cout << "PRIMA MENSUAL: "; cin >> prima;
-
-        Poliza p(id, idVehiculo, inicio, fin, prima, tipo, true, false);
+        cout << "INGRESA PRIMA MENSUAL: "; cin >> prima;
+        cout <<endl<< "INGRESA EL VALOR ASEGURADO DEL VEHICULO: "; cin >> sumaAsegurada;
+        Poliza p(id, idVehiculo, inicio, fin, prima, sumaAsegurada, idSeguro, false);
         cout << (_archivo.guardar(p) ? "POLIZA CREADA." : "NO SE PUDO CREAR LA POLIZA.") << endl;
+        fin.sumarMes(plazoPoliza);
         generarVencimientos(p,plazoPoliza);
     } else {
         cout << "NO SE ENCONTRARON VEHICULOS CON ESA PATENTE." << endl;

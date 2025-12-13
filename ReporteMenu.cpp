@@ -1,13 +1,11 @@
 #include <iostream>
 #include "ReporteMenu.h"
 using namespace std;
-
-ReporteMenu::ReporteMenu() : _polizaManager(), _clienteManager(), _pagoManager(), _siniestroManager() {
-    _cantidadOpciones = 4;
+ReporteMenu::ReporteMenu(): _polizaManager(), _clienteManager() {
+    _cantidadOpciones = 3;
 }
-
 void ReporteMenu::mostrar(){
-
+    
     int opcion;
 
     do{
@@ -23,13 +21,12 @@ void ReporteMenu::mostrarOpciones() {
     cout << "||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||" << endl;
     cout << "||                      MENU REPORTES                       ||" << endl;
     cout << "||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||" << endl;
-    cout << "||    1 - CLIENTES CON SINIESTROS EN DETERMINADA FECHA      ||" << endl;
+    cout << "||    1 - HISTORIAL DE PAGOS POR CLIENTE                    ||" << endl;
     cout << "||    2 - REPORTE DE POLIZAS VIGENTES Y VENCIDAS POR FECHA  ||" << endl;
     cout << "||    3 - REPORTE DE COBERTURA DE SINIESTROS POR FECHA      ||" << endl;
-    cout << "||    4 - REPORTE DE DEUDA POR CLIENTE                      ||" << endl;
     cout << "||----------------------------------------------------------||" << endl;
     cout << "||    0 - VOLVER                                            ||" << endl;
-    cout << "||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||" << endl << endl;
+    cout << "||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||" << endl<<endl;
     cout << "SELECCIONE UNA OPCION: ";
 }
 
@@ -48,7 +45,7 @@ int ReporteMenu::seleccionOpcion(){
 void ReporteMenu::ejecutarOpcion(int opcion) {
     switch(opcion) {
         case 1:
-            _clienteManager.clientesConSiniestrosEntreFecha();
+            _clienteManager.historialPagosPorCliente();
             system("pause");
             break;
         case 2:
@@ -57,10 +54,6 @@ void ReporteMenu::ejecutarOpcion(int opcion) {
             break;
         case 3:
             _siniestroManager.reporteCoberturaSiniestros();
-            system("pause");
-            break;
-            case 4:
-            _pagoManager.reporteDeudaPorCliente();
             system("pause");
             break;
         case 0:
