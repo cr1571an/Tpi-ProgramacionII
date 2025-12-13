@@ -28,7 +28,6 @@ void PolizaManager::mostrar() {
 }
 
 void PolizaManager::cargar() {
-    const int plazoPoliza = 3;
     string patente;
     cout << "============================================" << endl;
     cout << "       FORMULARIO DE ALTA DE POLIZA         " << endl;
@@ -37,6 +36,13 @@ void PolizaManager::cargar() {
     patente = cargarCadena();
     int idVehiculo = _vehiculoManager.buscarIdPorPatente(patente);
     if (idVehiculo != -1) {
+        int pos = _archivoVehiculos.buscarVehiculo(idVehiculo);
+        Vehiculo vehiculo = _archivoVehiculos.leer(pos);
+        if (vehiculo.getEliminado()) {
+            cout << "EL VEHICULO SE ENCUENTRA ELIMINADO." << endl;
+            return;
+
+        }
         if (tienePolizasVigentes(idVehiculo)) {
             cout << "EL VEHICULO YA TIENE UNA POLIZA VIGENTE. NO SE PUEDE CREAR UNA NUEVA POLIZA." << endl;
             return;
@@ -50,7 +56,7 @@ void PolizaManager::cargar() {
             return;
         }
         fin = inicio;
-        fin.sumarMes(plazoPoliza);
+        fin.sumarMes(_plazoPoliza);
         float prima;
         int tipo;
         cout << "ID TIPO DE SEGURO: "; cin >> tipo;
@@ -64,7 +70,7 @@ void PolizaManager::cargar() {
 
         Poliza p(id, idVehiculo, inicio, fin, prima, tipo, true, false);
         cout << (_archivo.guardar(p) ? "POLIZA CREADA." : "NO SE PUDO CREAR LA POLIZA.") << endl;
-        generarVencimientos(p,plazoPoliza);
+        generarVencimientos(p,_plazoPoliza);
     } else {
         cout << "NO SE ENCONTRARON VEHICULOS CON ESA PATENTE." << endl;
     }
@@ -80,6 +86,10 @@ void PolizaManager::eliminar() {
     int pos = buscarPorId();
     if (pos != -1){
         Poliza poliza = _archivo.leer(pos);
+        if (poliza.getEliminado()){
+            cout<<"LA POLIZA YA SE ENCUENTRA ELIMINADA."<<endl;
+            return;
+        }
         int idPoliza = poliza.getId();
         int cantidadPagos = _pagoManager.cantidadPagosPorPoliza(idPoliza);
         
@@ -92,7 +102,7 @@ void PolizaManager::eliminar() {
 
         if (_archivo.guardar(poliza, pos)){
             cout<<"POLIZA ELIMINADA CON EXITO."<<endl;
-            cout <<(_pagoManager.cambiarEstadoVencimientosDePoliza(idPoliza, true) ? "VENCIMIENTOS ELIMINADOS CON EXITO." : "NO SE PUDO ELIMINAR LOS VENCIMIENTOS.") << endl;
+            cout <<(_pagoManager.eliminarVencimientosDePoliza(idPoliza) ? "VENCIMIENTOS ELIMINADOS CON EXITO." : "NO SE PUDO ELIMINAR LOS VENCIMIENTOS.") << endl;
         }
         else cout<< ("NO SE ENCONTRO LA POLIZA.") << endl;            
     }
@@ -105,11 +115,15 @@ void PolizaManager::recuperar() {
     int pos = buscarPorId();
     if (pos != -1 ){
         Poliza poliza = _archivo.leer(pos);
+        if (!poliza.getEliminado()) {
+            cout << "LA POLIZA YA ESTA RECUPERADA." << endl;
+            return;
+        }
         poliza.setEliminado(false);
-        int idPoliza = poliza.getId();
+
         if (_archivo.guardar(poliza, pos)){
             cout<<"POLIZA RECUPERADA CON EXITO."<<endl;
-            cout<<(_pagoManager.cambiarEstadoVencimientosDePoliza(idPoliza, false) ? "VENCIMIENTOS RECUPERADOS CON EXITO." : "NO SE PUDO RECUPERAR LOS VENCIMIENTOS.")<<endl;
+            generarVencimientos(poliza,_plazoPoliza);
         }
         else
             cout<<"NO SE PUDO RECUPERAR LA POLIZA." << endl;
@@ -127,6 +141,13 @@ void PolizaManager::buscarPorPatente(){
     patente = cargarCadena();
     int idVehiculo = _vehiculoManager.buscarIdPorPatente(patente);
     if (idVehiculo != -1) {
+        int pos = _archivoVehiculos.buscarVehiculo(idVehiculo);
+        Vehiculo vehiculo = _archivoVehiculos.leer(pos);
+        if (vehiculo.getEliminado()) {
+            cout << "EL VEHICULO SE ENCUENTRA ELIMINADO." << endl;
+            return;
+
+        }
         int cantidad = _archivo.getCantidadRegistros();
         for (int i = 0; i < cantidad; i++) {
             Poliza p = _archivo.leer(i);
@@ -156,12 +177,6 @@ int PolizaManager::buscarPorId(){
             cout<<"EL ID INGRESADO NO SE ENCONTRO."<<endl;
             return -1;
         }
-
-        Poliza poliza = _archivo.leer(pos);
-        if (poliza.getEliminado()){
-            cout<<"LA POLIZA BUSCADA SE ENCUENTRA ELIMINADA."<<endl;
-            return -1;
-        }
         return pos;
     }
     else{
@@ -178,15 +193,37 @@ void PolizaManager::modificarFechaInicio(){
     int pos = buscarPorId();
     if (pos != -1){
         Poliza poliza = _archivo.leer(pos);
+        if (poliza.getEliminado()) {
+            cout << "LA POLIZA SE ENCUENTRA ELIMINADA." << endl;
+            return;
+        }
+        int idPoliza = poliza.getId();
+        if (tienePagosRealizados(idPoliza)){
+            return;            
+        }
+        
         Fecha nuevaFechaInicio, nuevaFechaFin;
         nuevaFechaInicio=leerFechaValida();
+        if (nuevaFechaInicio.getAnio() == -1) {
+            cout << "FECHA INVALIDA, SE CANCELA LA MODIFICACION." << endl;
+            return;
+        }
+
+        if (nuevaFechaInicio.getAnio() <2025 || nuevaFechaInicio.getAnio() > 2026){
+            cout << "LA FECHA DE INICIO NO PUEDE SER MENOR A 2025 O MAYOR A 2026" << endl;
+            return;
+        }
 
         nuevaFechaFin = nuevaFechaInicio;
         nuevaFechaFin.sumarMes(3);
         poliza.setFechaInicio(nuevaFechaInicio);
         poliza.setFechaFin(nuevaFechaFin);
+        if (_archivo.guardar(poliza, pos)){
+            cout <<"POLIZA MODIFICADA."<<endl;
+            _pagoManager.eliminarVencimientosDePoliza(idPoliza);
+            generarVencimientos(poliza, _plazoPoliza);
+        }
 
-        cout << (_archivo.guardar(poliza, pos) ? "POLIZA MODIFICADA." : "NO SE PUDO MODIFICAR LA POLIZA.");
     }
 }
 void PolizaManager::modificarPrima(){
@@ -198,14 +235,23 @@ void PolizaManager::modificarPrima(){
     int pos = buscarPorId();
     if (pos != -1){
         Poliza poliza = _archivo.leer(pos);
-        cout << "INGRESE LA NUEVA PRIMA MENSUAL: ";
-        cin >> nuevaPrima;
-        if (nuevaPrima > 0){
-            poliza.setPrimaMensual(nuevaPrima);
-            cout << (_archivo.guardar(poliza, pos) ? "POLIZA MODIFICADA." : "NO SE PUDO MODIFICAR LA POLIZA.");
+        if (poliza.getEliminado()) {
+            cout << "LA POLIZA SE ENCUENTRA ELIMINADA." << endl;
+            return;
         }
-        else
-            cout << "EL VALOR INGRESADO ES INVALIDO.";
+        int idPoliza = poliza.getId();
+        if (!tienePagosRealizados(idPoliza)){
+            cout << "INGRESE LA NUEVA PRIMA MENSUAL: ";
+            cin >> nuevaPrima;
+            if (nuevaPrima > 0){
+                poliza.setPrimaMensual(nuevaPrima);
+                cout << (_archivo.guardar(poliza, pos) ? "POLIZA MODIFICADA." : "NO SE PUDO MODIFICAR LA POLIZA.")<<endl;
+                _pagoManager.eliminarVencimientosDePoliza(idPoliza);
+                generarVencimientos(poliza, _plazoPoliza);
+            }
+            else
+                cout << "EL VALOR INGRESADO ES INVALIDO.";    
+        }
     }
 }
 void PolizaManager::modificarTipoSeguro(){
@@ -217,11 +263,21 @@ void PolizaManager::modificarTipoSeguro(){
     int pos = buscarPorId();
     if (pos != -1){
         Poliza poliza = _archivo.leer(pos);
+        if (poliza.getEliminado()) {
+            cout << "LA POLIZA SE ENCUENTRA ELIMINADA." << endl;
+            return;
+        }
+
+        int idPoliza = poliza.getId();
+        if (tienePagosRealizados(idPoliza)){
+            return;            
+        }
+
         cout << "INGRESE EL ID DEL NUEVO TIPO DE SEGURO: ";
         cin >> nuevoTipo;
         if (_archivoTipoSeguros.buscarID(nuevoTipo) != -1){
             poliza.setIdTipoSeguro(nuevoTipo);
-            cout << (_archivo.guardar(poliza, pos) ? "POLIZA MODIFICADA." : "NO SE PUDO MODIFICAR LA POLIZA.");
+            cout << (_archivo.guardar(poliza, pos) ? "POLIZA MODIFICADA." : "NO SE PUDO MODIFICAR LA POLIZA.")<<endl;
         }
         else
             cout<<"EL ID INGRESADO DEL TIPO DE SEGURO NO SE ENCONTRO.";
@@ -474,9 +530,8 @@ void PolizaManager::generarVencimientos(Poliza poliza, int cantidadVencimientos)
 
     for (int i = 0; i < cantidadVencimientos; i++) {
         Fecha fechaVencimiento = poliza.getfechaInicio();
-        if (i>0){
-            fechaVencimiento.sumarMes(i);
-        }
+        fechaVencimiento.sumarMes(i);
+
         int idVencimiento = _archivoVencimientos.getNuevoID();
         float montoVencimiento = calcularMontoVencimiento(poliza.getPrimaMensual());
         Vencimiento vencimiento(idVencimiento, poliza.getId(), fechaVencimiento, montoVencimiento, false, false);
@@ -598,6 +653,10 @@ void PolizaManager::mostrarVencimientosDePoliza(){
     int pos = buscarPorId();
     if (pos != -1 ){
         Poliza poliza = _archivo.leer(pos);
+        if (poliza.getEliminado()) {
+            cout << "LA POLIZA SE ENCUENTRA ELIMINADA." << endl;
+            return;
+        }
         
         int cantidadVencimientos = _archivoVencimientos.getCantidadRegistros();
         if (cantidadVencimientos == 0) {
@@ -623,4 +682,15 @@ void PolizaManager::mostrarVencimientosDePoliza(){
 
         delete[] vencimientos;
     }
+}
+
+bool PolizaManager::tienePagosRealizados(int idPoliza) {
+    int cantidadPagos = _pagoManager.cantidadPagosPorPoliza(idPoliza);
+    
+    if (cantidadPagos > 0) {
+        cout << "LA POLIZA TIENE PAGOS REGISTRADOS, DEBE ELIMINARLOS PRIMERO." << endl;
+        return true;
+    }
+
+    return false;
 }

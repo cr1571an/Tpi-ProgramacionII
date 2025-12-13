@@ -38,6 +38,7 @@ class PolizaManager {
         VencimientosArchivo _archivoVencimientos;
         PagoArchivo _archivoPagos;
         PagoManager _pagoManager;
+        const int _plazoPoliza = 3;
 
         int buscarPorId();
         void mostrarPoliza(Poliza poliza);
@@ -47,4 +48,5 @@ class PolizaManager {
         float calcularMontoVencimiento(int primaMensual);
         bool tieneCobertura(Poliza poliza);
         bool tienePolizasVigentes(int idVehiculo);
+        bool tienePagosRealizados(int idPoliza);
 };
