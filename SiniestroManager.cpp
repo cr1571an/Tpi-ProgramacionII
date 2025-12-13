@@ -382,7 +382,9 @@ void SiniestroManager::reporteCoberturaSiniestros(){
 
     for (int i = 0; i < cantidadSiniestrosFiltrados; i++) {
         int idPoliza = (*siniestrosFiltrados[i]).getIdPoliza();
-        Poliza poliza = _polizaArchivo.leer(idPoliza);
+        int pos = _polizaArchivo.buscarID(idPoliza);
+        Poliza poliza = _polizaArchivo.leer(pos);
+
         Fecha fechaSiniestro = (*siniestrosFiltrados[i]).getFechaSiniestro();
         bool vigente = (fechaSiniestro >= poliza.getfechaInicio() && fechaSiniestro <= poliza.getfechaFin());
         bool alDia = _pagoManager.polizaPagosAlDia(idPoliza);
@@ -397,16 +399,16 @@ void SiniestroManager::reporteCoberturaSiniestros(){
             mostrarSiniestro(*siniestrosFiltrados[i]);
             cout << "SINIESTRO NO APROBADO" << endl;
                 if (!vigente) {
-        cout << "Motivo: SINIESTRO FUERA DE LA FECHA DE VIGENCIA DE LA POLIZA." << endl;
-        }
+            cout << "Motivo: SINIESTRO FUERA DE LA FECHA DE VIGENCIA DE LA POLIZA." << endl;
+            }
 
-        if (!alDia) {
-            cout << "Motivo: EXISTEN VENCIMIENTOS IMPAGOS (POLIZA NO AL DIA)." << endl;
-        }
+            if (!alDia) {
+                cout << "Motivo: EXISTEN VENCIMIENTOS IMPAGOS (POLIZA NO AL DIA)." << endl;
+            }
+            else if (!conCobertura) {
+                    cout << "Motivo: SE REALIZO EL PAGO POSTERIOR A LA FECHA DEL SINIESTRO." << endl;  
+            }
 
-        if (!conCobertura) {
-            cout << "Motivo: EL PAGO DEL PERIODO NO ESTABA REALIZADO ANTES DEL SINIESTRO O DIRECTAMENTE NO REGISTRA PAGOS." << endl;
-        }
             cantidadNoAprobados++;
             cout << "============================================================" << endl;            
         }
