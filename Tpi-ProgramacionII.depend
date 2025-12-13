@@ -715,7 +715,7 @@
 1765045625 c:\users\cristian\git_environments\tpi-programacionii\polizamenu.h
 	"PolizaManager.h"
 
-1765276032 c:\users\cristian\git_environments\tpi-programacionii\polizamanager.h
+1765627989 c:\users\cristian\git_environments\tpi-programacionii\polizamanager.h
 	"ClienteMenu.h"
 	"PolizaArchivo.h"
 	"VehiculoManager.h"
@@ -724,12 +724,13 @@
 	"TiposSegurosArchivo.h"
 	"VencimientosArchivo.h"
 	"PagoArchivo.h"
+	"PagoManager.h"
 
 1764713605 c:\users\cristian\git_environments\tpi-programacionii\polizaarchivo.h
 	<string>
 	"Poliza.h"
 
-1765405512 c:\users\cristian\git_environments\tpi-programacionii\poliza.h
+1765502883 c:\users\cristian\git_environments\tpi-programacionii\poliza.h
 	<string>
 	"Fecha.h"
 
@@ -759,7 +760,7 @@
 1764713605 c:\users\cristian\git_environments\tpi-programacionii\siniestromenu.h
 	"SiniestroManager.h"
 
-1765472064 c:\users\cristian\git_environments\tpi-programacionii\siniestromanager.h
+1765502883 c:\users\cristian\git_environments\tpi-programacionii\siniestromanager.h
 	"SiniestroArchivo.h"
 	"PolizaArchivo.h"
 	"TiposSiniestrosArchivo.h"
@@ -772,7 +773,7 @@
 	<string>
 	"Siniestro.h"
 
-1765278998 c:\users\cristian\git_environments\tpi-programacionii\siniestro.h
+1765502883 c:\users\cristian\git_environments\tpi-programacionii\siniestro.h
 	<string>
 	"Fecha.h"
 
@@ -786,7 +787,7 @@
 1764879536 c:\users\cristian\git_environments\tpi-programacionii\pagomenu.h
 	"PagoManager.h"
 
-1765450311 c:\users\cristian\git_environments\tpi-programacionii\pagomanager.h
+1765569630 c:\users\cristian\git_environments\tpi-programacionii\pagomanager.h
 	"PagoArchivo.h"
 	"PolizaArchivo.h"
 	"ClientesArchivo.h"
@@ -794,10 +795,11 @@
 	"VencimientosArchivo.h"
 	"Pago.h"
 
-1765471593 c:\users\cristian\git_environments\tpi-programacionii\reportemenu.h
+1765536175 c:\users\cristian\git_environments\tpi-programacionii\reportemenu.h
 	"PolizaManager.h"
 	"ClienteManager.h"
 	"SiniestroManager.h"
+	"PagoManager.h"
 
 1765050216 source:c:\users\cristian\git_environments\tpi-programacionii\cliente.cpp
 	<string>
@@ -843,7 +845,7 @@
 	<iostream>
 	"utils.h"
 
-1765057277 source:c:\users\cristian\git_environments\tpi-programacionii\main.cpp
+1765502883 source:c:\users\cristian\git_environments\tpi-programacionii\main.cpp
 	<windows.h>
 	"App.h"
 	"tools/generadorDeArchivosDeDatos.h"
@@ -858,7 +860,7 @@
 	<iostream>
 	<cstdio>
 
-1765501728 source:c:\users\cristian\git_environments\tpi-programacionii\pagomanager.cpp
+1765572851 source:c:\users\cristian\git_environments\tpi-programacionii\pagomanager.cpp
 	<iostream>
 	<string>
 	<limits>
@@ -871,7 +873,7 @@
 	<limits>
 	"PagoMenu.h"
 
-1765405492 source:c:\users\cristian\git_environments\tpi-programacionii\poliza.cpp
+1765502883 source:c:\users\cristian\git_environments\tpi-programacionii\poliza.cpp
 	"Poliza.h"
 	<cstring>
 
@@ -879,7 +881,7 @@
 	"PolizaArchivo.h"
 	<iostream>
 
-1765276032 source:c:\users\cristian\git_environments\tpi-programacionii\polizamanager.cpp
+1765632352 source:c:\users\cristian\git_environments\tpi-programacionii\polizamanager.cpp
 	"PolizaManager.h"
 	"utils.h"
 	"Cliente.h"
@@ -887,15 +889,15 @@
 	<iostream>
 	<iomanip>
 
-1765276032 source:c:\users\cristian\git_environments\tpi-programacionii\polizamenu.cpp
+1765538634 source:c:\users\cristian\git_environments\tpi-programacionii\polizamenu.cpp
 	<iostream>
 	"PolizaMenu.h"
 
-1765471670 source:c:\users\cristian\git_environments\tpi-programacionii\reportemenu.cpp
+1765632251 source:c:\users\cristian\git_environments\tpi-programacionii\reportemenu.cpp
 	<iostream>
 	"ReporteMenu.h"
 
-1765404506 source:c:\users\cristian\git_environments\tpi-programacionii\siniestro.cpp
+1765502883 source:c:\users\cristian\git_environments\tpi-programacionii\siniestro.cpp
 	"Siniestro.h"
 	<cstring>
 
@@ -903,13 +905,13 @@
 	"SiniestroArchivo.h"
 	<iostream>
 
-1765484216 source:c:\users\cristian\git_environments\tpi-programacionii\siniestromanager.cpp
+1765638476 source:c:\users\cristian\git_environments\tpi-programacionii\siniestromanager.cpp
 	"SiniestroManager.h"
 	<iostream>
 	"utils.h"
 	"TipoSiniestro.h"
 
-1765454735 source:c:\users\cristian\git_environments\tpi-programacionii\siniestromenu.cpp
+1765502883 source:c:\users\cristian\git_environments\tpi-programacionii\siniestromenu.cpp
 	<iostream>
 	"SiniestroMenu.h"
 
@@ -942,7 +944,7 @@
 	<iostream>
 	"Vehiculo.h"
 
-1764879536 source:c:\users\cristian\git_environments\tpi-programacionii\vehiculomanager.cpp
+1765628155 source:c:\users\cristian\git_environments\tpi-programacionii\vehiculomanager.cpp
 	<iostream>
 	<string>
 	"VehiculoManager.h"
@@ -966,11 +968,11 @@
 	"VencimientosArchivo.h"
 	<iostream>
 
-1765276979 c:\users\cristian\git_environments\tpi-programacionii\tools\generadordearchivosdedatos.h
+1765502883 c:\users\cristian\git_environments\tpi-programacionii\tools\generadordearchivosdedatos.h
 
-1765056428 c:\users\cristian\git_environments\tpi-programacionii\tools\imprimirarchivos.h
+1765057717 c:\users\cristian\git_environments\tpi-programacionii\tools\imprimirarchivos.h
 
-1765277020 source:c:\users\cristian\git_environments\tpi-programacionii\tools\generadordearchivosdedatos.cpp
+1765502883 source:c:\users\cristian\git_environments\tpi-programacionii\tools\generadordearchivosdedatos.cpp
 	"generadorDeArchivosDeDatos.h"
 	<filesystem>
 	<fstream>
@@ -994,7 +996,7 @@
 	"../TipoSiniestro.h"
 	"../PolizaManager.h"
 
-1765277217 source:c:\users\cristian\git_environments\tpi-programacionii\tools\imprimirarchivos.cpp
+1765502883 source:c:\users\cristian\git_environments\tpi-programacionii\tools\imprimirarchivos.cpp
 	<iostream>
 	"../Cliente.h"
 	"../ClientesArchivo.h"
