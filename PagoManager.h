@@ -23,7 +23,7 @@ public:
     bool polizaPagosAlDia(int idPoliza);
     void pagosPorPolizaId(int idPoliza, Pago pagosPoliza[], int cantidadPagosPoliza);
     int cantidadPagosPorPoliza(int idPoliza);
-    bool cambiarEstadoVencimientosDePoliza(int idPoliza, bool estado);
+    bool eliminarVencimientosDePoliza(int idPoliza);
 
 private:
     PagoArchivo _pagoArchivo;
