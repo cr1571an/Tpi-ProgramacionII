@@ -317,35 +317,6 @@ void SiniestroManager::listadoSiniestrosPorPoliza(){
         cout<<"EL ID DE LA POLIZA ES INVALIDO." << endl;
     }
 }
-// void SiniestroManager::listadoSiniestrosAprobados(){
-//     int cantidadSiniestros = _archivo.getCantidadRegistros();
-//     bool encontrado = false;
-//     for (int i = 0; i < cantidadSiniestros; i++) {
-//         Siniestro s = _archivo.leer(i);
-//         if (s.getEstado() && !s.getEliminado()) {
-//             mostrarSiniestro(s);
-//             encontrado = true;
-//         }
-//     }
-//     if (!encontrado) {
-//         cout << "NO SE ENCONTRARON SINIESTROS APROBADOS." << endl;
-//     }
-// }
-// void SiniestroManager::listadoSiniestrosNoAprobados(){
-//     int cantidadSiniestros = _archivo.getCantidadRegistros();
-//     bool encontrado = false;
-//     for (int i = 0; i < cantidadSiniestros; i++) {
-//         Siniestro s = _archivo.leer(i);
-//         if (!s.getEstado() && !s.getEliminado()) {
-//             mostrarSiniestro(s);
-//             encontrado = true;
-//         }
-//     }
-//     if (!encontrado) {
-//         cout << "NO SE ENCONTRARON SINIESTROS NO APROBADOS." << endl;
-//     }
-// }
-
 void SiniestroManager::reporteCoberturaSiniestros(){
     int cantidadSiniestros = _archivo.getCantidadRegistros();
     if (cantidadSiniestros == 0) {

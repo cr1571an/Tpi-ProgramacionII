@@ -389,7 +389,7 @@ void PolizaManager::reportePolizasVigentesYVencidas(){
         cout << "NO HAY POLIZAS PARA PODER GENERAR EL REPORTE." << endl;
         return;
     }
-
+    
     Fecha fechaConsulta = leerFechaValida();
     if (fechaConsulta.getDia() == -1) {
         return;

@@ -24,8 +24,8 @@ void ReporteMenu::mostrarOpciones() {
     cout << "||                      MENU REPORTES                       ||" << endl;
     cout << "||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||" << endl;
     cout << "||    1 - CLIENTES CON SINIESTROS EN DETERMINADA FECHA      ||" << endl;
-    cout << "||    2 - REPORTE DE POLIZAS VIGENTES Y VENCIDAS POR FECHA  ||" << endl;
-    cout << "||    3 - REPORTE DE COBERTURA DE SINIESTROS POR FECHA      ||" << endl;
+    cout << "||    2 - POLIZAS POR TIPO DE SEGURO Y FECHA                ||" << endl;
+    cout << "||    3 - COBERTURA DE SINIESTROS POR FECHA                 ||" << endl;
     cout << "||    4 - REPORTE DE DEUDA POR CLIENTE                      ||" << endl;
     cout << "||----------------------------------------------------------||" << endl;
     cout << "||    0 - VOLVER                                            ||" << endl;
