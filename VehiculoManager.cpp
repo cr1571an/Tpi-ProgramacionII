@@ -140,7 +140,7 @@ int VehiculoManager::buscarIdPorPatente(string patente) {
     Vehiculo v;
     for (int i = 0; i < cantidad; i++) {
         v = _vehiculosArchivo.leer(i);
-        if (v.getPatente() == patente) {
+        if (v.getPatente() == patente && !v.getEliminado()) {
             return v.getIdVehiculo();
         }
     }
