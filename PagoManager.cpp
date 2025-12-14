@@ -4,6 +4,7 @@
 #include <iomanip>
 #include "utils.h"
 #include "PagoManager.h"
+#include "ClienteManager.h"
 
 using namespace std;
 
@@ -809,10 +810,10 @@ void PagoManager::pagosPorPolizaId(int idPoliza, Pago pagosPoliza[], int cantida
                     if (vectorPagos[j].getIdVencimiento() == vencimiento.getId() && !vectorPagos[j].getEliminado()){
                         pagosPoliza[indicePagosPoliza] = vectorPagos[j];
                         indicePagosPoliza++;
-                        break;                
+                        break;
                     }
                 }
-            }                
+            }
         }
     }
 
@@ -820,7 +821,7 @@ void PagoManager::pagosPorPolizaId(int idPoliza, Pago pagosPoliza[], int cantida
 }
 
 int PagoManager::cantidadPagosPorPoliza(int idPoliza){
-    int cantidadPagos=0;    
+    int cantidadPagos=0;
     int cantidadVencimientosEnArchivo = _vencimientosArchivo.getCantidadRegistros();
 
     for (int i = 0; i < cantidadVencimientosEnArchivo; i++){
@@ -848,4 +849,64 @@ bool PagoManager::eliminarVencimientosDePoliza(int idPoliza){
         }
     }
     return elimino;
+}
+
+void PagoManager::recaudacionPorPeriodoYTipoSeguros() {
+    int cantPagos = _pagoArchivo.getCantidadRegistros();
+    if (cantPagos == 0)return;
+    system("cls");
+    cout << "||||||||||||||||||||||||||||||||||||||||||||||||||||||||||" << endl;
+    cout << "||     RECAUDACION POR PERIODO Y POR TIPO DE POLIZA     ||" << endl;
+    cout << "||------------------------------------------------------||" << endl;
+    cout << "INGRESE LA FECHA INICIAL: ";
+    Fecha fechaInicio = leerFechaValida();
+    if (fechaInicio.getAnio() == -1){cout << "FECHA INVALIDA." << endl;return;}
+    cout << "INGRESE LA FECHA FINAL: ";
+    Fecha fechaFin = leerFechaValida();
+    if (fechaFin.getAnio() == -1){cout << "FECHAS INVALIDAS." << endl;return;}
+    if (fechaFin < fechaInicio){cout << "LA FECHA FINAL NO PUEDE SER MENOR A LA FECHA INICIAL." << endl;return;}
+    if (fechaInicio.getAnio()<2023 || fechaFin.getAnio()>2025) {cout << "EL PERIODO DE FECHAS DEBE ESTAR ENTRE 2023 Y 2025." << endl;return;}
+    float totalPeriodo=0;
+    const int SEGUROS=4;
+    float recaudadoPorTipo[SEGUROS]={};
+    string nombreSeguro[SEGUROS]={"BASICO RESPONSABILIDAD CIVIL","CONTRA TERCEROS COMPLETO","TODO RIESGO","CONTRA ROBO E INCENDIO"};
+    for (int i=0; i<cantPagos; i++){
+        Pago pago = _pagoArchivo.leer(i);
+        if (pago.getEliminado()) continue;
+
+        Fecha fechaPago = pago.getFechaPago();
+        if (fechaPago >=fechaInicio && fechaPago<=fechaFin){
+            int idVencimiento = pago.getIdVencimiento();
+            int posVencimiento = _vencimientosArchivo.buscarID(idVencimiento);
+            if (posVencimiento == -1) continue;
+
+            Vencimiento vencimiento = _vencimientosArchivo.leer(posVencimiento);
+            float monto = vencimiento.getMonto();
+            int idPoliza = vencimiento.getIdPoliza();
+            int posPoliza = _polizaArchivo.buscarID(idPoliza);
+            if (posPoliza == -1) continue;
+
+            Poliza poliza = _polizaArchivo.leer(posPoliza);
+            int idTipoSeguro = poliza.getIdTipoSeguro();
+            if (idTipoSeguro >= 1 && idTipoSeguro <= SEGUROS){
+                recaudadoPorTipo[idTipoSeguro-1] += monto;
+            }
+            totalPeriodo += monto;
+        }
+    }
+    if (totalPeriodo == 0){cout << "NO EXISTEN PAGOS EN EL PERIODO DE FECHAS INGRESADOS." << endl;return;}
+    system("cls");
+    cout << "||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||" << endl;
+    cout << "||               RECAUDACION POR PERIODO                  ||" << endl;
+    cout << "              DESDE " <<fechaInicio.formatoFecha()<< " HASTA " << fechaFin.formatoFecha() << endl;
+    cout << "            TOTAL RECAUDADO EN EL PERIODO: $"<< totalPeriodo << endl;
+    cout << "||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||" << endl<< endl;
+    cout << "||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||" << endl;
+    cout << "||            RECAUDADO POR TIPO DE POLIZA                ||" << endl;
+    cout << "||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||" <<endl<< endl;
+    for (int i = 0; i < SEGUROS; i++){
+        if ( recaudadoPorTipo[i]>0){
+            cout << "- " << nombreSeguro[i]<< ": $" << recaudadoPorTipo[i] << endl;
+        }
+    }
 }

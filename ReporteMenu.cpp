@@ -3,7 +3,7 @@
 using namespace std;
 
 ReporteMenu::ReporteMenu() : _polizaManager(), _clienteManager(), _pagoManager(), _siniestroManager() {
-    _cantidadOpciones = 5;
+    _cantidadOpciones = 6;
 }
 
 void ReporteMenu::mostrar(){
@@ -28,6 +28,7 @@ void ReporteMenu::mostrarOpciones() {
     cout << "||    3 - COBERTURA DE SINIESTROS POR FECHA                 ||" << endl;
     cout << "||    4 - REPORTE DE DEUDA POR CLIENTE                      ||" << endl;
     cout << "||    5 - POLIZAS SIN COBERTURA EN UN PERIODO               ||" << endl;
+    cout << "||    6 - RECAUDACION POR PERIODO Y TIPO DE POLIZA          ||" << endl;
     cout << "||----------------------------------------------------------||" << endl;
     cout << "||    0 - VOLVER                                            ||" << endl;
     cout << "||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||" << endl << endl;
@@ -66,6 +67,10 @@ void ReporteMenu::ejecutarOpcion(int opcion) {
             break;
         case 5:
             _polizaManager.reportePolizasSinCobertura();
+            system("pause");
+            break;
+        case 6:
+            _pagoManager.recaudacionPorPeriodoYTipoSeguros();
             system("pause");
             break;
         case 0:

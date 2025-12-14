@@ -5,6 +5,7 @@
 #include "VehiculosArchivo.h"
 #include "VencimientosArchivo.h"
 #include "Pago.h"
+#include "TipoSeguro.h"
 
 class PagoManager
 {
@@ -24,6 +25,7 @@ public:
     void pagosPorPolizaId(int idPoliza, Pago pagosPoliza[], int cantidadPagosPoliza);
     int cantidadPagosPorPoliza(int idPoliza);
     bool eliminarVencimientosDePoliza(int idPoliza);
+    void recaudacionPorPeriodoYTipoSeguros();
 
 private:
     PagoArchivo _pagoArchivo;
@@ -31,4 +33,5 @@ private:
     ClientesArchivo _clientesArchivo;
     VehiculosArchivo _vehiculosArchivo;
     VencimientosArchivo _vencimientosArchivo;
+    TipoSeguro _tiposSegurosArchivo;
 };
