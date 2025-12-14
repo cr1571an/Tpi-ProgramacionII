@@ -35,7 +35,6 @@ public:
     int hayPolizasReg();
     int hayPagosVencReg();
     int hayPagosReg();
-    void clientesConAtrasoEnLosPagos();
     int buscarClienteParaHistorial();
     bool esPagoDeCliente(int idxPago, int idCliente);
     int contarPagosDeCliente(int idCliente);

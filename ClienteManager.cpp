@@ -347,57 +347,12 @@ int ClienteManager::hayPagosReg(){
   return cantPagos;
 }
 
-void ClienteManager::clientesConAtrasoEnLosPagos() {
-  int cantClientes = hayClientesReg();
-  int cantPolizas = hayPolizasReg();
-  int cantPagos = hayPagosVencReg();
-  if (cantClientes==0 || cantPolizas==0 || cantPagos==0) return;
-  bool titulo = true;
-  bool hayImpagos = false;
-
-  for (int i=0; i<cantClientes; i++){
-    Cliente cliente = _clientesArchivo.leer(i);
-    if (cliente.getEliminado()) continue;
-
-    for (int j=0; j<cantPolizas; j++){
-      Poliza poliza = _polizasArchivo.leer(j);
-      if (poliza.getEliminado()) continue;
-
-      int idVehiculo = poliza.getIdVehiculo();
-      Vehiculo vehiculo = _vehiculosArchivo.leer(_vehiculosArchivo.buscarVehiculo(idVehiculo));
-      if (vehiculo.getIdCliente() != cliente.getIdCliente()) continue;
-
-      for (int k=0; k<cantPagos; k++){
-        Vencimiento vencimiento = _vencimientosArchivo.leer(k);
-        if (!vencimiento.getEliminado() && vencimiento.getIdPoliza() == poliza.getId() && vencimiento.estaVencido() &&
-         !vencimiento.getPagado()) continue;
-        if (titulo){
-          cout << "||||||||||||||||||||||||||||||||||||||||||||" << endl;
-          cout << "|       CLIENTES CON PAGOS ATRASADAS       |" << endl;
-          cout << "||||||||||||||||||||||||||||||||||||||||||||" << endl;
-          titulo = false;
-        }
-        hayImpagos = true;
-        cout << "CLIENTE: " <<cliente.getApellido()<< ", " <<cliente.getNombre()<< endl;
-        cout << "DNI: " <<cliente.getDni()<<endl;
-        cout << "NUMERO DE POLIZA: " <<poliza.getId()<<endl;
-        cout << "FECHA DE VENCIMIENTO: " <<vencimiento.getVencimiento().formatoFecha()<<endl;
-        cout << "MONTO: $" << vencimiento.getMonto()<<endl;
-        cout << "--------------------------------------------" <<endl;
-      }
-    }
-  }
-  if (!hayImpagos) {
-    cout << "NO HAY CLIENTES CON PAGOS ATRASADAS."<<endl;
-  }
-}
-
 int ClienteManager::buscarClienteParaHistorial() {
     ClienteMenu _clienteMenu;
     int idCliente = _clienteMenu.buscarCliente();
     if (idCliente == -3) return -3;
     if (idCliente == -1) {
-        cout << "ERROR!. EL CLIENTE NO EXISTE2."<<endl;
+        cout << "ERROR!. EL CLIENTE NO EXISTE."<<endl;
         return -1;
     }
     return idCliente;
