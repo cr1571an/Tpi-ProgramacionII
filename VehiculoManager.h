@@ -10,6 +10,7 @@ class VehiculoManager {
         void cargar(int iDCliente);
         void mostrar();
         void eliminar(int idVehiculo);
+        bool recuperar(int idVehiculo);
         void modificarPatente(int id);
         void modificarUso(int id);
         void modificarCategoria(int id);
@@ -31,5 +32,4 @@ class VehiculoManager {
     private:
         VehiculosArchivo _vehiculosArchivo;
         ClientesArchivo _clientesArchivo;
-
 };

@@ -67,22 +67,23 @@ void ClienteMenu::ejecutarOpcion(int opcion) {
 
 void ClienteMenu::buscar() {
     system("cls");
-    cout << "|||||||||||||||||||||||||||||||||||||||||||" << endl;
-    cout << "||            BUSCAR CLIENTE             ||" << endl;
-    int pos = buscarCliente();
-    if (pos > 0) {
-        _clienteManager.mostrarDatosDeClienteID(pos);
+    cout << "BUSCAR CLIENTE" << endl;
+    int idCliente = buscarCliente();
+    if (idCliente == -3) return;
+    if (idCliente == -1 || idCliente == -2) return;
+    int pos = _clientesArchivo.buscarIdCliente(idCliente);
+    if (pos == -1) {
+        cout << "ERROR! EL CLIENTE NO EXISTE." << endl;
         system("pause");
+        return;
     }
-    else if (pos == -1) {
-        cout << "ERROR!. EL CLIENTE NO EXISTE." << endl;
-        system("pause");
-    }
-    else if (pos == -2) {
+    if (pos == -2) {
         cout << "NO HAY REGISTRO / NO SE PUDO ABRIR." << endl;
         system("pause");
+        return;
     }
-    else if (pos == -3) {}
+    _clienteManager.mostrarDatosDeClienteID(idCliente);
+    system("pause");
 }
 
 
@@ -96,35 +97,58 @@ int ClienteMenu::buscarCliente() {
     cout << "||     0 - VOLVER                        ||" << endl;
     cout << "|||||||||||||||||||||||||||||||||||||||||||" << endl;
 
-    do {
+    while (true) {
         cout << "SELECCIONE UNA OPCION: ";
         cin >> tipoBusqueda;
         cin.ignore();
-        if (tipoBusqueda == 0) {
-            return -3;
+        switch (tipoBusqueda) {
+            case 0:
+                return -3;
+            case 1: {
+                system("cls");
+                cout << "INGRESE EL NUMERO DEL CLIENTE: ";
+                cin >> id;
+                cin.ignore();
+                if (id <= 0) {
+                    cout << "ID INVALIDO. DEBE SER MAYOR QUE CERO." << endl;
+                    continue;
+                }
+                return id;
+            }
+            case 2: {
+                system("cls");
+                cout << "INGRESE EL DNI DEL CLIENTE: ";
+                string dni = cargarCadena();
+                if (dni.empty()) {
+                    cout << "DNI INVALIDO." << endl;
+                    system("pause");
+                    return -1;
+                }
+                int pos = _clienteManager.posClientePorDNI(dni);
+                if (pos < 0) {
+                    cout << "ERROR! EL CLIENTE NO EXISTE." << endl;
+                    system("pause");
+                    return -1;
+                }
+                Cliente cliente = _clientesArchivo.leer(pos);
+                if (cliente.getEliminado()) {
+                    cout << "EL CLIENTE FUE ELIMINADO." << endl;
+                    darAltaCliente(cliente.getIdCliente());
+                    Cliente clienteRecuperado = _clientesArchivo.leer(pos);
+                    if (!clienteRecuperado.getEliminado()) {
+                        return clienteRecuperado.getIdCliente();
+                    } else {
+                        cout << "ERROR! EL CLIENTE NO EXISTE." << endl;
+                        system("pause");
+                        return -1;
+                    }
+                }
+                return cliente.getIdCliente();
+            }
+            default:
+                cout << "OPCION INVALIDA." << endl;
         }
-        if (tipoBusqueda == 1) {
-            system("cls");
-            cout << "INGRESE EL NUMERO DEL CLIENTE: ";
-            cin >> id;
-            cin.ignore();
-            int pos = _clientesArchivo.buscarIdCliente(id);
-            if (pos == -1) return -1;
-            if (pos == -2)return -2;
-            return id;
-        } else if (tipoBusqueda == 2) {
-            system("cls");
-            cout << "INGRESE EL D.N.I DEL CLIENTE: ";
-            string dni = cargarCadena();
-            int pos = _clienteManager.posClientePorDNI(dni);
-            if (pos == -1) return -1;
-            if (pos == -2)return -2;
-            Cliente cliente = _clientesArchivo.leer(pos);
-            return cliente.getIdCliente();
-        } else {
-            cout << "OPCION INVALIDA." << endl;
-        }
-    } while (true);
+    }
 }
 
 void ClienteMenu::modificarCliente() {
@@ -132,81 +156,72 @@ void ClienteMenu::modificarCliente() {
     cout << "|||||||||||||||||||||||||||||||||||||||||||" << endl;
     cout << "||      BUSCAR CLIENTE A MODIFICAR       ||" << endl;
     int id = buscarCliente();
-    if (id == -3) return;
-    if (id == -1) {
-        cout << "ERROR!. EL CLIENTE NO EXISTE." << endl;
-        system("pause");
-        return;
-    }
+    if (id == -3 || id == -1) return;
     int pos = _clientesArchivo.buscarIdCliente(id);
-    if (pos == -1) {
-        cout << "NO SE PUDO ENCONTRAR EL CLIENTE." << endl;
+    if (pos == -1 || pos == -2) {
+        cout << "ERROR! EL CLIENTE NO EXISTE." << endl;
         system("pause");
         return;
     }
-    if (pos == -2) {
-        cout << "NO HAY REGISTRO / NO SE PUDO ABRIR." << endl;
-        system("pause");
-        return;
-    }
-
     Cliente cliente = _clientesArchivo.leer(pos);
     if (cliente.getEliminado()) {
         cout << "EL CLIENTE ESTA ELIMINADO." << endl;
-        darAltaCliente(id);
-        return;
+        if (!darAltaCliente(id)) return;
     }
+
+    system("cls");
+    cout << "||||||||||||||||||||||||||||||||||||||||||||" << endl;
+    cout << "||          DATOS DEL CLIENTE             ||" << endl;
+    cout << "||||||||||||||||||||||||||||||||||||||||||||" << endl;
     _clienteManager.mostrarDatosDeClienteID(id);
-    cout<<endl<< "|||||||||||||||||||||||||||||||||||||||||||"<<endl;
-    cout << "||            MODIFICAR CLIENTE          ||"<<endl;
-    cout << "|||||||||||||||||||||||||||||||||||||||||||"<<endl;
-    cout << "||     1 - DAR DE BAJA                   ||"<<endl;
-    cout << "||     2 - MODIFICAR TELEFONO            ||"<<endl;
-    cout << "||     3 - MODIFICAR CORREO              ||"<<endl;
-    cout << "||     4 - MODIFICAR FECHA DE NACIMIENTO ||"<<endl;
-    cout << "||     5 - MODIFICAR PARTIDO             ||"<<endl;
-    cout << "||     6 - MODIFICAR LOCALIDAD           ||"<<endl;
+
+    cout << "|||||||||||||||||||||||||||||||||||||||||||" << endl;
+    cout << "||     1 - DAR DE BAJA                   ||" << endl;
+    cout << "||     2 - MODIFICAR TELEFONO            ||" << endl;
+    cout << "||     3 - MODIFICAR CORREO              ||" << endl;
+    cout << "||     4 - MODIFICAR FECHA DE NACIMIENTO ||" << endl;
+    cout << "||     5 - MODIFICAR PARTIDO             ||" << endl;
+    cout << "||     6 - MODIFICAR LOCALIDAD           ||" << endl;
     cout << "||---------------------------------------||" << endl;
-    cout << "||     0 - VOLVER                        ||"<<endl;
-    cout << "|||||||||||||||||||||||||||||||||||||||||||"<<endl<<endl;
+    cout << "||     0 - VOLVER                        ||" << endl;
+    cout << "|||||||||||||||||||||||||||||||||||||||||||" << endl << endl;
     cout << "SELECCIONE UNA OPCION: ";
     int opcion;
     cin >> opcion;
     cin.ignore();
     switch (opcion) {
-        case 1:_clienteManager.eliminar(id);
-            _vehiculosArchivo.eliminarVehiculosDeCliente(id);system("pause");break;
-        case 2:system("cls");
-            _clienteManager.modificarTelefono(id);system("pause");break;
-        case 3:system("cls");
-            _clienteManager.modificarCorreo(id);system("pause");break;
-        case 4:system("cls");
-            _clienteManager.modificarFechaNacimiento(id);system("pause");break;
-        case 5:system("cls");
-            _clienteManager.modificarPartido(id);system("pause");break;
-        case 6:system("cls");
-            _clienteManager.modificarLocalidad(id);system("pause");break;
-        case 0: system("cls");break;
-        default: cout << "OPCION INVALIDA." << endl; break;
-    }
-}
-
-void ClienteMenu::darAltaCliente(int id) {
-    cout << "|||||||||||||||||||||||||||||||||||||||||||" << endl;
-    cout << "||     1 - DAR DE ALTA                   ||" << endl;
-    cout << "||---------------------------------------||" << endl;
-    cout << "||     0 - VOLVER                        ||" << endl;
-    cout << "|||||||||||||||||||||||||||||||||||||||||||" << endl;
-
-    int opcion;
-    cout << "SELECCIONE UNA OPCION: ";
-    cin >> opcion;
-    switch (opcion) {
         case 1:
-            _clienteManager.recuperar(id);
+            _clienteManager.eliminar(id);
+            _vehiculosArchivo.eliminarVehiculosDeCliente(id);
+            system("pause");
+            break;
+        case 2:
+            system("cls");
+            _clienteManager.modificarTelefono(id);
+            system("pause");
+            break;
+        case 3:
+            system("cls");
+            _clienteManager.modificarCorreo(id);
+            system("pause");
+            break;
+        case 4:
+            system("cls");
+            _clienteManager.modificarFechaNacimiento(id);
+            system("pause");
+            break;
+        case 5:
+            system("cls");
+            _clienteManager.modificarPartido(id);
+            system("pause");
+            break;
+        case 6:
+            system("cls");
+            _clienteManager.modificarLocalidad(id);
             system("pause");
             break;
         case 0:
+            system("cls");
             break;
         default:
             cout << "OPCION INVALIDA." << endl;
@@ -214,3 +229,25 @@ void ClienteMenu::darAltaCliente(int id) {
     }
 }
 
+bool ClienteMenu::darAltaCliente(int id) {
+    cout << "|||||||||||||||||||||||||||||||||||||||||||" << endl;
+    cout << "||     1 - DAR DE ALTA                   ||" << endl;
+    cout << "||---------------------------------------||" << endl;
+    cout << "||     0 - CANCELAR                      ||" <<endl;
+    cout << "|||||||||||||||||||||||||||||||||||||||||||" << endl;
+    cout << "SELECCIONE UNA OPCION: ";
+    int opcion;
+    cin >> opcion;
+    bool alta = false;
+    switch (opcion) {
+        case 1: alta = _clienteManager.recuperar(id);
+               system("pause");
+                system("cls");
+            break;
+        case 0: break;
+        default:
+            cout << "OPCION INVALIDA." << endl;
+            break;
+    }
+    return alta;
+}

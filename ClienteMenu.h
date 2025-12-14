@@ -8,7 +8,7 @@ class ClienteMenu {
     void mostrar();
     int buscarCliente();
     void modificarCliente();
-    void darAltaCliente(int id);
+    bool darAltaCliente(int id);
     void buscar();
     void mostrarReportes();
 

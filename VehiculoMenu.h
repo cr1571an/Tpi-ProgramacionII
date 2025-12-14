@@ -14,10 +14,8 @@ class VehiculoMenu {
         void ejecutarOpcion(int opcion);
         void cargar();
         void modificarVehiculo();
-        void buscarVehiculoPorPatente();
-        void buscarVehiculoPorID();
         void buscarVehiculo();
-        void darAltaVehiculo(int idVehiculo);
+        bool darAltaVehiculo(int idVehiculo);
 
         bool darAltaClientePorIdVehiculo(int posVehiculo);
 

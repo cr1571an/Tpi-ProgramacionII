@@ -123,59 +123,26 @@ void VehiculoMenu::cargar() {
     cout << "|||||||||||||||||||||||||||||||||||||||||||" << endl;
     cout << "||      BUSCAR AL CLIENTE QUE SE         ||" << endl;
     cout << "||    LE QUIERA ASOCIAR EL VEHICULO      ||" << endl;
-
+    cout << "|||||||||||||||||||||||||||||||||||||||||||" << endl;
     int idCliente = _clienteMenu.buscarCliente();
+    if (idCliente == -3 || idCliente == -1) return;
     int pos = _clientesArchivo.buscarIdCliente(idCliente);
-    if (idCliente == -3) return;
     if (pos == -1) {
-        cout << "ERROR!. EL CLIENTE NO EXISTE." << endl;
+        cout << "ERROR: EL CLIENTE NO EXISTE." << endl;
         system("pause");
-        return;}
+        return;
+    }
     Cliente cliente = _clientesArchivo.leer(pos);
     if (cliente.getEliminado()) {
-        cout << "ERROR!. EL CLIENTE ESTA ELIMINADO." << endl;
+        cout << "ERROR: EL CLIENTE ESTA ELIMINADO." << endl;
         _clienteMenu.darAltaCliente(idCliente);
-        return;}
+        return;
+    }
     _vehiculoManager.cargar(idCliente);
     system("pause");
 }
 
 
-void VehiculoMenu::buscarVehiculoPorID() {
-    system("cls");
-    cout << "INGRESE EL ID DEL VEHICULO: ";
-    int id;
-    cin >> id;
-    int pos = _vehiculosArchivo.buscarVehiculo(id);
-    if (pos == -1) {
-        cout << "NO SE ENCONTRO NINGUN VEHICULO CON ESE ID." << endl;
-        system("pause");
-        return;
-    }
-    Vehiculo vehiculo = _vehiculosArchivo.leer(pos);
-    _vehiculoManager.mostrarLista(vehiculo);
-    system("pause");
-}
-
-void VehiculoMenu::buscarVehiculoPorPatente() {
-    cout << "INGRESE LA PATENTE DEL VEHICULO: ";
-    string patente;
-    cin >> patente;
-    int id = _vehiculoManager.buscarIdPorPatente(patente);
-    if (id == -1) {
-        cout << "NO SE ENCONTRO NINGUN VEHICULO CON ESA PATENTE." << endl;
-        system("pause");
-        return;
-    }
-    int pos = _vehiculosArchivo.buscarVehiculo(id);
-    if (pos == -1) {
-        cout << "ERROR! AL BUSCAR EL VEHICULO EN EL ARCHIVO." << endl;
-        system("pause");
-        return;
-    }
-    Vehiculo vehiculo = _vehiculosArchivo.leer(pos);
-    _vehiculoManager.mostrarLista(vehiculo);
-}
 
 int VehiculoMenu::seleccionarVehiculo(bool modificar) {
     cout << "||||||||||||||||||||||||||||||||||||||||||||" << endl;
@@ -186,71 +153,88 @@ int VehiculoMenu::seleccionarVehiculo(bool modificar) {
     cout << "||     0 - VOLVER                         ||" << endl;
     cout << "||||||||||||||||||||||||||||||||||||||||||||" << endl << endl;
     cout << "SELECCIONE UNA OPCION: ";
+
     int opcion;
     cin >> opcion;
     cin.ignore();
     int idVehiculo = -1;
     int idCliente;
-    switch(opcion) {
+    switch (opcion) {
+
         case 1: {
             system("cls");
             idCliente = _clienteMenu.buscarCliente();
             int posCliente = _clientesArchivo.buscarIdCliente(idCliente);
-            if (idCliente == -3) return -3;
+            if (idCliente == -3 || idCliente == -1) return idCliente;
             if (posCliente < 0) {
-                cout << "ERROR!. EL CLIENTE NO EXISTE." << endl;
+                cout << "ERROR! EL CLIENTE NO EXISTE." << endl;
                 system("pause");
-                return -1;}
+                return -2;
+            }
             Cliente cliente = _clientesArchivo.leer(posCliente);
             if (cliente.getEliminado()) {
                 cout << "EL CLIENTE FUE ELIMINADO." << endl;
                 _clienteMenu.darAltaCliente(idCliente);
                 return -1;
             }
+            system("cls");
             int c = _vehiculoManager.mostrarYContarVehiculosDeCliente(idCliente);
             if (c == 0) {
                 cout << "EL CLIENTE NO TIENE VEHICULOS ASOCIADOS." << endl;
                 system("pause");
                 return -1;
             }
-            if (!modificar) {
-                system("pause");
-            }
             if (modificar && c > 0) {
                 cout << "INGRESE EL ID DEL VEHICULO QUE DESEA MODIFICAR: ";
+                int idVehiculo;
                 cin >> idVehiculo;
                 cin.ignore();
                 int posVehiculo = _vehiculosArchivo.buscarVehiculo(idVehiculo);
                 if (posVehiculo < 0) {
-                    cout << "ERROR. NO EXISTE." << endl;
-                    system("pause");
-                    return -1;}
-                Vehiculo vehiculo = _vehiculosArchivo.leer(posVehiculo);
-                if (vehiculo.getIdCliente() != idCliente) {
                     cout << "ERROR! NO TIENES NINGUN VEHICULO CON ESE ID." << endl;
                     system("pause");
-                    return -1;}
-                system("cls");
+                    return -5;
+                }
+                Vehiculo vehiculo = _vehiculosArchivo.leer(posVehiculo);
+                if (vehiculo.getIdCliente() != cliente.getIdCliente()) {
+                    cout << "ERROR! NO TIENES NINGUN VEHICULO CON ESE ID." << endl;
+                    system("pause");
+                    return -5;
+                }
+                return idVehiculo;
             }
-            break;
+            system("pause");
+            return -1;
         }
         case 2: {
             system("cls");
             cout << "INGRESE LA PATENTE DEL VEHICULO: ";
             string patente = cargarCadena();
             idVehiculo = _vehiculoManager.buscarIdPorPatente(patente);
-            break;
+            if (idVehiculo == -1) {
+                cout << "NO SE ENCONTRO NINGUN VEHICULO CON ESA PATENTE." << endl;
+                system("pause");
+                return -1;
+            }
+            return idVehiculo;
         }
         case 3: {
             system("cls");
             cout << "INGRESE EL ID DEL VEHICULO: ";
             cin >> idVehiculo;
             cin.ignore();
+            int posVehiculo = _vehiculosArchivo.buscarVehiculo(idVehiculo);
+            if (posVehiculo < 0) {
+                cout << "ERROR! EL VEHICULO NO EXISTE." << endl;
+                system("pause");
+                return -1;
+            }
             break;
         }
         case 0:
             return -1;
-        default: cout << "OPCION INVALIDA." << endl;
+        default:
+            cout << "OPCION INVALIDA." << endl;
             return -1;
     }
     return idVehiculo;
@@ -262,32 +246,24 @@ void VehiculoMenu::modificarVehiculo() {
     cout << "||      BUSCAR VEHICULO A MODIFICAR       ||" << endl;
     int idVehiculo = seleccionarVehiculo(true);
     if (idVehiculo < 0) return;
-
     int posVehiculo = _vehiculosArchivo.buscarVehiculo(idVehiculo);
     if (posVehiculo < 0) {
         cout << "ERROR! EL VEHICULO NO EXISTE." << endl;
         system("pause");
         return;
     }
-    Vehiculo vehiculo = _vehiculosArchivo.leer(posVehiculo);
-
-    if (_vehiculoManager.estadoCliente(vehiculo.getIdCliente())) {
-        cout << "ERROR! EL CLIENTE ESTA ELIMINADO." << endl;
-        system("pause");
-        return;
-    }
     if (!darAltaClientePorIdVehiculo(posVehiculo)) return;
 
+    Vehiculo vehiculo = _vehiculosArchivo.leer(posVehiculo);
     if (vehiculo.getEliminado()) {
-        cout << "EL VEHICULO ESTA ELIMINADO." << endl;
-        darAltaVehiculo(idVehiculo);
-        return;
+        if (!darAltaVehiculo(idVehiculo))return;;
     }
+    system("cls");
     cout << "||||||||||||||||||||||||||||||||||||||||||||" << endl;
     cout << "||          DATOS DEL VEHICULO            ||" << endl;
-    cout << "||||||||||||||||||||||||||||||||||||||||||||" << endl;
-
-    _vehiculoManager.mostrarLista(vehiculo);
+    cout << "||||||||||||||||||||||||||||||||||||||||||||";
+    Vehiculo v = _vehiculosArchivo.leer(posVehiculo);
+    _vehiculoManager.mostrarLista(v);
 
     cout << "||||||||||||||||||||||||||||||||||||||||||||" << endl;
     cout << "||     1 - DAR DE BAJA                    ||" << endl;
@@ -304,52 +280,63 @@ void VehiculoMenu::modificarVehiculo() {
     int opcion;
     cin >> opcion;
     switch (opcion) {
-        case 1:
-            _vehiculoManager.eliminar(idVehiculo);system("pause"); break;
+        case 1:_vehiculoManager.eliminar(idVehiculo);
+            system("pause");
+            break;
         case 2:system("cls");
-            _vehiculoManager.modificarPatente(idVehiculo); system("pause");break;
+            _vehiculoManager.modificarPatente(idVehiculo);
+            system("pause");
+            break;
         case 3:system("cls");
-            _vehiculoManager.modificarUso(idVehiculo); system("pause");break;
+            _vehiculoManager.modificarUso(idVehiculo);
+            system("pause");
+            break;
         case 4:system("cls");
-            _vehiculoManager.modificarCategoria(idVehiculo); system("pause");break;
+            _vehiculoManager.modificarCategoria(idVehiculo);
+            system("pause");
+            break;
         case 5:system("cls");
-            _vehiculoManager.modificarNumChasis(idVehiculo); system("pause");break;
+            _vehiculoManager.modificarNumChasis(idVehiculo);
+            system("pause");
+            break;
         case 6:system("cls");
-            _vehiculoManager.modificarNumMotor(idVehiculo); system("pause");break;
+            _vehiculoManager.modificarNumMotor(idVehiculo);
+            system("pause");
+            break;
         case 7:system("cls");
-            _vehiculoManager.modificarAnio(idVehiculo); system("pause");break;
-        case 0: return;
-        default:
-            cout << "OPCION INVALIDA." << endl;
+            _vehiculoManager.modificarAnio(idVehiculo);
+            system("pause");
+            break;
+        case 0:return;
+        default:cout << "OPCION INVALIDA." << endl;
             break;
     }
 }
 
 
-
-void VehiculoMenu::darAltaVehiculo(int idVehiculo) {
+bool VehiculoMenu::darAltaVehiculo(int idVehiculo) {
     cout << "||||||||||||||||||||||||||||||||||||||||||||" << endl;
     cout << "||     1 - DAR DE ALTA VEHICULO           ||" << endl;
     cout << "||----------------------------------------||" << endl;
     cout << "||     0 - SALIR                          ||" << endl;
     cout << "||||||||||||||||||||||||||||||||||||||||||||" << endl;
-    int opcion;
     cout << "SELECCIONE UNA OPCION: ";
+    int opcion;
     cin >> opcion;
+    bool alta = false;
     switch (opcion) {
-        case 1:
-            if(_vehiculosArchivo.recuperarVehiculo(idVehiculo)) {
-                cout << "EL VEHICULO FUE DADO DE ALTA." << endl;
-                system("pause");
-            }
+        case 1:alta = _vehiculoManager.recuperar(idVehiculo);
+            system("pause");
+            system("cls");
             break;
-        case 0:
-            break;
+        case 0: break;
         default:
             cout << "OPCION INVALIDA." << endl;
             break;
     }
+    return alta;
 }
+
 
 void VehiculoMenu::buscarVehiculo() {
     system("cls");
@@ -358,12 +345,17 @@ void VehiculoMenu::buscarVehiculo() {
     int idVehiculo = seleccionarVehiculo(false);
     if (idVehiculo < 0) return;
     int posVehiculo = _vehiculosArchivo.buscarVehiculo(idVehiculo);
-    if (posVehiculo < 0) {
-        cout << "ERROR!. EL VEHICULO NO EXISTE." << endl;
+    if (posVehiculo < 0 && idVehiculo != -1) {
+        cout << "ERROR! EL VEHICULO NO EXISTE." << endl;
         system("pause");
         return;
     }
     Vehiculo vehiculo = _vehiculosArchivo.leer(posVehiculo);
+    if (vehiculo.getEliminado()) {
+        cout << "EL VEHICULO ESTA DADO DE BAJA." << endl;
+        system("pause");
+        return;
+    }
     _vehiculoManager.mostrarLista(vehiculo);
     system("pause");
 }
@@ -372,14 +364,14 @@ bool VehiculoMenu::darAltaClientePorIdVehiculo(int posVehiculo) {
     Vehiculo vehiculo = _vehiculosArchivo.leer(posVehiculo);
     int posCliente = _clientesArchivo.buscarIdCliente(vehiculo.getIdCliente());
     if (posCliente < 0) {
-        cout << "ERROR!. EL CLIENTE NO EXISTE." << endl;
+        cout << "ERROR! EL CLIENTE NO EXISTE." << endl;
         system("pause");
-        return false;}
+        return false;
+    }
     Cliente cliente = _clientesArchivo.leer(posCliente);
     if (cliente.getEliminado()) {
         cout << "EL CLIENTE FUE ELIMINADO." << endl;
         _clienteMenu.darAltaCliente(vehiculo.getIdCliente());
-        system("pause");
         return false;
     }
     return true;

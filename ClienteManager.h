@@ -1,9 +1,12 @@
 #pragma once
+
 #include "ClientesArchivo.h"
 #include "VehiculosArchivo.h"
 #include "PolizaArchivo.h"
 #include "SiniestroArchivo.h"
 #include "SiniestroManager.h"
+#include "TiposSegurosArchivo.h"
+#include "VencimientosArchivo.h"
 
 class ClienteManager {
 public:
@@ -23,13 +26,21 @@ public:
     bool validarEdad(Fecha fechaNacimiento);
     bool telefonoDisponible(std::string telefono);
     bool correoDisponible(std::string correo);
-    bool eliminarPorDNI();
-    bool recuperarPorDNI();
     bool verificarRegistroPorDNI(std::string dni);
     bool eliminar(int idCliente);
     bool recuperar(int idCliente);
     void mostrarLista(Cliente cliente, bool eliminado);
-    void clientesConSiniestrosEntreFecha();
+
+    int hayClientesReg();
+    int hayPolizasReg();
+    int hayPagosVencReg();
+    int hayPagosReg();
+    void clientesConAtrasoEnLosPagos();
+    int buscarClienteParaHistorial();
+    bool esPagoDeCliente(int idxPago, int idCliente);
+    int contarPagosDeCliente(int idCliente);
+    void historialPagosPorCliente();
+
 
 private:
     ClientesArchivo _clientesArchivo;
@@ -37,6 +48,8 @@ private:
     PolizaArchivo _polizasArchivo;
     SiniestroArchivo _siniestroArchivo;
     SiniestroManager _siniestroManager;
+    VencimientosArchivo _vencimientosArchivo;
     TiposSiniestrosArchivo _tiposSiniestrosArchivo;
-    
+    TiposSegurosArchivo _tiposSegurosArchivo;
+    PagoArchivo _pagoArchivo;
 };

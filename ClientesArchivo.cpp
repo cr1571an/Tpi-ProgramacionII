@@ -23,20 +23,20 @@ bool ClientesArchivo::guardar(Cliente registro) {
 
 
 int ClientesArchivo::buscarIdCliente(int id) {
-    FILE *archivo_vehiculo = fopen(_nombreArchivo.c_str(), "rb");
-    if (archivo_vehiculo == nullptr) {
+    FILE *archivo_cliente = fopen(_nombreArchivo.c_str(), "rb");
+    if (archivo_cliente == nullptr) {
         return -2;
     }
     Cliente registro;
     int posicion = 0;
-    while (fread(&registro, sizeof(Cliente), 1, archivo_vehiculo) == 1) {
+    while (fread(&registro, sizeof(Cliente), 1, archivo_cliente) == 1) {
         if (registro.getIdCliente() == id) {
-            fclose(archivo_vehiculo);
+            fclose(archivo_cliente);
             return posicion;
         }
         posicion++;
     }
-    fclose(archivo_vehiculo);
+    fclose(archivo_cliente);
     return -1;
 }
 
