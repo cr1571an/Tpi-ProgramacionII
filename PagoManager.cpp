@@ -188,6 +188,11 @@ void PagoManager::cargar(int idPoliza)
 void PagoManager::mostrar()
 {
     int cantidadPagosEnArchivo = _pagoArchivo.getCantidadRegistros();
+    if (cantidadPagosEnArchivo <= 0)
+    {
+        cout << "NO HAY PAGOS REGISTRADOS." << endl;
+        return;
+    }
     for (int i = 0; i < cantidadPagosEnArchivo; i++)
     {
         Pago pagoLeido = _pagoArchivo.leer(i);
@@ -380,7 +385,10 @@ void PagoManager::anularPago(int idPago)
 
 void PagoManager::mostrarLista(Pago pago)
 {
-    if (pago.getEliminado()) return;
+    if (pago.getEliminado()) {
+        cout << "EL PAGO HA SIDO ANULADO" << endl;
+        return;
+    }
 
     cout << "----------------------------" << endl;
     cout << "ID de pago: " << pago.getId() << endl;
@@ -509,7 +517,7 @@ void PagoManager::listarOrdenadosPorMetodoPago()
     int cantidadPagosEnArchivo = _pagoArchivo.getCantidadRegistros();
     if (cantidadPagosEnArchivo <= 0)
     {
-        cout << "No hay pagos registrados." << endl;
+        cout << "NO HAY PAGOS REGISTRADOS." << endl;
         return;
     }
 
@@ -853,7 +861,10 @@ bool PagoManager::eliminarVencimientosDePoliza(int idPoliza){
 
 void PagoManager::recaudacionPorPeriodoYTipoSeguros() {
     int cantPagos = _pagoArchivo.getCantidadRegistros();
-    if (cantPagos == 0)return;
+    if (cantPagos == 0){
+        cout << "NO HAY PAGOS REGISTRADOS, NO ES POSIBLE REALIZAR ESTE REPORTE." << endl;
+        return;
+    }
     system("cls");
     cout << "||||||||||||||||||||||||||||||||||||||||||||||||||||||||||" << endl;
     cout << "||     RECAUDACION POR PERIODO Y POR TIPO DE POLIZA     ||" << endl;
