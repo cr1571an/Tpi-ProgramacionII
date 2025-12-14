@@ -28,26 +28,26 @@ void ClienteManager::cargar() {
   cout <<"|||||||||||||||||||||||||||||||||||||"<<endl;
   cout << "NUMERO DEL CLIENTE: " << idCliente<<endl;
   cout << "INGRESA EL NOMBRE: ";
-  string nombre = cargarCadena(); if (cortarSiCero(nombre)) return;
+  string nombre = cargarCadena(); if (cortarSiCero(nombre)){mensajeCargaCancelada();return;};
   cout << "INGRESA APELLLIDO: ";
-  string apellido = cargarCadena(); if (cortarSiCero(apellido)) return;
+  string apellido = cargarCadena(); if (cortarSiCero(apellido)){mensajeCargaCancelada();return;};
   cout << "INGRESA D.N.I: ";
-  string dni = cargarCadena(); if (cortarSiCero(dni)) return;
+  string dni = cargarCadena(); if (cortarSiCero(dni)){mensajeCargaCancelada();return;};
   if (!verificarRegistroPorDNI(dni)){cout << "EL D.N.I YA ESTA REGISTRADO. NO SE PUEDE VOLVER A REGISTRAR."<<endl;mensajeCargaCancelada();return;};
   cout << "INGRESA TELEFONO: ";
-  string telefono = cargarCadena(); if (cortarSiCero(telefono)) {mensajeCargaCancelada();return;};
+  string telefono = cargarCadena(); if (cortarSiCero(telefono)){mensajeCargaCancelada();return;};
   if (!telefonoDisponible(telefono)) {cout <<"EL NUMERO DE TELEFONO YA ESTA REGISTRADO. NO SE PUEDE VOLVER A REGISTRAR."<< endl;mensajeCargaCancelada();return;};
   cout << "INGRESAR CORREO: ";
-  string correo = cargarCadena(); if (cortarSiCero(correo)) {mensajeCargaCancelada();return;};
+  string correo = cargarCadena(); if (cortarSiCero(correo)){mensajeCargaCancelada();return;};
   if (!correoDisponible(correo)) {cout <<"EL CORREO YA ESTA REGISTRADO. NO SE PUEDE VOLVER A REGISTRAR."<< endl;mensajeCargaCancelada();return;};
   cout << "INGRESAR FECHA DE NACIMIENTO."<<endl;
   Fecha fechaNacimiento = leerFechaValida();
   if (fechaNacimiento.getAnio() == -1) {mensajeCargaCancelada();return;};
   if (!validarEdad(fechaNacimiento)) return;
   cout << "INGRESAR PARTIDO: ";
-  string partido = cargarCadena(); if (cortarSiCero(correo)){mensajeCargaCancelada();return;};
+  string partido = cargarCadena(); if (cortarSiCero(partido)){mensajeCargaCancelada();return;};
   cout << "INGRESAR LOCALIDAD: ";
-  string localidad = cargarCadena(); if (cortarSiCero(correo)) {mensajeCargaCancelada();return;};
+  string localidad = cargarCadena(); if (cortarSiCero(localidad)) {mensajeCargaCancelada();return;};
 
   Cliente nuevoCliente(idCliente, nombre, apellido, dni, telefono, correo, partido, localidad, false, fechaNacimiento);
 
