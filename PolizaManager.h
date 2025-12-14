@@ -24,7 +24,7 @@ class PolizaManager {
         void listarPolizasNoVigentes();
         void listarPorFechaVigencia();
         void buscarPorDniCliente();
-        void listarPolizasSinCobertura();
+        void reportePolizasSinCobertura();
         void reportePolizasVigentesYVencidas();
         void mostrarVencimientosDePoliza();
 
@@ -42,8 +42,8 @@ class PolizaManager {
 
         int buscarPorId();
         void mostrarPoliza(Poliza poliza);
-        int cantidadPolizasPeriodo(Poliza polizas[],int cantidadPolizas, Fecha FechaConsulta);
-        void filtrarPolizasPorFecha(Poliza polizas[], Poliza* polizasFiltradas[], int cantidadPolizas,Fecha FechaConsulta);
+        int cantidadPolizasPeriodo(Poliza polizas[],int cantidadPolizas, Fecha fechaDesde, Fecha fechaHasta);
+        void filtrarPolizasPorFecha(Poliza polizas[], Poliza* polizasFiltradas[], int cantidadPolizas,Fecha fechaDesde, Fecha fechaHasta);
         void generarVencimientos(Poliza poliza, int cantidadVencimientos);
         float calcularMontoVencimiento(int primaMensual);
         bool tieneCobertura(Poliza poliza);
