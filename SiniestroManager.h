@@ -36,5 +36,5 @@ class SiniestroManager {
         int cantidadSiniestrosPeriodo(Fecha fechaDesde, Fecha fechaHasta, Siniestro siniestros[], int cantidad);
         void filtrarPorPeriodo(Fecha fechaDesde, Fecha fechaHasta, Siniestro siniestros[],Siniestro* siniestrosFiltrados[], int cantidadSiniestros);
         bool validarCobertura(Fecha fechaSiniestro, int idPoliza);
-        
+        int mostrarOpcionesDeSiniestros();        
 };

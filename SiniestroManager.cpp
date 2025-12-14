@@ -3,6 +3,7 @@
 using namespace std;
 #include "utils.h"
 #include "TipoSiniestro.h"
+#include <iomanip>
 
 SiniestroManager::SiniestroManager()
     : _archivo(), _polizaArchivo(), _tiposSiniestrosArchivo(), _vehiculoArchivo(), _clienteArchivo(), _pagoManager(), _vencimientosArchivo() {
@@ -45,8 +46,15 @@ void SiniestroManager::ordenarPorFechaSiniestro(Siniestro vect[], int cantidad) 
 }
 
 void SiniestroManager::cargar() {
-    cout << "============================================" << endl;
-    cout << "       FORMULARIO DE ALTA DE SINIESTRO      " << endl;
+    Fecha f = Fecha();
+    int id = _archivo.getNuevoID();
+    int idTipoSiniestro = mostrarOpcionesDeSiniestros();
+    if (idTipoSiniestro == 0) return;
+    system("cls");
+    cout << "=============================================" << endl;
+    cout << centrar("TIPO DE SINIESTRO " + _tiposSiniestrosArchivo.leer(idTipoSiniestro - 1).getDescripcion(),45)<<endl;
+    cout << centrar("NUMERO DE SINIESTRO " + to_string(id),45)<<endl;
+    cout << centrar("FECHA DE ALTA " + f.formatoFecha() ,45)<<endl;
     cout << "============================================" << endl;
     int idPoliza;
     cout << "ID DE LA POLIZA ASOCIADA: "; cin >> idPoliza;
@@ -55,50 +63,17 @@ void SiniestroManager::cargar() {
         cout<< "EL ID INGRESADO NO EXISTE. SE CANCELA EL ALTA DE SINIESTRO."<<endl;
         return;
     }
-
-    int id = _archivo.getNuevoID();
-
-    Fecha fecha = leerFechaValida();
-    int anio = fecha.getAnio();
-
-    if (anio == -1){
-        cout<< "FECHA INVALIDA, SE CANCELA EL ALTA DE SINIESTRO."<<endl;
-        return;
-    }
-    if (anio < 2023 || anio > 2027) {
-    cout << "EL ANIO DEBE ESTAR ENTRE 2023 Y 2027. SE CANCELA EL ALTA DE SINIESTRO."<<endl;
-    return;
-}
-    int idTipo;    
-    float costo;
-    
+    float costo;       
     cout << "COSTO ESTIMADO: "; cin >> costo;
-    if (costo < 0) {
-        cout << "EL COSTO NO PUEDE SER NEGATIVO. SE CANCELA EL ALTA DE SINIESTRO." << endl;
+    if (costo <= 0 || costo > 10000000) {
+        cout << "EL COSTO NO PUEDE SER NEGATIVO O SUPERIOR A 10.000.000. SE CANCELA EL ALTA DE SINIESTRO." << endl;
         return;
     }
 
-    int cantidadTiposSiniestros = _tiposSiniestrosArchivo.getCantidadRegistros();
-    TipoSiniestro* tiposSiniestros = new TipoSiniestro[cantidadTiposSiniestros]{};
-
-    _tiposSiniestrosArchivo.leerTodos(tiposSiniestros,cantidadTiposSiniestros);
-
-    for (int i=0;i<cantidadTiposSiniestros;i++)
-        cout<< i+1 <<") " << tiposSiniestros[i].getDescripcion()<<endl;    
-    
-    cout << "INGRESE UN TIPO DE SINIESTRO: "; cin >> idTipo;
-    
-    if ( idTipo < 1 || idTipo > cantidadTiposSiniestros ){
-        cout<<"OPCION INGRESA INVALIDA, SE CANCELA EL ALTA DE SINIESTRO."<<endl;;
-        delete[] tiposSiniestros;
-        return;
-    }
-
-    Siniestro s(id, idPoliza, fecha, idTipo, costo, false);
+    Siniestro s(id, idPoliza, f, idTipoSiniestro, costo, false);
     if (_archivo.guardar(s)) cout << "SINIESTRO REGISTRADO." << endl;
     else cout << "ERROR AL GUARDAR." << endl;
 
-    delete[] tiposSiniestros;
 }
 
 
@@ -260,37 +235,10 @@ void SiniestroManager::mostrarSiniestro(Siniestro siniestro) {
     cout << "Cliente ID       : " << cliente.getIdCliente() << "\n";
     cout << "Cliente          : " << cliente.getApellido() << " " << cliente.getNombre() << "\n";
     cout << "Tipo             : " << tipoSiniestro.getDescripcion() << "\n";
-    cout << "Costo Estimado   : $" << siniestro.getCostoEstimado() << "\n";
+    cout << "Costo Estimado   : $" << fixed << setprecision(2)<< siniestro.getCostoEstimado() << "\n";
     cout << "Fecha Siniestro  : " << siniestro.getFechaSiniestro().formatoFecha() << "\n";
     cout << "---------------------------------------------\n";
 }
-
-// void SiniestroManager::reporteSiniestrosPorTipo() {
-//     int cantidadTipos = _tiposSiniestrosArchivo.getCantidadRegistros();
-//     if (cantidadTipos == 0) {
-//         cout << "NO SE ENCONTRARON TIPOS DE SINIESTROS." << endl;
-//         return;
-//     }
-//     cout << "------------------------" << endl;
-//     cout << "REPORTE DE SINIESTROS POR TIPO" << endl;
-//     cout << "------------------------" << endl;
-//     for (int i = 0; i < cantidadTipos; i++) {
-//         TipoSiniestro tipo = _tiposSiniestrosArchivo.leer(i);
-//         if (!tipo.getEliminado()) {
-//             cout << "TIPO DE SINIESTRO: " << tipo.getDescripcion() << endl;
-//             int cantidadSiniestros = _archivo.getCantidadRegistros();
-//             int contador = 0;
-//             for (int j = 0; j < cantidadSiniestros; j++) {
-//                 Siniestro s = _archivo.leer(j);
-//                 if (s.getIdTipoSiniestro() == tipo.getId() && !s.getEliminado()) {
-//                     contador++;                    
-//                 }
-//             }
-//             cout << "CANTIDAD DE SINIESTROS: " << contador << endl;
-//         }
-//     }
-
-// }
 
 void SiniestroManager::listadoSiniestrosPorPoliza(){
     cout << "============================================" << endl;
@@ -298,24 +246,28 @@ void SiniestroManager::listadoSiniestrosPorPoliza(){
     cout << "============================================" << endl;
     int idPoliza;
     cout << "ID DE LA POLIZA: "; cin >> idPoliza;
-    int cantidadPolizas = _polizaArchivo.getCantidadRegistros();
-    if (idPoliza >= 1 && idPoliza <= cantidadPolizas){      
-        int cantidadSiniestros = _archivo.getCantidadRegistros();
-        bool encontrado = false;
-        for (int i = 0; i < cantidadSiniestros; i++) {
-            Siniestro s = _archivo.leer(i);
-            if (s.getIdPoliza() == idPoliza && !s.getEliminado()) {
-                mostrarSiniestro(s);
-                encontrado = true;
-            }
-        }
-        if (!encontrado) {
-            cout << "NO SE ENCONTRARON SINIESTROS PARA LA POLIZA INDICADA." << endl;
+    int pos = _polizaArchivo.buscarID(idPoliza);
+    if (pos == -1) {
+        cout << "EL ID INGRESADO NO EXISTE." << endl;
+        return;
+    }
+    Poliza poliza = _polizaArchivo.leer(pos);
+    if (poliza.getEliminado()){
+        cout << "LA POLIZA INDICADA HA SIDO ELIMINADA." << endl;
+        return;
+    }
+
+    int cantidadSiniestros = _archivo.getCantidadRegistros();
+    bool encontrado = false;
+    for (int i = 0; i < cantidadSiniestros; i++) {
+        Siniestro s = _archivo.leer(i);
+        if (s.getIdPoliza() == idPoliza && !s.getEliminado()) {
+            mostrarSiniestro(s);
+            encontrado = true;
         }
     }
-    else{
-        cout<<"EL ID DE LA POLIZA ES INVALIDO." << endl;
-    }
+    if (!encontrado) 
+        cout << "NO SE ENCONTRARON SINIESTROS PARA LA POLIZA INDICADA." << endl;
 }
 void SiniestroManager::reporteCoberturaSiniestros(){
     int cantidadSiniestros = _archivo.getCantidadRegistros();
@@ -329,10 +281,14 @@ void SiniestroManager::reporteCoberturaSiniestros(){
     cout << "============================================================" << endl;
     cout << "INGRESE LA FECHA INICIAL: "; 
     Fecha fechaDesde = leerFechaValida();
+    if (fechaDesde.getAnio() == -1) {
+        cout << "FECHA INVALIDA." << endl;
+        return;
+    }
     cout << "INGRESE LA FECHA FINAL: "; 
     Fecha fechaHasta = leerFechaValida();
 
-    if (fechaDesde.getAnio() == -1 || fechaHasta.getAnio() == -1) {
+    if (fechaHasta.getAnio() == -1) {
         cout << "FECHAS INVALIDAS." << endl;
         return;
     }
@@ -467,4 +423,27 @@ bool SiniestroManager::validarCobertura(Fecha fechaSiniestro, int idPoliza){
     }        
     delete [] pagosRealizados;
     return false;
+}
+
+int SiniestroManager::mostrarOpcionesDeSiniestros() {
+    cout << "|||||||||||||||||||||||||||||||||||||||||||" << endl;
+    cout << "||          SELECCIONE UN SINIESTRO      ||" << endl;
+    cout << "|||||||||||||||||||||||||||||||||||||||||||" << endl;
+    cout << "||     1 - CHOQUE                        ||" << endl;
+    cout << "||     2 - ROBO                          ||" << endl;
+    cout << "||     3 - INCENDIO                      ||" << endl;
+    cout << "||     4 - GRANIZO                       ||" << endl;
+    cout << "||---------------------------------------||" << endl;
+    cout << "||     0 - VOLVER                        ||" << endl;
+    cout << "|||||||||||||||||||||||||||||||||||||||||||" << endl<< endl;
+    int opcion;
+    do {
+        cout << "SELECCIONE UNA OPCION: ";
+        cin >> opcion;
+        if (opcion < 0 || opcion > 4) {
+            cout << "OPCION INCORRECTA..." << endl;
+        }
+    } while (opcion < 0 || opcion > 4);
+
+    return opcion;
 }
