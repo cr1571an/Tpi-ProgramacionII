@@ -3,33 +3,49 @@ project(PT)
 
 set(CMAKE_CXX_STANDARD 20)
 
-add_executable(PT main.cpp
+add_executable(PT
         main.cpp
+
         ClienteManager.cpp
-        Clientes.cpp
+        Cliente.cpp
         ClientesArchivo.cpp
+
         VehiculoManager.cpp
-        Vehiculos.cpp
+        Vehiculo.cpp
         VehiculosArchivo.cpp
+
         PolizaManager.cpp
         Poliza.cpp
         PolizaArchivo.cpp
+        PolizaMenu.cpp
+
         PagoManager.cpp
         Pago.cpp
         PagoArchivo.cpp
+        PagoMenu.cpp
+
         SiniestroManager.cpp
         Siniestro.cpp
         SiniestroArchivo.cpp
+        SiniestroMenu.cpp
+
+        TiposSiniestrosArchivo.cpp
+        TipoSiniestro.cpp
+
+        TiposSegurosArchivo.cpp
+        TipoSeguro.cpp
+
         Fecha.cpp
         utils.cpp
+
         ClienteMenu.cpp
-        ClienteMenu.h
         App.cpp
-        App.h
         VehiculoMenu.cpp
-        VehiculoMenu.h
-        Localidad.cpp
-        Localidad.h
-        LocalidadArchivo.cpp
-        LocalidadArchivo.h
+
+        VencimientosArchivo.cpp
+        Vencimiento.cpp
+
+        ReporteMenu.cpp
+        ReporteMenu.h
+
 )
