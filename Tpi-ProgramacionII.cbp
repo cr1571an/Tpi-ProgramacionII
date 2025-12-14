@@ -99,10 +99,6 @@
 		<Unit filename="VencimientosArchivo.cpp" />
 		<Unit filename="VencimientosArchivo.h" />
 		<Unit filename="main.cpp" />
-		<Unit filename="tools/generadorDeArchivosDeDatos.cpp" />
-		<Unit filename="tools/generadorDeArchivosDeDatos.h" />
-		<Unit filename="tools/imprimirArchivos.cpp" />
-		<Unit filename="tools/imprimirArchivos.h" />
 		<Unit filename="utils.cpp" />
 		<Unit filename="utils.h" />
 		<Extensions>
