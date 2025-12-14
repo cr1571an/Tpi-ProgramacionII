@@ -172,26 +172,3 @@ void PolizaMenu::ejecutarOpcionSubMenuModificar(int opcion) {
         }
     }
 }
-
-int PolizaMenu::mostrarSeguro() {
-    cout << "|||||||||||||||||||||||||||||||||||||||||||" << endl;
-    cout << "||          SELECCIONE UN SEGURO         ||" << endl;
-    cout << "|||||||||||||||||||||||||||||||||||||||||||" << endl;
-    cout << "||     1 - BASICO RESPONSABILIDAD CIVIL  ||" << endl;
-    cout << "||     2 - CONTRA TERCEROS COMPLETO      ||" << endl;
-    cout << "||     3 - TODO RIESGO                   ||" << endl;
-    cout << "||     4 - CONTRA ROBO E INCENDIO        ||" << endl;
-    cout << "||---------------------------------------||" << endl;
-    cout << "||     0 - VOLVER                        ||" << endl;
-    cout << "|||||||||||||||||||||||||||||||||||||||||||" << endl<< endl;
-    int opcion;
-    do {
-        cout << "SELECCIONE UNA OPCION: ";
-        cin >> opcion;
-        if (opcion < 0 || opcion > 4) {
-            cout << "OPCION INCORRECTA..." << endl;
-        }
-    } while (opcion < 0 || opcion > 4);
-
-    return opcion;
-}

@@ -6,7 +6,6 @@ class PolizaMenu {
     public:
       PolizaMenu();
       void mostrar();
-      int mostrarSeguro();
 
     private:
       int _cantidadOpciones;

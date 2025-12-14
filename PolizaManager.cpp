@@ -2,7 +2,6 @@
 #include "utils.h"
 #include "Cliente.h"
 #include "TipoSeguro.h"
-#include "PolizaMenu.h"
 #include <iostream>
 #include <iomanip> 
 using namespace std;
@@ -32,9 +31,8 @@ void PolizaManager::cargar() {
     int idSeguro, sumaAsegurada, id = _archivo.getNuevoID();
     Fecha inicio, fin;
     float prima;
-    PolizaMenu polizaMenu;
     Fecha f;
-    idSeguro = polizaMenu.mostrarSeguro();
+    idSeguro = mostrarOpcionesDeSeguro();
     if (idSeguro == 0) return;
     system("cls");
     cout << "=============================================" << endl;
@@ -388,7 +386,7 @@ void PolizaManager::mostrarPoliza(Poliza poliza){
     cout << "Tipo Seguro    : " << tipoSeguro.getDescripcion() << "\n";
     cout << "Fecha Inicio   : " << poliza.getfechaInicio().formatoFecha() << "\n";
     cout << "Fecha Fin      : " << poliza.getfechaFin().formatoFecha() << "\n";
-    cout << "Prima Mensual  : " << poliza.getPrimaMensual() << "\n";
+    cout << "Prima Mensual  : " << fixed << setprecision(2) << poliza.getPrimaMensual() << "\n";
     cout << "Suma Asegurada : " << poliza.getSumaAsegurada() << "\n";
     cout << "Eliminado      : " << (poliza.getEliminado() ? "SI" : "NO") << "\n";
     cout << "---------------------------------------------\n";
@@ -569,7 +567,6 @@ void PolizaManager::listarPolizasSinCobertura() {
     _archivo.leerTodos(polizas, cantidad);
 
     int cantidadVencimientos = _archivoVencimientos.getCantidadRegistros();
-    cout << "cantidadVencimientos: " << cantidadVencimientos << endl;
     Vencimiento * vencimientos = new Vencimiento[cantidadVencimientos]{};
     _archivoVencimientos.leerTodos(vencimientos, cantidadVencimientos);
 
@@ -585,7 +582,7 @@ void PolizaManager::listarPolizasSinCobertura() {
         if (!p.getEliminado()) {
             for (int j = 0; j < cantidadVencimientos; j++) {
                 Vencimiento v = vencimientos[j];
-                if ((v.getIdPoliza() == p.getId()) && v.estaVencido()) {
+                if (!v.getEliminado() && !v.getPagado() && v.estaVencido() && v.getIdPoliza() == p.getId()) {
                     mostrarPoliza(p);
                     break;
                 }
@@ -685,4 +682,27 @@ bool PolizaManager::tienePagosRealizados(int idPoliza) {
     }
 
     return false;
+}
+
+int PolizaManager::mostrarOpcionesDeSeguro() {
+    cout << "|||||||||||||||||||||||||||||||||||||||||||" << endl;
+    cout << "||          SELECCIONE UN SEGURO         ||" << endl;
+    cout << "|||||||||||||||||||||||||||||||||||||||||||" << endl;
+    cout << "||     1 - BASICO RESPONSABILIDAD CIVIL  ||" << endl;
+    cout << "||     2 - CONTRA TERCEROS COMPLETO      ||" << endl;
+    cout << "||     3 - TODO RIESGO                   ||" << endl;
+    cout << "||     4 - CONTRA ROBO E INCENDIO        ||" << endl;
+    cout << "||---------------------------------------||" << endl;
+    cout << "||     0 - VOLVER                        ||" << endl;
+    cout << "|||||||||||||||||||||||||||||||||||||||||||" << endl<< endl;
+    int opcion;
+    do {
+        cout << "SELECCIONE UNA OPCION: ";
+        cin >> opcion;
+        if (opcion < 0 || opcion > 4) {
+            cout << "OPCION INCORRECTA..." << endl;
+        }
+    } while (opcion < 0 || opcion > 4);
+
+    return opcion;
 }

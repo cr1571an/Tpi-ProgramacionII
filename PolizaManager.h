@@ -49,4 +49,5 @@ class PolizaManager {
         bool tieneCobertura(Poliza poliza);
         bool tienePolizasVigentes(int idVehiculo);
         bool tienePagosRealizados(int idPoliza);
+        int mostrarOpcionesDeSeguro();
 };
