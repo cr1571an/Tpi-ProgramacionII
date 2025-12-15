@@ -425,11 +425,6 @@ void PolizaManager::buscarPorDniCliente(){
     }
 }
 void PolizaManager::reportePolizasVigentesYVencidas(){
-    cout << R"(
-    ||||||||||||||||||||||||||||||||||||||||||||||||||||
-    ||  REPORTE DE POLIZAS POR TIPO DE SEGURO         ||
-    ||||||||||||||||||||||||||||||||||||||||||||||||||||
-    )";
     int cantidad = _archivo.getCantidadRegistros();
     if (cantidad == 0) {
         cout << "NO HAY POLIZAS PARA PODER GENERAR EL REPORTE." << endl;
@@ -465,10 +460,7 @@ void PolizaManager::reportePolizasVigentesYVencidas(){
         cout << "NO SE ENCONTRARON POLIZAS VIGENTES Y VENCIDAS A LA FECHA INDICADA." << endl;
         delete [] polizas;
         return;
-    }
-
-    cout << "------------------------" << endl;
-    cout << "REPORTE DE POLIZAS DESDE: " << fechaDesde.formatoFecha() << " HASTA: " << fechaHasta.formatoFecha() << endl;
+    }    
 
     int cantidadSeguros = _archivoTipoSeguros.getCantidadRegistros();
     TipoSeguro* tiposSeguros = new TipoSeguro[cantidadSeguros]{};
@@ -476,6 +468,18 @@ void PolizaManager::reportePolizasVigentesYVencidas(){
 
     Poliza** polizasFiltradas = new Poliza*[cantidadFiltradas]{};
     filtrarPolizasPorFecha(polizas, polizasFiltradas, cantidad, fechaDesde, fechaHasta);
+
+    system("cls");
+
+     cout << R"(
+    ||||||||||||||||||||||||||||||||||||||||||||||||||||
+    ||  REPORTE DE POLIZAS POR TIPO DE SEGURO         ||
+    ||||||||||||||||||||||||||||||||||||||||||||||||||||
+    )"<< endl;
+
+    cout << "------------------------" << endl;
+    cout << "REPORTE DE POLIZAS DESDE: " << fechaDesde.formatoFecha() << " HASTA: " << fechaHasta.formatoFecha() << endl;
+    cout << "CANTIDAD DE POLIZAS PROCESADAS EN EL PERIODO: " << cantidadFiltradas <<endl;
 
     cout << left << setw(30) << "TIPO DE SEGURO"
      << right << setw(10) << "VIGENTES"
@@ -506,6 +510,10 @@ void PolizaManager::reportePolizasVigentesYVencidas(){
          << setw(10) << contadorVencidas << endl;
     }
 
+    cout << "==================================================" << endl;
+
+
+
     delete [] polizas;
     delete [] polizasFiltradas;
     delete [] tiposSeguros;
@@ -514,8 +522,9 @@ void PolizaManager::reportePolizasVigentesYVencidas(){
 int PolizaManager::cantidadPolizasPeriodo(Poliza polizas[],int cantidadPolizas, Fecha fechaDesde, Fecha fechaHasta){
     int contador = 0;
     for (int i = 0; i < cantidadPolizas; i++) {
-        Fecha fechaFinPoliza = polizas[i].getfechaFin();
-        if (!polizas[i].getEliminado() && fechaFinPoliza >= fechaDesde && fechaFinPoliza <= fechaHasta) {
+        Fecha inicio = polizas[i].getfechaInicio();
+        Fecha fin = polizas[i].getfechaFin();
+        if (!polizas[i].getEliminado() && fin >= fechaDesde && inicio <= fechaHasta) {
             contador++;
         }
     }
@@ -525,8 +534,9 @@ int PolizaManager::cantidadPolizasPeriodo(Poliza polizas[],int cantidadPolizas, 
 void PolizaManager::filtrarPolizasPorFecha(Poliza polizas[], Poliza* polizasFiltradas[], int cantidadPolizas,Fecha fechaDesde, Fecha fechaHasta){
     int indiceFiltrado = 0;
     for (int i = 0; i < cantidadPolizas; i++) {
-        Fecha fechaFinPoliza = polizas[i].getfechaFin();
-        if (!polizas[i].getEliminado() && fechaFinPoliza >= fechaDesde && fechaFinPoliza <= fechaHasta) {
+        Fecha inicio = polizas[i].getfechaInicio();
+        Fecha fin = polizas[i].getfechaFin();
+        if (!polizas[i].getEliminado() && fin >= fechaDesde && inicio <= fechaHasta) {
             polizasFiltradas[indiceFiltrado] = &polizas[i];
             indiceFiltrado++;
         }
