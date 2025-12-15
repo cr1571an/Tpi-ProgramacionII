@@ -102,7 +102,7 @@ void PagoManager::cargar(int idPoliza)
 
     if (fechaPago.getAnio() == -1)
     {
-        cout << "Carga cancelada." << endl;
+        cout << "CARGA CANDELADA." << endl;
         delete[] vectorVencimientos;
         delete[] vectorIndicesVencimientosPendientes;
         return;
@@ -248,7 +248,7 @@ void PagoManager::cambiarFecha(int idPago)
 
     if (nuevaFechaPago.getAnio() == -1)
     {
-        cout << "Cambio de fecha cancelado." << endl;
+        cout << "CAMBIO DE FECHA CANCELADO." << endl;
         return;
     }
 
@@ -871,10 +871,10 @@ void PagoManager::recaudacionPorPeriodoYTipoSeguros() {
     cout << "||------------------------------------------------------||" << endl;
     cout << "INGRESE LA FECHA INICIAL: ";
     Fecha fechaInicio = leerFechaValida();
-    if (fechaInicio.getAnio() == -1){cout << "FECHA INVALIDA." << endl;return;}
+    if (fechaInicio.getAnio() == -1){cout << "SE CANCELA LA OPERACION." << endl;return;}
     cout << "INGRESE LA FECHA FINAL: ";
     Fecha fechaFin = leerFechaValida();
-    if (fechaFin.getAnio() == -1){cout << "FECHAS INVALIDAS." << endl;return;}
+    if (fechaFin.getAnio() == -1){cout << "SE CANCELA LA OPERACION." << endl;return;}
     if (fechaFin < fechaInicio){cout << "LA FECHA FINAL NO PUEDE SER MENOR A LA FECHA INICIAL." << endl;return;}
     if (fechaInicio.getAnio()<2023 || fechaFin.getAnio()>2025) {cout << "EL PERIODO DE FECHAS DEBE ESTAR ENTRE 2023 Y 2025." << endl;return;}
     float totalPeriodo=0;

@@ -159,6 +159,9 @@ void SiniestroManager::modificarFechaSiniestro() {
     if (pos != -1) {
         Siniestro s = _archivo.leer(pos);
         Fecha nuevaFecha = leerFechaValida();
+        if (nuevaFecha.getAnio() == -1){
+            cout<< "SE CANCELA LA OPERACION." << endl;
+        }
         s.setFechaSiniestro(nuevaFecha);
         cout << (_archivo.guardar(s, pos) ? "FECHA MODIFICADA." : "ERROR AL MODIFICAR LA FECHA.") << endl;
     } else {
@@ -253,14 +256,14 @@ void SiniestroManager::reporteCoberturaSiniestros(){
     cout << "INGRESE LA FECHA INICIAL: "; 
     Fecha fechaDesde = leerFechaValida();
     if (fechaDesde.getAnio() == -1) {
-        cout << "FECHA INVALIDA." << endl;
+        cout << "SE CANCELA LA OPERACION." << endl;
         return;
     }
     cout << "INGRESE LA FECHA FINAL: "; 
     Fecha fechaHasta = leerFechaValida();
 
     if (fechaHasta.getAnio() == -1) {
-        cout << "FECHAS INVALIDAS." << endl;
+        cout << "SE CANCELA LA OPERACION." << endl;
         return;
     }
 

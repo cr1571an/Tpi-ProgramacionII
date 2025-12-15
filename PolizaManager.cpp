@@ -195,7 +195,7 @@ void PolizaManager::modificarFechaInicio(){
         Fecha nuevaFechaInicio, nuevaFechaFin;
         nuevaFechaInicio=leerFechaValida();
         if (nuevaFechaInicio.getAnio() == -1) {
-            cout << "FECHA INVALIDA, SE CANCELA LA MODIFICACION." << endl;
+            cout << "SE CANCELA LA MODIFICACION." << endl;
             return;
         }
 
@@ -438,12 +438,12 @@ void PolizaManager::reportePolizasVigentesYVencidas(){
     
     Fecha fechaDesde= leerFechaValida();
     if (fechaDesde.getAnio() == -1){
-        cout << "FECHA INVALIDA, SE CANCELA LA OPERACION." << endl;
+        cout << "SE CANCELA LA OPERACION." << endl;
         return;
     }
     Fecha fechaHasta= leerFechaValida();
     if (fechaHasta.getAnio() == -1){
-        cout << "FECHA INVALIDA, SE CANCELA LA OPERACION." << endl;
+        cout << "SE CANCELA LA OPERACION." << endl;
         return;
     }
 
@@ -575,12 +575,12 @@ bool PolizaManager::tienePolizasVigentes(int idVehiculo) {
 void PolizaManager::reportePolizasSinCobertura() {
     Fecha fechaDesde= leerFechaValida();
     if (fechaDesde.getAnio() == -1){
-        cout << "FECHA INVALIDA, SE CANCELA LA OPERACION." << endl;
+        cout << "SE CANCELA LA OPERACION." << endl;
         return;
     }
     Fecha fechaHasta= leerFechaValida();
     if (fechaHasta.getAnio() == -1){
-        cout << "FECHA INVALIDA, SE CANCELA LA OPERACION." << endl;
+        cout << "SE CANCELA LA OPERACION." << endl;
         return;
     }
 
