@@ -67,7 +67,9 @@ void ClienteMenu::ejecutarOpcion(int opcion) {
 
 void ClienteMenu::buscar() {
     system("cls");
-    cout << "BUSCAR CLIENTE" << endl;
+    cout << "|||||||||||||||||||||||||||||||||||||||||||" << endl;
+    cout << "||            BUSCAR CLIENTE             ||" << endl;
+    cout << "|||||||||||||||||||||||||||||||||||||||||||" << endl;
     int idCliente = buscarCliente();
     if (idCliente == -3) return;
     if (idCliente == -1 || idCliente == -2) return;
@@ -90,40 +92,29 @@ void ClienteMenu::buscar() {
 int ClienteMenu::buscarCliente() {
     int tipoBusqueda;
     int id;
-    cout << "|||||||||||||||||||||||||||||||||||||||||||" << endl;
     cout << "||     1 - POR NUMERO DE CLIENTE (ID)    ||" << endl;
     cout << "||     2 - POR D.N.I                     ||" << endl;
     cout << "||---------------------------------------||" << endl;
     cout << "||     0 - VOLVER                        ||" << endl;
     cout << "|||||||||||||||||||||||||||||||||||||||||||" << endl;
-
     while (true) {
         cout << "SELECCIONE UNA OPCION: ";
         cin >> tipoBusqueda;
         cin.ignore();
-        switch (tipoBusqueda) {
-            case 0:
-                return -3;
-            case 1: {
+        switch (tipoBusqueda){
+            case 0:return -3;
+            case 1:
                 system("cls");
                 cout << "INGRESE EL NUMERO DEL CLIENTE: ";
                 cin >> id;
                 cin.ignore();
-                if (id <= 0) {
-                    cout << "ID INVALIDO. DEBE SER MAYOR QUE CERO." << endl;
-                    continue;
-                }
+                if (id <= 0){cout << "ID INVALIDO. DEBE SER MAYOR QUE CERO." << endl;
+                    continue;}
                 return id;
-            }
-            case 2: {
+            case 2:
                 system("cls");
                 cout << "INGRESE EL DNI DEL CLIENTE: ";
                 string dni = cargarCadena();
-                if (dni.empty()) {
-                    cout << "DNI INVALIDO." << endl;
-                    system("pause");
-                    return -1;
-                }
                 int pos = _clienteManager.posClientePorDNI(dni);
                 if (pos < 0) {
                     cout << "ERROR! EL CLIENTE NO EXISTE." << endl;
@@ -144,9 +135,6 @@ int ClienteMenu::buscarCliente() {
                     }
                 }
                 return cliente.getIdCliente();
-            }
-            default:
-                cout << "OPCION INVALIDA." << endl;
         }
     }
 }
@@ -168,13 +156,11 @@ void ClienteMenu::modificarCliente() {
         cout << "EL CLIENTE ESTA ELIMINADO." << endl;
         if (!darAltaCliente(id)) return;
     }
-
     system("cls");
     cout << "||||||||||||||||||||||||||||||||||||||||||||" << endl;
     cout << "||          DATOS DEL CLIENTE             ||" << endl;
     cout << "||||||||||||||||||||||||||||||||||||||||||||" << endl;
     _clienteManager.mostrarDatosDeClienteID(id);
-
     cout << "|||||||||||||||||||||||||||||||||||||||||||" << endl;
     cout << "||     1 - DAR DE BAJA                   ||" << endl;
     cout << "||     2 - MODIFICAR TELEFONO            ||" << endl;

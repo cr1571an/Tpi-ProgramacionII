@@ -46,15 +46,7 @@ void SiniestroManager::ordenarPorFechaSiniestro(Siniestro vect[], int cantidad) 
 }
 
 void SiniestroManager::cargar() {
-    Fecha f = leerFechaValida();
-    if (f.getAnio() == -1){
-        cout<< "SE CANCELA LA OPERACION." << endl;
-        return;
-    }
-    if (f.getAnio() < 2025 || f.getAnio() > 2026) {
-        cout << "LA FECHA DE SINIESTRO DEBE ESTAR ENTRE 2025 Y 2026. SE CANCELA EL ALTA DE SINIESTRO." << endl;
-        return;
-    }
+    Fecha f;
     int id = _archivo.getNuevoID();
     int idTipoSiniestro = mostrarOpcionesDeSiniestros();
     if (idTipoSiniestro == 0) return;

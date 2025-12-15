@@ -51,7 +51,6 @@ void ReporteMenu::ejecutarOpcion(int opcion) {
     switch(opcion) {
         case 1:
             _clienteManager.historialPagosPorCliente();
-            system("pause");
             break;
         case 2:
             _polizaManager.reportePolizasVigentesYVencidas();

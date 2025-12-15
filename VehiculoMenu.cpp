@@ -144,8 +144,7 @@ void VehiculoMenu::cargar() {
 
 
 
-int VehiculoMenu::seleccionarVehiculo(bool modificar) {
-    cout << "||||||||||||||||||||||||||||||||||||||||||||" << endl;
+int VehiculoMenu::seleccionarVehiculo(bool modificar){
     cout << "||     1 - POR CLIENTE                    ||" << endl;
     cout << "||     2 - POR PATENTE                    ||" << endl;
     cout << "||     3 - POR ID VEHICULO                ||" << endl;
@@ -163,6 +162,9 @@ int VehiculoMenu::seleccionarVehiculo(bool modificar) {
 
         case 1: {
             system("cls");
+            cout << "||||||||||||||||||||||||||||||||||||||||||||" << endl;
+            cout << "||            BUSCAR VEHICULO             ||" << endl;
+            cout << "||||||||||||||||||||||||||||||||||||||||||||" << endl;
             idCliente = _clienteMenu.buscarCliente();
             int posCliente = _clientesArchivo.buscarIdCliente(idCliente);
             if (idCliente == -3 || idCliente == -1) return idCliente;
@@ -244,6 +246,7 @@ void VehiculoMenu::modificarVehiculo() {
     system("cls");
     cout << "||||||||||||||||||||||||||||||||||||||||||||" << endl;
     cout << "||      BUSCAR VEHICULO A MODIFICAR       ||" << endl;
+    cout << "||||||||||||||||||||||||||||||||||||||||||||" << endl;
     int idVehiculo = seleccionarVehiculo(true);
     if (idVehiculo < 0) return;
     int posVehiculo = _vehiculosArchivo.buscarVehiculo(idVehiculo);
@@ -342,6 +345,7 @@ void VehiculoMenu::buscarVehiculo() {
     system("cls");
     cout << "||||||||||||||||||||||||||||||||||||||||||||" << endl;
     cout << "||            BUSCAR VEHICULO             ||" << endl;
+    cout << "||||||||||||||||||||||||||||||||||||||||||||" << endl;
     int idVehiculo = seleccionarVehiculo(false);
     if (idVehiculo < 0) return;
     int posVehiculo = _vehiculosArchivo.buscarVehiculo(idVehiculo);

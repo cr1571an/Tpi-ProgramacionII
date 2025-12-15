@@ -869,14 +869,13 @@ void PagoManager::recaudacionPorPeriodoYTipoSeguros() {
     cout << "||||||||||||||||||||||||||||||||||||||||||||||||||||||||||" << endl;
     cout << "||     RECAUDACION POR PERIODO Y POR TIPO DE POLIZA     ||" << endl;
     cout << "||------------------------------------------------------||" << endl;
-    cout << "INGRESE LA FECHA INICIAL: ";
+    cout << "INGRESE LA FECHA INICIAL"<<endl;
     Fecha fechaInicio = leerFechaValida();
-    if (fechaInicio.getAnio() == -1){cout << "SE CANCELA LA OPERACION." << endl;return;}
-    cout << "INGRESE LA FECHA FINAL: ";
+    if (fechaInicio.getAnio() == -1){cout<<"SE CANCELA LA OPERACION."<< endl;return;}
+    cout << "INGRESE LA FECHA FINAL"<<endl;
     Fecha fechaFin = leerFechaValida();
     if (fechaFin.getAnio() == -1){cout << "SE CANCELA LA OPERACION." << endl;return;}
     if (fechaFin < fechaInicio){cout << "LA FECHA FINAL NO PUEDE SER MENOR A LA FECHA INICIAL." << endl;return;}
-    if (fechaInicio.getAnio()<2023 || fechaFin.getAnio()>2025) {cout << "EL PERIODO DE FECHAS DEBE ESTAR ENTRE 2023 Y 2025." << endl;return;}
     float totalPeriodo=0;
     const int SEGUROS=4;
     float recaudadoPorTipo[SEGUROS]={};
@@ -911,7 +910,7 @@ void PagoManager::recaudacionPorPeriodoYTipoSeguros() {
     cout << "||               RECAUDACION POR PERIODO                  ||" << endl;
     cout << "              DESDE " <<fechaInicio.formatoFecha()<< " HASTA " << fechaFin.formatoFecha() << endl;
     cout << "            TOTAL RECAUDADO EN EL PERIODO: $"<< totalPeriodo << endl;
-    cout << "||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||" << endl<< endl;
+    cout << "============================================================" << endl<< endl;
     cout << "||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||" << endl;
     cout << "||            RECAUDADO POR TIPO DE POLIZA                ||" << endl;
     cout << "||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||" <<endl<< endl;

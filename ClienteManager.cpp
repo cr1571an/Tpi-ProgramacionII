@@ -382,97 +382,124 @@ bool ClienteManager::esPagoDeCliente(int idxPago, int idCliente) {
 int ClienteManager::contarPagosDeCliente(int idCliente){
     int cantPagos = hayPagosVencReg();
     int contador=0;
-    for (int i=0; i<cantPagos; i++){
-        if (esPagoDeCliente(i, idCliente)) contador++;
+    for (int i=0; i<cantPagos; i++) {
+      if (esPagoDeCliente(i, idCliente)){
+        contador++;
+      }
     }
     return contador;
 }
 
 
-void ClienteManager::historialPagosPorCliente(){
+void ClienteManager::historialPagosPorCliente() {
   int cantClientes = hayClientesReg();
   int cantPagos = hayPagosReg();
-  if (cantClientes==0 || cantPagos==0) return;
+  if (cantClientes == 0 || cantPagos == 0) return;
+  system("cls");
+  cout << "||||||||||||||||||||||||||||||||||||||||||||||||||||||||||" << endl;
+  cout << "||    BUSCAR CLIENTE PARA VER SU HISTORIAL DE PAGOS     ||" << endl;
+  cout << "||||||||||||||||||||||||||||||||||||||||||||||||||||||||||" << endl;
+  int idCliente = buscarClienteParaHistorial();
+  if (idCliente < 0)return;
+
+  Cliente cliente = _clientesArchivo.leer(_clientesArchivo.buscarIdCliente(idCliente));
+
+  int *idsPago = new int[cantPagos];
+  string *fechasPago = new string[cantPagos];
+  int *idsPoliza = new int[cantPagos];
+  int *idsVencimiento = new int[cantPagos];
+  int *idsVehiculo = new int[cantPagos];
+  string *fechasVencimiento = new string[cantPagos];
+
+  int idx = 0;
+  for (int i = 0; i < cantPagos; i++) {
+    if (!esPagoDeCliente(i, idCliente)) continue;
+
+    Pago pago = _pagoArchivo.leer(i);
+    int idVencimiento = pago.getIdVencimiento();
+    int posVencimiento = _vencimientosArchivo.buscarID(idVencimiento);
+    if (posVencimiento == -1) continue;
+
+    Vencimiento vencimiento = _vencimientosArchivo.leer(posVencimiento);
+    if (!vencimiento.getPagado()) continue;
+    int idPoliza = vencimiento.getIdPoliza();
+    int posPoliza = _polizasArchivo.buscarID(idPoliza);
+    if (posPoliza == -1) continue;
+
+    int idVehiculo = _polizasArchivo.leer(posPoliza).getIdVehiculo();
+    string fechaPago = pago.getFechaPago().formatoFecha();
+    string fechaVenc = vencimiento.getVencimiento().formatoFecha();
+    idsPago[idx] = pago.getId();
+    fechasPago[idx] = fechaPago;
+    idsPoliza[idx] = idPoliza;
+    idsVencimiento[idx] = idVencimiento;
+    idsVehiculo[idx] = idVehiculo;
+    fechasVencimiento[idx] = fechaVenc;
+    idx++;
+  }
+  if (idx==0){
+    cout << "NO SE REGISTRARON PAGOS PARA ESTE CLIENTE."<<endl;
+    system("pause");
+  }
+  else{
     system("cls");
-    cout << "||||||||||||||||||||||||||||||||||||||||||||||||||||||||||" << endl;
-    cout << "||    BUSCAR CLIENTE PARA VER SU HISTORIAL DE PAGOS     ||" << endl;
-    cout << "||------------------------------------------------------||" << endl;
-
-    int idCliente = buscarClienteParaHistorial();
-    if (idCliente<0) return;
-
-    Cliente cliente = _clientesArchivo.leer(_clientesArchivo.buscarIdCliente(idCliente));
-    int contador = contarPagosDeCliente(idCliente);
-    if (contador ==0){cout <<"NO SE REGISTRARON PAGOS PARA ESTE CLIENTE."<<endl;return;}
-
-    int *idsPago = new int[ contador];
-    string *fechasPago = new string[contador];
-    int *idsPoliza = new int[contador];
-    int *idsVencimiento = new int[contador];
-    int *idsVehiculo = new int[contador];
-
-    int idx=0;
-    for (int i=0; i<cantPagos && idx<contador; i++){
-      if (!esPagoDeCliente(i, idCliente)) continue;
-
-      Pago pago = _pagoArchivo.leer(i);
-      int idVencimiento = pago.getIdVencimiento();
-      int posVencimiento = _vencimientosArchivo.buscarID(idVencimiento);
-      if (posVencimiento == -1) continue;
-
-      Vencimiento vencimiento = _vencimientosArchivo.leer(posVencimiento);
-      int idPoliza = vencimiento.getIdPoliza();
-      int posPoliza = _polizasArchivo.buscarID(idPoliza);
-      if (posPoliza == -1) continue;
-      int idVehiculo = _polizasArchivo.leer(posPoliza).getIdVehiculo();
-      idsPago[idx] = pago.getId();
-      fechasPago[idx] = pago.getFechaPago().formatoFecha();
-      idsPoliza[idx] = idPoliza;
-      idsVencimiento[idx] = idVencimiento;
-      idsVehiculo[idx] = idVehiculo;
-      idx++;
-    }
-    system("cls");
-    cout << "||||||||||||||||||||||||||||||||||||||||||||||" << endl;
-    cout << "||      HISTORIAL DE PAGOS DEL CLIENTE      ||" << endl;
-    cout << "||------------------------------------------||" << endl;
-    cout << "CLIENTE: "<<cliente.getApellido()<<", "<<cliente.getNombre()<<endl;
-    cout << "DNI: " <<cliente.getDni()<<endl;
+    cout << "||||||||||||||||||||||||||||||||||||||||||||||"<<endl;
+    cout << "||      HISTORIAL DE PAGOS DEL CLIENTE      ||"<<endl;
+    cout << "||------------------------------------------||"<<endl;
+    cout << "CLIENTE: "<<cliente.getApellido()<< ", "<<cliente.getNombre()<<endl;
+    cout << "DNI: "<<cliente.getDni()<<endl;
     cout << "----------------------------------------------" << endl;
-    for (int i=0; i<contador; i++){
-      cout <<i+1<< ") FECHA: " <<fechasPago[i]<< " | POLIZA: " <<idsPoliza[i] <<endl;
+    for (int i=0; i<idx; i++){
+      cout <<i+1<< ") POLIZA: "<<idsPoliza[i]<<"| FECHA DE PAGO: "<<fechasPago[i]<<endl;
     }
     int opcion;
-    cout << "INGRESE EL NUMERO DEL HISTORIAL PARA VER FACTURA (0 PARA SALIR): " ;
+    cout << "INGRESE EL NUMERO DEL HISTORIAL PARA VER FACTURA (0 PARA SALIR): ";
     cin >> opcion;
-
-    if (opcion<=0 || opcion>contador){cout <<"OPERACION CANCELADA."<<endl;
-    } else {
-        int sel = opcion-1;
-        Poliza poliza = _polizasArchivo.leer(_polizasArchivo.buscarID(idsPoliza[sel]));
-        Vehiculo vehiculo = _vehiculosArchivo.leer(_vehiculosArchivo.buscarVehiculo(idsVehiculo[sel]));
-        system("cls");
-        cout << "|||||||||||||||||||||||||||||||||||||||||||||" <<endl;
-        cout << "||             FACTURA DE SEGURO           ||  " <<endl;
-        cout << "||-----------------------------------------||" <<endl;
-        cout << "FECHA DE EMISION: "<<Fecha().formatoFecha()<<endl;
-        cout << "--------------------------------------------" <<endl;
-        cout << "CLIENTE: " <<cliente.getApellido()<< ", " <<cliente.getNombre()<<endl;
-        cout << "DNI: " << cliente.getDni()<<endl;
-        cout << "VEHICULO: " <<vehiculo.getPatente()<<endl;
-        cout << "--------------------------------------------" << endl;
-        cout << "NUMERO DE POLIZA: " <<poliza.getId()<<endl;
-        cout << "TIPO SEGURO: " <<_tiposSegurosArchivo.leer(_tiposSegurosArchivo.buscarID(poliza.getIdTipoSeguro())).getDescripcion()<<endl;
-        cout << "FECHA INICIO: " <<poliza.getfechaInicio().formatoFecha()<<endl;
-        cout << "VENCIMIENTO: " <<poliza.getfechaFin().formatoFecha()<<endl;
-        cout << "PRIMA MENSUAL: $" << poliza.getPrimaMensual()<<endl;
-        cout << "SUMA ASEGURADA: " <<poliza.getSumaAsegurada()<<endl;
-        cout << "--------------------------------------------"<<endl;
+    if (opcion<=0 || opcion>idx){
+      cout << "OPERACION CANCELADA."<<endl;
+      system("pause");
+    } else{
+      int sel = opcion-1;
+      Poliza poliza = _polizasArchivo.leer(_polizasArchivo.buscarID(idsPoliza[sel]));
+      Vehiculo vehiculo = _vehiculosArchivo.leer(_vehiculosArchivo.buscarVehiculo(idsVehiculo[sel]));
+      Pago pago = _pagoArchivo.leer(idsPago[sel]);
+      system("cls");
+      cout << "---------------------------------------------------"<<endl;
+      cout << "                 FACTURA DE SEGURO"<<endl;
+      cout << "---------------------------------------------------"<<endl;
+      cout << "   FECHA DE EMISION: " <<Fecha().formatoFecha()<<endl;
+      cout << "   NUMERO DE FACTURA: " <<idsVencimiento[sel]<<endl;
+      cout << "   FECHA DE PAGO: "<<fechasPago[sel]<<endl;
+      cout << "   VENCIMIENTO: "<<fechasVencimiento[sel]<<endl;
+      cout << "   METODO DE PAGO: "<<pago.getMetodoDePago()<<endl;
+      cout << "---------------------------------------------------"<<endl;
+      cout << "                      CLIENTE"<<endl;
+      cout << "   NUMERO DE CLIENTE: " <<cliente.getIdCliente()<<endl;
+      cout << "   CLIENTE: " <<cliente.getApellido()<< ", " <<cliente.getNombre()<<endl;
+      cout << "   DNI: " <<cliente.getDni()<<endl;
+      cout << "---------------------------------------------------"<<endl;
+      cout << "                      POLIZA"<<endl;
+      cout << "   NUMERO DE POLIZA: "<<poliza.getId()<<endl;
+      cout << "   VEHICULO: " <<vehiculo.getMarca()<< " " <<vehiculo.getModelo()<<endl;
+      cout << "   PATENTE: " <<vehiculo.getPatente()<<endl;
+      cout << "   CATEGORIA DEL VEHICULO: " <<vehiculo.getCategoria()<<endl;
+      cout << "   SEGURO: "<<_tiposSegurosArchivo.leer(_tiposSegurosArchivo.buscarID(poliza.getIdTipoSeguro())).getDescripcion()<<endl;
+      cout << "   FECHA INICIO VEGENCIA: "<<poliza.getfechaInicio().formatoFecha()<<endl;
+      cout << "   FECHA FIN VEGENCIA: "<<poliza.getfechaFin().formatoFecha()<<endl;
+      cout << "---------------------------------------------------"<<endl;
+      cout << "                      FACTURACION"<<endl;
+      float iva = poliza.getPrimaMensual()* 0.21;
+      cout << "   PRIMA MENSUAL DEL SEGURO: $"<<poliza.getPrimaMensual()<<endl;
+      cout << "   IVA (21%): $"<<iva<<endl;
+      cout << "   PAGO TOTAL: $"<<poliza.getPrimaMensual()+iva<<endl;
+      cout << "---------------------------------------------------"<<endl;
+      system("pause");
     }
     delete[] idsPago;
     delete[] fechasPago;
     delete[] idsPoliza;
     delete[] idsVencimiento;
     delete[] idsVehiculo;
+    delete[] fechasVencimiento;
+  }
 }
-
