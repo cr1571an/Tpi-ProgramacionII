@@ -240,35 +240,6 @@ void SiniestroManager::mostrarSiniestro(Siniestro siniestro) {
     cout << "---------------------------------------------\n";
 }
 
-void SiniestroManager::listadoSiniestrosPorPoliza(){
-    cout << "============================================" << endl;
-    cout << "      LISTAR SINIESTROS POR POLIZA ID       " << endl;
-    cout << "============================================" << endl;
-    int idPoliza;
-    cout << "ID DE LA POLIZA: "; cin >> idPoliza;
-    int pos = _polizaArchivo.buscarID(idPoliza);
-    if (pos == -1) {
-        cout << "EL ID INGRESADO NO EXISTE." << endl;
-        return;
-    }
-    Poliza poliza = _polizaArchivo.leer(pos);
-    if (poliza.getEliminado()){
-        cout << "LA POLIZA INDICADA HA SIDO ELIMINADA." << endl;
-        return;
-    }
-
-    int cantidadSiniestros = _archivo.getCantidadRegistros();
-    bool encontrado = false;
-    for (int i = 0; i < cantidadSiniestros; i++) {
-        Siniestro s = _archivo.leer(i);
-        if (s.getIdPoliza() == idPoliza && !s.getEliminado()) {
-            mostrarSiniestro(s);
-            encontrado = true;
-        }
-    }
-    if (!encontrado) 
-        cout << "NO SE ENCONTRARON SINIESTROS PARA LA POLIZA INDICADA." << endl;
-}
 void SiniestroManager::reporteCoberturaSiniestros(){
     int cantidadSiniestros = _archivo.getCantidadRegistros();
     if (cantidadSiniestros == 0) {

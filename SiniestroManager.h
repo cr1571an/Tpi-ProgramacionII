@@ -19,7 +19,6 @@ class SiniestroManager {
         void modificarFechaSiniestro();
         void modificarTipoSiniestro();
         void modificarCostoEstimado();
-        void listadoSiniestrosPorPoliza();
         void reporteCoberturaSiniestros();
 
     private:

@@ -3,7 +3,7 @@
 using namespace std;
 
 SiniestroMenu::SiniestroMenu(){
-    _cantidadOpciones = 7;
+    _cantidadOpciones = 6;
     _cantidadOpcionesSubMenuModificar = 3;
 }
 void SiniestroMenu::mostrar(){
@@ -70,7 +70,6 @@ void SiniestroMenu::mostrarOpciones(){
 ||     4 - BUSCAR POR ID POLIZA           ||
 ||     5 - RECUPERAR SINIESTRO            ||
 ||     6 - MODIFICAR SINIESTRO            ||
-||     7 - SINIESTROS POR ID POLIZA       ||
 ||||||||||||||||||||||||||||||||||||||||| ||
 ||     0 - VOLVER AL MENU ANTERIOR        ||
 ||||||||||||||||||||||||||||||||||||||||||||
@@ -117,10 +116,6 @@ void SiniestroMenu::ejecutarOpcion(int opcion) {
         }
         case 6:{
             subMenuModificar();
-            break;
-        }
-        case 7:{
-            _siniestroManager.listadoSiniestrosPorPoliza();
             break;
         }
     }
