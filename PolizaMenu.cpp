@@ -79,7 +79,7 @@ void PolizaMenu::mostrarOpciones(){
 ||     8 - LISTAR POLIZAS VIGENTES                   ||
 ||     9 - LISTAR POLIZAS NO VIGENTES                ||
 ||     10 - LISTAR POR FECHA DE VENCIMIENTO          ||
-||     11 - LISTAR VENCIMIENTOS POR ID POLIZA        ||
+||     11 - CONSULTAR VENCIMIENTOS DE UNA POLIZA     ||
 |||||||||||||||||||||||||||||||||||||||||||||||||||||||
 ||     0 - VOLVER AL MENU ANTERIOR                   ||
 |||||||||||||||||||||||||||||||||||||||||||||||||||||||
@@ -145,7 +145,7 @@ void PolizaMenu::ejecutarOpcion(int opcion) {
             break;
         }
         case 11:{
-            _polizaManager.mostrarVencimientosDePoliza();
+            _polizaManager.consultarVencimientosDePoliza();
             break;
         }
     }

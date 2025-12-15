@@ -26,7 +26,7 @@ class PolizaManager {
         void buscarPorDniCliente();
         void reportePolizasSinCobertura();
         void reportePolizasVigentesYVencidas();
-        void mostrarVencimientosDePoliza();
+        void consultarVencimientosDePoliza();
 
     private:
         PolizaArchivo _archivo;

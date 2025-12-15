@@ -692,7 +692,7 @@ bool PolizaManager::tieneCobertura(Poliza p) {
     return true;
 }
 
-void PolizaManager::mostrarVencimientosDePoliza(){
+void PolizaManager::consultarVencimientosDePoliza(){
     cout << "============================================" << endl;
     cout << "        VENCIMIENTOS DE POLIZA POR ID       " << endl;
     cout << "============================================" << endl;
