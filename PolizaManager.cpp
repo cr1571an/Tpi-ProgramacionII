@@ -430,12 +430,14 @@ void PolizaManager::reportePolizasVigentesYVencidas(){
         cout << "NO HAY POLIZAS PARA PODER GENERAR EL REPORTE." << endl;
         return;
     }
-    
+    cout << "INGRESE FECHA DE INICIO DEL PERIODO DEL REPORTE:" << endl;
     Fecha fechaDesde= leerFechaValida();
     if (fechaDesde.getAnio() == -1){
         cout << "SE CANCELA LA OPERACION." << endl;
         return;
     }
+
+    cout << "INGRESE FECHA DE FIN DEL PERIODO DEL REPORTE:" << endl;
     Fecha fechaHasta= leerFechaValida();
     if (fechaHasta.getAnio() == -1){
         cout << "SE CANCELA LA OPERACION." << endl;
@@ -468,6 +470,7 @@ void PolizaManager::reportePolizasVigentesYVencidas(){
 
     Poliza** polizasFiltradas = new Poliza*[cantidadFiltradas]{};
     filtrarPolizasPorFecha(polizas, polizasFiltradas, cantidad, fechaDesde, fechaHasta);
+    Fecha fechaActual;
 
     system("cls");
 
@@ -477,14 +480,17 @@ void PolizaManager::reportePolizasVigentesYVencidas(){
     ||||||||||||||||||||||||||||||||||||||||||||||||||||
     )"<< endl;
 
-    cout << "------------------------" << endl;
+    cout << "======================================================"<< endl;
+    cout << "REPORTE REALIZADO EL: " << fechaActual.formatoFecha() << endl;
     cout << "REPORTE DE POLIZAS DESDE: " << fechaDesde.formatoFecha() << " HASTA: " << fechaHasta.formatoFecha() << endl;
     cout << "CANTIDAD DE POLIZAS PROCESADAS EN EL PERIODO: " << cantidadFiltradas <<endl;
 
-    cout << left << setw(30) << "TIPO DE SEGURO"
+    cout << left << setw(34) << "TIPO DE SEGURO"
      << right << setw(10) << "VIGENTES"
      << setw(10) << "VENCIDAS" << endl;
-    cout << "==================================================" << endl;
+    cout << "======================================================"<< endl;
+    int totalVigentes = 0;
+    int totalVencidas = 0;
 
     for (int i=0; i < cantidadSeguros; i++) {
         TipoSeguro tipoSeguro = tiposSeguros[i];
@@ -504,15 +510,18 @@ void PolizaManager::reportePolizasVigentesYVencidas(){
 
             }
         }
+        totalVigentes += contadorVigentes;
+        totalVencidas += contadorVencidas;
 
-        cout << left  << setw(30) << tipoSeguro.getDescripcion()
+        cout << left  << setw(34) << tipoSeguro.getDescripcion()
          << right << setw(10) << contadorVigentes
          << setw(10) << contadorVencidas << endl;
     }
 
-    cout << "==================================================" << endl;
-
-
+    cout << "======================================================" << endl;
+    cout << left  << setw(34) << "TOTAL"
+         << right << setw(10) << totalVigentes
+         << setw(10) << totalVencidas << endl;
 
     delete [] polizas;
     delete [] polizasFiltradas;
