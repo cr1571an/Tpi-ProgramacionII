@@ -46,7 +46,15 @@ void SiniestroManager::ordenarPorFechaSiniestro(Siniestro vect[], int cantidad) 
 }
 
 void SiniestroManager::cargar() {
-    Fecha f = Fecha();
+    Fecha f = leerFechaValida();
+    if (f.getAnio() == -1){
+        cout<< "SE CANCELA LA OPERACION." << endl;
+        return;
+    }
+    if (f.getAnio() < 2025 || f.getAnio() > 2026) {
+        cout << "LA FECHA DE SINIESTRO DEBE ESTAR ENTRE 2025 Y 2026. SE CANCELA EL ALTA DE SINIESTRO." << endl;
+        return;
+    }
     int id = _archivo.getNuevoID();
     int idTipoSiniestro = mostrarOpcionesDeSiniestros();
     if (idTipoSiniestro == 0) return;
@@ -63,6 +71,17 @@ void SiniestroManager::cargar() {
         cout<< "EL ID INGRESADO NO EXISTE. SE CANCELA EL ALTA DE SINIESTRO."<<endl;
         return;
     }
+    Poliza poliza = _polizaArchivo.leer(posPoliza);
+    if (poliza.getEliminado()){
+        cout << "LA POLIZA SE ENCUENTRA ELIMINADA. SE CANCELA EL ALTA DE SINIESTRO." << endl;
+        return;
+    }
+
+    if (!poliza.estaVigente(f)) {
+        cout << "LA POLIZA NO ESTA VIGENTE EN LA FECHA DEL SINIESTRO. SE CANCELA EL ALTA DE SINIESTRO." << endl;
+        return;
+    }
+
     float costo;       
     cout << "COSTO ESTIMADO: "; cin >> costo;
     if (costo <= 0 || costo > 10000000) {
@@ -111,10 +130,10 @@ void SiniestroManager::recuperar() {
             cout<< (_archivo.guardar(siniestro, pos) ? "SINIESTRO RECUPERADO." : "NO SE PUDO RECUPERAR EL SINIESTRO.") << endl;          
         }
         else
-            cout<<"EL ID INGRESADO NO SE ENCONTRO.";
+            cout<<"EL ID INGRESADO NO SE ENCONTRO."<<endl;
     }
     else{
-        cout<<"EL ID INGRESADO ES INVALIDO.";
+        cout<<"EL ID INGRESADO ES INVALIDO."<<endl;;
     }
 }
 

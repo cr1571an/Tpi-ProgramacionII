@@ -592,11 +592,19 @@ bool PolizaManager::tienePolizasVigentes(int idVehiculo) {
 }
 
 void PolizaManager::reportePolizasSinCobertura() {
+    int cantidad = _archivo.getCantidadRegistros();
+    if (cantidad == 0) {
+        cout << "NO HAY POLIZAS REGISTRADAS, NO ES POSIBLE REALIZAR EL REPORTE." << endl;
+        return;
+    }
+    cout << "INGRESE FECHA DE INICIO DEL PERIODO DEL REPORTE:" << endl;
     Fecha fechaDesde= leerFechaValida();
     if (fechaDesde.getAnio() == -1){
         cout << "SE CANCELA LA OPERACION." << endl;
         return;
     }
+
+    cout << "INGRESE FECHA DE FIN DEL PERIODO DEL REPORTE:" << endl;
     Fecha fechaHasta= leerFechaValida();
     if (fechaHasta.getAnio() == -1){
         cout << "SE CANCELA LA OPERACION." << endl;
@@ -613,11 +621,12 @@ void PolizaManager::reportePolizasSinCobertura() {
         return;
     }
 
-    int cantidad = _archivo.getCantidadRegistros();
-    if (cantidad == 0) {
-        cout << "NO HAY POLIZAS REGISTRADAS, NO ES POSIBLE REALIZAR EL REPORTE." << endl;
+    int cantidadVencimientos = _archivoVencimientos.getCantidadRegistros();
+    if (cantidadVencimientos == 0) {
+        cout << "NO HAY VENCIMIENTOS REGISTRADOS, NO ES POSIBLE REALIZAR EL REPORTE." << endl;
         return;
     }
+
     Poliza* polizas = new Poliza[cantidad]{};
     _archivo.leerTodos(polizas, cantidad);
 
@@ -627,30 +636,25 @@ void PolizaManager::reportePolizasSinCobertura() {
         delete [] polizas;
         return;
     }
+    Fecha fechaActual;
+    system("cls");
 
     cout << "============================================================" << endl;
     cout << "      REPORTE DE POLIZAS SIN COBERTURA EN UN PERIODO        " << endl;
     cout << "============================================================" << endl;
-    cout << "FECHA INICIAL: " << fechaDesde.formatoFecha() << endl << "FECHA FINAL: " << fechaHasta.formatoFecha() << endl;
+    cout << "REPORTE REALIZADO EL: " << fechaActual.formatoFecha() << endl;
     cout << "============================================================" << endl;
-    cout << "NUMERO DE SINIESTROS: " << cantidadFiltradas << endl;
+    cout << "CANTIDAD DE POLIZAS FILTRADAS: " << cantidadFiltradas << endl;
     cout << "============================================================" << endl;
+    cout << "REPORTE DE POLIZAS DESDE: " << fechaDesde.formatoFecha() << " HASTA: " << fechaHasta.formatoFecha() << endl;
     cout << "============================================================" << endl;
-    
+        
     Poliza** polizasFiltradas = new Poliza*[cantidadFiltradas]{};
     filtrarPolizasPorFecha(polizas, polizasFiltradas, cantidad, fechaDesde, fechaHasta);    
 
-    int cantidadVencimientos = _archivoVencimientos.getCantidadRegistros();
+    
     Vencimiento * vencimientos = new Vencimiento[cantidadVencimientos]{};
-    _archivoVencimientos.leerTodos(vencimientos, cantidadVencimientos);
-
-    if (cantidadVencimientos == 0) {
-        cout << "NO HAY VENCIMIENTOS REGISTRADOS, NO ES POSIBLE REALIZAR EL REPORTE." << endl;
-        delete[] polizas;
-        delete[] vencimientos;
-        delete[] polizasFiltradas;
-        return;
-    }
+    _archivoVencimientos.leerTodos(vencimientos, cantidadVencimientos);    
 
     for (int i = 0; i < cantidadFiltradas; i++) {
         Poliza p = *polizasFiltradas[i];
