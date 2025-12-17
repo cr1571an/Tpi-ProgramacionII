@@ -113,25 +113,6 @@ void ClienteManager::mostrarLista(Cliente cliente, bool mostrarDatosDeCliente) {
   }
 }
 
-void ClienteManager::mostrarDatosDeClienteDNI() {
-    string dni;
-    cout << "INGRESE EL D.N.I DEL CLIENTE: ";
-    cin >> dni;
-    int p=posClientePorDNI(dni);
-    if(p != -1) {
-      Cliente registro = _clientesArchivo.leer(p);
-      if (registro.getEliminado()) {
-        cout << "EL CLIENTE CON ESE D.N.I YA FUE ELIMINADO."<<endl;
-        return;
-      }
-      mostrarLista(registro,false);
-    }
-    else {
-      cout << "NO SE ENCONTRO A NINGUN CLIENTE CON ESE D.N.I."<<endl;
-    }
-}
-
-
 int ClienteManager::posClientePorDNI(string dni) {
   int total = _clientesArchivo.getCantidadRegistros();
   for (int i = 0; i < total; i++) {
@@ -351,10 +332,10 @@ int ClienteManager::buscarClienteParaHistorial() {
     ClienteMenu _clienteMenu;
     int idCliente = _clienteMenu.buscarCliente();
     if (idCliente == -3) return -3;
-    if (idCliente == -1) {
-        cout << "ERROR!. EL CLIENTE NO EXISTE."<<endl;
-        return -1;
-    }
+  if (_clientesArchivo.buscarIdCliente(idCliente) == -1 && idCliente != -1){
+    cout << "ERROR!. EL CLIENTE NO EXISTE."<<endl;
+    system("pause");
+    return -1;}
     return idCliente;
 }
 

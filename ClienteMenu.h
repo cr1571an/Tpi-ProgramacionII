@@ -3,24 +3,21 @@
 
 
 class ClienteMenu {
-  public:
-    ClienteMenu();
-    void mostrar();
-    int buscarCliente();
-    void modificarCliente();
-    bool darAltaCliente(int id);
-    void buscar();
-    void mostrarReportes();
+    public:
+      ClienteMenu();
+      void mostrar();
+      int buscarCliente();
+      void modificarCliente();
+      bool darAltaCliente(int id);
+      void buscar();
 
-    
+    private:
+      int _cantidadOpciones;
+      ClienteManager _clienteManager;
+      ClientesArchivo _clientesArchivo;
+      VehiculosArchivo _vehiculosArchivo;
 
-  private:
-    int _cantidadOpciones;
-    ClienteManager _clienteManager;
-    ClientesArchivo _clientesArchivo;
-    VehiculosArchivo _vehiculosArchivo;
-
-    void mostrarOpciones();
-    int seleccionOpcion();
-    void ejecutarOpcion(int opcion);
+      void mostrarOpciones();
+      int seleccionOpcion();
+      void ejecutarOpcion(int opcion);
 };

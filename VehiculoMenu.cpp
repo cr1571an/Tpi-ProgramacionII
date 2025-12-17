@@ -237,6 +237,7 @@ int VehiculoMenu::seleccionarVehiculo(bool modificar){
             return -1;
         default:
             cout << "OPCION INVALIDA." << endl;
+            system("pause");
             return -1;
     }
     return idVehiculo;

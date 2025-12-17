@@ -13,7 +13,6 @@ public:
     ClienteManager();
     void cargar();
     void mostrar();
-    void mostrarDatosDeClienteDNI();
     void mostrarDatosDeClienteID(int idCliente);
     void modificarTelefono(int idCliente);
     void modificarCorreo(int idCliente);

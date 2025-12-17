@@ -9,10 +9,6 @@ VehiculosArchivo::VehiculosArchivo(string nombreArchivo)
 :_nombreArchivo(nombreArchivo){
 }
 
-string VehiculosArchivo::getNombreArchivo() {
-    return _nombreArchivo;
-}
-
 bool VehiculosArchivo::guardar(Vehiculo registro) {
     FILE *archivo_vehiculo;
     bool guardado = false;

@@ -18,8 +18,6 @@ class VehiculosArchivo {
             bool eliminarVehiculo(int idVehiculo);
             bool recuperarVehiculo(int idVehiculo);
             void eliminarVehiculosDeCliente(int idCliente);
-
-            std::string getNombreArchivo();
             Vehiculo leer(int pos);
 
         private:

@@ -108,8 +108,6 @@ int ClienteMenu::buscarCliente() {
                 cout << "INGRESE EL NUMERO DEL CLIENTE: ";
                 cin >> id;
                 cin.ignore();
-                if (id <= 0){cout << "ID INVALIDO. DEBE SER MAYOR QUE CERO." << endl;
-                    continue;}
                 return id;
             case 2:
                 system("cls");
@@ -143,6 +141,8 @@ void ClienteMenu::modificarCliente() {
     system("cls");
     cout << "|||||||||||||||||||||||||||||||||||||||||||" << endl;
     cout << "||      BUSCAR CLIENTE A MODIFICAR       ||" << endl;
+    cout << "|||||||||||||||||||||||||||||||||||||||||||" << endl;
+
     int id = buscarCliente();
     if (id == -3 || id == -1) return;
     int pos = _clientesArchivo.buscarIdCliente(id);
