@@ -5,9 +5,12 @@
 class SiniestroMenu {
     public:
       SiniestroMenu();
-      void mostrar();
+      void mostrar();      
 
-    protected:
+    private:
+      int _cantidadOpciones;
+      int _cantidadOpcionesSubMenuModificar;
+
       void mostrarOpciones();
       int seleccionOpcion();
       void ejecutarOpcion(int opcion);
@@ -16,8 +19,4 @@ class SiniestroMenu {
       int seleccionOpcionSubMenuModificar();
       void ejecutarOpcionSubMenuModificar(int opcion);
       SiniestroManager _siniestroManager;
-
-    private:
-      int _cantidadOpciones;
-      int _cantidadOpcionesSubMenuModificar;
 };

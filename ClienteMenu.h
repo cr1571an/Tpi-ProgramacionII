@@ -12,14 +12,15 @@ class ClienteMenu {
     void buscar();
     void mostrarReportes();
 
-  protected:
-    void mostrarOpciones();
-    int seleccionOpcion();
-    void ejecutarOpcion(int opcion);
+    
 
   private:
     int _cantidadOpciones;
     ClienteManager _clienteManager;
     ClientesArchivo _clientesArchivo;
     VehiculosArchivo _vehiculosArchivo;
+
+    void mostrarOpciones();
+    int seleccionOpcion();
+    void ejecutarOpcion(int opcion);
 };
