@@ -14,7 +14,9 @@ void SiniestroMenu::mostrar(){
         opcion = seleccionOpcion();
         system("cls");
         ejecutarOpcion(opcion);
-        system("pause");
+        if (opcion != 0){
+            system("pause");
+        }
     }while(opcion != 0);
 }
 
@@ -26,7 +28,9 @@ void SiniestroMenu::subMenuModificar(){
         opcion = seleccionOpcionSubMenuModificar();
         system("cls");
         ejecutarOpcionSubMenuModificar(opcion);
-        system("pause");
+        if (opcion != 0){
+            system("pause");
+        }
     }while(opcion != 0);
 }
 
