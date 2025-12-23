@@ -15,22 +15,23 @@ public:
     void mostrar();
     void mostrarDatosDeClienteDNI();
     void mostrarDatosDeClienteID(int idCliente);
+    int posClientePorDNI(std::string dni);
+    bool eliminar(int idCliente);
     void modificarTelefono(int idCliente);
     void modificarCorreo(int idCliente);
     void modificarFechaNacimiento(int idCliente);
     void modificarLocalidad(int idCliente);
     void modificarPartido(int idCliente);
+    bool recuperar(int idCliente);
+    void historialPagosPorCliente();
 
-    int posClientePorDNI(std::string dni);
+private:
 
     bool validarEdad(Fecha fechaNacimiento);
     bool telefonoDisponible(std::string telefono);
     bool correoDisponible(std::string correo);
     bool verificarRegistroPorDNI(std::string dni);
-    bool eliminar(int idCliente);
-    bool recuperar(int idCliente);
     void mostrarLista(Cliente cliente, bool eliminado);
-
     int hayClientesReg();
     int hayPolizasReg();
     int hayPagosVencReg();
@@ -38,10 +39,7 @@ public:
     int buscarClienteParaHistorial();
     bool esPagoDeCliente(int idxPago, int idCliente);
     int contarPagosDeCliente(int idCliente);
-    void historialPagosPorCliente();
 
-
-private:
     ClientesArchivo _clientesArchivo;
     VehiculosArchivo _vehiculosArchivo;
     PolizaArchivo _polizasArchivo;
