@@ -2,144 +2,9 @@
 <CodeBlocks_layout_file>
 	<FileVersion major="1" minor="0" />
 	<ActiveTarget name="Debug" />
-	<File name="Poliza.h" open="0" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="859" topLine="6" />
-		</Cursor>
-	</File>
-	<File name="SiniestroManager.cpp" open="1" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="15575" topLine="340" />
-		</Cursor>
-	</File>
-	<File name="Fecha.cpp" open="0" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="1564" topLine="48" />
-		</Cursor>
-	</File>
-	<File name="utils.cpp" open="0" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="595" topLine="25" />
-		</Cursor>
-	</File>
-	<File name="PolizaArchivo.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="452" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="PagoArchivo.cpp" open="0" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="1516" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="TiposSegurosArchivo.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="TiposSegurosArchivo.cpp" open="0" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
 			<Cursor1 position="934" topLine="27" />
-		</Cursor>
-	</File>
-	<File name="Fecha.h" open="0" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="406" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="ClientesArchivo.cpp" open="0" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="2477" topLine="63" />
-		</Cursor>
-	</File>
-	<File name="PolizaManager.h" open="0" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="9" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="289" topLine="15" />
-		</Cursor>
-	</File>
-	<File name="PolizaArchivo.cpp" open="0" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="4" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="868" topLine="42" />
-		</Cursor>
-	</File>
-	<File name="Poliza.cpp" open="0" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="1" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="45" topLine="3" />
-		</Cursor>
-	</File>
-	<File name="VehiculosArchivo.cpp" open="0" top="0" tabpos="8" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="3860" topLine="97" />
-		</Cursor>
-	</File>
-	<File name="Siniestro.cpp" open="0" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="48" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="App.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="145" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="Vehiculo.h" open="0" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="0" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="Cliente.cpp" open="0" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="154" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="SiniestroArchivo.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="155" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="Cliente.h" open="0" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="5" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="1364" topLine="26" />
-		</Cursor>
-	</File>
-	<File name="Siniestro.h" open="0" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="395" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="PagoManager.h" open="0" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="0" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="ClientesArchivo.h" open="0" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="383" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="main.cpp" open="0" top="0" tabpos="11" split="0" active="1" splitpos="0" zoom_1="4" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="224" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="VehiculoManager.cpp" open="0" top="0" tabpos="10" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="11561" topLine="281" />
-		</Cursor>
-	</File>
-	<File name="PolizaManager.cpp" open="1" top="1" tabpos="2" split="0" active="1" splitpos="0" zoom_1="2" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="17978" topLine="504" />
-		</Cursor>
-	</File>
-	<File name="App.cpp" open="0" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="1319" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="PagoArchivo.h" open="0" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="453" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="PagoManager.cpp" open="0" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="936" topLine="2" />
 		</Cursor>
 	</File>
 	<File name="ClienteMenu.h" open="0" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
@@ -147,39 +12,74 @@
 			<Cursor1 position="248" topLine="0" />
 		</Cursor>
 	</File>
-	<File name="PolizaMenu.cpp" open="0" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="SiniestroArchivo.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="167" topLine="0" />
+			<Cursor1 position="155" topLine="0" />
 		</Cursor>
 	</File>
-	<File name="Vehiculo.cpp" open="0" top="0" tabpos="13" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="Vehiculo.h" open="0" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="2510" topLine="78" />
+			<Cursor1 position="0" topLine="0" />
 		</Cursor>
 	</File>
-	<File name="ClienteManager.h" open="0" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="utils.cpp" open="0" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="595" topLine="25" />
+		</Cursor>
+	</File>
+	<File name="Fecha.cpp" open="0" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1564" topLine="48" />
+		</Cursor>
+	</File>
+	<File name="Siniestro.cpp" open="0" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="48" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="Cliente.h" open="0" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="5" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1364" topLine="26" />
+		</Cursor>
+	</File>
+	<File name="PolizaArchivo.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="452" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="SiniestroManager.cpp" open="0" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="15575" topLine="340" />
+		</Cursor>
+	</File>
+	<File name="Poliza.h" open="0" top="0" tabpos="9" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="859" topLine="6" />
+		</Cursor>
+	</File>
+	<File name="VehiculoManager.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="11561" topLine="281" />
+		</Cursor>
+	</File>
+	<File name="main.cpp" open="0" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="4" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="224" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="Siniestro.h" open="0" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="395" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="ClienteManager.h" open="0" top="0" tabpos="11" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
 			<Cursor1 position="411" topLine="0" />
 		</Cursor>
 	</File>
-	<File name="utils.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="App.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="124" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="ClienteManager.cpp" open="0" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="3" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="10839" topLine="336" />
-		</Cursor>
-	</File>
-	<File name="VehiculoMenu.cpp" open="0" top="0" tabpos="9" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="13820" topLine="335" />
-		</Cursor>
-	</File>
-	<File name="ReporteMenu.h" open="0" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="429" topLine="0" />
+			<Cursor1 position="145" topLine="0" />
 		</Cursor>
 	</File>
 	<File name="PagoMenu.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
@@ -187,19 +87,39 @@
 			<Cursor1 position="0" topLine="48" />
 		</Cursor>
 	</File>
-	<File name="TiposSiniestrosArchivo.cpp" open="0" top="0" tabpos="12" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="TiposSiniestrosArchivo.cpp" open="0" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
 			<Cursor1 position="973" topLine="33" />
 		</Cursor>
 	</File>
-	<File name="ClienteMenu.cpp" open="0" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="PagoArchivo.h" open="0" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="7071" topLine="174" />
+			<Cursor1 position="453" topLine="0" />
 		</Cursor>
 	</File>
-	<File name="Vencimiento.h" open="0" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="ClientesArchivo.cpp" open="0" top="0" tabpos="13" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="603" topLine="0" />
+			<Cursor1 position="2477" topLine="63" />
+		</Cursor>
+	</File>
+	<File name="PolizaArchivo.cpp" open="0" top="0" tabpos="10" split="0" active="1" splitpos="0" zoom_1="4" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="868" topLine="42" />
+		</Cursor>
+	</File>
+	<File name="PagoManager.cpp" open="0" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="936" topLine="2" />
+		</Cursor>
+	</File>
+	<File name="PolizaMenu.cpp" open="0" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="167" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="ClientesArchivo.h" open="0" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="383" topLine="0" />
 		</Cursor>
 	</File>
 	<File name="PolizaMenu.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
@@ -207,20 +127,100 @@
 			<Cursor1 position="458" topLine="0" />
 		</Cursor>
 	</File>
+	<File name="App.cpp" open="0" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1319" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="utils.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="124" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="Poliza.cpp" open="0" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="1" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="45" topLine="3" />
+		</Cursor>
+	</File>
+	<File name="Vehiculo.cpp" open="0" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="2510" topLine="78" />
+		</Cursor>
+	</File>
+	<File name="Fecha.h" open="0" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="406" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="ReporteMenu.h" open="0" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="429" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="Vencimiento.h" open="0" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="603" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="ClienteManager.cpp" open="0" top="0" tabpos="8" split="0" active="1" splitpos="0" zoom_1="3" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="10839" topLine="336" />
+		</Cursor>
+	</File>
+	<File name="VehiculoMenu.cpp" open="0" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="13820" topLine="335" />
+		</Cursor>
+	</File>
+	<File name="PagoManager.h" open="0" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="0" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="PagoArchivo.cpp" open="0" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1516" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="PolizaManager.h" open="0" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="9" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="289" topLine="15" />
+		</Cursor>
+	</File>
+	<File name="Cliente.cpp" open="0" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="154" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="VehiculosArchivo.cpp" open="0" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="3860" topLine="97" />
+		</Cursor>
+	</File>
+	<File name="ClienteMenu.cpp" open="0" top="0" tabpos="12" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="7071" topLine="174" />
+		</Cursor>
+	</File>
+	<File name="PolizaManager.cpp" open="0" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="2" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="17978" topLine="504" />
+		</Cursor>
+	</File>
 	<Target name="Debug" top="Poliza.h">
-		<File name="VehiculoManager.cpp" />
-		<File name="VehiculoMenu.cpp" />
 		<File name="TiposSegurosArchivo.cpp" />
 		<File name="Vehiculo.cpp" />
+		<File name="VehiculoManager.cpp" />
 		<File name="TiposSiniestrosArchivo.cpp" />
-		<File name="main.cpp" />
+		<File name="VehiculoMenu.cpp" />
 		<File name="VehiculosArchivo.cpp" />
-		<File name="Poliza.cpp" />
-		<File name="ClienteManager.cpp" />
-		<File name="Poliza.h" />
+		<File name="main.cpp" />
 		<File name="PolizaArchivo.cpp" />
+		<File name="ClienteManager.cpp" />
 		<File name="ClienteManager.h" />
-		<File name="ClienteMenu.cpp" />
 		<File name="ClientesArchivo.cpp" />
+		<File name="ClienteMenu.cpp" />
+		<File name="Poliza.cpp" />
+		<File name="Poliza.h" />
 	</Target>
 </CodeBlocks_layout_file>
