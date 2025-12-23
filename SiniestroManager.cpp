@@ -301,13 +301,6 @@ void SiniestroManager::reporteCoberturaSiniestros(){
     Siniestro** siniestrosFiltrados = new Siniestro*[cantidadSiniestrosFiltrados]{};
     filtrarPorPeriodo(fechaDesde, fechaHasta, siniestros, siniestrosFiltrados, cantidadSiniestros);
 
-    if (cantidadSiniestrosFiltrados == 0) {
-        cout << "NO SE ENCONTRARON SINIESTROS EN EL PERIODO INDICADO." << endl;
-        delete[] siniestros;
-        delete[] siniestrosFiltrados;
-        return;
-    }
-
     cout << "============================================================" << endl;
     cout << "   REPORTE COBERTURA DE SINIESTROS POR PERIODO DE FECHAS    " << endl;
     cout << "============================================================" << endl;
