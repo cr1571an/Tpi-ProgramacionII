@@ -443,7 +443,8 @@ void ClienteManager::historialPagosPorCliente() {
       int sel = opcion-1;
       Poliza poliza = _polizasArchivo.leer(_polizasArchivo.buscarID(idsPoliza[sel]));
       Vehiculo vehiculo = _vehiculosArchivo.leer(_vehiculosArchivo.buscarVehiculo(idsVehiculo[sel]));
-      Pago pago = _pagoArchivo.leer(idsPago[sel]);
+      int posPago = _pagoArchivo.buscarID(idsPago[sel]);
+      Pago pago = _pagoArchivo.leer(posPago);
       system("cls");
       cout << "---------------------------------------------------"<<endl;
       cout << "                 FACTURA DE SEGURO"<<endl;
