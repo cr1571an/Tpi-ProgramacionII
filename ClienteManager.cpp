@@ -280,12 +280,12 @@ bool ClienteManager::validarEdad(Fecha fechaNacimiento) {
   Fecha fechaActual;
   int resultado = fechaNacimiento.validarEdad(fechaActual);
   if (resultado ==-2) {
-    cout << "FECHA DE NACIMIENTO INVALIDAD!.."<<endl;
+    cout << "FECHA DE NACIMIENTO INVALIDA!.."<<endl;
     mensajeCargaCancelada();
     return false;
   }
   if (resultado==-1) {
-    cout << "FECHA DE NACIMIENTO INVALIDAD!.."<<endl;
+    cout << "FECHA DE NACIMIENTO INVALIDA!.."<<endl;
     mensajeCargaCancelada();
     return false;
   }
